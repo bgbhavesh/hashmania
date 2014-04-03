@@ -27,7 +27,7 @@
 
   //configure environmental
   "env": {
-    "ROOT_URL": "http://meteor.nicolsondsouza.com",
+    "ROOT_URL": "http://youtap.youiest.com",
     "PORT" : "80"
   },
 

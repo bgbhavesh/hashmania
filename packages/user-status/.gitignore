@@ -1,0 +1,6 @@
+packages
+*~
+
+# No dependencies so no need to check in smart.lock
+smart.lock
+.build*

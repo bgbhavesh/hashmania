@@ -1,0 +1,19 @@
+<<<<<<< HEAD
+.build*
+.build*
+=======
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+
+npm-debug.log
+>>>>>>> 96741ba6541dc1e87e7dbc8afcf748b5d7c145b9

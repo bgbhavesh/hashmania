@@ -1,0 +1,43 @@
+<head>
+<!-- YOUIEST LLC CONFIDENTIAL
+
+    [2013] - [2014] Youiest LLC
+    All Rights Reserved.
+    NOTICE: All information contained herein is, and remains
+    the property of Youiest LLC and its suppliers,
+    if any. The intellectual and technical concepts contained
+    herein are proprietary to Youiest LLC
+    and its suppliers and may be covered by U.S. and Foreign Patents,
+    patents in process, and are protected by trade secret or copyright law.
+    Dissemination of this information or reproduction of this material
+    is strictly forbidden unless prior written permission is obtained
+    from Youiest LLC. -->
+
+<link rel="stylesheet" type="text/css" href="../Face.css">
+<style> 
+  .title{
+    width: 100%;
+    height: 8%;
+    font-size: xx-large;
+    background-color: #333;
+    text-align: center;
+    font-family: serif;
+    color: white;
+    }
+</style>
+</head>
+<div class="title">Tapmate
+</div>
+  <div class="bigFeed"> 
+      {{#each votes}}   
+        <img src="{{this}}">
+        <div id="quadrant">
+            <div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;" /></div>
+            <div id="inerhprogressBar"><i class='big bullhorn icon'style="margin-left: 0px"/></div>
+            <div id="outer" class="ui warning progress"><div class="inner"  id="verticalprogress"></div> <hr style="height:100%;width:2px;margin-bottom:-8px;padding:0px;"/></div>
+            <div id="inner-inner" onmousedown :return false;><i class='big thumbs up icon' style="margin-left: 0px;"onmousedown :return false;/></div>      
+            <div id="inerhprogressBar"><i class='big bullhorn icon'style="margin-left: 0px"/></div>
+        </div>
+      {{/each}}
+    </div>
+</div>

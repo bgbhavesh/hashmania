@@ -1,0 +1,1055 @@
+<head>
+	<title>Tapmate</title>  
+	<!-- Cordova Plugins -->
+	<!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />-->
+	<meta name="viewport" content="height=device-height, width=device-width, user-scalable=no" />
+	<!-- Meta Tag For BlackBerry Events -->
+	<meta name="touch-event-mode" content="native=false, native=disable, native=no" />
+	<link rel="shortcut icon" type="image/png" href="/images/logo.png"/>  
+	<!-- YOUIEST LLC CONFIDENTIAL
+
+	[2013] - [2014] Youiest LLC
+	All Rights Reserved.
+	NOTICE: All information contained herein is, and remains
+	the property of Youiest LLC and its suppliers,
+	if any. The intellectual and technical concepts contained
+	herein are proprietary to Youiest LLC
+	and its suppliers and may be covered by U.S. and Foreign Patents,
+	patents in process, and are protected by trade secret or copyright law.
+	Dissemination of this information or reproduction of this material
+	is strictly forbidden unless prior written permission is obtained
+	from Youiest LLC. -->
+</head>
+
+<body>
+
+<!-- Body ends -->
+</body>
+
+
+
+
+
+
+
+
+<template name="layout">
+  {{yield}}
+</template>
+
+<template name="posts">
+  Posts
+</template>
+
+<template name="profile">
+  <div class="profileBody"> 
+	{{> myprofile}}<br>
+	Recent views<br>
+	{{> recents1}}
+	Feeds <br>
+	{{> feedsProfile}}
+	votes<br>
+	{{> votesProfile}}
+  </div>
+</template>
+
+<template name="recents1">
+  <div id="recents1">
+	{{#each recent}}
+	  <div class="recentIcons" likeid="{{likeid}}">  
+		<div class="recentImage1">
+		  <img src="{{low}}">
+		</div>        
+	  </div>
+	{{/each}}   
+  </div>
+</template>
+
+<template name="feedsProfile">
+  <div id="feedsProfile">
+	{{#each recent}}
+	  <div class="recentIcons" likeid="{{likeid}}">  
+		<div class="recentImage1">
+		  <img src="{{low}}">
+		</div>        
+	  </div>
+	{{/each}}   
+  </div>
+</template>
+
+<template name="votesProfile">
+  <div id="votesProfile">
+	{{#each recent}}
+	  <div class="recentIcons" likeid="{{likeid}}">  
+		<div class="recentImage1">
+		  <img src="{{low}}">
+		</div>        
+	  </div>
+	{{/each}}   
+  </div>
+</template>
+
+<template name="myprofile">
+	<div id="profile_header">{{> header}}</div>
+	{{#each profile}}
+	  <div id="profile_contect" style="width: 100%; padding-top: 12px;">
+		<div id="profile_pic_div" style="height:17%;width:35%;float:left;"><img style="width: 100%;" src="{{profile_picture}}"></div>
+		  <div style="padding-left: 1%; height:17%;width:64%;float:left;">
+			  
+			  <div id="profile_details_div" class="ui two inverted blue menu">
+			   <a class="active item">Score : </a> <a class="item">{{score}}/{{heatscore}}</a>
+			  </div>
+			 <div id="profile_details_div" class="ui two inverted blue menu">
+			   <a class="active item">Votes : </a> <a class="item">{{votes}}</a>
+			</div>
+		 </div> </div>
+		 <div style="margin-top: 40%;">
+		 <div id="profile_details_div" class="ui two inverted blue menu">
+		   <a class="active item" id="activeItemP">username : </a> <a class="item" id="itemP">{{username}}</a>
+		  </div>
+	   </div>
+	{{/each}}
+  
+</template>
+
+
+
+
+<template name="body">
+<div id="bodyWrapper">
+  {{> bodystatic}}
+  {{> main}}  
+  {{> keyword}}
+ </div>
+</template>
+
+<template name="bodystatic">
+  
+  <div id="loader">
+	<div id="loginLoader">
+		<img src="images/eagle.png">
+		<img src="images/rooster.png">
+		<img src="images/mouse.png">           
+		<img src="images/seagul.png">
+	</div>
+	  <div id="loadClass"> 
+		
+		<div id="loaderLogo"> Tapmate </div>
+		<div id="loaderProcess"> Loading Please Wait.. </div>
+		<div id="loaderMessage"> Initializing </div>
+	  </div>      
+  </div>
+  <div id="loaderError" class="ui button"> Running out of patience.</div>
+  <!-- HASTEN HTML -->
+	<div id="instructionPanel" class="ui inverted segment">
+		<div id="instructionSection">
+			<div id="instructionSection1" index="1" style="display:block;" type="show" class="ui inverted segment">
+			There are four sections: <br>
+				1) Recent <br>
+				2) Follows <br>
+				3) Feeds <br>
+				4) Big (Fun Part) <br>
+				  &nbsp; &nbsp; 4.1) Eagle <br>
+				  &nbsp; &nbsp; 4.2) Rooster <br>
+				  &nbsp; &nbsp; 4.3) Rat <br>
+				  &nbsp; &nbsp; 4.4) Seagul <br>
+			</div>  
+			<div id="instructionSection2" index="2" type="hide" class="ui inverted segment">
+				Tapmate Instruction Panel <br>
+
+					Recent: <br>
+					&nbsp; &nbsp; Shows your latest Activities in Tapmate. <br><br>
+
+					Follows: <br>
+					&nbsp; &nbsp; Manages your Instagram follows. <br><br>
+
+					Feeds: <br>
+					&nbsp; &nbsp; Caters the Pictures recommended to you. <br><br>
+
+					Global: <br>
+					&nbsp; &nbsp; Depicts the newfangled Pictures on Tapmate. <br><br>
+
+					Popular: <br>
+					&nbsp; &nbsp; Shows the Prominent images from Instagram. <br><br>
+
+					Big: <br>
+					&nbsp; &nbsp; Crack limitless fun here! <br>
+					&nbsp; &nbsp; Send an image to your follows & place their picture in any. <br>
+					&nbsp; &nbsp; Quadrant (you think will be their reaction about the image ) to  <br>
+					&nbsp; &nbsp; lead them to successful guess. <br>
+			</div>
+			<div id="instructionSection3" index="3" type="hide" class="ui inverted segment">
+				<u> Eagle: </u> <br>
+				&nbsp; &nbsp; Good & Hush (love the image silently) <br><br>
+
+				<u> Rooster: </u>
+				&nbsp; &nbsp; Good & loud (love the image strongly) <br><br>
+
+				<u> Rat: </u>
+				&nbsp; &nbsp; Stay away & hush (hate the image silently)  <br><br>
+
+				<u> Seagull: </u> <br>
+				&nbsp; &nbsp; Stay away & loud (hate the image strongly)  <br><br>
+			</div>
+		</div>
+		<div id="instructionButton" class="ui inverted segment"> 
+			<div id="instructionPrev" type="prev" class="ui button"> <i class="arrow sign left icon"></i> </div>
+			<div id="instructionNext" type="next" class="ui button"> <i class="arrow sign right icon"></i> </div>
+			<div id="instructionDone" type="done" class="ui button"> <i class="sign icon"></i> </div>
+		</div>
+	</div>
+	<!-- HASTEN HTML -->
+	<div id="tutorialButton"> 
+		<div id="tutPrev" class="ui button"> <i class="arrow sign left icon"></i> </div>
+		<div id="tutNext" class="ui button"> <i class="arrow sign right icon"></i> </div>
+		<div id="tutDone" class="ui button"> <i class="sign icon"></i> </div>
+	</div>
+	<div id="tutorial"> 
+		<div  id="closeTutorialButton" class="ui icon button">
+			<i class="remove circle icon"></i>
+	    </div> 
+		<!-- <div id="closeTutorialButton"> </div> -->
+		<!-- <div id="tutorialLogo"> </div> -->
+		<div id="tutorialSec1">
+			<div id="tutorialSec1Text"> 
+			
+		   
+			</div> 
+		</div>
+		<!-- <div id="tutorialSec2">            
+				<div id="lovemessage"> Love </div>
+		</div>
+		<div id="tutorialSec3">
+			<div id="promotemessage"> Promote </div>
+		</div> -->
+		<div id="speed"> 
+		  <div id="loveSpeed"> 
+			<img src="/images/love/love1.png" style="height:25%;width:15%;margin-left:10%;top:75%;"/>
+			<img src="/images/love/love2.png" style="height:50%;top:50%;"/>
+			<img src="/images/love/love3.png" style="height:75%;top:25%;"/>
+			<img src="/images/love/love4.png" style="height:100%"/> 
+		  </div>
+		  <div id="hateSpeed"> 
+			<img src="/images/hate/hate1.png" style="height:25%;width:15%;margin-left:10%;top:75%;" /> 
+			<img src="/images/hate/hate2.png" style="height:50%;top:50%;"/>
+			<img src="/images/hate/hate3.png" style="height:75%;top:25%;"/>
+			<img src="/images/hate/hate4.png" style="height:100%"/>
+		  </div>
+		</div>
+		<div id="tutorialSec4">
+			<div id="loveQuadrant"> LOVE </div>
+			<div id="promoteQuadrant"> P<br>R<br>O<br>M<br>O<br>T<br>E<br> </div> 
+			<div id="0Q" count="0" class="gameQuadrant"> 
+				<div> 
+				LOVE the image SILENTLY
+				</div> 
+			  <img src="images/eagle.png">        
+			</div>
+			<div id="1Q" count="1" class="gameQuadrant"> 
+				<div> 
+				LOVE the image STRONGLY
+				</div> 
+				<img src="images/rooster.png">        
+			</div>
+			<div id="2Q" count="2" class="gameQuadrant"> 
+				<div> 
+				HATE the image SILENTLY
+				</div>
+				<img src="images/mouse.png">           
+		
+			</div>
+			<div id="3Q" count="3" class="gameQuadrant"> 
+				<div> 
+				HATE the image STRONGLY
+				</div> 
+				<img src="images/seagul.png">
+			</div>        
+		</div>
+
+	</div>
+</template>
+
+
+
+<template name="editkeyword">
+  {{#each eachkeyword}}
+		<li class="dt"> {{keyword}} ,&nbsp;&nbsp;&nbsp;&nbsp;  </li>       
+  {{/each}}
+</template>
+<template name="loginWithInstagram">
+	<!-- <div id="loginButton" class="ui instagram button">
+		  <i class="instagram icon"></i>
+		  Login With Instagram
+	</div> -->
+	<div id="loginsignupform" class="ui form segment">
+      <div class="field">
+        <label>Username</label>
+        <div class="ui left labeled icon input">
+          <input id="seEmail" type="text" placeholder="Email">
+          <i class="mail icon"></i>
+          <div class="ui corner label">
+            <i class="icon asterisk"></i>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <div class="ui left labeled icon input">
+          <input id="sePass" type="password">
+          <i class="lock icon"></i>
+          <div class="ui corner label">
+            <i class="icon asterisk"></i>
+          </div>
+        </div>
+      </div>
+      <div id="seError" class="ui error message">
+        <div class="header">We noticed some issues</div>
+      </div>
+      <div id="seLogin" class="ui blue submit button">Login</div>
+      <div id="seSignup" class="ui blue submit button">Sign Up</div>
+    </div>
+</template>
+<template name="main"> 
+  <div id="Main">
+	{{> BeforeLogin}}
+  </div>
+  
+  <div id="loginScreen">
+  <div id="loginLoader">
+	<img src="./images/eagle.png">
+	<img src="./images/rooster.png">
+	<img src="./images/mouse.png">           
+	<img src="./images/seagul.png">
+	</div>
+	<div id="loginWrapper">
+		  <div id="alreadyUser"> 
+				<div id="profilePic"> <img src=""> </div>
+				<div id="alreadyMessage"> Don't recognize yourself? <br><br> Log in with instagram. </div>
+		  </div>
+		  <!--<div id="loginwithapp" class="button"> Login With App </div>-->
+		  {{> loginWithInstagram}}
+		  <br>
+
+	 </div>
+	 
+  </div>
+
+  <div id="likeButton"> 
+  </div>
+  <div id="followButton"> 
+  </div>
+  <div id="snapButton" >
+  <i class="icon list layout"></i> 
+  </div>
+  <div id="tap"> </div>
+  <div class="chatbox"> 
+	  <div id="chatboxclosebutton" class="ui icon button">
+		  <i class="remove circle icon"></i>
+	  </div>
+	  <div class="chatboxwrapper">
+		  
+		  
+		  <div class="chatmessagebox"> 
+			  <div Class="chatmessages">          
+			  {{> chatfeature}}
+			</div>
+		  </div>
+		  <div class="ui fluid action input" id="messagetype">
+				<input id="chatinputbox" type="text" placeholder=""/>
+				<div id="chatsendbutton" class="ui button">SEND</div>
+		  </div>
+	  </div>
+  </div>  
+	<div id="popup" class="ui button"> 
+		<div id="popupMessage"> </div>     
+	</div>
+
+   <div id="language" class="language ui vertical menu"> lang: <!--<select id="langswitch">  Call run() function-->
+   
+   </div>
+	
+	<div id="sematicpopup" class="ui popup bottom center transition" style="bottom: auto; left: 20%; top: 40%; right: auto;">
+	  <div class="header">Alert</div>
+	  <div class="content">The @ button allows you to invite people by adding them to the group.</div>
+	</div>
+
+	<div id="guestLogin" class="ui inverted segment"> <br>
+		Now you are good to go..<br><br>
+		<div id="logininstagram" class="tiny circular ui button">Login with Instagram</div><br><br>
+		<div id="goinstaplaystore" class="tiny circular ui button">Dont know Instagram?</div><br><br>
+		<div id="guestLogincancle" class="tiny circular ui button">Cancle</div><br><br>
+	</div>
+	
+
+	<div id="ContactUsPopUp" class="ui inverted segment"> 
+		Please email us any bugs you find: 
+		<br/>
+		tapmate@youiest.com
+		<br/>
+		Thank you for braving the bugs! 
+		<br/>
+		We hope you agree this is crazily great.
+	</div>
+
+	<div id="AboutUsPopUp" class="ui inverted segment"> <br>
+		Tapmate uses the Instagram(tm) API and is not endorsed or
+		certified by Instagram(tm) logos and trademarks displayed on this
+		app are property of Instagram, Inc.<br><br>
+		<div id="hideAboutUsPopUp" class="tiny circular ui button">ok</div><br><br>
+	</div>
+
+	<div id="pushimagePopUp" class="ui inverted segment"> 
+		<div id="pushtext">message</div>
+		<img src="">
+	</div>
+
+	<div id="Aggrements" class="ui inverted segment"> 
+		<div id="termsandcondition" class="ui inverted segment">
+			<b><a href="https://www.docracy.com/0e2d355wq30/youiest-tapmate-privacy-policy?highlightComment=-1&startOnComments=false" target="_system"> Terms and Conditions</a></b>
+			<p>
+			  By using our website you agree to be legally bound by these <a href="https://www.docracy.com/0e2d355wq30/youiest-tapmate-privacy-policy?highlightComment=-1&startOnComments=false" target="_system"> Terms and Conditions</a>, which shall take effect immediately on your first use of our website. If you do not agree to be legally bound by all the following terms please do not access and/or use our website.
+			</p>
+			<p>
+				We may change these terms at any time by posting changes online. Please review these terms regularly to ensure you are aware of any changes made by us. Your continued use of our website after changes are posted means you agree to be legally bound by these terms as updated and/or amended.
+			</p> 
+
+			
+		</div>
+		<div id="AggrementAccept" class="circular ui button">I agree</div>
+	</div>
+
+  <div id="loginform" class="ui button inverted segment">       
+	  Please fill email address. <br>
+	  email : <input type="text" name="email"> <br>      
+	  <!-- <input id="loginWithAppButton" type="button" class="button" value="Login"> -->
+	  <input id="signupWithAppButton" type="button" class="button" value="SignUp">
+	  <input id="loginWithAppCancelButton" type="button" class="button" value="Cancel"> 
+  </div>
+  <div id="toast" class="ui button">   
+  </div>
+  <div id="keyboard" class="keyboard"> 
+
+  </div>
+  
+  <div id="overlay" class="ui inverted segment"> 
+  	<div  id="close" class="ui icon button">
+		<i class="remove circle icon"></i>
+    </div>
+	<!-- <div id="close"></div> -->
+	<div id="chatting" class="ui inverted segment"> 
+		{{> chatting}}
+	</div>
+
+	<div id="moveFace"> </div>
+  </div>
+  
+ 
+   <!--  <div id="menuWrapper"> --> <!--bug on z-index so made wrapper--> 
+
+  <div id="snapy" class="ui large vertical inverted labeled icon sidebar menu active">
+	<div class="item" id="menuresents">
+	  <b id="Recentslabel"> Preview </b>
+	  {{> Section1}}
+	</div>
+	<div id="gamemenu">
+	<div class="item" >
+
+	  <div id="menuGame"><b>Game</b></div>
+	  <div class="menu">
+		<a id="contest" class="item"><i class="time icon"></i> <div id="timer"> No Contest Now </div> </a>
+		<a class="item"><i class="star half empty icon"></i> {{> distanceTemplate}}</a>
+	  </div>
+	</div>
+
+	<div class="item">
+	  <div id="accounts"><b>Accounts</b></div>
+	  <div class="menu">
+		<a id="loginwithInsta" class="item"> <i class="italic icon"></i>  Log in with Instagram </a>
+		<a id="loginwithfb" class="item">  <i class="warning icon"></i>  <i class="facebook sign icon"></i>  Log in with Facebook  </a>    
+		<a id="loginwithgoog" class="item"> <i class="warning icon"></i>  <i class="google plus sign icon"></i>  Log in with Google </a>    
+
+
+		  <a id="logout" class="item">  Log Out </a>  
+	  </div>
+	</div>
+
+	<div class="item">
+	  <div id="invitefriends"><b>Invite Friends</b></div>
+	  <div class="menu">
+		  <a id="invfacebook" class="item"> <i class="facebook icon"></i> Contact Us </a>
+		  <a id="invgoogle" class="item"><i class="google plus icon"></i> About </a>
+		  <a id="invtwitter" class="item"><i class="twitter icon"></i> Feedback </a>
+	  </div>
+	</div>
+
+	<div class="item">
+	  <div id="settings"><b>Settings</b></div>
+	  <div class="menu">
+		  <a id="languageButton" class="item"> Language</a><br>
+		  <div id="optimize">
+			<div class="ui toggle checkbox">
+			  <input type="checkbox" name="pet" id="optimizeCheckBox">
+			  <label>Optimize</label><!-- id="appOptimize" -->
+			</div>
+		  </div>
+	  </div>
+	</div>
+
+	<div class="item">
+	  <div id="tapmate"><b>Tapmate</b></div>
+	  <div class="menu">
+		  <a id="contactUsButton" class="item"> <i class="phone icon"></i> Contact Us </a>
+		  <a id="aboutUsButton" class="item"><i class="font icon"></i> About </a>
+		  <a id="feedbackButton" class="item"><i class="edit icon"></i> Feedback </a>
+	  </div>
+	</div>
+
+	
+	<div class="item"> 
+	<div id="menuHelp"><b> Help </b></div>
+	<div class="menu">
+		<a id="tutorialButtonMenu" class="item"><i class="magic icon"></i> Tutorial </a>
+		<a id="instruction" class="item"><i class="info icon"></i> Instruction </a>
+		<a id="startWalkthrough" class="item"><i class="won icon"> </i>Walkthrough </a> 
+		<a id="videotutorial" class="item"><i class="video icon"> </i> Video tutorial</a>
+		</div>
+	</div>
+	<div class="item">
+	  <div id="menubug"><b>Development</b></div>
+	  <div class="menu">
+		  <a id="emptyCacheButtonMenu" class="item"><i class="trash icon"></i> Empty Cache </a>
+		  <a id="pushNotification" class="item">PushNotification </a>
+		  <a id="sendMail" class="item"> Send Mail</a>
+		  <a id="getEmailButton" class="item"> getEmail</a>
+	  </div>
+	</div>
+  </div>
+</div>
+		
+
+		
+	<!-- </div> -->
+
+</template>
+
+
+
+<template name="keyword">
+  <div id="keywordPopup" class="ui vertical menu">
+		<div  id="keywordButton" class="ui icon input">
+			<input  id="searchKeyword" type="text" placeholder="search Instagram..">
+			<i  id="hashgosearch" class="search icon"></i>
+			
+	    </div>	
+	    <div  id="hashgocancel" class="ui icon button">
+			<i class="remove circle icon"></i>
+	    </div> 
+	    <!-- <div id="hashgocancel" class="ui button"> </div> -->
+	  <!-- <div id="keywordButton">
+		  #<input id="searchKeyword" type="text">
+		  <input id="hashgosearch" type="button" class="ui button" value="GO"> 
+			
+	  </div> -->
+	  <div id="keywords">
+		{{#each eachkeyword}}
+				<div class="eachkeyword"> <u> #{{keyword}}</u>&nbsp;</div>
+		{{/each}}
+	</div>
+  </div>
+</template>
+<template name="BeforeLogin">
+  <div id="beforeLogin">
+	{{> header}}  
+	{{> Section2}}
+	{{> Section3}}
+	{{> Section4}}
+  </div>
+</template>
+<template name="distanceTemplate">
+	{{distance}} | {{heat}}
+</template>
+<template name="Section1">
+  <div id="section1" class="menu">
+	{{#each recents}}
+	  <div class="recentIcons" likeid="{{likeid}}">  
+		  <img src="{{low}}">        
+	  </div>
+	{{/each}}   
+  </div>
+</template>
+
+<template name="header">
+  <div id="headerSection"> 
+	{{> server}} 
+	<div id="tapmateLogo"> </div> 
+	<div class="header">
+	  <div class="appname"> Tapmate </div>
+	  <div class="statename"> </div>
+	</div>
+	
+  </div> 
+  <div id="toastArea">  </div> 
+</template>
+
+<template name="server"> 
+	<div id="status" class="{{status}}Status" data-step="1" data-intro="Online / Offline" data-position="left">
+		<div id="unseenCount">{{unseenCount}} </div> 
+	</div>
+</template>
+<template name="Section2">
+		<div id="currentFollow">
+			<div class="ui icon button">
+				<i class="left arrow icon" id="openclosearrow"></i>
+			</div> 
+			{{#isolate}} 
+				<img class="currentFollowimg" src="{{currentFollow.profile_picture}}">
+			{{/isolate}}
+		</div> 
+  <div id="section2" data-step="2" data-intro="Users of Tapmate." class="ui inverted segment">
+		
+		
+		
+		<div id="keyboardButton" class="ui button tiny">{{alpahbet}}</div>
+		<!-- <div id="groupButton" class="button"><i class="hide icon"></i></div> -->
+		<!-- <div id="openUser" class="button"><i class="hide icon"></i></div> -->
+	<div class="followSection">
+		{{#isolate}}    
+		{{#each follows}}
+			<div class="followsIcons {{activity}}" myid="{{followid}}" name="{{username}}" type="me" hits="{{hits}}">  
+				<img src="{{profile_picture}}">
+				<div class="{{status}}users usersstatus"> </div>        
+			</div>
+		{{/each}}
+		{{/isolate}}
+		<div class="ui inverted divider" style="top: -4%; position: relative;"></div>
+	</div>
+	
+	<div class="buttonSection">
+		<div id="addGroup" class="groupfollow" data-title="Alert" data-content="The @ button allows you to invite people by adding them to the group.">  
+		  <div id="showcheckmark"> </div>   
+		  <div id="hidecheckmark"> </div>   
+		</div>
+		<div id="atbutton" class="square">
+			  <img src="images/email.png">
+		</div>
+		<div class="ui inverted divider"></div>
+	</div>
+	<div id="section2Label" ><i style="font-size:2em;" class="user icon"></i></div>
+	
+	<div id="groupDiv">
+		{{> grouptemplate}}
+	</div>
+  </div>
+  
+</template>
+<template name="grouptemplate">
+  {{#each group}}
+	<div class="{{activity}} followsgroup" myid="{{_id}}" type="group">  
+		<div class="groupCount ui blue tiny button">{{this.follows.length}}</div>
+		<div class="groupImages">   
+		  {{#each picture}}
+			<img class="groupicons" src="{{this}}">
+		  {{/each}}
+		</div>
+	</div>
+  {{/each}}
+</template>
+<template name="myself">
+  {{#each eachMyself}}
+  <div class="followsIcons"  myid="{{followid}}" type="follow">  
+	<div class="followsImage">
+	  <img src="{{this.profile_picture}}">
+	</div>        
+  </div>  
+  {{/each}}
+</template>
+<template name="pictures"> 
+  {{#each chapter}}
+		<img src="{{picture}}" id="userid" class="follows">
+	{{/each}}
+</template>
+<!-- {{> recommendingtemplate}}
+		  {{> feedtemplate}}
+		  {{> globalfeed}}
+		  {{> popular}}
+		  {{> search}} -->
+<!-- <template name="Section3"> 
+  <div id="section3" data-step="3" data-intro="Your favourite pics from Instagram.">
+	  
+			<div class="right">
+				<div id="unseenCount">{{unseenCount}} </div>
+				<div class="recommendImages"> 
+					<img src="images/rightArrow.png">
+				</div>     
+				<div id="section3Label" class="button"></div>     
+			</div>
+		{{#isolate}}
+			{{> onefeed}}
+		{{/isolate}}
+		 {{> static}}
+  </div>
+</template> -->
+<template name="Section3"> 
+  <div id="section3" data-step="3" data-intro="Your favourite pics from Instagram.">
+	  
+			<!-- <div class="right">
+				<div id="unseenCount">{{unseenCount}} </div>
+				<div class="recommendImages"> 
+					<img src="images/rightArrow.png">
+				</div>     
+				<div id="section3Label" class="button"></div>     
+			</div> -->
+		{{> userfeed}}
+		{{#isolate}}
+			{{> onetwo}}
+		{{/isolate}}
+		{{#isolate}}
+			{{> preload}}
+		{{/isolate}}
+		{{#isolate}}
+			{{> onethree}}
+		{{/isolate}}
+		<div id="myFeed" class="globalFeed extrabutton">
+				<img class="insidefeed" src="images/gf.png">
+		</div>
+		{{#isolate}}
+			{{> onefeed}}
+		{{/isolate}}
+		<div id="globalFeed" class="globalFeed  extrabutton">
+				<img class="insidefeed" src="images/g.png">
+		</div>
+		{{#isolate}}
+			{{> oneglobal}}
+		{{/isolate}}
+		 <div id="popular" class="popular  extrabutton"> 
+				<img class="insidefeed" src="images/p.png">
+		</div> 
+		{{#isolate}}
+			{{> onepopular}}
+		{{/isolate}}
+		<div id="hash" class="hash  extrabutton">      
+			  <img class="insidefeed" src="images/hash.png">
+		</div>
+		{{#isolate}}
+			{{> onehash}}
+		{{/isolate}}
+  </div>
+</template>
+<template name="userfeed">
+	<div id="usersfeed">
+		<div class="userfeed" likeid="{{likeid}}" source="{{source}}" type="{{type}}">
+			<img src="{{userselfpic}}">
+		</div> 
+		{{#each eachUserFeed}}
+			<div class="userfeed" likeid="{{likeid}}" source="{{source}}" type="{{type}}">
+				<img src="{{low}}">
+			</div>
+		{{/each}}
+	</div>
+</template>
+<!-- Divided begin -->
+<template name="preload">
+	  {{#each eachfeed}}
+		<div class="feed" likeid="{{likeid}}" source="{{source}}" type="{{type}}">
+		  
+			<img src="{{low}}">
+					
+		</div>
+	  {{/each}}
+</template>
+<template name="onetwo">
+	  {{#each eachfeed}}
+		<div class="feed" likeid="{{likeid}}" source="{{source}}" type="{{type}}">
+		  
+			<img src="{{low}}">
+					
+		</div>
+	  {{/each}}
+</template>
+<template name="onethree">
+	  {{#each eachfeed}}
+		<div class="feed" likeid="{{likeid}}" source="{{source}}" type="{{type}}">
+		  
+			<img src="{{low}}">
+					
+		</div>
+	  {{/each}}
+</template>
+<template name="onefeed">
+	  {{#each eachfeed}}
+		<div class="feed" likeid="{{likeid}}" source="{{source}}" type="{{type}}" style="background-color: #9E65B3;">
+		  
+			<img src="{{low}}">
+					
+		</div>
+	  {{/each}}
+</template>
+<template name="oneglobal">
+	  {{#each eachfeed}}
+		<div class="feed" likeid="{{likeid}}" source="{{source}}" type="{{type}}" style="background-color: #A3F9E6;">
+		  
+			<img src="{{low}}">
+					
+		</div>
+	  {{/each}}
+</template>
+<template name="onepopular">
+	  {{#each eachfeed}}
+		<div class="feed" likeid="{{likeid}}" source="{{source}}" type="{{type}}" style="background-color: #FF8040;">
+		  
+			<img src="{{low}}">
+					
+		</div>
+	  {{/each}}
+</template>
+<template name="onehash">
+	  {{#each eachfeed}}
+		<div class="feed" likeid="{{likeid}}" source="{{source}}" type="{{type}}" style="background-color: #FFFF52;">
+		  
+			<img src="{{low}}">
+					
+		</div>
+	  {{/each}}
+</template>
+<!-- Divided ends -->
+<template name="static"> 
+	<div id="myFeed" class="globalFeed">
+			<img class="insidefeed" src="images/gf.png">
+	</div>
+	<div id="globalFeed" class="globalFeed">
+			<img class="insidefeed" src="images/g.png">
+	</div>
+	 <div id="popular" class="popular"> 
+			<img class="insidefeed" src="images/p.png">
+	</div> 
+	<div id="hash" class="hash">      
+		  <img class="insidefeed" src="images/hash.png">
+	</div>
+</template>
+
+<!-- <template name="onefeed">
+	  {{#each eachfeed}}
+		<div class="feed" likeid="{{likeid}}" source="{{source}}" type="{{type}}">
+		  
+			<img src="{{low}}">
+					
+		</div>
+	  {{/each}}
+</template> -->
+<template name="search">
+	  {{#each search}}
+		<div class="feed" likeid="{{likeid}}" source="search">
+		  <div class="feedImages"> 
+			<img src="{{low}}">
+		  </div>          
+		</div>
+	  {{/each}}
+</template>
+<template name="popular">
+	  {{#each feeds}}
+		<div class="feed" likeid="{{likeid}}" source="popular">
+		  <div class="feedImages"> 
+			<img src="{{low}}">
+		  </div>          
+		</div>
+	  {{/each}}
+</template>
+<template name="globalfeed">
+	  {{#each feeds}}
+		<div class="feed" likeid="{{likeid}}"  source="globalfeed">
+		  <div class="feedImages"> 
+			<img src="{{low}}">
+		  </div>          
+		</div>
+	  {{/each}}
+</template>
+<template name="recommendingtemplate">      
+	  <!-- <div class="right">
+	<div id="unseenCount">{{unseenCount}} </div>
+	<div class="recommendImages"> 
+	<img src="images/rightArrow.png">
+	  </div>          
+		</div> -->
+	  {{> unseen}}
+	  
+	  {{> seen}}      
+</template>
+<template name="seen">
+	  {{#each recomm}}
+		<div class="recommend feed seen" likeid="{{likeid}}"  source="recommseen">
+		  <div class="recommendImages"> 
+			<img src="{{low}}">
+		  </div>
+		</div>
+	  {{/each}}
+</template>
+<template name="unseen">
+	  {{#each recomm}}
+		<div class="recommend feed unseen" likeid="{{likeid}}"  source="recommunseen">
+		  <div class="recommendImages"> 
+			<img src="{{low}}">
+		  </div>
+		</div>
+	  {{/each}}
+</template>
+<template name="feedtemplate">
+	  {{#each feeds}}
+		<div class="feed" vote="{{voting}}" likeid="{{likeid}}" source="like">
+		  <div class="feedImages"> 
+			<img src="{{low}}">
+		  </div>          
+		</div>
+	  {{/each}}
+</template>
+<template name="Section4">
+  <div id="wrapperSec">
+	
+	<div id="section4" data-step="4" data-intro="Fun part." data-position='top'>      
+	  {{> bigImage}}
+	</div> 
+	
+	{{> myselfBig}}
+
+
+	{{> recommending}}
+	{{> recommended}}
+	{{> vote}}
+	{{> groupvote}}        
+  </div>
+</template>
+<template name="recommended"> 
+  {{#each recents}}
+		<div class="recomm" type="ed" style="left : {{left}}%;top:{{top}}%;" whoid="{{whoid}}" recomid="{{_id}}">          
+		  <!-- <div > -->
+			  <img class="receiver" src="{{who}}">
+		  <!-- </div>
+		  <div > -->
+				<img class="sender" src="{{profile_picture}}">
+		  <!-- </div> -->
+		</div>
+	{{/each}}
+</template>
+<template name="recommending" > 
+  {{#each recents}}
+		<div class="recomm" style="left : {{left}}%;top:{{top}}%;" whoid="{{whoid}}" type="ing" recomid="{{_id}}">          
+		  <!-- <div> -->
+			  <img class="receiver" src="{{who}}">
+		  <!-- </div>
+		  <div> -->
+				<img class="sender" src="{{profile_picture}}">
+		  <!-- </div> -->
+		</div>
+	{{/each}}
+	{{#each recentstwo}}
+		<div class="recomm" style="left : {{left}}%;top:{{top}}%;" whoid="{{whoid}}" type="ing" recomid="{{_id}}">          
+		  <!-- <div> -->
+			  <img class="receiver" src="{{who}}">
+		 <!--  </div>
+		  <div> -->
+				<img class="sender" src="{{profile_picture}}">
+		  <!-- </div> -->
+		</div>
+	{{/each}}
+	
+</template>
+<template name="vote"> 
+  {{#each votes}}
+		
+		  <img class="voting" style="left : {{left}}%;top:{{top}}%;" myid="{{followid}}" votingid="{{_id}}" src="{{profile_picture}}">    
+	{{/each}}
+</template>
+<template name="groupvote"> 
+  {{#each votes}}
+		<div class="grouping" style="left : {{left}}%;top:{{top}}%;" myid="{{followid}}" votingid="{{_id}}">
+			{{#each picture}}
+				<img src="{{this}}">
+			{{/each}}
+		</div>
+	{{/each}}
+</template>
+<template name="bigImage"> 
+	<div class="bigFeed" id="carousel"> 
+	  {{#isolate}}   
+		<img src="{{low}}">
+	  {{/isolate}}
+		<div id="quadrant">
+		 
+			<!-- <div id="loveQuadrant"> LOVE </div>
+			<div id="promoteQuadrant"> P<br>R<br>O<br>M<br>O<br>T<br>E<br> </div>  -->
+			<!-- <div id="loveQuadrant"><input type="range" name="points" id="points" value="50" min="0" max="100" style="width: 95%;"></div> -->
+			<div id="hprogressBar" class="ui failed progress">
+				<div></div>
+				<hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;" />
+			</div>
+			<div id="inerhprogressBar">
+				<i class='big bullhorn icon' style="margin-left: 0px"></i>
+			</div>
+			<div id="outer" class="ui warning progress">
+				<div class="inner"  id="verticalprogress"></div> 
+				<hr style="height:100%;width:2px;margin-bottom:-8px;padding:0px;" />
+			</div>
+
+			<div id="inner-inner" >
+				<i class='big thumbs up icon' style="margin-left: 0px;"></i>
+			</div>      
+			<div id="inerhprogressBar">
+				<i class='big bullhorn icon' style="margin-left: 0px"> </i>
+			</div>
+			<!-- <div id="fifth" class="mainQuadrant" <img src="images/eagle.png"></div>
+			<div id="sixth" class="mainQuadrant" ><img src="images/rooster.png"></div>
+			<div id="seventh" class="mainQuadrant" ><img src="images/mouse.png"></div> 
+			<div id="eight" class="mainQuadrant"><img src="images/seagul.png"></div> -->
+
+  
+
+		</div>
+	</div> 
+</template>
+<template name="myselfBig"> 
+  {{#each recents}}
+	  <div class="recent littleBig" style="left : {{left}}%;top:{{top}}%">
+		<img src="{{profile_picture}}"> 
+	  </div>
+  {{/each}}
+</template>
+
+<template name="chatting"> 
+  {{#if recommending}}   
+  <textarea name="header">
+  	{{recommending.top}}@{{recommending.followusername}}{{recommending.left}}@youiest 
+  </textarea> 
+  <input type="button" id="send" value="Send">  
+  {{/if}}
+  {{#if recommended}}
+	  {{#each eachcomment}}
+		  {{comment}}
+		  <br>
+	  {{/each}}  
+  {{/if}}
+  {{#if creator}}
+		  <div id="creatorProfile" type="creator" myid="{{creator.clientid}}"> 
+			  <img src="{{creator.profile_picture}}">
+			  {{creator.username}}<br>              
+			((Double Tap User to Follow))
+		  </div>
+		  <br>
+  {{/if}}
+</template>
+
+<template name="chatfeature"> 
+	{{#each chat}}
+	  <div class="ui feed segment">
+		<div class="label {{position}}float">
+		  <img src="{{pic}}">
+		</div>
+		<div class="content {{position}}float">
+		  <div class="date">
+		   
+		  </div>
+		  <div class="summary" myid="{{_id}}">
+			 {{message}}
+		  </div>
+	  </div>
+	</div>
+   {{/each}}    
+</template>

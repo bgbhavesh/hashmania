@@ -1,0 +1,27 @@
+{
+  "meteor": {},
+  "dependencies": {
+    "basePackages": {
+      "accounts-instagram": {},
+      "accounts-oauth2-helper": {
+        "path": "private/accounts-oauth2-helper"
+      },
+      "accounts-oauth-helper": {
+        "path": "private/accounts-oauth-helper"
+      }
+    },
+    "packages": {
+      "accounts-instagram": {
+        "git": "https://github.com/motro/meteor-accounts-instagram.git",
+        "tag": "v0.2.1",
+        "commit": "d3dec3addf7099454f1ff03a19a3dc3969615606"
+      },
+      "accounts-oauth2-helper": {
+        "path": "private/accounts-oauth2-helper"
+      },
+      "accounts-oauth-helper": {
+        "path": "private/accounts-oauth-helper"
+      }
+    }
+  }
+}

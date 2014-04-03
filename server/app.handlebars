@@ -1,0 +1,45 @@
+<head>
+<link rel="stylesheet" type="text/css" href="/semantic/css/semantic.css">
+<style> 
+i.icon {
+	font-size: 20em;
+}
+</style>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script  type="text/javascript">
+	function directToAppStore(){
+		setTimeout(function(){
+			window.location.href = "https://itunes.apple.com/us/app/tapmate/id774935608";
+		},1000);
+	}
+	function directToPlayStore(){
+		setTimeout(function(){
+			window.location.href = "https://play.google.com/store/apps/details?id=com.youiest.tapmatrix";
+		},1000);
+	}
+	$(document).ready(function(){
+		var ua = navigator.userAgent.toLowerCase();
+		var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+		if(isAndroid) {
+			$("body").append('<div class="column"><i class="android icon"></i></div>');
+			directToPlayStore();
+			return;
+		}
+
+
+		if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
+			if (document.cookie.indexOf("iphone_redirect=false") == -1) {
+				$("body").append('<div class="column"><i class="apple icon"></i></div>');
+				directToAppStore();	
+				return;
+			}
+		}
+		$("body").append('<div class="column"><i class="android icon"></i></div>');
+		$("body").append('<div class="column"><i class="apple icon"></i></div>');
+		$(".android").bind("click",directToPlayStore);
+		$(".apple").bind("click",directToAppStore);
+	})
+</script>
+</head>
+<body> 
+</body>

@@ -1,0 +1,11 @@
+{
+  "name": "instagram",
+  "description": "Instagram Oauth Flow",
+  "homepage": "https://github.com/bjryan2/Meteor-Instragram",
+  "author": "Brendan Ryan",
+  "version": "0.2.2",
+  "git": "https://github.com/bjryan2/Meteor-Instragram.git",
+  "packages": {
+
+  }
+}

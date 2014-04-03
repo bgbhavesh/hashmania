@@ -1,0 +1,144 @@
+<head>
+<!-- YOUIEST LLC CONFIDENTIAL
+
+    [2013] - [2014] Youiest LLC
+    All Rights Reserved.
+    NOTICE: All information contained herein is, and remains
+    the property of Youiest LLC and its suppliers,
+    if any. The intellectual and technical concepts contained
+    herein are proprietary to Youiest LLC
+    and its suppliers and may be covered by U.S. and Foreign Patents,
+    patents in process, and are protected by trade secret or copyright law.
+    Dissemination of this information or reproduction of this material
+    is strictly forbidden unless prior written permission is obtained
+    from Youiest LLC. -->
+
+<link rel="stylesheet" type="text/css" href="/semantic/css/semantic.css">
+<style> 
+	.title{
+		width: 100%;
+		height: 8%;
+		font-size: xx-large;
+		background-color: #333;
+		text-align: center;
+		font-family: serif;
+		color: white;
+		}
+</style>
+</head>
+<div class="title">Tapmate
+</div>
+<div id="adminPanel" > 
+      <input id="showList" type="button" class="button" value="Show List">
+      <input id="showTable" type="button" class="button" value="Show Table">
+      <input id="adminPanelCloseButton" type="button" class="button" value="Close">
+      <div id="addKeyword"> 
+        
+      </div>
+      
+    <div id="adminListCat">
+      <input id="addKeywordText" type="text"> <input id="addKeywordButton" type="button" class="button" value="Add"><br>
+      <div id="adminListItems" style="margin-top: 5%">                  
+      </div>
+    </div>
+     
+     <div class="adminCategory" id="adminTableCat"> 
+      <div class="adminCategory" > Total Number of Users : {{totalUser}}</div>
+      <table  border="1">
+          <tr> 
+            <th>userid</th>
+            <th>username</th>
+            <th>email</th>
+            <th>deviceType</th>
+            <th>windowWidth</th>
+            <th>windowHeight</th>          
+            <th>Recommending</th>
+            <th>YRecommending</th>
+            <th>MRecommending</th>
+            <th>WRecommending</th>
+            <th>DRecommending</th>
+            <th>Recomended</th>
+            <th>Votes</th>
+            <th>YVotes</th>
+            <th>MVotes</th>
+            <th>WVotes</th>
+            <th>DVotes</th>
+            <th>VOR</th>
+            <th>FollowNew</th>
+            <th>YFollowNew</th>
+            <th>MFollowNew</th>
+            <th>WFollowNew</th>
+            <th>DFollowNew</th>
+            <th>MovedMe</th>
+            <th>MovedRecomm</th>
+            <th>LoggedInCount </th>
+            <th>autologin </th>
+            <th>alreadyloggedin </th>
+            <th>yalreadyloggedin </th>
+            <th>malreadyloggedin </th>
+            <th>walreadyloggedin </th>
+            <th>dalreadyloggedin </th>
+            <th>swipeleft </th>
+            <th>yswipeleft </th>
+            <th>mswipeleft </th>
+            <th>wswipeleft </th>
+            <th>dswipeleft </th>
+            <th>swiperight </th>
+            <th>yswiperight </th>
+            <th>mswiperight </th>
+            <th>wswiperight </th>
+            <th>dswiperight </th>
+            <th>logout </th>
+            <th>Score</th>
+          </tr>
+          {{#each users}}
+            <tr class="adminTable">  
+              <td>{{_id}}</td>
+              <td>{{username}}</td>
+              <td>{{email}}</td>
+              <th>{{deviceType}}</th>
+              <th>{{windowWidth}}</th>
+              <th>{{windowHeight}}</th>
+              <td>{{recomending}}</td>
+              <td>{{yrecomending}}</td>
+              <td>{{mrecomending}}</td>
+              <td>{{wrecomending}}</td>
+              <td>{{drecomending}}</td>
+              <td>{{recomended}}</td>
+              <td>{{votes}}</td>
+              <td>{{yvotes}}</td>
+              <td>{{mvotes}}</td>
+              <td>{{wvotes}}</td>
+              <td>{{dvotes}}</td>            
+              <td>{{vor}}</td>
+              <td>{{follownew}}</td>
+              <td>{{yfollownew}}</td>
+              <td>{{mfollownew}}</td>
+              <td>{{wfollownew}}</td>
+              <td>{{dfollownew}}</td>
+              <td>{{movedme}}</td>
+              <td>{{movedrecomm}}</td>
+              <td>{{timesLoggedin}} </td>
+              <td>{{autologin}} </td>
+              <td>{{alreadyloggedin}} </td>
+              <td>{{yalreadyloggedin}} </td>
+              <td>{{malreadyloggedin}} </td>
+              <td>{{walreadyloggedin}} </td>
+              <td>{{dalreadyloggedin}} </td>
+              <td>{{swipeleft}} </td>
+              <td>{{yswipeleft}} </td>
+              <td>{{mswipeleft}} </td>
+              <td>{{wswipeleft}} </td>
+              <td>{{dswipeleft}} </td>
+              <td>{{swiperight}} </td>
+              <td>{{yswiperight}} </td>
+              <td>{{mswiperight}} </td>
+              <td>{{wswiperight}} </td>
+              <td>{{dswiperight}} </td>
+              <td>{{logout}} </td>
+              <td>{{score}} </td>
+            </tr>
+          {{/each}}
+      </table>
+    </div>
+  </div>

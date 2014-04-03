@@ -1,0 +1,96 @@
+<head>
+<!-- YOUIEST LLC CONFIDENTIAL
+
+    [2013] - [2014] Youiest LLC
+    All Rights Reserved.
+    NOTICE: All information contained herein is, and remains
+    the property of Youiest LLC and its suppliers,
+    if any. The intellectual and technical concepts contained
+    herein are proprietary to Youiest LLC
+    and its suppliers and may be covered by U.S. and Foreign Patents,
+    patents in process, and are protected by trade secret or copyright law.
+    Dissemination of this information or reproduction of this material
+    is strictly forbidden unless prior written permission is obtained
+    from Youiest LLC. -->
+<link rel="stylesheet" type="text/css" href="/semantic/css/semantic.css">
+<style> 
+	.recentImage1,.recentImage1 img{
+	height: 100%;
+	width: 100%;
+	}
+	#recents1,#feedsProfile,#votesProfile{
+		width: 100%;
+		position: relative;
+		overflow: auto;
+		background-color: #E5E5E5;  
+		z-index: 1;
+	}
+	.recentIcons{
+		height: 22%;
+		width: 23%;
+		position: relative;
+		float: left;
+		margin: 1%;
+	}
+	.title{
+		width: 100%;
+		height: 8%;
+		font-size: xx-large;
+		background-color: #333;
+		text-align: center;
+		font-family: serif;
+		color: white;
+	}
+</style>
+</head>
+<div class="title">Tapmate
+</div>
+<div class="profileBody"> 
+      <div id="profile_contect" style="width: 100%; padding-top: 12px;">
+        <div id="profile_pic_div" style="height:17%;width:35%;float:left;"><img style="width: 100%;" src="{{profile_picture}}"></div>
+          <div style="padding-left: 1%; height:17%;width:64%;float:left;">
+              <div id="profile_details_div" class="ui two inverted black menu">
+               	<a class="active item">Score : </a> <a class="item">{{score}}/{{heatscore}}</a>
+              </div>
+             <div id="profile_details_div" class="ui two inverted black menu">
+               <a class="active item">Votes : </a> <a class="item">{{votes1}}</a>
+            </div>
+         </div> 
+        </div>
+         <div style="margin-top: 40%;">
+         <div id="profile_details_div" class="ui two inverted black menu">
+           <a class="active item" id="activeItemP">username : </a> <a class="item" id="itemP">{{username}}</a>
+         </div>
+       </div>
+       Recent views<br>
+
+    <div id="recents1">
+    {{#each recent}}
+      <div class="recentIcons">  
+        <div class="recentImage1">
+          <img src="{{this}}">
+        </div>        
+      </div>
+    {{/each}}   
+  	</div>
+  	Feeds <br>
+	<div id="feedsProfile">
+	    {{#each feeds}}
+	      <div class="recentIcons">  
+	        <div class="recentImage1">
+	          <img src="{{this}}">
+	        </div>        
+	      </div>
+	    {{/each}}   
+	  </div>
+	  votes<br>
+	  <div id="votesProfile">
+	    {{#each votes}}
+	      <div class="recentIcons">  
+	        <div class="recentImage1">
+	          <img src="{{this}}">
+	        </div>        
+	      </div>
+	    {{/each}}   
+	  </div>
+</div>

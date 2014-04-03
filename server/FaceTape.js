@@ -863,7 +863,7 @@ function notifyTheUser(first){
                 //     }
                 // }
                 // else{
-                    pushToUser(cursorMe.pushid,first.message,cursorMe.pushtype,first.low);
+                    pushToUser(cursorMe.pushid,first.message,cursorMe.pushtype,first.low,first.likeid);
                 // }
                 
             }
@@ -874,7 +874,7 @@ function notifyTheUser(first){
 }
 App.notifyTheUser = notifyTheUser;
 var notificationCount = 0;
-function pushToUser(registrationid,mymessage,type,low){
+function pushToUser(registrationid,mymessage,type,low,likeid){
     // I have noticed that android registration id has dash "-" and iphone doesn't hence this is good for now    
     // if(registrationid.match("-")){
     //     type = "android";
@@ -915,6 +915,7 @@ function pushToUser(registrationid,mymessage,type,low){
         // message.addData('mydata','nicolson');
         message.addData('message',mymessage);
         message.addData('low',low);
+        message.addData('likeid',likeid);
         message.collapseKey = 'demo';
         message.delayWhileIdle = true;
         message.timeToLive = 30000;

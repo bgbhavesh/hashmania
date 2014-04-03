@@ -1114,7 +1114,7 @@ body{
 	height: 40px;
 	width: 40px;
 	position: absolute;
-  	z-index:4;
+  	z-index:7;
   	border-radius: 15%;
 }
 
@@ -1845,7 +1845,7 @@ textarea[name="header"]{
 	top: 21%;
 	height: 61%;
 }
-#pushimagePopUp img{
+#pushnotificationimages{
 	width: 100%;
 	position: absolute;
 	left: 0%;

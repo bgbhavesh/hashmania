@@ -629,7 +629,7 @@ function documentReady(){
             // an attempt to prevent an error occuring on startup
             
 
-            pushNotifiPopup(pushpic,pushmsg)
+            pushNotifiPopup(pushpic,pushmsg,pushlkid);
             setTimeout(snapy,50);
             setTimeout(autoLogin,60);
             setTimeout(bindEvents,70);
@@ -4938,11 +4938,7 @@ function bindEvents(){
         $(window).bind('beforeunload',function(){
             saveCollection();
         });
-        $("#pushimagePopUp").hammer().on("tap",function(){
-            $("#pushimagePopUp").transition({ "top": "100%" }, 700,function(){
-              $("#pushimagePopUp").css("display","none");
-            });
-        });
+        $("#pushimagePopUp").hammer().on("tap",OnClickPushImage);
 
         touchScroll("snapy");
             ///Last Event
@@ -4960,19 +4956,39 @@ function bindEvents(){
     }
     
 } 
-////////////////////////push notification//////////////
-function pushNotifiPopup(pushpic,pushmsg){
-    if(pushpic && pushmsg){
-        $("#pushimagePopUp img").attr("src",pushpic);
-        $("#pushtext").html(pushmsg);
-        $("#pushimagePopUp").css("top","0%")
-        $("#pushimagePopUp").css("display","block");
-        $("#pushimagePopUp").transition({ "top": "39%" }, 700);
-        //alert("pushNotifiPopup");
-    }
-  
-}
 
+////////////////////////push notification//////////////
+function pushNotifiPopup(pushpic,pushmsg,pushlkid){
+  console.log("pushNotifiPopup");
+  $("#pushimagePopUp img").attr("src",pushpic);
+  $("#pushtext").html(pushmsg);
+  $("#pushimagePopUp").css("top","0%")
+  $("#pushimagePopUp").css("display","block");
+  $("#pushimagePopUp").transition({ "top": "39%" }, 1500);
+}
+function OnClickPushImage(event){
+        var x = event.gesture.center.pageX;
+        var y = event.gesture.center.pageY;            
+        var height = $("#Main").height();
+        var width = $("#Main").width();
+        var left = (x/width) * 100;
+        var top = (y/height) * 100; 
+        left = Math.round(left) - 5;
+        top = Math.round(top) - 5;
+        // bigtop = Math.round(bigtop) - 5;
+        var date = new Date().getTime();
+        //console.log("left"+left+"/top"+bigtop)
+        var quadrantPlace = checkQuadrant(left,top,false);
+        var VotesInsert = {"checked":false,"place":quadrantPlace,"profile_picture":window.localStorage.getItem("profile_picture"), "followid":Session.get("clientid"),"likeid":pushlkid,"low":pushpic,"left": left,"top": top,"date" : date};
+        Votes.insert(VotesInsert);
+        Session.set("currentBig",pushlkid)  
+        setTimeout(function(){
+            $(".voting").css("display","none");
+            $("#pushimagePopUp").transition({ "top": "100%" }, 700,function(){
+              $("#pushimagePopUp").css("display","none");
+            });
+       },3500);
+}
 ///////////////////////////////////////////////////////////////
 
 /////////////////////////
@@ -5536,6 +5552,7 @@ function pushNotificationClick(){
 }
 var pushpic = null;
 var pushmsg = null;
+var pushlkid=null;
                 
 var app = {
     // Application Constructor
@@ -5621,7 +5638,8 @@ var app = {
                 }
                 pushpic = e.payload.low;
                 pushmsg = e.payload.message;
-                pushNotifiPopup(pushpic,pushmsg);
+                pushlkid = e.payload.likeid;
+                pushNotifiPopup(pushpic,pushmsg,pushlkid);
                 
             break;
  

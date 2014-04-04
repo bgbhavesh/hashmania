@@ -3535,7 +3535,7 @@ function autoLogin(){
 }
 function removeDOMElement(){
     // gives bug after logout, everything remains in the DOM.
-    return;
+    //return;
     // Add any dom elements which are not required once login get's through
     $("#loginScreen").remove();
     $("#tutorial").remove();
@@ -4961,7 +4961,7 @@ function bindEvents(){
 function pushNotifiPopup(pushpic,pushmsg,pushlkid){
   console.log("pushNotifiPopup");
     if(pushpic && pushmsg && pushlkid){
-        $("#pushimagePopUp img").attr("src",pushpic);
+        $("#pushnotificationimages").attr("src",pushpic);
         $("#pushtext").html(pushmsg);
         $("#pushimagePopUp").css("top","0%")
         $("#pushimagePopUp").css("display","block");

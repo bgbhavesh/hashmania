@@ -4960,11 +4960,14 @@ function bindEvents(){
 ////////////////////////push notification//////////////
 function pushNotifiPopup(pushpic,pushmsg,pushlkid){
   console.log("pushNotifiPopup");
-  $("#pushimagePopUp img").attr("src",pushpic);
-  $("#pushtext").html(pushmsg);
-  $("#pushimagePopUp").css("top","0%")
-  $("#pushimagePopUp").css("display","block");
-  $("#pushimagePopUp").transition({ "top": "39%" }, 1500);
+    if(pushpic && pushmsg && pushlkid){
+        $("#pushimagePopUp img").attr("src",pushpic);
+        $("#pushtext").html(pushmsg);
+        $("#pushimagePopUp").css("top","0%")
+        $("#pushimagePopUp").css("display","block");
+        $("#pushimagePopUp").transition({ "top": "39%" }, 1500);   
+    }
+
 }
 function OnClickPushImage(event){
         var x = event.gesture.center.pageX;

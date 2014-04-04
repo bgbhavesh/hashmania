@@ -2996,14 +2996,30 @@ function fitTextFunction(parent,child,fontSize){
 //    allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
 //  }
 // } 
+var defaultFeedArray = 
+[
+{likeid: "691032419692359525_37750682",low: "http://distilleryimage6.s3.amazonaws.com/948418cabbcc11e3a3f60002c95277aa_6.jpg"},
+{likeid: "691026504198489446_8317144",low: "http://distilleryimage6.s3.amazonaws.com/5875c974bbcb11e3a24c0ecc2592af6a_6.jpg"},
+{likeid: "691008099114745945_228247495",low: "http://distilleryimage10.s3.amazonaws.com/0436117abbc611e380b112526226ab9e_6.jpg"},
+{likeid: "691008604627071900_185480571",low: "http://distilleryimage4.s3.amazonaws.com/6cad0326bbc611e38bf00002c9e105bc_6.jpg"},
+{likeid: "691010334359923067_22932409",low: "http://distilleryimage2.s3.amazonaws.com/e7565b36bbc611e3b89c1203f21acad2_6.jpg"},
+{likeid: "690990821358561033_12577168",low: "http://distilleryimage0.s3.amazonaws.com/dd9781a2bbc011e3a1650002c9d7d580_6.jpg"},
+{likeid: "690972133838346432_13582101",low: "http://distilleryimage6.s3.amazonaws.com/34b82400bbbc11e3865612ea7aa1741a_6.jpg"},
+]
 function defaultfeeds(){
-    var insert = {"display":"y","type":1,"globalid":Session.get("clientid"),"likeid":Session.get("clientid"),"low":"http://distilleryimage9.s3.amazonaws.com/3e8c4200ba4e11e3b11312f22a685db9_6.jpg"}
-    Feed.insert(insert);
-    var insert = {"display":"y","type":1,"globalid":Session.get("clientid"),"likeid":Session.get("clientid"),"low":"http://distilleryimage6.s3.amazonaws.com/b777981ab95711e3ac8b12812f0cc8a2_6.jpg"}
-    Feed.insert(insert);
-    var insert = {"display":"y","type":1,"globalid":Session.get("clientid"),"likeid":Session.get("clientid"),"low":"http://distilleryimage9.s3.amazonaws.com/3e8c4200ba4e11e3b11312f22a685db9_6.jpg"}
-    Feed.insert(insert);
-    //return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":1},{sort : {"date": -1},"limit":Session.get("limit")*2});
+    defaultFeedArray = [];
+    return;
+    for(var i=0,il=defaultFeedArray.length;i<il;i++){
+        var insert = defaultFeedArray[i];
+        insert.date = new Date().getTime();
+        insert.display = "y";
+        insert.type = 1;
+        insert.checked = false;
+        insert.source = "preload";
+        insert.clientid = Session.get("clientid");
+        insert.checked = false;
+        Feed.insert(insert);
+    }
 }
 function logOutUser(){
     try{
@@ -3015,7 +3031,7 @@ function logOutUser(){
             window['mywindow'] = anotherWindow;
             window['mywindow'].addEventListener('loadstart', function(event) {           
                 if(event.url =="http://instagram.com/"){      
-                    hideLoader(); 
+                    showLoader(); 
                     window['mywindow'].close();                                
                 }
             });
@@ -4846,7 +4862,11 @@ function bindEvents(){
         window.localStorage.setItem("redirect",window.location);
         $("#Main").hammer().on("swiperight",swipeRight);
         $("#Main").hammer().on("swipeleft",swipeLeft);   
-      
+        
+        //  so that it doesn't block the UI.
+        $("#tap").hammer().on("swiperight",swipeRight);
+        $("#tap").hammer().on("swipeleft",swipeLeft);
+
         $("body").hammer().on('dragstart', function(event) { event.preventDefault(); });
        
         $("#alreadyUser").hammer().on("tap",autoLogin);
@@ -4952,7 +4972,7 @@ function bindEvents(){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "bindEvents"});        
+        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "bindEvents"});
     }
     
 } 
@@ -4965,17 +4985,17 @@ function pushNotifiPopup(pushpic,pushmsg,pushlkid){
         $("#pushtext").html(pushmsg);
         $("#pushimagePopUp").css("top","0%")
         $("#pushimagePopUp").css("display","block");
-        $("#pushimagePopUp").transition({ "top": "39%" }, 1500);   
+        $("#pushimagePopUp").transition({ "top": "39%" }, 1500);
     }
 
 }
 function OnClickPushImage(event){
         var x = event.gesture.center.pageX;
-        var y = event.gesture.center.pageY;            
+        var y = event.gesture.center.pageY;
         var height = $("#Main").height();
         var width = $("#Main").width();
         var left = (x/width) * 100;
-        var top = (y/height) * 100; 
+        var top = (y/height) * 100;
         left = Math.round(left) - 5;
         top = Math.round(top) - 5;
         // bigtop = Math.round(bigtop) - 5;

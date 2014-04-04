@@ -395,3 +395,32 @@ Step 8 : Hurray!!
 
 
 finishAnimateVotes
+
+
+  <!-- <div id="loginsignupform" class="ui form segment">
+      <div class="field">
+        <label>Username</label>
+        <div class="ui left labeled icon input">
+          <input id="seEmail" type="text" placeholder="Email">
+          <i class="mail icon"></i>
+          <div class="ui corner label">
+            <i class="icon asterisk"></i>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <div class="ui left labeled icon input">
+          <input id="sePass" type="password">
+          <i class="lock icon"></i>
+          <div class="ui corner label">
+            <i class="icon asterisk"></i>
+          </div>
+        </div>
+      </div>
+      <div id="seError" class="ui error message">
+        <div class="header">We noticed some issues</div>
+      </div>
+      <div id="seLogin" class="ui blue submit button">Login</div>
+      <div id="seSignup" class="ui blue submit button">Sign Up</div>
+    </div> -->

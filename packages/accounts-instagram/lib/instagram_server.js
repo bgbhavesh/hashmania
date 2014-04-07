@@ -46,7 +46,7 @@ var getTokenResponse = function (query) {
             code: query.code,
             client_id: Meteor.settings.public.clientid,
             client_secret: Meteor.settings.public.secret,
-            redirect_uri: Meteor.settings.public.redirect,
+            redirect_uri: Meteor.settings.public.redirectServer,
             //apparently instagram won't send a callback with just ?close, this is why close=close
             grant_type: 'authorization_code'
         }});

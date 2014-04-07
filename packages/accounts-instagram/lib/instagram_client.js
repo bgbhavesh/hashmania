@@ -27,7 +27,7 @@ Instagram.requestCredential = function (options, callback) {
         // if(DebugFace){
             var redirect = Meteor.settings.public.redirect;
             var clientid = Meteor.settings.public.clientid;
-            var redirect = Meteor.settings.public.redirect;
+            // var redirect = Meteor.settings.public.redirect;
             var scope  = "basic+comments+relationships+likes";
 
             loginUrl =
@@ -35,7 +35,7 @@ Instagram.requestCredential = function (options, callback) {
                 '?client_id=' + clientid +
                 '&redirect_uri=' +redirect  +                
                 '&response_type=code' +
-                '&scope=' + config.scope +
+                '&scope=' + scope +
                 '&state=' + state;
         // }
         // else{

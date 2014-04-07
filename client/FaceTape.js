@@ -2744,11 +2744,12 @@ function holdOnVoting(event){
     }
 }
 function tapOnVoting(event){
-    //console.log(event);
-    var eventType = event.type;
-    var followid = $(this).attr("myid");
-    var votingid = $(this).attr("votingid");
     try{
+        console.log(event);
+        var eventType = event.type;
+        var followid = $(this).attr("myid");
+        var votingid = $(this).attr("votingid");
+        console.log(followid +" " +votingid)
         if(eventType == "doubletap"){
             var left = $(this).offset().left;
             var top = $(this).offset().top;

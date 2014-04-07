@@ -40,37 +40,37 @@ var getTokenResponse = function (query) {
 
     var result = null;
 
-    if(DebugFace){
+    // if(DebugFace){
         result = Meteor.http.post(
         "https://api.instagram.com/oauth/access_token", {params: {
             code: query.code,
-            client_id: "f28d28f5785443349d0a60d0e8b9f98a",
-            client_secret: "359db797bbdf45f0ae09d648a87943b9",
-            redirect_uri: "http://localhost:3000/_oauth/instagram?close=close",
+            client_id: Meteor.settings.public.clientid,
+            client_secret: Meteor.settings.public.secret,
+            redirect_uri: Meteor.settings.public.redirectServer,
             //apparently instagram won't send a callback with just ?close, this is why close=close
             grant_type: 'authorization_code'
         }});
-    }
-    else{
-        // result = Meteor.http.post(
-        // "https://api.instagram.com/oauth/access_token", {params: {
-        //     code: query.code,
-        //     client_id: "6d5802dccf124f559cf44f0cb03f2b76",
-        //     client_secret: "0c899fa82df747eaa385d9389f31c98c",
-        //     redirect_uri: "http://meteor.nicolsondsouza.com/_oauth/instagram?close=close",
-        //     //apparently instagram won't send a callback with just ?close, this is why close=close
-        //     grant_type: 'authorization_code'
-        // }});
-        result = Meteor.http.post(
-        "https://api.instagram.com/oauth/access_token", {params: {
-            code: query.code,
-            client_id: config.clientId,
-            client_secret: config.secret,
-            redirect_uri: Meteor.absoluteUrl("_oauth/instagram?close=close", {replaceLocalhost: true}),
-            //apparently instagram won't send a callback with just ?close, this is why close=close
-            grant_type: 'authorization_code'
-        }});    
-    }
+    // }
+    // else{
+    //     // result = Meteor.http.post(
+    //     // "https://api.instagram.com/oauth/access_token", {params: {
+    //     //     code: query.code,
+    //     //     client_id: "6d5802dccf124f559cf44f0cb03f2b76",
+    //     //     client_secret: "0c899fa82df747eaa385d9389f31c98c",
+    //     //     redirect_uri: "http://meteor.nicolsondsouza.com/_oauth/instagram?close=close",
+    //     //     //apparently instagram won't send a callback with just ?close, this is why close=close
+    //     //     grant_type: 'authorization_code'
+    //     // }});
+    //     result = Meteor.http.post(
+    //     "https://api.instagram.com/oauth/access_token", {params: {
+    //         code: query.code,
+    //         client_id: config.clientId,
+    //         client_secret: config.secret,
+    //         redirect_uri: Meteor.absoluteUrl("_oauth/instagram?close=close", {replaceLocalhost: true}),
+    //         //apparently instagram won't send a callback with just ?close, this is why close=close
+    //         grant_type: 'authorization_code'
+    //     }});    
+    // }
     if (result.error) // if the http response was an error
         throw result.error;
     if (typeof result.content === "string")

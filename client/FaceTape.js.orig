@@ -268,6 +268,7 @@ MethodTimer = new Meteor.Collection("methodtimer");
 Meteor.suscribeMeteor = suscribeMeteor;
 
 function suscribeMeteor(ClientId){
+
     // console.log("suscribe")
     // unSuscribeMeteor();
     if("625237041" == ClientId || "363620479" == ClientId || "487690035" == ClientId){ //3877984 Elias // Admin all access condition//487690035 Nicolson
@@ -446,7 +447,7 @@ if (Meteor.isClient) {
       }
       catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "loginOnceReady"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "loginOnceReady"});
       }
   }    
 
@@ -2395,7 +2396,6 @@ function beforeCurrentBig(){
   currentMoveVote=null;
 }
 function tapOnBigFeed(event){
-     
      var localDiv = this;
      setTimeout(function(){tapOnBigFeedInterval(event,localDiv)},10)
                  
@@ -2796,8 +2796,14 @@ function holdOnVoting(event){
         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function tapOnVoting(event){
+<<<<<<< HEAD
     var starttimer = new Date().getTime();
     //console.log(event);
+    var eventType = event.type;
+    var followid = $(this).attr("myid");
+    var votingid = $(this).attr("votingid");
+=======
+>>>>>>> 9318e3fd13881c4b188a7d95debb1a40c6770a18
     try{
         console.log(event);
         var eventType = event.type;
@@ -3915,7 +3921,6 @@ function convertLanguage(data){
 //////////////////////////////////////////language start/////////////////////////
 
 function onSetLang(){
-
     // var currlang = $(this).attr("value");
     // //console.log(selLang);
     // // var e = document.getElementById("langswitch");    
@@ -4284,7 +4289,8 @@ function onsendMail(){
    // var i=0;
    
     console.log("sent main client function");
-    Meteor.call("sendMail");
+    //Meteor.call("sendMail");
+    console.log(new Date().getTime());
     // $.getJSON("./locales/hi.json",function(result){
     //       var language = {}
     //       $.each(result, function(key, value){

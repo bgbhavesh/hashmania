@@ -1,5 +1,11 @@
 {
-  "public": {
-    
-  }
+    "public": {
+        "nicolson" : "helloworld",
+        "redirect" : "http://localhost:3000/_oauth/instagram?close=close&response_type=code",
+        "clientid" : "f28d28f5785443349d0a60d0e8b9f98a",
+        "secret" : "359db797bbdf45f0ae09d648a87943b9",
+        "DDP" : "",
+        "redirectServer" : "http://localhost:3000/_oauth/instagram?close=close"
+
+    }
 }

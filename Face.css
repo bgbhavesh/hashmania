@@ -1347,7 +1347,7 @@ body{
 }
 #followButton{
 	background-image: url("images/F.png");
-	z-index:4;
+	z-index:7;
 }
 
 .sender{

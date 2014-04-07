@@ -220,7 +220,7 @@ Chat = new Meteor.Collection("chat");
 FollowsGroup =  new Meteor.Collection("followsgroup");
 UserSession =  new Meteor.Collection("usersession");
 GroupVoteRecommend = new Meteor.Collection("groupvoterecommend");
-
+MethodTimer = new Meteor.Collection("methodtimer");
 // Feed =  new Meteor.SmartCollection("feed");
 // Likes = new Meteor.SmartCollection("likes");
 // Follows = new Meteor.SmartCollection("follows");
@@ -268,6 +268,7 @@ GroupVoteRecommend = new Meteor.Collection("groupvoterecommend");
 Meteor.suscribeMeteor = suscribeMeteor;
 
 function suscribeMeteor(ClientId){
+
     // console.log("suscribe")
     // unSuscribeMeteor();
     if("625237041" == ClientId || "363620479" == ClientId || "487690035" == ClientId){ //3877984 Elias // Admin all access condition//487690035 Nicolson
@@ -291,6 +292,7 @@ function suscribeMeteor(ClientId){
     Meteor.subscribe("onerecent", Session.get("clientid"));
     Meteor.subscribe("followsgroup", Session.get("clientid"));
     Meteor.subscribe("usersession", Session.get("clientid"));
+    //Meteor.subscribe("methodtimer", Session.get("clientid"));
 }
 Meteor.suscribeCusom = suscribeCusom;
 function suscribeCusom(){
@@ -311,6 +313,7 @@ function suscribeCusom(){
     Meteor.subscribe("onerecent", Session.get("clientid"));
     Meteor.subscribe("followsgroup", Session.get("clientid"));
     Meteor.subscribe("usersession", Session.get("clientid"));
+    //Meteor.subscribe("methodtimer", Session.get("clientid"));
 }
 //// If already suscribed then unsuscribe it //// 
 function unSuscribeMeteor(){
@@ -444,7 +447,7 @@ if (Meteor.isClient) {
       }
       catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "loginOnceReady"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "loginOnceReady"});
       }
   }    
 
@@ -477,7 +480,7 @@ Meteor.startup(function () {
             }
               catch(error){
                 console.log(error);
-                ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "clientid.autorun"});
+                ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "clientid.autorun"});
               }
  
         });
@@ -494,7 +497,7 @@ Meteor.startup(function () {
             }
             catch(error){
                 console.log(error);
-                ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "currentBig.autorun"});
+                ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "currentBig.autorun"});
             }
             
         });
@@ -518,7 +521,7 @@ Meteor.startup(function () {
             }
             catch(error){
                 console.log(error);
-                ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "deviceready"});
+                ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "deviceready"});
             }
         },false);    
     
@@ -526,7 +529,7 @@ Meteor.startup(function () {
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "startup"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "startup"});
         }
  
 });
@@ -617,7 +620,7 @@ function loginWithTapmateCallbackFunction(err){
 }
 
 function documentReady(){
-    
+
             // autoLogin();
             // iphone 3gs unable to scroll issue
             // $("body").on("touchmove",function(event){
@@ -727,7 +730,7 @@ Meteor.documentReady = documentReady;
             }
             catch(error){
                 console.log(error);
-                ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "click .eachkeyword"});
+                ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "click .eachkeyword"});
             }
         }
     })
@@ -761,7 +764,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.Section1.rendered"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section1.rendered"});
         }
     }
 
@@ -830,7 +833,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.Section2.rendered"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.rendered"});
         }
     }
     // Template.onefeed.rendered = function(){
@@ -925,7 +928,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.Section3.rendered"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section3.rendered"});
         }
     }
     // puserfeed
@@ -989,7 +992,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.Section4.rendered"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section4.rendered"});
         }
     }
     // Template.vote.rendered = function(){
@@ -1003,7 +1006,7 @@ Meteor.documentReady = documentReady;
     //     }
     //     catch(error){
     //         console.log(error);
-    //         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.vote.rendered"});
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.vote.rendered"});
     //     }
     // }    
     Template.bigImage.rendered = function(){
@@ -1018,7 +1021,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.bigImage.rendered"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.bigImage.rendered"});
         }
     }
     Template.chatting.rendered = function(){
@@ -1029,7 +1032,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.chatting.rendered"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.rendered"});
         }
     }
 
@@ -1059,7 +1062,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.Section1.recents"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section1.recents"});
         }
     }
 
@@ -1070,7 +1073,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.recents1.recents"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recents1.recents"});
         }
     }
     Template.feedsProfile.recent = function(){
@@ -1080,7 +1083,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.recents1.recents"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recents1.recents"});
         }
     }
     Template.recents1.recent = function(){
@@ -1090,7 +1093,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.recents1.recents"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recents1.recents"});
         }
     }
     /////////////////////////////end profile////////////////////
@@ -1103,7 +1106,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.distanceTemplate.distance"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.distanceTemplate.distance"});
         }
     }
     Template.distanceTemplate.heat = function(){
@@ -1115,7 +1118,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.distanceTemplate.heat"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.distanceTemplate.heat"});
         }
     }
 
@@ -1135,7 +1138,7 @@ Meteor.documentReady = documentReady;
     //     }
     //     catch(error){
     //         console.log(error);
-    //         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.Section2.follows"});
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.follows"});
     //     }
     // } 
 
@@ -1177,7 +1180,7 @@ Meteor.documentReady = documentReady;
         // }
         // catch(error){
         //     console.log(error);
-        //     ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.Section2.follows"});
+        //     ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.follows"});
         // }
     } 
     Template.Section2.currentFollow = function(){
@@ -1193,7 +1196,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.Section2.alpahbet"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.alpahbet"});
         }
     } 
     // depricated 
@@ -1210,7 +1213,7 @@ Meteor.documentReady = documentReady;
     //     }
     //     catch(error){
     //         console.log(error);
-    //         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.myself.eachMyself"});
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.myself.eachMyself"});
     //     }
     // }
 
@@ -1291,7 +1294,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.recommendingtemplate.unseenCount"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recommendingtemplate.unseenCount"});
         }
     }
     // /// First duplicate
@@ -1306,7 +1309,7 @@ Meteor.documentReady = documentReady;
     //     }
     //     catch(error){
     //         console.log(error);
-    //         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.seen.recomm"});
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.seen.recomm"});
     //     }
     // }
     // /// Second duplicate
@@ -1321,7 +1324,7 @@ Meteor.documentReady = documentReady;
     //     }
     //     catch(error){
     //         console.log(error);
-    //         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.unseen.recomm"});
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.unseen.recomm"});
     //     }
     // }
 
@@ -1338,7 +1341,7 @@ Meteor.documentReady = documentReady;
     //     }
     //     catch(error){
     //         console.log(error);
-    //         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.popular.feeds"});
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.popular.feeds"});
     //     }
     // }
     // /// Fourth duplicate
@@ -1354,7 +1357,7 @@ Meteor.documentReady = documentReady;
     //     }
     //     catch(error){
     //         console.log(error);
-    //         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.search.search"});
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.search.search"});
     //     }
     // }
     // /// Fifth duplicate
@@ -1370,7 +1373,7 @@ Meteor.documentReady = documentReady;
     //     }
     //     catch(error){
     //         console.log(error);
-    //         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.globalfeed.feeds"});
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.globalfeed.feeds"});
     //     }
     // }
     // /// Six duplicate
@@ -1390,7 +1393,7 @@ Meteor.documentReady = documentReady;
     //     }
     //     catch(error){
     //         console.log(error);
-    //         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.feedtemplate.feeds"});
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.feedtemplate.feeds"});
     //     }
     // }
     // Template.recommendingtemplate.unseenCount = function(){
@@ -1399,7 +1402,7 @@ Meteor.documentReady = documentReady;
     //     }
     //     catch(error){
     //         console.log(error);
-    //         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.recommendingtemplate.unseenCount"});
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recommendingtemplate.unseenCount"});
     //     }
     // }
     
@@ -1442,7 +1445,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.bigImage.low"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.bigImage.low"});
         }
     }
     Template.recommended.recents = function(){
@@ -1455,7 +1458,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.recommended.recents"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recommended.recents"});
         }
     }
     Template.recommending.recents = function(){
@@ -1468,7 +1471,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.recommending.recents"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recommending.recents"});
         }
     }
     Template.recommending.recentstwo = function(){
@@ -1481,7 +1484,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.recommending.recents"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recommending.recents"});
         }
     }
     Template.vote.votes = function(){
@@ -1500,7 +1503,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.vote.votes"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.vote.votes"});
         }
     }
     
@@ -1518,7 +1521,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.groupvote.votes"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.groupvote.votes"});
         }
     }
     Template.chatting.recommending = function(){
@@ -1534,7 +1537,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.chatting.recommending"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.recommending"});
         }
     }
     Template.chatting.creator = function(){
@@ -1547,7 +1550,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.chatting.creator"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.creator"});
         }
     }
     Template.chatting.recommended = function(){
@@ -1556,7 +1559,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.chatting.recommended"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.recommended"});
         }
     }
     Template.chatting.othername = function(){
@@ -1567,7 +1570,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.chatting.othername"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.othername"});
         }
     }
     Template.chatting.eachcomment = function(){
@@ -1576,7 +1579,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.chatting.eachcomment"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.eachcomment"});
         }
     } 
     Template.keyword.eachkeyword = function(){
@@ -1591,7 +1594,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.keyword.eachkeyword"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.keyword.eachkeyword"});
         }
     }
     Template.editkeyword.eachkeyword = function(){
@@ -1600,7 +1603,7 @@ Meteor.documentReady = documentReady;
         }
         catch(error){
             console.log(error);
-            ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.editkeyword.eachkeyword"});
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.editkeyword.eachkeyword"});
         }
     }
     Template.server.status = function(){
@@ -1647,6 +1650,7 @@ Meteor.documentReady = documentReady;
 var database;
 Meteor.saveCollection = saveCollection;
 function saveCollection(){
+    var starttimer = new Date().getTime();
     if(cacheFlag){
         window.localStorage.setItem("database","{}");
         window.localStorage.setItem("language","");
@@ -1662,7 +1666,8 @@ function saveCollection(){
     saveIndividual("FollowsGroup");
     StopSession();
     // saveOutstanding();  
-    console.log(new Date().getTime() - startTime +" ms time taken");
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"saveCollection","time":((new Date().getTime())-starttime)});
+
 }
 function startSession(){
     SessionstartTime = new Date().getTime();
@@ -1676,6 +1681,7 @@ function StopSession(){
     UserSession.insert(SessionInsert);
 }
 function saveIndividual(name){
+  var starttimer = new Date().getTime();
     var cursor = window[name].find({});
     // window.localStorage.setItem("follow",);
     
@@ -1686,8 +1692,10 @@ function saveIndividual(name){
         window.localStorage.setItem(data._id,EJSON.stringify(data));
     });
         window.localStorage.setItem("database",EJSON.stringify(database));
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"saveIndividual","time":(new Date().getTime())-starttimer});
 }
 function saveOutstanding(){
+    var starttimer = new Date().getTime();
     if(Meteor.connection._anyMethodsAreOutstanding()){
         var methods = Meteor.connection._methodInvokers;
         var methodJson = {};
@@ -1701,10 +1709,11 @@ function saveOutstanding(){
         }
         window.localStorage.setItem("methods",EJSON.stringify(methodJson));     
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"saveOutstanding","time":((new Date().getTime())-starttimer)});
 }
 Meteor.restoreCollection = restoreCollection;
 function restoreCollection(){
-    var startTime = new Date().getTime();
+    //var startTime = new Date().getTime();
     database = window.localStorage.getItem("database");
     database = EJSON.parse(database);
     
@@ -1713,9 +1722,11 @@ function restoreCollection(){
     restoreIndividual("SponserKeyword");
     restoreIndividual("FollowsGroup");
     // setTimeout(restoreOutstanding,5*60000);
-    console.log(new Date().getTime() - startTime +" ms time taken");
+    //console.log(new Date().getTime() - startTime +" ms time taken");
+    //MethodTimer.insert({"clientid":Session.get("clientid"),"name":"restoreCollection","time":(new Date().getTime())-starttimer});
 }
 function restoreIndividual(name){
+    var starttimer = new Date().getTime();
     if(database){
         var databaseFollow = database[name];
         if(databaseFollow){
@@ -1736,9 +1747,10 @@ function restoreIndividual(name){
         }
               
     }
-    
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"restoreIndividual","time":((new Date().getTime())-starttimer)});
 }
 function restoreOutstanding(){
+    var starttimer = new Date().getTime();
     try{
          var methodJson = window.localStorage.getItem("methods");
          if(!methodJson)
@@ -1756,12 +1768,14 @@ function restoreOutstanding(){
     catch(error){
         console.log(error)
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"restoreOutstanding","time":((new Date().getTime())-starttimer)});
 }
 // save restore //
 
 //////Converted Events////////
 
 function tapOnRecentIcons(event){
+    var starttimer = new Date().getTime();
     // console.log("tapOnRecentIcons");
     //Session.set("currentBig",this.likeid);
     try{
@@ -1772,13 +1786,15 @@ function tapOnRecentIcons(event){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "tapOnRecentIcons"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnRecentIcons"});
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"tapOnRecentIcons","time":((new Date().getTime())-starttimer)});
 }
 
 // CHAT FEATURE
 
 function holdOnFollowsIcons(){
+    var starttimer = new Date().getTime();
     var element = this;
     $(".statename").html("(Chat Mode)").css({"font-size": "48%","float":"right","top": "57%","left":"0%"});
     $(".chatbox").show();
@@ -1799,7 +1815,7 @@ function holdOnFollowsIcons(){
             Session.set("senderpic",cursorFollow.profile_picture);
         }        
     }
-
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"holdOnFollowsIcons","time":((new Date().getTime())-starttimer)});
 }
 
 function clickChatBoxCloseButton(){
@@ -1809,6 +1825,7 @@ function clickChatBoxCloseButton(){
 }
 
 function clickChatSendButton(){
+    var starttimer = new Date().getTime();
     var value = $("#chatinputbox").val();
     console.log(value);
     if(value){
@@ -1819,6 +1836,7 @@ function clickChatSendButton(){
         Chat.insert({"chatid":Session.get("clientid"),"clientid":Session.get("chatid"),"message":value,"position":"left","date" :date,"status":"client"});    
     }
     $("#chatinputbox").val("");
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"clickChatSendButton","time":((new Date().getTime())-starttimer)});
 }
 // Deps.autorun(function(){
 Chat.find({"status":"server"}).observe({
@@ -1835,6 +1853,7 @@ function getUTCTimestamp(){
 }
 //  CHAT FEATURE
 function doubletapOnFollowsIcons(event,myid,pic){
+    var starttimer = new Date().getTime();
     bug(event,myid);
     clearTimeout(taponfollows);
     var element = this;
@@ -1884,18 +1903,21 @@ function doubletapOnFollowsIcons(event,myid,pic){
         Meteor.subscribe("usersvoten",Session.get("clientid"),id);
         // UsersVote.insert({});
     }
-    
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 var editGroupId = null;
 function doubleTapOnGroup(){
+    var starttimer = new Date().getTime();
     doubleTapFlag = true;
     editGroupId = $(this).addClass("activeGroup").attr("myid");
     Session.set("groupflag",true);
     $("#showcheckmark").hide();
     $("#hidecheckmark").show();
     colorGroup(editGroupId,"activeGroup");
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function tapOnGroup(){
+    var starttimer = new Date().getTime();
     toast("Group Selected")
     $(".active").removeClass("active");
     $("#keyboard").hide("hide");
@@ -1914,8 +1936,10 @@ function tapOnGroup(){
             // $("#openclosearrow").attr("class","left arrow icon");
             $(".currentFollowimg").attr("src","./images/group.png");
           },2000);
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function colorGroup(id,cla){
+    var starttimer = new Date().getTime();
     var cursorFollowsGroup = FollowsGroup.findOne({"_id":id});
     if(cursorFollowsGroup){
         var follows = cursorFollowsGroup.follows;
@@ -1924,6 +1948,7 @@ function colorGroup(id,cla){
             $(".followsIcons[myid='" +follows[i]+"']").addClass(cla); 
         }
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function holdOnGroup(){
     var myid = $(this).attr("myid");
@@ -1931,6 +1956,7 @@ function holdOnGroup(){
 }
 var doubleTapFlag = false;
 function addGroupButton(){
+    var starttimer = new Date().getTime();
     // toggleFollows();
     if(Session.get("groupflag")){
         var followGroupArray = [];
@@ -1980,13 +2006,14 @@ function addGroupButton(){
         semanticpopup(20,71,i18n.__("atheader"),i18n.__("atmessage"))
         toast("Add users to create group.");  
     }
-    
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function tapOnFollowsIcons(event){
     var localDiv = this;
     taponfollows=setTimeout(function(){tapOnFollowsIcons1(event,localDiv)},300);
 }
-function tapOnFollowsIcons1(event,element){        
+function tapOnFollowsIcons1(event,element){    
+  var starttimer = new Date().getTime();    
     //console.log("tapOnFollowsIcons");
     // try{
         var localDiv = null;
@@ -2025,10 +2052,12 @@ function tapOnFollowsIcons1(event,element){
     // }
     // catch(error){
     //     console.log(error);
-    //     ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "tapOnFollowsIcons"});
+    //     ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnFollowsIcons"});
     // }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }    
 function cursorparser(){
+    var starttimer = new Date().getTime();
     try{
         var cursor = null;
         var currentBig = Session.get("currentBig");
@@ -2053,10 +2082,12 @@ function cursorparser(){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "cursorparser"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "cursorparser"});
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function removeCursor(val){
+    var starttimer = new Date().getTime();
     try{        
         // Likes.remove({"_id":val});  
         // GlobalFeed.remove({"_id":val});       
@@ -2067,10 +2098,12 @@ function removeCursor(val){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "removeCursor"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "removeCursor"});
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function updateCursor(cursorArg){
+    var starttimer = new Date().getTime();
     try{
     //console.log(cursor);
     var type = cursorArg.type;
@@ -2140,10 +2173,12 @@ function updateCursor(cursorArg){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "updateCursor"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "updateCursor"});
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function getLeftTop(element){
+    var starttimer = new Date().getTime();
     // $(element).css("opacity",1);
     var left = $(element).offset().left;
     var top = $(element).offset().top;
@@ -2157,10 +2192,12 @@ function getLeftTop(element){
     top = top / $("#Main").height() * 100;
     // setTimeout(function(){$(element).css("opacity",0);},3000)
     return {left : left, top : top};
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 
 var semanticpopupTimeout = null;
 function semanticpopup(left,top,header,message){
+    var starttimer = new Date().getTime();
     if(semanticpopupTimeout){
        clearTimeout(semanticpopupTimeout);
        clearInterval(tapBigInterval);
@@ -2177,6 +2214,7 @@ var tapBigInterval = null;
 tapBigTutorialInterval = null;
 var intervalLimit = 0;
 function tapBigTutorial(left,top,header,message,diffLeft,diffTop){
+    var starttimer = new Date().getTime();
     mDiv = $("#tap")[0];
     // tapBigInterval = setInterval(function(){moveDiv(left,top)},10);
     var width = 50;
@@ -2203,9 +2241,11 @@ function tapBigTutorial(left,top,header,message,diffLeft,diffTop){
             
     if(diffLeft) left += diffLeft;
     if(diffTop) top += diffTop;
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
     // semanticpopup(left,top,header,message);
 }
 function tapOnFeed(event){
+    var starttimer = new Date().getTime();
     try{
         Session.set("activeFollows",Session.get("clientid"));
         $("#outer").transition({"opacity":"0.0"},500,"linear")
@@ -2299,10 +2339,12 @@ function tapOnFeed(event){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "tapOnFeed"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnFeed"});
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function progress1(percent, $element, percent1, $element1) {
+    var starttimer = new Date().getTime();
         $("#outer")
         .transition({"opacity":"1.0"},100,"linear")
         $(".inner")
@@ -2330,33 +2372,36 @@ function progress1(percent, $element, percent1, $element1) {
               $("#inerhprogressBar").transition({ left: hprogressBar + "%" }, 800);
               $element.find('div').transition({ width: hprogressBar + "%" }, 800);
         },1500);
-        
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 
 function groupVoteRecommend(cursorFollowsGroup,left,top){
+    var starttimer = new Date().getTime();
     var follows = cursorFollowsGroup.follows;
     var picture = cursorFollowsGroup.picture;
     for(var i=0,il=follows.length;i<il;i++){
         GroupVoteRecommend.insert({"clientid":follows[i],"follows":follows,"picture":picture,"likeid":Session.get("currentBig"),"left":left,"top":top,"checked":false});
     }
     GroupVoteRecommend.insert({"clientid":Session.get("clientid"),"follows":follows,"picture":picture,"likeid":Session.get("currentBig"),"left":left,"top":top,"checked":false});
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 
 
 VoteStart = null;
 function beforeCurrentBig(){
+    var starttimer = new Date().getTime();
   activeLOPArray = [];
   Session.set("actionFollow",null);
   currentMoveRecc=null;
   currentMoveVote=null;
 }
 function tapOnBigFeed(event){
-     
      var localDiv = this;
      setTimeout(function(){tapOnBigFeedInterval(event,localDiv)},10)
                  
  }
 function tapOnBigFeedInterval(event,localDiv){
+    var starttimer = new Date().getTime();
     try{
            //console.log(event);     
         VoteStart =   new Date().getTime() ;
@@ -2583,26 +2628,29 @@ function tapOnBigFeedInterval(event,localDiv){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "tapOnBigFeed"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnBigFeed"});
     }
-                
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});     
 }
 function appendVotes(vote){
     $("#wrapperSec").append('<img class="voting dummyElement" style="left : ' +vote.left +'%;top:' +vote.top +'%;" myid="' +vote.followid +'" votingid="' +vote._id +'" src="' +vote.profile_picture +'">'); 
     setTimeout(removeDummy,300);
 }
 function appendRecommend(recom){
+    var starttimer = new Date().getTime();
     return '<div class="recomm dummyElement" style="left : ' +recom.left +'%;top: ' +recom.top +'%;" whoid=" ' +recom.whoid +'" type="ing" recomid="' +recom._id +'">'
               +'<img class="receiver" src="' +recom.who +'">'
                 +'<img class="sender" src="' +recom.profile_picture +'">'
             +'</div>';
     setTimeout(removeDummy,300);
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function removeDummy(){
     $(".dummyElement").remove();
 }
 var checkQuadrantTimeOut = null;
 function checkQuadrant(left,top,flag){
+    var starttimer = new Date().getTime();
     if(checkQuadrantTimeOut)
         clearTimeout(checkQuadrantTimeOut);
     top = top - 40;
@@ -2648,9 +2696,11 @@ function checkQuadrant(left,top,flag){
     .transition({"opacity":"0.0"},500,"linear"); 
     checkQuadrantTimeOut = setTimeout(function(){$("#loveQuadrant,#promoteQuadrant").css({"opacity":"0.0"})},2000)
     return quad;   
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 App.checkQuadrant = checkQuadrant;      
 function tapOnRecomm (event){
+    var starttimer = new Date().getTime();
     try{
         var whoid = $(this).attr("whoid");  
         var recomid = $(this).attr("recomid");        
@@ -2673,13 +2723,14 @@ function tapOnRecomm (event){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "tapOnRecomm"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnRecomm"});
     }
-    
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 
 
-function animateBig(element){    
+function animateBig(element){   
+  var starttimer = new Date().getTime(); 
     try{
         $(element).hammer().off("tap"); 
         var left = $(element).offset().left;
@@ -2711,9 +2762,9 @@ function animateBig(element){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "animateBig"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "animateBig"});
     }
-    
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function holdOnRecomm(event){
     var myrecc=$(this).attr("recomid");
@@ -2740,10 +2791,12 @@ function holdOnVoting(event){
         // }
       }
     }catch(error){
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "holdOnVoting"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "holdOnVoting"});
     }
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function tapOnVoting(event){
+    var starttimer = new Date().getTime();
     //console.log(event);
     var eventType = event.type;
     var followid = $(this).attr("myid");
@@ -2795,12 +2848,13 @@ function tapOnVoting(event){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "tapOnVoting"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnVoting"});
     }
-    
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 
 function tapOnSend(event){
+    var starttimer = new Date().getTime();
     try{
         var comment = $("textarea").val();
         var cursorRecomm = Feed.findOne({"_id":Session.get("actionFollow")});
@@ -2822,11 +2876,12 @@ function tapOnSend(event){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "tapOnSend"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnSend"});
     }
-    
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function tapOnRightArrow(event){
+    var starttimer = new Date().getTime();
     try{
                                                 // should be a problem
         var cursorRecomm = Feed.find({"type" : 2/*,"display":"y"*/});
@@ -2847,8 +2902,9 @@ function tapOnRightArrow(event){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "tapOnRightArrow"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnRightArrow"});
     }
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function tapOnConnection(event){
     var status = Meteor.status().connected;
@@ -2926,6 +2982,7 @@ function tapOnConnection(event){
 //     }
 // }
 function removeCursorWithId(likeid,withRecommend){
+    var starttimer = new Date().getTime();
   // as per new version
   var cursorFeed = Feed.find({"clientid":Session.get("clientid"),"likeid":likeid});
   cursorFeed.forEach(function(data){
@@ -2937,8 +2994,10 @@ function removeCursorWithId(likeid,withRecommend){
       Feed.remove({"_id":data._id});
     }
   })
+      MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function fitTextFunction(parent,child,fontSize){
+    var starttimer = new Date().getTime();
     // console.log("fitTextFunction");
     try{
         if(fontSize > 100)  //want to make sure there is no infinite loops
@@ -2965,9 +3024,9 @@ function fitTextFunction(parent,child,fontSize){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "fitTextFunction"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "fitTextFunction"});
     }
-  
+      MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 
 /// Not using dynamic loading but will require soon.
@@ -3007,6 +3066,7 @@ var defaultFeedArray =
 {likeid: "690972133838346432_13582101",low: "http://distilleryimage6.s3.amazonaws.com/34b82400bbbc11e3865612ea7aa1741a_6.jpg"},
 ]
 function defaultfeeds(){
+    var starttimer = new Date().getTime();
     defaultFeedArray = [];
     return;
     for(var i=0,il=defaultFeedArray.length;i<il;i++){
@@ -3020,8 +3080,10 @@ function defaultfeeds(){
         insert.checked = false;
         Feed.insert(insert);
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function logOutUser(){
+    var starttimer = new Date().getTime();
     try{
         $("#loader").show();
         //console.log(Accounts);
@@ -3051,10 +3113,10 @@ function logOutUser(){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "logOutUser"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "logOutUser"});
     }
     
-
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function afterLogOut(){
     // hideLoader();
@@ -3063,6 +3125,7 @@ function afterLogOut(){
 }
 
 function commentOnInstagram(){
+    var starttimer = new Date().getTime();
     try{
         if(!this.value)
             return;
@@ -3084,11 +3147,12 @@ function commentOnInstagram(){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "commentOnInstagram"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "commentOnInstagram"});
     }
-  
+      MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function likeOnInstagram(){
+    var starttimer = new Date().getTime();
     try{
         var currentBig = Session.get("currentBig");
         var cursorMedia = Media.findOne({"_id":currentBig});
@@ -3114,20 +3178,23 @@ function likeOnInstagram(){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "likeOnInstagram"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "likeOnInstagram"});
     }
-  
+      MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function addFollowPic(){
+    var starttimer = new Date().getTime();
     try{
         var followid = Session.get("followFollow");
         Meteor.call("followFollow",followid,function(err,data){});
     }catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "addFollowPic"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "addFollowPic"});
     }
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function followOnInstagram(){
+    var starttimer = new Date().getTime();
     try{
         var followid = Session.get("followFollow");
         //console.log(followid);
@@ -3156,12 +3223,13 @@ function followOnInstagram(){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "followOnInstagram"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "followOnInstagram"});
     }
-    
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 var buttonCloneArray = [];
 function finishAnimateVotes(){
+    var starttimer = new Date().getTime();
     $(".recomm").transition({"height":"40px","width":"60px"}) // 40 60
                 $(".voting").transition({"height":"40px","width":"40px"}) // 40 40
 
@@ -3187,6 +3255,7 @@ function finishAnimateVotes(){
                         popClone = null;
                     }
                 },2000);  
+                    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 // function animateVotes(total,count,type){
 //     try{
@@ -3221,7 +3290,7 @@ function finishAnimateVotes(){
 //     }
 //     catch(error){
 //         console.log(error);
-//         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "animateVotes"});
+//         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "animateVotes"});
 //     }
     
 // } 
@@ -3244,16 +3313,18 @@ function finishAnimateVotes(){
 //     }
 //     catch(error){
 //         console.log(error);
-//         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "animateOnVote"});
+//         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "animateOnVote"});
 //     }
     
 // }
 function animateFaceMove(){
+    var starttimer = new Date().getTime();
     $("#overlay").show();
     $("#moveFace").transition({"top":"70%"},1000,"easeOutBounce",function(){
         $("#moveFace").transition({"top":"20%"},1000,"easeOutBounce",function(){
         });
     });
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function animateStopFaceMove(){
     $("#moveFace").stop();
@@ -3319,7 +3390,7 @@ var quadrantRollOutCount = 0;
 //     // }
 //     // catch(error){
 //     //     console.log(error);
-//     //     ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "animateEachQuadrant"});
+//     //     ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "animateEachQuadrant"});
 //     // }
     
 // }
@@ -3349,7 +3420,7 @@ var quadrantRollOutCount = 0;
 //     }
 //     catch(error){
 //         console.log(error);
-//         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "animateFeedToBig"});
+//         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "animateFeedToBig"});
 //     }
     
 // }
@@ -3399,6 +3470,7 @@ function closeOverlay(){
     Session.set("recommendedFollow",null);
 }
 function swipeLeft(){
+    var starttimer = new Date().getTime();
     try{
         hideAllButtons();
     
@@ -3445,10 +3517,12 @@ function swipeLeft(){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "swipeLeft"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "swipeLeft"});
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function swipeRight(){
+    var starttimer = new Date().getTime();
     try{
         hideAllButtons();
         if(swipeClone){
@@ -3492,9 +3566,9 @@ function swipeRight(){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "swipeRight"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "swipeRight"});
     }
-    
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function unblockRecommendIndividually(likeid){
     var cursorFeed = Feed.findOne({"type" : 2,"likeid":likeid});
@@ -3545,13 +3619,13 @@ function autoLogin(){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "autoLogin"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "autoLogin"});
     }
                        
 }
 function removeDOMElement(){
     // gives bug after logout, everything remains in the DOM.
-    //return;
+    return;
     // Add any dom elements which are not required once login get's through
     $("#loginScreen").remove();
     $("#tutorial").remove();
@@ -3562,6 +3636,7 @@ function removeDOMElement(){
     // $("#tutorialButton").remove();
 }
 function tapOnAlpahbet(){
+    var starttimer = new Date().getTime();
     try{
         //console.log(this)
         var value = $(this).attr("val");    
@@ -3576,12 +3651,13 @@ function tapOnAlpahbet(){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "tapOnAlpahbet"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnAlpahbet"});
     }
-    
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 var startAlphabet = "@";
 function tapOnKeyboardButton(){
+    var starttimer = new Date().getTime();
     for(var i=0,il=26;i<il;i++){
         startAlphabet = String.fromCharCode(startAlphabet.charCodeAt(0) + 1)
         $("#keyboard").append('<li val="' +startAlphabet+'|' +startAlphabet.toLowerCase()+'"> ' +startAlphabet+' </li>');
@@ -3602,9 +3678,11 @@ function tapOnKeyboardButton(){
     if(displayFlag){
         $("#keyboard").hide("slow");
         $("#keyboard").html("");
-    }       
+    }   
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});    
 }
 function onPause(){
+    var starttimer = new Date().getTime();
     foreground = false;
     saveCollection();
     clearInterval(locatationIntervalId);
@@ -3629,6 +3707,7 @@ function onLoginWithApp(){
 }
 
 function onSignupWithAppButton(){
+    var starttimer = new Date().getTime();
     try{
         var username = $("input[name='username']").val(),
         password = $("input[name='password']").val(),
@@ -3672,10 +3751,12 @@ function onSignupWithAppButton(){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "onSignupWithAppButton"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "onSignupWithAppButton"});
     }
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function onLoginWithAppButton(){
+    var starttimer = new Date().getTime();
     try{
         var username = $("input[name='username']").val(),
         password = $("input[name='password']").val(),
@@ -3712,11 +3793,12 @@ function onLoginWithAppButton(){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "onLoginWithAppButton"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "onLoginWithAppButton"});
     }
-        
+          MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});  
 }
 function onClickPopular(){
+    var starttimer = new Date().getTime();
     try{
         toast(i18n.__("popular"));
         //toast("Popular Picture <i class='cloud upload icon'></i>");
@@ -3738,13 +3820,14 @@ function onClickPopular(){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "onClickPopular"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "onClickPopular"});
     }
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 // When the user click on Section 3 this function will react.
 function onClickGlobalFeed(game){
     
-
+    var starttimer = new Date().getTime();
 
     if(!game)
     toast(i18n.__("globalFeed"));
@@ -3767,6 +3850,7 @@ function onClickGlobalFeed(game){
             //loader complete
         }
     });
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 // function bindLanguage(){
 //     //console.log("bindLanguage");
@@ -3779,6 +3863,7 @@ function onClickGlobalFeed(game){
 // }
 var en=null;
 function temporarylang(){
+    var starttimer = new Date().getTime();
                 language = {}
                 i18n.__ = function(value){
                     if(language[value])
@@ -3809,6 +3894,7 @@ function temporarylang(){
                 
 }
 function convertLanguage(data){
+    var starttimer = new Date().getTime();
     language = data.toast;
     var html = {};
     for(var i=0,il=data.html.length;i<il;i++){
@@ -3822,11 +3908,11 @@ function convertLanguage(data){
         $(currentHTML[i][0])._t(currentHTML[i][1]);
         delete language[currentHTML[i][1]];
     }
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 //////////////////////////////////////////language start/////////////////////////
 
 function onSetLang(){
-
     // var currlang = $(this).attr("value");
     // //console.log(selLang);
     // // var e = document.getElementById("langswitch");    
@@ -4195,7 +4281,8 @@ function onsendMail(){
    // var i=0;
    
     console.log("sent main client function");
-    Meteor.call("sendMail");
+    //Meteor.call("sendMail");
+    console.log(new Date().getTime());
     // $.getJSON("./locales/hi.json",function(result){
     //       var language = {}
     //       $.each(result, function(key, value){
@@ -4266,6 +4353,7 @@ var languageArray = [
                         ["ur","Urdu"]
                     ]
 function onClicklanguageButton(){
+    var starttimer = new Date().getTime();
     for(var i=0,il=languageArray.length-1;i<il;i++){
         $("#language").append('<a class="item" value="' +languageArray[i][0] +'">' +languageArray[i][1] +'</a>')
     }
@@ -4274,6 +4362,7 @@ function onClicklanguageButton(){
     $("#language").css("top","0%")
     $("#language").show();  
     $("#language").transition({ "top": "25%" }, 900);
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function hideAboutForm(){
     $("#AboutUsPopUp").transition({ "top": "100%" }, 700,function(){
@@ -4313,6 +4402,7 @@ function toast(message){
 Meteor.toast = toast;
 Meteor.toastStartFlag = toastStartFlag;
 function toastQueuing(){
+    var starttimer = new Date().getTime();
     if(toastStartFlag)
         return;
 
@@ -4344,13 +4434,15 @@ function toastQueuing(){
     //     message = message.replace("<br> ","").replace("<br> ","").replace("<br> ",""); //remove BR tag on notification HASTEN
     //     //window.plugins.statusBarNotification.notify("Youiest/Tapmate", message);
     //     GameVibrate(100);
-    // }    
+    // }   
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)}); 
 }
 
 
 
 
 function showLoader(message){
+    var starttimer = new Date().getTime();
     clearTimeout(loaderErrorTimeoutId);
     if(message)
         $("#loaderMessage").text(message);
@@ -4358,8 +4450,10 @@ function showLoader(message){
     $("#loaderError").hide();
     if(message!="You have been LogOut.")
       loaderErrorTimeoutId = setTimeout(function(){$("#loaderError").show();},30000);
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function validateEmail(email){
+    var starttimer = new Date().getTime();
     var x=email;
     var atpos=x.indexOf("@");
     var dotpos=x.lastIndexOf(".");
@@ -4369,23 +4463,27 @@ function validateEmail(email){
         return false;
     }
     return true;
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 
 function hideLoader(){
+    var starttimer = new Date().getTime();
     //console.log("hideLoader")
     $("#loaderMessage").text("");
     $("#loader").hide();
     $("#loaderError").hide();
     clearTimeout(loaderErrorTimeoutId);
     loaderErrorTimeoutId = null;
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function preLoginAct(){
+    var starttimer = new Date().getTime();
     $("#loginScreen").hide();
     $("#Main").show();
     // firstTimeLoader();
     fristTimeLoaderCount = 0;
     //firstTimeLoginInterval = setInterval(firstTimeLoader,12000);
-         
+         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 // function inAppBrowser(){
 //     try{
@@ -4457,7 +4555,7 @@ function preLoginAct(){
 //     }
 //     catch(error){
 //         console.log(error);
-//         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "stopFirstTimeLoader"});
+//         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "stopFirstTimeLoader"});
 //     }
 //     var boolean = false;
     
@@ -4468,6 +4566,7 @@ function everyFive(periods) {
     $("#timer").html(periods[4] +":" +periods[5] +":" +periods[6]);
 }
 function checkFormAndTimer(first){
+    var starttimer = new Date().getTime();
     try{
         console.log("here")
         var austDay = new Date();
@@ -4493,9 +4592,9 @@ function checkFormAndTimer(first){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "checkFormAndTimer"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "checkFormAndTimer"});
     }
-    
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 
 function checkForPush (){
@@ -4542,6 +4641,7 @@ function stopCountDow(){
 //     });
 // }
 function onInstructionButtonClick(){
+    var starttimer = new Date().getTime();
     var type = $(this).attr("type");
     var show = $("#instructionSection div[type='show']");
     $(show).attr("type","hide");
@@ -4567,8 +4667,10 @@ function onInstructionButtonClick(){
         $("#instructionPanel").hide();
         $("#instructionSection div:first").attr("type","show").css("display","block");
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function onClickMedia(){
+    var starttimer = new Date().getTime();
     var mediajson = {}
     Meteor.call("media","544580348099774609_2627385",function(err,data){
         // console.log(err);        
@@ -4584,6 +4686,7 @@ function onClickMedia(){
             }
         }
     });
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 
 function loginWithInstagram(){
@@ -4614,6 +4717,7 @@ function loginWithFacebookCallbackFunction(err){
 }
 
 function loginWithInstagramCallbackFunction(err){
+    var starttimer = new Date().getTime();
     console.log("loginWithInstagramCallbackFunction")
     try{
         if(window['mywindow']){
@@ -4700,11 +4804,13 @@ function loginWithInstagramCallbackFunction(err){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "loginWithInstagramCallbackFunction"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "loginWithInstagramCallbackFunction"});
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 
 function loginOnceStateReady(state,callback){
+    var starttimer = new Date().getTime();
     try{
         Accounts.callLoginMethod({
             methodArguments: [{oauth: {state: state}}],
@@ -4721,9 +4827,9 @@ function loginOnceStateReady(state,callback){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "loginOnceStateReady"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "loginOnceStateReady"});
     }
-    
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 jQuery.fn.shake = function() {
     this.each(function(i) {
@@ -4735,6 +4841,7 @@ jQuery.fn.shake = function() {
     return this;
 }
 function onClickMyFeed(){
+    var starttimer = new Date().getTime();
     toast(i18n.__("feed"));
     //toast("Feed <i class='cloud upload icon'></i>");    
     var currentTarget = this;
@@ -4763,8 +4870,10 @@ function onClickMyFeed(){
             }
         }
     })
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function showKeywordPopup(){
+    var starttimer = new Date().getTime();
     if(Meteor.status().connected && firstTimeConnectionFlag && !tutorialFlag){
         // if(!DebugFace)
         // $("#searchKeyword").attr("placeholder",i18n.__("enterkeyword"));
@@ -4772,8 +4881,10 @@ function showKeywordPopup(){
         $("#keywordPopup").show();
         firstTimeConnectionFlag = false;
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function searchHash(){
+    var starttimer = new Date().getTime();
   var searchKeyword = $("#searchKeyword").val();
     if(!searchKeyword){
         toast(i18n.__("enterKeyword"));
@@ -4803,6 +4914,7 @@ function searchHash(){
 //   });
 //   $("#keywordPopup").hide(); 
 //   Session.get("searchKeyword",null);
+  MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function onCLickHashGo(){
     $("#searchKeyword").attr("placeholder",i18n.__("enterkeyword"));
@@ -4826,6 +4938,7 @@ function onHelpMenuClick(){
 }
 
 function checkdevice(){
+    var starttimer = new Date().getTime();
     var ua = navigator.userAgent;
     var checker = {
       iphone: ua.match(/(iPhone|iPod|iPad)/),
@@ -4849,6 +4962,7 @@ function checkdevice(){
 }
 var pushId = null;
 function bindEvents(){
+    //var starttimer = new Date().getTime();
     try{
         
         //var currlang=window.localStorage.getItem("lang");
@@ -4972,13 +5086,14 @@ function bindEvents(){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "bindEvents"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "bindEvents"});
     }
-    
+    //MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 } 
 
 ////////////////////////push notification//////////////
 function pushNotifiPopup(pushpic,pushmsg,pushlkid){
+    var starttimer = new Date().getTime();
   console.log("pushNotifiPopup");
     if(pushpic && pushmsg && pushlkid){
         $("#pushnotificationimages").attr("src",pushpic);
@@ -4987,9 +5102,10 @@ function pushNotifiPopup(pushpic,pushmsg,pushlkid){
         $("#pushimagePopUp").css("display","block");
         $("#pushimagePopUp").transition({ "top": "39%" }, 1500);
     }
-
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function OnClickPushImage(event){
+        var starttimer = new Date().getTime();
         var x = event.gesture.center.pageX;
         var y = event.gesture.center.pageY;
         var height = $("#Main").height();
@@ -5011,6 +5127,7 @@ function OnClickPushImage(event){
               $("#pushimagePopUp").css("display","none");
             });
        },3500);
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 ///////////////////////////////////////////////////////////////
 
@@ -5021,11 +5138,13 @@ function onClicklogininstagram(){
   clickOnLoginButton();
 }
 function onClickgoinstaplaystore(){
+    var starttimer = new Date().getTime();
     window.localStorage.setItem("guestid",Session.get("clientid"));
     Session.set("guestid",Session.get("clientid"));
     $("#guestLogin").css("display","none");
     var emailurl = "https://play.google.com/store/apps/details?id=com.instagram.android";
     window.open(emailurl, '_system');
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function section3dragstart(){
   timeoutfeeds=setTimeout(function(){
@@ -5049,6 +5168,7 @@ function section3dragend(){
 //////////////////// SLIDER START //////////////////////////
 
 function promoteProgDrag(event){
+    var starttimer = new Date().getTime();
     var y = event.gesture.center.pageY; 
     var height = $("#Main").height();           
     var bigheight = $("#quadrant").height();           
@@ -5074,9 +5194,11 @@ function promoteProgDrag(event){
             }
         }
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 Meteor.promoteProgDrag=promoteProgDrag;
 function promoteProgDragend(){
+    var starttimer = new Date().getTime();
     try{
         //console.log("promoteProgDragend");
         var cursorVotes=null;
@@ -5106,11 +5228,13 @@ function promoteProgDragend(){
         $("#inner-inner").css({"height":"33px","width":"42px","font-size": "1em"});   
     }catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "promoteProgDragend"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "promoteProgDragend"});
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 Meteor.promoteProgDragend=promoteProgDragend;
 function promoteProgDragstart(event){
+    var starttimer = new Date().getTime();
     event.preventDefault();
     if(event.gesture)
     event.gesture.preventDefault();
@@ -5123,9 +5247,11 @@ function promoteProgDragstart(event){
     //     tutorialJSON.sixth = true;
         
     // },4000);
+  MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 Meteor.promoteProgDragstart=promoteProgDragstart;
 function loveProgDrag(event){
+    var starttimer = new Date().getTime();
     event.preventDefault();
     if(event.gesture)
     event.gesture.preventDefault();
@@ -5149,9 +5275,11 @@ function loveProgDrag(event){
     //     tapBigTutorial(31,31,"Another pic","Tap in feed to select another pic.");
     //     tutorialJSON.seventh = true;
     // },4000);
+  MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 Meteor.loveProgDrag=loveProgDrag;
 function loveProgDragend(event){
+    var starttimer = new Date().getTime();
     // try{
         event.preventDefault();
         if(event.gesture)
@@ -5190,9 +5318,9 @@ function loveProgDragend(event){
         $("#inerhprogressBar").css({"height":"38px","width":"42px","font-size": "large","top": "90%"});
     // }catch(error){
     //     console.log(error);
-    //     ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "loveProgDragend"});
+    //     ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "loveProgDragend"});
     // }
-    
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 Meteor.loveProgDragend=loveProgDragend;
 function loveProgDragstart(){
@@ -5261,6 +5389,7 @@ function getEmailButton(){
 //     // },1000);    
 // }
 function checkOptimized(){
+    var starttimer = new Date().getTime();
     var checkState = window.localStorage.getItem("optimizeLimit");
     var check1 = $("#optimizeCheckBox").prop('checked');
     if(checkState==4){
@@ -5279,8 +5408,10 @@ function checkOptimized(){
         $("#Aggrements").show();
     else
         $("#Aggrements").remove();
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function onOptimize(){
+    var starttimer = new Date().getTime();
     $('.ui.checkbox').checkbox();
     var check = $("#optimizeCheckBox").prop('checked');
     if(check){
@@ -5291,6 +5422,8 @@ function onOptimize(){
         Session.set("limit",4); 
         window.localStorage.setItem("optimizeLimit",4);
     }
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+
 }
 
 /*
@@ -5449,6 +5582,7 @@ function onClickAtButton(){
 }
 
 function groupIds(){
+    var starttimer = new Date().getTime();
     return Session.get("currentBig") +"," +Session.get("clientid");
     var cursorFollowsGroup = FollowsGroup.findOne();
     var string = ""
@@ -5464,6 +5598,7 @@ function groupIds(){
             }
         }
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
     return string;
 }
 function getPicture(){
@@ -5472,6 +5607,7 @@ function getPicture(){
         return cursorFeed.low;
 }
 function emailparse(){
+    var starttimer = new Date().getTime();
     if(DebugFace){
         return "http://localhost:3000/picture/"+Session.get("currentBig");
     }
@@ -5484,6 +5620,7 @@ function emailparse(){
         var emailstring = "http://youtap.meteor.com/" +cursorFollowsGroup._id;
         return emailstring;    
     }
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
     return "Sorry no group email"
 }
 // function vibrateBinding(){
@@ -5536,7 +5673,7 @@ function emailparse(){
 //     }
 //     catch(error){
 //         console.log(error);
-//         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "checkScoreToast"});
+//         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "checkScoreToast"});
 //     }
     
 // }
@@ -6364,6 +6501,7 @@ function tutorialEnds(){
 ///////TOUC//////////
 
 function isTouchDevice(){
+      var starttimer = new Date().getTime();
     /* Added Android 3.0 honeycomb detection because touchscroll.js breaks
         the built in div scrolling of android 3.0 mobile safari browser */
     if((navigator.userAgent.match(/android 2.3/i)) ||
@@ -6379,9 +6517,11 @@ function isTouchDevice(){
     }catch(e){
         return false;
     }
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"isTouchDevice","time":((new Date().getTime())-starttimer)});
 }
 
 function touchScroll(id){
+    var starttimer = new Date().getTime();
     if(isTouchDevice()){ //if touch events exist...
         var el=document.getElementById(id);
         var scrollStartPosY=0;
@@ -6411,6 +6551,7 @@ function touchScroll(id){
             this.scrollLeft=scrollStartPosX-event.touches[0].pageX;
         },false);
     }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"touchScroll","time":((new Date().getTime())-starttimer)});
 }
 
 function bindTouchEvents(){
@@ -6418,6 +6559,7 @@ function bindTouchEvents(){
     // touchScroll("section3");
 }
 function clickOnLoginButton(){
+    var starttimer = new Date().getTime();
     try{
         showLoader("Login Process");
             preLoginAction();            
@@ -6429,6 +6571,7 @@ function clickOnLoginButton(){
     }                
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "loginButton.click"});
-    }           
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "loginButton.click"});
+    }  
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"clickOnLoginButton","time":((new Date().getTime())-starttimer)});         
 }

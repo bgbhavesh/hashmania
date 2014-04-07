@@ -101,7 +101,6 @@ from Youiest LLC.
 //       query.ordered, oldResults, query.results, query);                                               // 886
 //   }                                                                                                   // 887
 // };
-
 App = {};
 
 function sendEmailMailGun(senderName,to,html){

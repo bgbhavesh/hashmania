@@ -13,7 +13,6 @@ http
 templating
 random
 accounts-instagram
-iron-router
 cordova
 phonegap-push
 collectionapi
@@ -30,7 +29,8 @@ livedata
 fast-render
 email
 accounts-facebook
-router
 roles
 accounts-twitter
 accounts-google
+router
+iron-router

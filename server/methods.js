@@ -1466,7 +1466,6 @@ function likesPopularParser(myJson,ids,access){
         console.log("parseFeed end");
     }
         function searchParser(myJson,ids,access,tag){
-            // ids=363620479;
           console.log("search start");
           myJson = myJson.data;
           var data = null;

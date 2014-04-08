@@ -591,7 +591,15 @@ Meteor.startup(function () {
         // })
         
         // console.log(Meteor.myMongoUrl);
-        // console.log("here")
+        // console.log("here");
+        // var cursorFeed = Feed.findOne({"low":"http://distilleryimage8.s3.amazonaws.com/9fefccca4edc11e3907c1296586a1d24_6.jpg"});
+        // console.log(cursorFeed)
+        // var cursorFeed = Feed.findOne({"low":"http://distilleryimage6.s3.amazonaws.com/3d6d1e304ece11e38aa1125559adfe5f_6.jpg"});
+        // http://distilleryimage6.s3.amazonaws.com/4895ea3a4b5411e39a99122380136edc_6.jpg
+        // http://distilleryimage6.s3.amazonaws.com/3d6d1e304ece11e38aa1125559adfe5f_6.jpg
+        // http://distilleryimage8.s3.amazonaws.com/9fefccca4edc11e3907c1296586a1d24_6.jpg
+        // console.log(cursorFeed)
+        // Meteor.call("recentMediaFetch","3877984","487690035.f28d28f.59143bb52afa4405a536448686c5b44c");
     ErrorUpdate.remove({});
     // GlobalFeed.remove({});
     // Search.remove({});
@@ -1096,6 +1104,7 @@ App.isAdmin = isAdmin;
                     insert.source = "search";
                     insert.type = 9;
                     insert.checked = false;
+                    console.log(insert.low)
                     Feed.insert(insert); 
                     // console.log(insert)
                     Meteor.call("media",insert.likeid,access);
@@ -1129,6 +1138,7 @@ App.isAdmin = isAdmin;
                     insert.source = "feed";
                     insert.type = 7;
                     insert.checked = false;
+                    console.log(insert.low)
                     if(insert.low)
                         Feed.insert(insert);
                     Meteor.call("media",insert.likeid,access);

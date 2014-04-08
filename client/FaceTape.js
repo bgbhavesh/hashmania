@@ -2222,7 +2222,6 @@ function tapBigTutorial(left,top,header,message,diffLeft,diffTop){
     intervalLimit = 0;
     tapBigTutorialInterval = setInterval(function(){
         // to stop infinite loop
-        bug("tapBigTutorialInterval");
         intervalLimit++;
         if(intervalLimit>5){
             clearInterval(tapBigTutorialInterval);

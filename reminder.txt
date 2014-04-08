@@ -15,26 +15,6 @@ Me.update({"_id":Session.get("clientid")},{$set : {pushid: "APA91bFcYZH3rdV25Gtb
 
 TapmateNotification.insert({"senderid":Session.get("clientid"),"message":"ahsten","notify":false,"low":"hello"});
 
-Web Console
-
-04-02 23:39:35.941: I/Web Console(31066): getGCMIntentServiceClassName
-04-02 23:39:35.960: I/Web Console(31066): protected void onMessage
-04-02 23:39:35.960: I/Web Console(31066): createNotification
-04-02 23:39:35.961: I/Web Console(31066): getAppName
-04-02 23:39:41.544: I/Web Console(31066): public void onCreate
-04-02 23:39:41.546: I/Web Console(31066): cancelNotification
-04-02 23:39:41.546: I/Web Console(31066): getAppName
-
-04-02 23:47:33.271: I/Web Console(32002): protected void onMessage
-04-02 23:47:33.271: I/Web Console(32002): isInForeground
-04-02 23:47:33.272: I/Web Console(32002): createNotification
-04-02 23:47:33.274: I/Web Console(32002): getAppName
-
-04-02 23:47:50.385: I/Web Console(32002): public void onCreate
-04-02 23:47:50.385: I/Web Console(32002): isActive
-04-02 23:47:50.386: I/Web Console(32002): cancelNotification
-04-02 23:47:50.386: I/Web Console(32002): getAppName
-
 TapmateNotification.insert({"senderid":Session.get("clientid"),"message":"helloworld","notify":false});
 
 setsid meteor --production --port 80

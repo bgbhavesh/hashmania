@@ -1853,7 +1853,6 @@ function getUTCTimestamp(){
 //  CHAT FEATURE
 function doubletapOnFollowsIcons(event,myid,pic){
     var starttimer = new Date().getTime();
-    bug(event,myid);
     clearTimeout(taponfollows);
     var element = this;
     var id = $(element).attr("myid");
@@ -2799,11 +2798,9 @@ function tapOnVoting(event){
     var starttimer = new Date().getTime();
     //console.log(event);
     try{
-        console.log(event);
         var eventType = event.type;
         var followid = $(this).attr("myid");
         var votingid = $(this).attr("votingid");
-        console.log(followid +" " +votingid)
         if(eventType == "doubletap"){
             var left = $(this).offset().left;
             var top = $(this).offset().top;

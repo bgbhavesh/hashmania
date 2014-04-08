@@ -2809,10 +2809,10 @@ function tapOnVoting(event){
             //console.log(followid +" " +Session.get("clientid"))
             if(followid == Session.get("clientid")){
                $("#likeButton").css({"left":left,"top":top ,"display":"block","height":height,"width":width})
-                                .animate({"left":left - 10,"top":top -10,"height":height +50,"width":width +50,"opacity":"1.0"},500)
-                                .animate({"left":left ,"top":top,"height":height ,"width":width,"opacity":"0.5"},500)                                
-                                .animate({"left":left - 10,"top":top -10,"height":height +50,"width":width +50,"opacity":"1.0"},500)
-                                .animate({"left":left ,"top":top,"height":height ,"width":width,"opacity":"1.0"},500);
+                                .transition({"left":left - 10,"top":top -10,"height":height +50,"width":width +50,"opacity":"1.0"},500)
+                                .transition({"left":left ,"top":top,"height":height ,"width":width,"opacity":"0.5"},500)                                
+                                .transition({"left":left - 10,"top":top -10,"height":height +50,"width":width +50,"opacity":"1.0"},500)
+                                .transition({"left":left ,"top":top,"height":height ,"width":width,"opacity":"1.0"},500);
                   faceAwayLikeButton();          
                   faceAwayCommentButton();
                   animateFaceMove(); 
@@ -2824,10 +2824,10 @@ function tapOnVoting(event){
                     if(followid){
                         Session.set("followFollow",followid);
                         $("#followButton").css({"left":left,"top":top ,"display":"block","height":height,"width":width})
-                                        .animate({"left":left - 10,"top":top -10,"height":height +10,"width":width +10,"opacity":"1.0"},500)
-                                        .animate({"left":left ,"top":top,"height":height ,"width":width,"opacity":"0.5"},500)                                
-                                        .animate({"left":left - 10,"top":top -10,"height":height +10,"width":width +10,"opacity":"1.0"},500)
-                                        .animate({"left":left ,"top":top,"height":height ,"width":width,"opacity":"1.0"},500);
+                                        .transition({"left":left - 10,"top":top -10,"height":height +10,"width":width +10,"opacity":"1.0"},500)
+                                        .transition({"left":left ,"top":top,"height":height ,"width":width,"opacity":"0.5"},500)                                
+                                        .transition({"left":left - 10,"top":top -10,"height":height +10,"width":width +10,"opacity":"1.0"},500)
+                                        .transition({"left":left ,"top":top,"height":height ,"width":width,"opacity":"1.0"},500);
                         faceAwayFollowButton();
                         followOnInstagram();
                         addFollowPic();
@@ -3055,13 +3055,17 @@ function fitTextFunction(parent,child,fontSize){
 // } 
 var defaultFeedArray = 
 [
-{likeid: "691032419692359525_37750682",low: "http://distilleryimage6.s3.amazonaws.com/948418cabbcc11e3a3f60002c95277aa_6.jpg"},
-{likeid: "691026504198489446_8317144",low: "http://distilleryimage6.s3.amazonaws.com/5875c974bbcb11e3a24c0ecc2592af6a_6.jpg"},
-{likeid: "691008099114745945_228247495",low: "http://distilleryimage10.s3.amazonaws.com/0436117abbc611e380b112526226ab9e_6.jpg"},
-{likeid: "691008604627071900_185480571",low: "http://distilleryimage4.s3.amazonaws.com/6cad0326bbc611e38bf00002c9e105bc_6.jpg"},
-{likeid: "691010334359923067_22932409",low: "http://distilleryimage2.s3.amazonaws.com/e7565b36bbc611e3b89c1203f21acad2_6.jpg"},
-{likeid: "690990821358561033_12577168",low: "http://distilleryimage0.s3.amazonaws.com/dd9781a2bbc011e3a1650002c9d7d580_6.jpg"},
-{likeid: "690972133838346432_13582101",low: "http://distilleryimage6.s3.amazonaws.com/34b82400bbbc11e3865612ea7aa1741a_6.jpg"},
+{likeid: "662341395520389209_363620479",low: "http://distilleryimage0.s3.amazonaws.com/1f5c982a9cae11e3b4f00e8811d39b04_6.jpg"},
+{likeid: "594764576135283612_363620479",low: "http://distilleryimage0.s3.amazonaws.com/57ec1704536d11e3b8cd1227d7fa1b14_6.jpg"},
+{likeid: "586163271886612245_3877984",low: "http://distilleryimage9.s3.amazonaws.com/007eebd84a1a11e381410e5cd106ae28_6.jpg"},
+{likeid: "586216653187884167_3877984",low: "http://distilleryimage11.s3.amazonaws.com/d1772b024a2811e38f3c0ab06fdbedbd_6.jpg"},
+// {likeid: "691032419692359525_37750682",low: "http://distilleryimage6.s3.amazonaws.com/948418cabbcc11e3a3f60002c95277aa_6.jpg"},
+// {likeid: "691026504198489446_8317144",low: "http://distilleryimage6.s3.amazonaws.com/5875c974bbcb11e3a24c0ecc2592af6a_6.jpg"},
+// {likeid: "691008099114745945_228247495",low: "http://distilleryimage10.s3.amazonaws.com/0436117abbc611e380b112526226ab9e_6.jpg"},
+// {likeid: "691008604627071900_185480571",low: "http://distilleryimage4.s3.amazonaws.com/6cad0326bbc611e38bf00002c9e105bc_6.jpg"},
+// {likeid: "691010334359923067_22932409",low: "http://distilleryimage2.s3.amazonaws.com/e7565b36bbc611e3b89c1203f21acad2_6.jpg"},
+// {likeid: "690990821358561033_12577168",low: "http://distilleryimage0.s3.amazonaws.com/dd9781a2bbc011e3a1650002c9d7d580_6.jpg"},
+// {likeid: "690972133838346432_13582101",low: "http://distilleryimage6.s3.amazonaws.com/34b82400bbbc11e3865612ea7aa1741a_6.jpg"},
 ]
 function defaultfeeds(){
     var starttimer = new Date().getTime();
@@ -3480,7 +3484,7 @@ function swipeLeft(){
         $(swipeClone).stop().css({"z-index":"5","opacity":"1.0"});    
         
         $("#section4").prepend(swipeClone);
-        $(swipeClone).stop().animate({"left":"-100%"},"slow","easeOutBounce",function(){
+        $(swipeClone).stop().transition({"left":"-100%"},"slow","easeOutBounce",function(){
             $(swipeClone).remove();
             swipeClone = null;
             //animateQuadrantPics();
@@ -3531,7 +3535,7 @@ function swipeRight(){
     
         $(swipeClone).stop().css({"z-index":"5","opacity":"1.0"});       
         $("#section4").prepend(swipeClone);
-        $(swipeClone).stop().animate({"left":"100%"},"slow","easeOutBounce",function(){        
+        $(swipeClone).stop().transition({"left":"100%"},"slow","easeOutBounce",function(){        
             $(swipeClone).remove();
             swipeClone = null;
             //animateQuadrantPics();
@@ -6199,14 +6203,14 @@ function snapy(){
 }
 function openCloseSnapLeft(){
     if(snapLeftFlag){        
-        $("#snapy").animate({"left":"-90%"});
-        $("#beforeLogin").animate({"left":"0%"});
-        $("#snapButton").animate({"left":"0%"});
+        $("#snapy").transition({"left":"-90%"});
+        $("#beforeLogin").transition({"left":"0%"});
+        $("#snapButton").transition({"left":"0%"});
     }
     else{
-      $("#snapy").animate({"left":"0%"});
-      $("#beforeLogin").animate({"left":"90%"});
-      $("#snapButton").animate({"left":"90%"});
+      $("#snapy").transition({"left":"0%"});
+      $("#beforeLogin").transition({"left":"90%"});
+      $("#snapButton").transition({"left":"90%"});
       followsFlag = true;
       openCloseFollows();
 
@@ -6219,14 +6223,14 @@ function snapy(){
 }
 function openCloseSnapRight(){
     if(snapRightFlag){        
-        $("#snapy").animate({"left":"-90%"});
-        $("#beforeLogin").animate({"left":"0%"});
-        $("#snapButton").animate({"left":"0%"});
+        $("#snapy").transition({"left":"-90%"});
+        $("#beforeLogin").transition({"left":"0%"});
+        $("#snapButton").transition({"left":"0%"});
     }
     else{
-      $("#snapy").animate({"left":"0%"});
-      $("#beforeLogin").animate({"left":"90%"});
-      $("#snapButton").animate({"left":"90%"});
+      $("#snapy").transition({"left":"0%"});
+      $("#beforeLogin").transition({"left":"90%"});
+      $("#snapButton").transition({"left":"90%"});
 
     }
     snapRightFlag = !snapRightFlag;
@@ -6234,14 +6238,14 @@ function openCloseSnapRight(){
 var followsFlag = false;
 function openCloseFollows(){
     if(followsFlag){
-        $("#section2").animate({"left":"100%"});
-        $("#currentFollow").animate({"right":"0px"});
-        $("#openclosearrow").attr("class","left arrow icon");
+        $("#section2").transition({"left":"100%"});
+        $("#currentFollow").transition({"right":"0px"});
+        $("#openclosearrow").animate("class","left arrow icon");
     }
     else{
-        $("#section2").animate({"left":"28%"});
-        $("#currentFollow").animate({"right":"72%"});
-        $("#openclosearrow").attr("class","right arrow icon");
+        $("#section2").transition({"left":"28%"});
+        $("#currentFollow").transition({"right":"72%"});
+        $("#openclosearrow").animate("class","right arrow icon");
         if(tutorialJSON.fifth && !tutorialJSON.sixth){
             semanticpopup(82,36,"Users",i18n.__("urfriends"));
             clearInterval(tapBigTutorialInterval);

@@ -901,7 +901,7 @@ function pushToUser(registrationid,mymessage,type,low,likeid){
     // }
     // if(type == "android"){
         //console.log(registrationid);
-        registrationid = "APA91bFcYZH3rdV25Gtbp0AOIFkjlmx5AVUv7-SDpoLaEwMvt4GlxY5nqZTZgfcLEGt-jnWg_5Q5FoMnnxkmGntRyTKDS0-2I71oV8MKKWpZAAovORi1THRcXbE3iKenzGoqyxa4Vq39j1kfJVNeH9Ryvgio9fTSzxJ9zsZ_J5a6h_dC5OgWbtw"
+        // registrationid = "APA91bFcYZH3rdV25Gtbp0AOIFkjlmx5AVUv7-SDpoLaEwMvt4GlxY5nqZTZgfcLEGt-jnWg_5Q5FoMnnxkmGntRyTKDS0-2I71oV8MKKWpZAAovORi1THRcXbE3iKenzGoqyxa4Vq39j1kfJVNeH9Ryvgio9fTSzxJ9zsZ_J5a6h_dC5OgWbtw"
         var registerid = [];
         registerid.push(registrationid);
        

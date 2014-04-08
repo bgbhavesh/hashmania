@@ -1,0 +1,11 @@
+{
+    "public": {
+        "nicolson" : "helloworld",
+        "redirect" : "http://meteor.nicolsondsouza.com/_oauth/instagram?close=close&response_type=code",
+        "clientid" : "6d5802dccf124f559cf44f0cb03f2b76",
+        "secret" : "0c899fa82df747eaa385d9389f31c98c",
+        "DDP" : "http://meteor.nicolsondsouza.com",
+        "redirectServer" : "http://meteor.nicolsondsouza.com/_oauth/instagram?close=close"
+
+    }
+}

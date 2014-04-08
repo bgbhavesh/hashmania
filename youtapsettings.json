@@ -1,0 +1,11 @@
+{
+    "public": {
+        "nicolson" : "helloworld",
+        "redirect" : "http://youtap.meteor.com/_oauth/instagram?close=close&response_type=code",
+        "clientid" : "6bda8578dd0f4cc2bdfcaa225c72889e",
+        "secret" : "bb5e315798e64bcb926d12c1519e0d62",
+        "DDP" : "ddp+sockjs://ddp--****-youtap.meteor.com/sockjs",
+        "redirectServer" : "http://youtap.meteor.com/_oauth/instagram?close=close"
+
+    }
+}

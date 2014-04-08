@@ -1129,7 +1129,8 @@ App.isAdmin = isAdmin;
                     insert.source = "feed";
                     insert.type = 7;
                     insert.checked = false;
-                    Feed.insert(insert);
+                    if(insert.low)
+                        Feed.insert(insert);
                     Meteor.call("media",insert.likeid,access);
                 }
                 //Something more.

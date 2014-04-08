@@ -704,7 +704,7 @@ Meteor.documentReady = documentReady;
                 removeCursor(this._id);            
         },
         "error .feed img" : function(event){
-            // console.log(event);
+            console.log(event);
             if(Meteor.status().connected)
                 removeCursor(this._id);   
         }
@@ -3058,31 +3058,28 @@ var defaultFeedArray =
 {likeid: "662341395520389209_363620479",low: "http://distilleryimage0.s3.amazonaws.com/1f5c982a9cae11e3b4f00e8811d39b04_6.jpg"},
 {likeid: "594764576135283612_363620479",low: "http://distilleryimage0.s3.amazonaws.com/57ec1704536d11e3b8cd1227d7fa1b14_6.jpg"},
 {likeid: "586163271886612245_3877984",low: "http://distilleryimage9.s3.amazonaws.com/007eebd84a1a11e381410e5cd106ae28_6.jpg"},
-{likeid: "586216653187884167_3877984",low: "http://distilleryimage11.s3.amazonaws.com/d1772b024a2811e38f3c0ab06fdbedbd_6.jpg"},
-// {likeid: "691032419692359525_37750682",low: "http://distilleryimage6.s3.amazonaws.com/948418cabbcc11e3a3f60002c95277aa_6.jpg"},
-// {likeid: "691026504198489446_8317144",low: "http://distilleryimage6.s3.amazonaws.com/5875c974bbcb11e3a24c0ecc2592af6a_6.jpg"},
-// {likeid: "691008099114745945_228247495",low: "http://distilleryimage10.s3.amazonaws.com/0436117abbc611e380b112526226ab9e_6.jpg"},
-// {likeid: "691008604627071900_185480571",low: "http://distilleryimage4.s3.amazonaws.com/6cad0326bbc611e38bf00002c9e105bc_6.jpg"},
-// {likeid: "691010334359923067_22932409",low: "http://distilleryimage2.s3.amazonaws.com/e7565b36bbc611e3b89c1203f21acad2_6.jpg"},
-// {likeid: "690990821358561033_12577168",low: "http://distilleryimage0.s3.amazonaws.com/dd9781a2bbc011e3a1650002c9d7d580_6.jpg"},
-// {likeid: "690972133838346432_13582101",low: "http://distilleryimage6.s3.amazonaws.com/34b82400bbbc11e3865612ea7aa1741a_6.jpg"},
+{likeid: "586216653187884167_3877984",low: "http://distilleryimage11.s3.amazonaws.com/d1772b024a2811e38f3c0ab06fdbedbd_6.jpg"}
 ]
 function defaultfeeds(){
     var starttimer = new Date().getTime();
-    defaultFeedArray = [];
-    return;
-    for(var i=0,il=defaultFeedArray.length;i<il;i++){
-        var insert = defaultFeedArray[i];
-        insert.date = new Date().getTime();
-        insert.display = "y";
-        insert.type = 1;
-        insert.checked = false;
-        insert.source = "preload";
-        insert.clientid = Session.get("clientid");
-        insert.checked = false;
-        Feed.insert(insert);
+    var preload = null;
+    preload = get("preload");
+    if(!preload){
+        for(var i=0,il=defaultFeedArray.length;i<il;i++){
+            var insert = defaultFeedArray[i];
+            insert.date = new Date().getTime();
+            insert.display = "y";
+            insert.type = 1;
+            insert.checked = false;
+            insert.source = "preload";
+            insert.clientid = Session.get("clientid");
+            insert.checked = false;
+            Feed.insert(insert);
+        }
+        set("preload",true);
     }
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+    
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"defaultfeeds","time":((new Date().getTime())-starttimer)});
 }
 function logOutUser(){
     var starttimer = new Date().getTime();

@@ -1010,7 +1010,7 @@ Meteor.documentReady = documentReady;
         try{
             if(Session.get("currentBig") && tapOnFeedFlag){
                 // $(".bigFeed").css({"opacity":"0.0"});
-                // $(".bigFeed").transition({"opacity":"1.0"},1000,"easeOutBounce");
+                // $(".bigFeed").animate({"opacity":"1.0"},1000,"easeOutBounce");
                 // $(".bigFeed").css({"z-index":"0"}) 
                 // animateQuadrantPicsOnTap();           
                 tapOnFeedFlag = false;
@@ -1909,8 +1909,8 @@ function tapOnGroup(){
                 return;
             }
             openCloseFollows();
-            // $("#section2").transition({"left":"100%"});
-            // $("#currentFollow").transition({"right":"0px"});
+            // $("#section2").animate({"left":"100%"});
+            // $("#currentFollow").animate({"right":"0px"});
             // $("#openclosearrow").attr("class","left arrow icon");
             $(".currentFollowimg").attr("src","./images/group.png");
           },2000);
@@ -2193,10 +2193,10 @@ function tapBigTutorial(left,top,header,message,diffLeft,diffTop){
             return;
         }
         $("#tap").css({"display":"block","left":left +"%","top":top +"%"})
-            .transition({"left":left-5 +"%","top":top-5 +"%","height":height +50+"px","width":width +50 +"px"},800,"easeOutBounce")
-            .transition({"left":left +"%","top":top +"%","height":height +"px","width":width +"px"},100,"easeOutBounce")
-            .transition({"left":left-5 +"%","top":top-5 +"%","height":height +50+"px","width":width +50 +"px"},800,"easeOutBounce")
-            .transition({"left":left +"%","top":top +"%","height":height +"px","width":width  +"px"},100,"easeOutBounce",function(){
+            .animate({"left":left-5 +"%","top":top-5 +"%","height":height +50+"px","width":width +50 +"px"},800,"easeOutBounce")
+            .animate({"left":left +"%","top":top +"%","height":height +"px","width":width +"px"},100,"easeOutBounce")
+            .animate({"left":left-5 +"%","top":top-5 +"%","height":height +50+"px","width":width +50 +"px"},800,"easeOutBounce")
+            .animate({"left":left +"%","top":top +"%","height":height +"px","width":width  +"px"},100,"easeOutBounce",function(){
                 $("#tap").css({"display":"none"})
             });
     },4000)
@@ -2208,10 +2208,10 @@ function tapBigTutorial(left,top,header,message,diffLeft,diffTop){
 function tapOnFeed(event){
     try{
         Session.set("activeFollows",Session.get("clientid"));
-        $("#outer").transition({"opacity":"0.0"},500,"linear")
-        $("#hprogressBar").transition({"opacity":"0.0"},500,"linear")
-        $("#inner-inner").transition({"opacity":"0.0"},500,"linear")
-        $("#inerhprogressBar").transition({"opacity":"0.0"},500,"linear")
+        $("#outer").animate({"opacity":"0.0"},500,"linear")
+        $("#hprogressBar").animate({"opacity":"0.0"},500,"linear")
+        $("#inner-inner").animate({"opacity":"0.0"},500,"linear")
+        $("#inerhprogressBar").animate({"opacity":"0.0"},500,"linear")
         followSelectPosition = 0;
         var sectionActive = $(".likeActive").removeClass("likeActive");
         $(this).addClass("likeActive");
@@ -2304,31 +2304,31 @@ function tapOnFeed(event){
 }
 function progress1(percent, $element, percent1, $element1) {
         $("#outer")
-        .transition({"opacity":"1.0"},100,"linear")
+        .animate({"opacity":"1.0"},100,"linear")
         $(".inner")
-        .transition({"opacity":"1.0"},100,"linear")
+        .animate({"opacity":"1.0"},100,"linear")
         $("#hprogressBar")
-        .transition({"opacity":"1.0"},100,"linear")
+        .animate({"opacity":"1.0"},100,"linear")
         $("#inner-inner")
-        .transition({"opacity":"1.0"},100,"linear")
+        .animate({"opacity":"1.0"},100,"linear")
         promoteper=100-(percent1-63);
         cursorlove=percent1-70;
         $(".inner").css("height","0%")
-        $(".inner").transition({ "height": promoteper + "%" }, 800);
+        $(".inner").animate({ "height": promoteper + "%" }, 800);
         $("#inner-inner").css("top","100%")
-        $("#inner-inner").transition({ "top": cursorlove + "%" }, 750);
+        $("#inner-inner").animate({ "top": cursorlove + "%" }, 750);
         $("#inerhprogressBar").css("left","0%");
         $element.find('div').css("width","0%");
         setTimeout(function(){
               $("#hprogressBar div")
-              //.transition({"opacity":"0.0"},500,"linear")
-              .transition({"opacity":"1.0"},100,"linear")
+              //.animate({"opacity":"0.0"},500,"linear")
+              .animate({"opacity":"1.0"},100,"linear")
                $("#inerhprogressBar")
-              //.transition({"opacity":"0.0"},1,"linear")
-              .transition({"opacity":"1.0"},100,"linear")
+              //.animate({"opacity":"0.0"},1,"linear")
+              .animate({"opacity":"1.0"},100,"linear")
               var hprogressBar = percent +2;
-              $("#inerhprogressBar").transition({ left: hprogressBar + "%" }, 800);
-              $element.find('div').transition({ width: hprogressBar + "%" }, 800);
+              $("#inerhprogressBar").animate({ left: hprogressBar + "%" }, 800);
+              $element.find('div').animate({ width: hprogressBar + "%" }, 800);
         },1500);
         
 }
@@ -2642,10 +2642,10 @@ function checkQuadrant(left,top,flag){
     // console.log($(".mainQuadrant")[quad]);
     // console.log(quad)
     $($(".mainQuadrant")[quad])
-    .transition({"opacity":"1.0"},500,"linear")
-    .transition({"opacity":"0.0"},500,"linear")
-    .transition({"opacity":"1.0"},500,"linear")
-    .transition({"opacity":"0.0"},500,"linear"); 
+    .animate({"opacity":"1.0"},500,"linear")
+    .animate({"opacity":"0.0"},500,"linear")
+    .animate({"opacity":"1.0"},500,"linear")
+    .animate({"opacity":"0.0"},500,"linear"); 
     checkQuadrantTimeOut = setTimeout(function(){$("#loveQuadrant,#promoteQuadrant").css({"opacity":"0.0"})},2000)
     return quad;   
 }
@@ -2745,11 +2745,9 @@ function holdOnVoting(event){
 }
 function tapOnVoting(event){
     try{
-        console.log(event);
         var eventType = event.type;
         var followid = $(this).attr("myid");
         var votingid = $(this).attr("votingid");
-        console.log(followid +" " +votingid)
         if(eventType == "doubletap"){
             var left = $(this).offset().left;
             var top = $(this).offset().top;
@@ -2759,10 +2757,10 @@ function tapOnVoting(event){
             //console.log(followid +" " +Session.get("clientid"))
             if(followid == Session.get("clientid")){
                $("#likeButton").css({"left":left,"top":top ,"display":"block","height":height,"width":width})
-                                .transition({"left":left - 10,"top":top -10,"height":height +50,"width":width +50,"opacity":"1.0"},500)
-                                .transition({"left":left ,"top":top,"height":height ,"width":width,"opacity":"0.5"},500)                                
-                                .transition({"left":left - 10,"top":top -10,"height":height +50,"width":width +50,"opacity":"1.0"},500)
-                                .transition({"left":left ,"top":top,"height":height ,"width":width,"opacity":"1.0"},500);
+                                .animate({"left":left - 10,"top":top -10,"height":height +50,"width":width +50,"opacity":"1.0"},500)
+                                .animate({"left":left ,"top":top,"height":height ,"width":width,"opacity":"0.5"},500)                                
+                                .animate({"left":left - 10,"top":top -10,"height":height +50,"width":width +50,"opacity":"1.0"},500)
+                                .animate({"left":left ,"top":top,"height":height ,"width":width,"opacity":"1.0"},500);
                   faceAwayLikeButton();          
                   faceAwayCommentButton();
                   animateFaceMove(); 
@@ -2774,10 +2772,10 @@ function tapOnVoting(event){
                     if(followid){
                         Session.set("followFollow",followid);
                         $("#followButton").css({"left":left,"top":top ,"display":"block","height":height,"width":width})
-                                        .transition({"left":left - 10,"top":top -10,"height":height +10,"width":width +10,"opacity":"1.0"},500)
-                                        .transition({"left":left ,"top":top,"height":height ,"width":width,"opacity":"0.5"},500)                                
-                                        .transition({"left":left - 10,"top":top -10,"height":height +10,"width":width +10,"opacity":"1.0"},500)
-                                        .transition({"left":left ,"top":top,"height":height ,"width":width,"opacity":"1.0"},500);
+                                        .animate({"left":left - 10,"top":top -10,"height":height +10,"width":width +10,"opacity":"1.0"},500)
+                                        .animate({"left":left ,"top":top,"height":height ,"width":width,"opacity":"0.5"},500)                                
+                                        .animate({"left":left - 10,"top":top -10,"height":height +10,"width":width +10,"opacity":"1.0"},500)
+                                        .animate({"left":left ,"top":top,"height":height ,"width":width,"opacity":"1.0"},500);
                         faceAwayFollowButton();
                         followOnInstagram();
                         addFollowPic();
@@ -3163,8 +3161,8 @@ function followOnInstagram(){
 }
 var buttonCloneArray = [];
 function finishAnimateVotes(){
-    $(".recomm").transition({"height":"40px","width":"60px"}) // 40 60
-                $(".voting").transition({"height":"40px","width":"40px"}) // 40 40
+    $(".recomm").animate({"height":"40px","width":"60px"}) // 40 60
+                $(".voting").animate({"height":"40px","width":"40px"}) // 40 40
 
                 $(".voting").each(function(index,element){
                     // console.log(element);
@@ -3207,7 +3205,7 @@ function finishAnimateVotes(){
         
 //         // $(element).css({"left":"0%","top":"40%","width":"100%","height":"50%"});   
 //         $(element).css({"left":"45%","top":"-10%"});   
-//         $(element).transition({"left":left,"top":top,"height":"80px","width":"80px"},1000,"easeOutBounce",function(){
+//         $(element).animate({"left":left,"top":top,"height":"80px","width":"80px"},1000,"easeOutBounce",function(){
 //             //console.log(element);
 //             if(type == "voting"){
 //                 $(element).hammer().on("doubletap",tapOnVoting);
@@ -3251,8 +3249,8 @@ function finishAnimateVotes(){
 // }
 function animateFaceMove(){
     $("#overlay").show();
-    $("#moveFace").transition({"top":"70%"},1000,"easeOutBounce",function(){
-        $("#moveFace").transition({"top":"20%"},1000,"easeOutBounce",function(){
+    $("#moveFace").animate({"top":"70%"},1000,"easeOutBounce",function(){
+        $("#moveFace").animate({"top":"20%"},1000,"easeOutBounce",function(){
         });
     });
 }
@@ -3339,8 +3337,8 @@ var quadrantRollOutCount = 0;
 //         $("#wrapperSec").append(bigClone);
 //         $(bigClone).removeAttr("class").css({"position":"absolute","z-index":"99","left":$(ele).offset().left,"top":$(ele).offset().top});
         
-//         $(bigClone).transition({"left":"0%","top":"40%","height":"60%","width":"100%"},"slow","easeOutBounce",function(){
-//             $(bigClone).transition({"opacity":"0.0"},"slow","easeOutBounce",function(){
+//         $(bigClone).animate({"left":"0%","top":"40%","height":"60%","width":"100%"},"slow","easeOutBounce",function(){
+//             $(bigClone).animate({"opacity":"0.0"},"slow","easeOutBounce",function(){
 //                 $(".bigFeed").css({"opacity":"1"});
 //                 $(bigClone).remove();
 //                 bigClone = null;    
@@ -3411,7 +3409,7 @@ function swipeLeft(){
         $(swipeClone).stop().css({"z-index":"5","opacity":"1.0"});    
         
         $("#section4").prepend(swipeClone);
-        $(swipeClone).stop().transition({"left":"-100%"},"slow","easeOutBounce",function(){
+        $(swipeClone).stop().animate({"left":"-100%"},"slow","easeOutBounce",function(){
             $(swipeClone).remove();
             swipeClone = null;
             //animateQuadrantPics();
@@ -3460,7 +3458,7 @@ function swipeRight(){
     
         $(swipeClone).stop().css({"z-index":"5","opacity":"1.0"});       
         $("#section4").prepend(swipeClone);
-        $(swipeClone).stop().transition({"left":"100%"},"slow","easeOutBounce",function(){        
+        $(swipeClone).stop().animate({"left":"100%"},"slow","easeOutBounce",function(){        
             $(swipeClone).remove();
             swipeClone = null;
             //animateQuadrantPics();
@@ -3625,7 +3623,7 @@ function onOnline(){
 function onLoginWithApp(){ 
     $("#form").css("top","0%")
     $("#form").show();  
-    $("#form").transition({ "top": "43%" }, 700);   
+    $("#form").animate({ "top": "43%" }, 700);   
     // $(this).attr
 }
 
@@ -4235,10 +4233,10 @@ function onClickContactUsButton(){
     openCloseSnapLeft();
     $("#ContactUsPopUp").css("top","0%")
     $("#ContactUsPopUp").show();  
-    $("#ContactUsPopUp").transition({ "top": "50%" }, 900);
+    $("#ContactUsPopUp").animate({ "top": "50%" }, 900);
 }
 function hideLoginForm(){
-    $("#loginform").transition({ "top": "100%" }, 700,function(){
+    $("#loginform").animate({ "top": "100%" }, 700,function(){
         $("#loginform").hide();
     });
     
@@ -4251,7 +4249,7 @@ function onClickAboutUsButton(){
     openCloseSnapLeft();
     $("#AboutUsPopUp").css("top","0%")
     $("#AboutUsPopUp").show();  
-    $("#AboutUsPopUp").transition({ "top": "50%" }, 700);
+    $("#AboutUsPopUp").animate({ "top": "50%" }, 700);
 }
 var languageArray = [
                         ["ar","Arabic"],
@@ -4274,10 +4272,10 @@ function onClicklanguageButton(){
     openCloseSnapLeft();
     $("#language").css("top","0%")
     $("#language").show();  
-    $("#language").transition({ "top": "25%" }, 900);
+    $("#language").animate({ "top": "25%" }, 900);
 }
 function hideAboutForm(){
-    $("#AboutUsPopUp").transition({ "top": "100%" }, 700,function(){
+    $("#AboutUsPopUp").animate({ "top": "100%" }, 700,function(){
         $("#AboutUsPopUp").hide();
     });
 }
@@ -4331,10 +4329,10 @@ function toastQueuing(){
         }
         else{
             
-            $("#headerSection").stop().transition({"top":"-10%"},500,function(){
+            $("#headerSection").stop().animate({"top":"-10%"},500,function(){
                 $("#toastArea").html(message).css({"display":"block"});
                 Meteor.setTimeout(function(){
-                                        $("#headerSection").transition({"top":"0%"},500,function(){
+                                        $("#headerSection").animate({"top":"0%"},500,function(){
                                             toastStartFlag= false;toastQueuing();});$("#toastArea").css({"display":"none"}) 
                                 },2500);
             });  
@@ -4730,7 +4728,7 @@ jQuery.fn.shake = function() {
     this.each(function(i) {
         $(this).css({ "position" : "relative" });
         for (var x = 1; x <= 3; x++) {
-            $(this).transition({ left: -25 }, 10).transition({ left: 0 }, 50).transition({ left: 25 }, 10).transition({ left: 0 }, 50);
+            $(this).animate({ left: -25 }, 10).animate({ left: 0 }, 50).animate({ left: 25 }, 10).animate({ left: 0 }, 50);
         }
     });
     return this;
@@ -4809,10 +4807,10 @@ function onCLickHashGo(){
     $("#searchKeyword").attr("placeholder",i18n.__("enterkeyword"));
     $("#keywordPopup").css("top","0%")
     $("#keywordPopup").show();  
-    $("#keywordPopup").transition({ "top": "43%" }, 700);
+    $("#keywordPopup").animate({ "top": "43%" }, 700);
 }
 function onClickHashGoCancel(){
-    $("#keywordPopup").transition({ "top": "100%" }, 700,function(){
+    $("#keywordPopup").animate({ "top": "100%" }, 700,function(){
       $("#keywordPopup").hide();
     });
     Session.get("searchKeyword",null);
@@ -4986,7 +4984,7 @@ function pushNotifiPopup(pushpic,pushmsg,pushlkid){
         $("#pushtext").html(pushmsg);
         $("#pushimagePopUp").css("top","0%")
         $("#pushimagePopUp").css("display","block");
-        $("#pushimagePopUp").transition({ "top": "39%" }, 1500);
+        $("#pushimagePopUp").animate({ "top": "39%" }, 1500);
     }
 
 }
@@ -5008,7 +5006,7 @@ function OnClickPushImage(event){
         Session.set("currentBig",pushlkid)  
         setTimeout(function(){
             $(".voting").css("display","none");
-            $("#pushimagePopUp").transition({ "top": "100%" }, 700,function(){
+            $("#pushimagePopUp").animate({ "top": "100%" }, 700,function(){
               $("#pushimagePopUp").css("display","none");
             });
        },3500);
@@ -5031,7 +5029,7 @@ function onClickgoinstaplaystore(){
 function section3dragstart(){
   timeoutfeeds=setTimeout(function(){
     $("#section3").css({"z-index":"5"});
-    $("#section3").transition({"height":"50%"});
+    $("#section3").animate({"height":"50%"});
   },400);
   
 }
@@ -5039,7 +5037,7 @@ function section3dragend(){
   clearTimeout(timeoutfeeds);
 
   setTimeout(function(){
-    $("#section3").transition({"height":"32%"});
+    $("#section3").animate({"height":"32%"});
   },2500);
   setTimeout(function(){
     $("#section3").css({"z-index":"0"});
@@ -5116,7 +5114,7 @@ function promoteProgDragstart(event){
     if(event.gesture)
     event.gesture.preventDefault();
     $("#inner-inner").css({"height":"65px","width":"78px","font-size": "2em"});
-    $("#outer").transition({"opacity":"1.0"},500,"linear");
+    $("#outer").animate({"opacity":"1.0"},500,"linear");
     // if(tutorialJSON.fifth && !tutorialJSON.sixth)
     // setTimeout(function(){
     //     var d = getLeftTop("#inerhprogressBar");
@@ -5223,14 +5221,14 @@ function getEmailButton(){
 //         $('#section2Label').addClass('likeActive')
 
 //         // polish this later, but simply needs to be a toogle 
-//         $("#section2").transition({"height":"45%"},500,function(){});
-//         $("#groupDiv").transition({"height":"45%"},500,function(){});
+//         $("#section2").animate({"height":"45%"},500,function(){});
+//         $("#groupDiv").animate({"height":"45%"},500,function(){});
 //     }else{
-//         $("#section2").transition({"height":"15%"},500,function(){
+//         $("#section2").animate({"height":"15%"},500,function(){
 //             $("#section2").css("z-index","0");
 //             $('#section2Label').removeClass('likeActive')
 //         });
-//         $("#groupDiv").transition({"height":"15%"},500,function(){
+//         $("#groupDiv").animate({"height":"15%"},500,function(){
             
 //         });
 //     }
@@ -5245,12 +5243,12 @@ function getEmailButton(){
 //   return;
 //     if(toggleFeedsFlag){
 //         $("#section3").css("z-index","3");
-//         $("#section3").transition({"height":"45%"},500,function(){
+//         $("#section3").animate({"height":"45%"},500,function(){
 //             $('#section3Label').addClass('likeActive')
 //             //setTimeout(toggleFeeds,500);
 //         });
 //     }else{
-//         $("#section3").transition({"height":"15%"},500,function(){
+//         $("#section3").animate({"height":"15%"},500,function(){
 //             $("#section3").css("z-index","0");
 //             $('#section3Label').removeClass('likeActive')
 //         });
@@ -5438,7 +5436,7 @@ function showRestartWalkthrough(){
 //         }
 //     }   
 //     //if(f == "o"){
-//         // $("#snapy").transition({"left":"0%"},"slow","easeOutBounce");
+//         // $("#snapy").animate({"left":"0%"},"slow","easeOutBounce");
 //         // //$("#snapy").css("width","0%");
     
 // }
@@ -5545,7 +5543,7 @@ jQuery.fn.shake = function() {
     this.each(function(i) {
         $(this).css({ "position": "relative" });
         for (var x = 1; x <= 3; x++) {
-            $(this).transition({ left: -25 }, 10).transition({ left: 0 }, 50).transition({ left: 25 }, 10).transition({ left: 0 }, 50);
+            $(this).animate({ left: -25 }, 10).animate({ left: 0 }, 50).animate({ left: 25 }, 10).animate({ left: 0 }, 50);
         }
     });
     return this;
@@ -5766,7 +5764,7 @@ function tapYourFeedsStarter(){
 function tapYourFeeds(){
     $("#walkthroughMessage").html("Tap on a picture in your feed. <br> So that it gets big.");
     $("#walkthroughMessage").show("slow");
-    $("#tap").transition({"left": "32%","top": "34%"},"1000","linear");
+    $("#tap").animate({"left": "32%","top": "34%"},"1000","linear");
     $(".feed:first").hammer().on("tap",tapYourFace);
 }
 function tapYourFace(){
@@ -6065,14 +6063,14 @@ function snapy(){
 }
 function openCloseSnapLeft(){
     if(snapLeftFlag){        
-        $("#snapy").transition({"left":"-90%"});
-        $("#beforeLogin").transition({"left":"0%"});
-        $("#snapButton").transition({"left":"0%"});
+        $("#snapy").animate({"left":"-90%"});
+        $("#beforeLogin").animate({"left":"0%"});
+        $("#snapButton").animate({"left":"0%"});
     }
     else{
-      $("#snapy").transition({"left":"0%"});
-      $("#beforeLogin").transition({"left":"90%"});
-      $("#snapButton").transition({"left":"90%"});
+      $("#snapy").animate({"left":"0%"});
+      $("#beforeLogin").animate({"left":"90%"});
+      $("#snapButton").animate({"left":"90%"});
       followsFlag = true;
       openCloseFollows();
 
@@ -6085,14 +6083,14 @@ function snapy(){
 }
 function openCloseSnapRight(){
     if(snapRightFlag){        
-        $("#snapy").transition({"left":"-90%"});
-        $("#beforeLogin").transition({"left":"0%"});
-        $("#snapButton").transition({"left":"0%"});
+        $("#snapy").animate({"left":"-90%"});
+        $("#beforeLogin").animate({"left":"0%"});
+        $("#snapButton").animate({"left":"0%"});
     }
     else{
-      $("#snapy").transition({"left":"0%"});
-      $("#beforeLogin").transition({"left":"90%"});
-      $("#snapButton").transition({"left":"90%"});
+      $("#snapy").animate({"left":"0%"});
+      $("#beforeLogin").animate({"left":"90%"});
+      $("#snapButton").animate({"left":"90%"});
 
     }
     snapRightFlag = !snapRightFlag;
@@ -6100,13 +6098,13 @@ function openCloseSnapRight(){
 var followsFlag = false;
 function openCloseFollows(){
     if(followsFlag){
-        $("#section2").transition({"left":"100%"});
-        $("#currentFollow").transition({"right":"0px"});
+        $("#section2").animate({"left":"100%"});
+        $("#currentFollow").animate({"right":"0px"});
         $("#openclosearrow").attr("class","left arrow icon");
     }
     else{
-        $("#section2").transition({"left":"28%"});
-        $("#currentFollow").transition({"right":"72%"});
+        $("#section2").animate({"left":"28%"});
+        $("#currentFollow").animate({"right":"72%"});
         $("#openclosearrow").attr("class","right arrow icon");
         if(tutorialJSON.fifth && !tutorialJSON.sixth){
             semanticpopup(82,36,"Users",i18n.__("urfriends"));
@@ -6131,20 +6129,20 @@ function showLoginPopup(){
 // function(){
 //     console.log()
 //     if($("#section2").css("left") == "0px")
-//         $("#section2").transition({"left":"75%"})
+//         $("#section2").animate({"left":"75%"})
 //     else
-//         $("#section2").transition({"left":"0%"})
+//         $("#section2").animate({"left":"0%"})
 // }
 /////////////////SNAPY//////////////
 ///////////////////////////////Group Div////////////////////////
 var groupflag = false;
 function onGroupButton(){
     if(groupflag){
-        $("#groupDiv").transition({"right":"-9%"},"fast","easeOutBounce");
-        $("#groupButton").transition({"right":"89%"},"fast","easeOutBounce");
+        $("#groupDiv").animate({"right":"-9%"},"fast","easeOutBounce");
+        $("#groupButton").animate({"right":"89%"},"fast","easeOutBounce");
     }else{
-        $("#groupDiv").transition({"right":"-100%"},"fast","easeOutBounce");
-        $("#groupButton").transition({"right":"0%"},"fast","easeOutBounce");
+        $("#groupDiv").animate({"right":"-100%"},"fast","easeOutBounce");
+        $("#groupButton").animate({"right":"0%"},"fast","easeOutBounce");
     }
     groupflag = !groupflag;
 }
@@ -6248,9 +6246,9 @@ function animateSection(count,type){
         // },1500)
         return;
     }
-    $("#tutorialSec" +count).transition({"opacity":"1.0"},1500,"easeInCirc",function(){
-        $("#tutorialSec" +count).transition({"opacity":"0.0"},function(){
-            //$("#tutorialSec" +count).transition({"opacity":"1.0"});
+    $("#tutorialSec" +count).animate({"opacity":"1.0"},1500,"easeInCirc",function(){
+        $("#tutorialSec" +count).animate({"opacity":"0.0"},function(){
+            //$("#tutorialSec" +count).animate({"opacity":"1.0"});
         });
         // animateSection(++count,type);
     });
@@ -6273,9 +6271,9 @@ function animateBigTutorial(count,type){
     }
     $("#tutorialSec4").css({"opacity":"1.0"})
     $("#" +count +"Q").css({"opacity":"0","display":"block"});
-    $("#" +count +"Q").transition({"opacity":"1.0"},1500,"swing",function(){
+    $("#" +count +"Q").animate({"opacity":"1.0"},1500,"swing",function(){
         //$("#popup").hide();
-        $("#" +count +"Q").transition({"opacity":"0.0"},1500,"swing");                            
+        $("#" +count +"Q").animate({"opacity":"0.0"},1500,"swing");                            
         // animateBigTutorial(++count,type);    
     });  
 
@@ -6283,26 +6281,26 @@ function animateBigTutorial(count,type){
 function animatateClickOnLike(){
     $("#tutorial").css({"display": "none","z-index":"0"});
     $("#tap").css({"display": "block"});
-    $("#tap").transition({"left": "24%", "top": "30%"},"slow","easeOutBounce",function(){
+    $("#tap").animate({"left": "24%", "top": "30%"},"slow","easeOutBounce",function(){
         $("#popup").show("slow");
         $("#popupMessage").text("Tap the Picture to recommend it to a friend");
     })
 }
 function animateClickOnFollows(){
-    $("#tap").transition({"left": "9%", "top": "15%"},"slow","easeOutBounce",function(){
+    $("#tap").animate({"left": "9%", "top": "15%"},"slow","easeOutBounce",function(){
         $("#popup").show("slow");
         $("#popupMessage").text("Tap yourself to be selected");
     })  
 }
 function animateClickOnBig(message){
     //console.log("big");
-        $("#tap").transition({"left": "30%", "top": "58%"},"slow","easeOutBounce",function(){
+        $("#tap").animate({"left": "30%", "top": "58%"},"slow","easeOutBounce",function(){
         $("#popup").show("slow");
         $("#popupMessage").html(message);
     })  
 }
 function animateRecommendation(){
-    $("#tap").transition({"left": "30%", "top": "16%"},"slow","easeOutBounce",function(){
+    $("#tap").animate({"left": "30%", "top": "16%"},"slow","easeOutBounce",function(){
         $("#popup").show("slow");
         $("#popupMessage").text("Tap your Follows");        
     })  

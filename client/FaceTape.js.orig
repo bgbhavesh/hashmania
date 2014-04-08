@@ -2338,7 +2338,7 @@ function tapOnFeed(event){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "tapOnFeed"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnFeed"});
     }
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
@@ -2799,11 +2799,9 @@ function tapOnVoting(event){
     var starttimer = new Date().getTime();
     //console.log(event);
     try{
-        console.log(event);
         var eventType = event.type;
         var followid = $(this).attr("myid");
         var votingid = $(this).attr("votingid");
-        console.log(followid +" " +votingid)
         if(eventType == "doubletap"){
             var left = $(this).offset().left;
             var top = $(this).offset().top;
@@ -3231,9 +3229,14 @@ function followOnInstagram(){
 }
 var buttonCloneArray = [];
 function finishAnimateVotes(){
-   var starttimer = new Date().getTime();    
-$(".recomm").animate({"height":"40px","width":"60px"}) // 40 60
+<<<<<<< HEAD
+    $(".recomm").animate({"height":"40px","width":"60px"}) // 40 60
                 $(".voting").animate({"height":"40px","width":"40px"}) // 40 40
+=======
+    var starttimer = new Date().getTime();
+    $(".recomm").transition({"height":"40px","width":"60px"}) // 40 60
+                $(".voting").transition({"height":"40px","width":"40px"}) // 40 40
+>>>>>>> c1771152199562a981f90ebe9b6a714979229c63
 
                 $(".voting").each(function(index,element){
                     // console.log(element);
@@ -4363,8 +4366,12 @@ function onClicklanguageButton(){
     openCloseSnapLeft();
     $("#language").css("top","0%")
     $("#language").show();  
+<<<<<<< HEAD
     $("#language").animate({ "top": "25%" }, 900);
+=======
+    $("#language").transition({ "top": "25%" }, 900);
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+>>>>>>> c1771152199562a981f90ebe9b6a714979229c63
 }
 function hideAboutForm(){
     $("#AboutUsPopUp").animate({ "top": "100%" }, 700,function(){

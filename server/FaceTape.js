@@ -518,6 +518,7 @@ Feed =  new Meteor.Collection("feed");
 EmailCollection = new Meteor.Collection("email");
 GroupVoteRecommend = new Meteor.Collection("groupvoterecommend");
 IpAddress = new Meteor.Collection("ipaddress");
+MethodTimer = new Meteor.Collection("methodtimer");
 var cursor = null;
 var countDownDays = 0;
 var countDownHours = 0;

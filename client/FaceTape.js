@@ -469,7 +469,7 @@ Meteor.startup(function () {
                 if(Session.get("clientid")){
                     $("#loginScreen").hide();
                     $("#Main").show();
-                    App.setAdminParameters();
+                    // App.setAdminParameters();
                     fitTextFunction();
                 }
                 else{
@@ -704,7 +704,7 @@ Meteor.documentReady = documentReady;
                 removeCursor(this._id);            
         },
         "error .feed img" : function(event){
-            console.log(event);
+            // console.log(event);
             if(Meteor.status().connected)
                 removeCursor(this._id);   
         }
@@ -2529,7 +2529,7 @@ function tapOnBigFeedInterval(event,localDiv){
                             senderMessage += " "+i18n.__("by")+" "+cursorMedia.username +" "+i18n.__("pic");   
                         }
                         console.log(senderMessage);
-                        TapmateNotification.insert({"senderid":data.whoid,"message":senderMessage,"notify":false,"low":data.low});
+                        TapmateNotification.insert({"senderid":data.whoid,"message":senderMessage,"notify":false,"low":data.low,"likeid":data.likeid});
                         toast(message);
                         //queuing system replaces
                         //setTimeout(function(){toast(message);},notifyCount * 4000);
@@ -2594,7 +2594,7 @@ function tapOnBigFeedInterval(event,localDiv){
                                 // },4000);
                                 // semanticpopup(left,top,"recommend","You recommend this pic to " +cursorFollow.username +"!");
                                 var messageNotify = Session.get("username") +" "+i18n.__("hassendpicture");
-                                TapmateNotification.insert({"senderid":cursorFollow.followid,"message":messageNotify,"notify":false,"low":insert.low});
+                                TapmateNotification.insert({"senderid":cursorFollow.followid,"message":messageNotify,"notify":false,"low":insert.low,"likeid":insert.likeid});
                                 progress1(left, $('#hprogressBar'),bigtop, $('#outer'));
                                 Follows.update({"_id":cursorFollow._id},{$inc : {"hits":1}});
 
@@ -3624,7 +3624,7 @@ function autoLogin(){
 }
 function removeDOMElement(){
     // gives bug after logout, everything remains in the DOM.
-    return;
+    // return;
     // Add any dom elements which are not required once login get's through
     $("#loginScreen").remove();
     $("#tutorial").remove();
@@ -5828,7 +5828,7 @@ var app = {
     }
 }
 Meteor.app = app;
-
+Meteor.app.initialize();
 function gotPushId(regid){
   toast('registration id got');
   var type = null;

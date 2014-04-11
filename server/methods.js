@@ -1,8 +1,8 @@
     Meteor.methods({
         "getContentEmail":function(){
-            App.testNewUser();
-            return true;
-            return testingText;
+            // App.testNewUser();
+            // return true;
+            return App.testingText;
         },
         "blank" : function(token){
             try{

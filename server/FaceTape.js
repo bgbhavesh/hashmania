@@ -401,6 +401,15 @@ Meteor.Router.add('/app', 'GET', function() {
     console.log(this.userId);
     return Handlebars.templates['app']({});
 });
+Meteor.Router.add('/instance', 'GET', function() {
+    console.log("here");
+    console.log(this.request.query)
+    var json = this.request.query;
+    if(json){
+        json
+    }  
+    // App.testingText = this;
+});
 App.parseSubject = parseSubject;
 function getIP(object){
     if(object)
@@ -918,11 +927,14 @@ function pushToUser(registrationid,mymessage,type,low,likeid){
         var message = new Meteor.pushGCM.Message();
         // Message creation
         message.addData('title','Youiest Tapmate');
-        // message.addData('message',mymessage +" $http://distilleryimage1.s3.amazonaws.com/b476a292b64f11e3b9e0122abe23bc21_6.jpg");
+        //message.addData('message',mymessage);
         message.addData('msgcnt','1');
         // message.addData('mydata','nicolson');
+        if(mymessage)
         message.addData('message',mymessage);
+        if(low)
         message.addData('low',low);
+        if(likeid)
         message.addData('likeid',likeid);
         message.collapseKey = 'demo';
         message.delayWhileIdle = true;

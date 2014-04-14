@@ -1680,12 +1680,12 @@ textarea[name="header"]{
 }
 #headerSection{
 	text-align: center;
-	font-size: 30px;
-	height: 8%;
-	width: 100%;
-	position: absolute;	
-	background-color: #333;
-	z-index: 1;
+    font-size: 30px;
+    height: 8%;
+    width: 100%;
+    position: absolute;
+    background-color: #333;
+    z-index: 1;
 }
 
 .header div{

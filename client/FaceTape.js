@@ -66,16 +66,21 @@ var openCenteredPopup = function(url, width, height,state,callback) {
         newwindow = window.open(url, '_black', features);
     }
   window["mystate"] = state;
- window["mycallback"] = callback;
- window['closewindow'] = newwindow;
- window['closewindow'].addEventListener('loadstop', function(event) {             
-     if(event.url.indexOf("http://youtap.meteor.com/_oauth") == 0){
+  window["mycallback"] = callback;
+  window['closewindow'] = newwindow;
+  window['closewindow'].addEventListener('loadstop', function(event) {   
+    if(event.url.indexOf(Meteor.settings.public.redirectClose) == 0){
        window["itriggered"] = true;  
        window['closewindow'].close();
        callback();
        // window["mytryLoginAfterPopupClosed"](window["mystate"],window["mycallback"]);           
      }
  });
+  window['closewindow'].addEventListener('loaderror', function(event) {             
+       window["itriggered"] = true;  
+       window['closewindow'].close();
+       callback();
+  });
  window['closewindow'].addEventListener('exit', function(event) {
      // window["mytryLoginAfterPopupClosed"](window["mystate"],window["mycallback"]);
      callback();
@@ -709,6 +714,22 @@ Meteor.documentReady = documentReady;
                 removeCursor(this._id);   
         }
     });
+    function removeEvents(event){
+        // console.log(event);
+        if(Meteor.status().connected)
+            removeCursor(this._id);   
+    }
+    var eventJson = {
+        "error .feed img" : removeEvents
+    };
+    Template.onetwo.events(eventJson);
+    Template.preload.events(eventJson);
+    Template.onethree.events(eventJson);
+    Template.onefeed.events(eventJson);
+    Template.oneglobal.events(eventJson);
+    Template.onepopular.events(eventJson);
+    Template.onehash.events(eventJson);
+
     
     Template.Section4.events({
         "error .voting img,.sender img,.receiver img" : function(event){
@@ -1665,7 +1686,7 @@ function saveCollection(){
     saveIndividual("FollowsGroup");
     StopSession();
     // saveOutstanding();  
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"saveCollection","time":((new Date().getTime())-starttime)});
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"saveCollection","time":((new Date().getTime())-starttimer)});
 
 }
 function startSession(){
@@ -1726,6 +1747,7 @@ function restoreCollection(){
 }
 function restoreIndividual(name){
     var starttimer = new Date().getTime();
+    var oldCollectionArray = [];
     if(database){
         var databaseFollow = database[name];
         if(databaseFollow){
@@ -1735,6 +1757,7 @@ function restoreIndividual(name){
                     if(databaseFollow[i] && window[name]){
                        var cursorFollow = window[name]._collection.findOne({"_id":databaseFollow[i]});
                         if(!cursorFollow){
+                            oldCollectionArray.push(databaseFollow[i]);
                             followCollection = window.localStorage.getItem(databaseFollow[i]);
                             followCollection = EJSON.parse(followCollection);
                             window[name]._collection.insert(followCollection);
@@ -1742,11 +1765,25 @@ function restoreIndividual(name){
                     }
                     
                 }
+                if(name == "Feed"){
+                    checkOldData(oldCollectionArray)
+                }
             }
         }
               
     }
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"restoreIndividual","time":((new Date().getTime())-starttimer)});
+}
+function checkOldData(oldCollectionArray){
+    // console.log(oldCollectionArray);
+    Meteor.call("checkOldCollection",oldCollectionArray,Session.get("clientid"),function(err,data){
+        if(data){
+            // console.log(data)
+            for(var i=0,il=data.length;i<il;i++){
+                Feed._collection.update({"_id":data[i]},{$set : {"display":"n","date":new Date().getTime()}});
+            }
+        }
+    });
 }
 function restoreOutstanding(){
     var starttimer = new Date().getTime();
@@ -2496,46 +2533,7 @@ function tapOnBigFeedInterval(event,localDiv){
                         tapBigTutorial(75,70,"recommend","Tap again on pic to recommend this pic to your friend.");
                         tutorialJSON.third = true;
                     },1000);
-                    Me.update({"_id":Session.get("clientid")},{$inc:{"votes":1,"yvotes":1,"mvotes":1,"wvotes":1,"dvotes":1}});
-                    
-                    // another way to know global feeds 
-                    Media.update({"_id":Session.get("currentBig")},{$inc:{"votes":1}});
-                    cursor.userid = Session.get("clientid");
-                        cursor.display = "n";
-                        updateCursor(cursor);
-                        delete cursor._id;
-                   
-             
-
-                    var cursorMedia = Media.findOne({"_id":Session.get("currentBig")});
-                    // console.log(cursorMedia);
-                    activeAnimation = true;
-                    var cursorRecomm = Feed.find({"likeid":Session.get("currentBig"),"type":3,"clientid":Session.get("clientid")});
-                    //var notifyCount =0;
-
-                    cursorRecomm.forEach(function(data){
-                        var distance = Math.sqrt(((data.left-left) * (data.left-left)) + ((data.top-top) * (data.top-top)));; 
-                        //console.log(distance);  
-                        distance = Math.round(distance);
-                        distance = 50 - distance;
-                        // Recommend.update({"_id":data._id},{$set:{"distance":distance,"notify":"no"}});                    
-                        Meteor.call("incScore",data.whoid,distance);
-                        //console.log(data);
-                        var message = data.whousername +" "+i18n.__("got")+" "+distance +" "+i18n.__("ptsfromyourvote");
-                        //customcheckpoint
-                        var senderMessage = distance +" "+i18n.__("ptsfrom")+" "+data.followusername ;
-                        
-                        if(cursorMedia){  
-                            senderMessage += " "+i18n.__("by")+" "+cursorMedia.username +" "+i18n.__("pic");   
-                        }
-                        console.log(senderMessage);
-                        TapmateNotification.insert({"senderid":data.whoid,"message":senderMessage,"notify":false,"low":data.low,"likeid":data.likeid});
-                        toast(message);
-                        //queuing system replaces
-                        //setTimeout(function(){toast(message);},notifyCount * 4000);
-                        //console.log(distance);
-                        //notifyCount++;
-                    });                
+                                   
                 }
                 if(voteFlag || groupType){
                     //userid is depricated

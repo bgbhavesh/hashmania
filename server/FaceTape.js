@@ -727,7 +727,58 @@ function checkSecondVote(first){
             }
         }
     }
-    Votes.update({"_id":first._id},{$set : {"checked":true}})
+    Votes.update({"_id":first._id},{$set : {"checked":true}});
+    updateVoteDependencies(first);
+
+}
+var i18n = {};
+i18n.__ = function(value){
+    console.log(language.toast[value])
+    return language.toast[value];
+}
+function updateVoteDependencies(first){
+        // console.log(first);
+    i18n.__("ptsfromyourvote")
+    Me.update({"_id":first.followid},{$inc:{"votes":1,"yvotes":1,"mvotes":1,"wvotes":1,"dvotes":1}});
+                    
+    // another way to know global feeds 
+    Media.update({"_id":first.likeid},{$inc:{"votes":1}});
+    cursor.userid = first.followid;
+        cursor.display = "n";
+        updateCursor(cursor);
+        delete cursor._id;
+   
+
+
+    var cursorMedia = Media.findOne({"_id":first.likeid});
+    // console.log(cursorMedia);
+    activeAnimation = true;
+    var cursorRecomm = Feed.find({"likeid":first.likeid,"type":3,"clientid":first.followid});
+    //var notifyCount =0;
+
+    cursorRecomm.forEach(function(data){
+        var distance = Math.sqrt(((data.left-left) * (data.left-left)) + ((data.top-top) * (data.top-top)));; 
+        //console.log(distance);  
+        distance = Math.round(distance);
+        distance = 50 - distance;
+        // Recommend.update({"_id":data._id},{$set:{"distance":distance,"notify":"no"}});                    
+        Meteor.call("incScore",data.whoid,distance);
+        //console.log(data);
+        var message = data.whousername +" "+i18n.__("got")+" "+distance +" "+i18n.__("ptsfromyourvote");
+        //customcheckpoint
+        var senderMessage = distance +" "+i18n.__("ptsfrom")+" "+data.followusername ;
+        
+        if(cursorMedia){  
+            senderMessage += " "+i18n.__("by")+" "+cursorMedia.username +" "+i18n.__("pic");   
+        }
+        console.log(senderMessage);
+        TapmateNotification.insert({"senderid":data.whoid,"message":senderMessage,"notify":false,"low":data.low,"likeid":data.likeid});
+        // toast(message);
+        //queuing system replaces
+        //setTimeout(function(){toast(message);},notifyCount * 4000);
+        //console.log(distance);
+        //notifyCount++;
+    }); 
 }
 App.checkSecondVote = checkSecondVote;
 //// votes done

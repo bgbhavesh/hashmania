@@ -1,3 +1,15 @@
+Tapmate Pro
+CLIENT INFO
+CLIENT ID
+efe27655073f41ab836c0bbd8012eff3
+CLIENT SECRET
+2cecdeaf9ef442969eef0683d60d6aaa
+WEBSITE URL
+http://128.199.196.222/
+REDIRECT URI
+http://128.199.196.222/_oauth/instagram?close=close
+
+
 $.get("/instance",function(data,status){
     console.log(data);
     console.log(status);

@@ -5048,6 +5048,7 @@ function bindEvents(){
         //$(".language a").hammer().on("tap",onSetLang);
         $("#section3").hammer().on('touch', section3dragstart);
         $("#section3").hammer().on('release', section3dragend);
+        $("#section3").hammer().on('drag', section3drag);
         // chat feature
         $("#chatboxclosebutton").hammer().on("tap",clickChatBoxCloseButton);
         $("#chatsendbutton").hammer().on("tap",clickChatSendButton);
@@ -5143,12 +5144,14 @@ function onClickgoinstaplaystore(){
     window.open(emailurl, '_system');
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
-function section3dragstart(){
-  timeoutfeeds=setTimeout(function(){
-    $("#section3").css({"z-index":"5"});
+function section3drag(){
+   //timeoutfeeds=setTimeout(function(){
+    $("#section3").css({"z-index":"8"});
     $("#section3").animate({"height":"50%"});
-  },400);
-  
+  //},400);
+}
+function section3dragstart(){
+   
 }
 function section3dragend(){
   clearTimeout(timeoutfeeds);

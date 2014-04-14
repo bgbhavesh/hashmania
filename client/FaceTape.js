@@ -474,7 +474,8 @@ Meteor.startup(function () {
                 if(Session.get("clientid")){
                     $("#loginScreen").hide();
                     $("#Main").show();
-                    // App.setAdminParameters();
+                    if(App.setAdminParameters)
+                        App.setAdminParameters();
                     fitTextFunction();
                 }
                 else{
@@ -2435,7 +2436,7 @@ function tapOnBigFeed(event){
      setTimeout(function(){tapOnBigFeedInterval(event,localDiv)},10)
                  
  }
-function tapOnBigFeedInterval(event,localDiv){
+function tapOnBigFeedInterval(event,localDiv,voteInsert){
     var starttimer = new Date().getTime();
     try{
            //console.log(event);     
@@ -2512,10 +2513,17 @@ function tapOnBigFeedInterval(event,localDiv){
                     progress1(left, $('#hprogressBar'),bigtop, $('#outer')); 
                     voteFlag = false;
                     var date = new Date().getTime();
-
+                    if(!cursorFollow)
+                        cursorFollow = {};
+                    if(voteInsert){
+                        cursorFollow = voteInsert;
+                        cursorBig = voteInsert;
+                    }
                     var VotesInsert = {"checked":false,"place":quadrantPlace,"profile_picture":cursorFollow.profile_picture, "followid":Session.get("clientid"),"likeid":cursorBig.likeid,"low":cursorBig.low ,"left": left,"top": top,"date" : date};
                     actionArray.push(activeFollowsId);
-                    appendVotes(VotesInsert)
+                    appendVotes(VotesInsert);
+                    
+                    
                     currentMoveVote = Votes.insert(VotesInsert);
                     flagVoteorRec = false;
                     checkQuadrant(left,top,true);
@@ -2533,7 +2541,12 @@ function tapOnBigFeedInterval(event,localDiv){
                         tapBigTutorial(75,70,"recommend","Tap again on pic to recommend this pic to your friend.");
                         tutorialJSON.third = true;
                     },1000);
-                                   
+                    Me.update({"_id":Session.get("clientid")},{$inc:{"votes":1,"yvotes":1,"mvotes":1,"wvotes":1,"dvotes":1}});
+                    
+                    cursor.userid = Session.get("clientid");
+                    cursor.display = "n";
+                    updateCursor(cursor);
+                    delete cursor._id;
                 }
                 if(voteFlag || groupType){
                     //userid is depricated
@@ -5048,7 +5061,6 @@ function bindEvents(){
         //$(".language a").hammer().on("tap",onSetLang);
         $("#section3").hammer().on('touch', section3dragstart);
         $("#section3").hammer().on('release', section3dragend);
-        $("#section3").hammer().on('drag', section3drag);
         // chat feature
         $("#chatboxclosebutton").hammer().on("tap",clickChatBoxCloseButton);
         $("#chatsendbutton").hammer().on("tap",clickChatSendButton);
@@ -5104,27 +5116,20 @@ function pushNotifiPopup(pushpic,pushmsg,pushlkid){
 }
 function OnClickPushImage(event){
         var starttimer = new Date().getTime();
-        var x = event.gesture.center.pageX;
-        var y = event.gesture.center.pageY;
-        var height = $("#Main").height();
-        var width = $("#Main").width();
-        var left = (x/width) * 100;
-        var top = (y/height) * 100;
-        left = Math.round(left) - 5;
-        top = Math.round(top) - 5;
-        // bigtop = Math.round(bigtop) - 5;
-        var date = new Date().getTime();
-        //console.log("left"+left+"/top"+bigtop)
-        var quadrantPlace = checkQuadrant(left,top,false);
-        var VotesInsert = {"checked":false,"place":quadrantPlace,"profile_picture":window.localStorage.getItem("profile_picture"), "followid":Session.get("clientid"),"likeid":pushlkid,"low":pushpic,"left": left,"top": top,"date" : date};
-        Votes.insert(VotesInsert);
-        Session.set("currentBig",pushlkid)  
+        var localDiv = this;
+        Session.set("currentBig",pushlkid);
         setTimeout(function(){
             $(".voting").css("display","none");
             $("#pushimagePopUp").animate({ "top": "100%" }, 700,function(){
-              $("#pushimagePopUp").css("display","none");
+                $("#pushimagePopUp").css("display","none");
             });
-       },3500);
+        },3500);
+        var VotesInsert = {"profile_picture":get("profile_picture"),"likeid":pushlkid,"low":pushpic};
+        tapOnBigFeedInterval(event,localDiv,VotesInsert)
+        
+        // Votes.insert(VotesInsert);
+        
+        
         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 ///////////////////////////////////////////////////////////////
@@ -5144,14 +5149,12 @@ function onClickgoinstaplaystore(){
     window.open(emailurl, '_system');
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
-function section3drag(){
-   //timeoutfeeds=setTimeout(function(){
-    $("#section3").css({"z-index":"8"});
-    $("#section3").animate({"height":"50%"});
-  //},400);
-}
 function section3dragstart(){
-   
+  timeoutfeeds=setTimeout(function(){
+    $("#section3").css({"z-index":"5"});
+    $("#section3").animate({"height":"50%"});
+  },400);
+  
 }
 function section3dragend(){
   clearTimeout(timeoutfeeds);

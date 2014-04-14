@@ -9,17 +9,17 @@ Npm.depends({
 });
 
 Package.on_use(function (api) {
-    api.add_files('hammer.js', 'client');
-	api.add_files('easing.js', 'client');
-	api.add_files('intro.js', 'client');
-	api.add_files('introjs.css', 'client');
-	api.add_files('jquery.imageloader.js', 'client');
-	api.add_files('fastclick.js', 'client');	
-	api.add_files(['server.js'], 'server');	
-	api.add_files('jquery.transit.min.js', 'client');
-	api.add_files('jquery.plugin.js', 'client');
-	api.add_files('jquery.countdown.css', 'client');
-	api.add_files('jquery.countdown.js', 'client');
+    api.add_files('lib/hammer.js', 'client');
+	api.add_files('lib/easing.js', 'client');
+	//api.add_files('lib/intro.js', 'client');
+	//api.add_files('lib/introjs.css', 'client');
+	//api.add_files('lib/jquery.imageloader.js', 'client');
+	api.add_files('lib/fastclick.js', 'client');	
+	api.add_files(['lib/server.js'], 'server');	
+	api.add_files('lib/jquery.transit.min.js', 'client');
+	api.add_files('lib/jquery.plugin.js', 'client');
+	api.add_files('lib/jquery.countdown.css', 'client');
+	api.add_files('lib/jquery.countdown.js', 'client');
 
 	
 	  if(api.export){

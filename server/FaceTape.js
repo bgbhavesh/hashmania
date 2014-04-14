@@ -737,19 +737,11 @@ i18n.__ = function(value){
     return language.toast[value];
 }
 function updateVoteDependencies(first){
-        // console.log(first);
-    i18n.__("ptsfromyourvote")
     Me.update({"_id":first.followid},{$inc:{"votes":1,"yvotes":1,"mvotes":1,"wvotes":1,"dvotes":1}});
                     
     // another way to know global feeds 
     Media.update({"_id":first.likeid},{$inc:{"votes":1}});
-    cursor.userid = first.followid;
-        cursor.display = "n";
-        updateCursor(cursor);
-        delete cursor._id;
-   
-
-
+ 
     var cursorMedia = Media.findOne({"_id":first.likeid});
     // console.log(cursorMedia);
     activeAnimation = true;
@@ -757,7 +749,7 @@ function updateVoteDependencies(first){
     //var notifyCount =0;
 
     cursorRecomm.forEach(function(data){
-        var distance = Math.sqrt(((data.left-left) * (data.left-left)) + ((data.top-top) * (data.top-top)));; 
+        var distance = Math.sqrt(((data.left-first.left) * (data.left-first.left)) + ((data.top-first.top) * (data.top-first.top)));; 
         //console.log(distance);  
         distance = Math.round(distance);
         distance = 50 - distance;
@@ -773,11 +765,6 @@ function updateVoteDependencies(first){
         }
         console.log(senderMessage);
         TapmateNotification.insert({"senderid":data.whoid,"message":senderMessage,"notify":false,"low":data.low,"likeid":data.likeid});
-        // toast(message);
-        //queuing system replaces
-        //setTimeout(function(){toast(message);},notifyCount * 4000);
-        //console.log(distance);
-        //notifyCount++;
     }); 
 }
 App.checkSecondVote = checkSecondVote;

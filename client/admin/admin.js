@@ -1,3 +1,17 @@
+Router.map(function () {
+    
+    this.route('admin', {
+        path: '/admin',
+        template: 'admin',
+        data : function (){
+           // Meteor.documentReady();
+           //console.log()
+           Session.set("clientid",get("clientid"));
+           //console.log(Session.get("clientid"))
+           Meteor.documentReady();
+        }
+    }); 
+});
 if(window["App"] === undefined)
     App = {};
 function setAdminParameters(){
@@ -5,6 +19,7 @@ function setAdminParameters(){
     var currentDiv = null;
     if(App.isAdmin(ClientId)){        
         // console.log(appendmenu);
+        $("#adminPanel").show();
         $("#gamemenu").append('<div class="item" id="admin"> Admin </div>');
         $("#admin").append('<div class="menu" id="adminCategory"> </div>');
         var appendmenu = $("#adminCategory");
@@ -48,12 +63,19 @@ function onEmailSend(){
 App.onEmailSend = onEmailSend;
 
 function isAdmin(clientid){
-    if("625237041" == clientid || "363620479" == clientid || "487690035" == clientid)
+    if("625237041" == Session.get("clientid") || "363620479" == clientid || "487690035" == clientid)
         return true;
     else
         return false;
 }
 App.isAdmin = isAdmin;
+
+function set(key,value){
+    return window.localStorage.setItem(key,value);
+}
+function get(key){
+    return window.localStorage.getItem(key);
+}
 
 function leadersboard(){    
     $("#emailLeadersboard").html("");
@@ -140,6 +162,7 @@ Template.admin.users = function(){
 //})
 Template.admin.rendered = function(){
     // console.log("admin.rendered");
+    $("#adminPanel").show();
     $("#admin").hammer().off("tap")
     $("#admin").hammer().on("tap",function(){$("#adminPanel").show();});
     
@@ -179,6 +202,8 @@ Template.admin.rendered = function(){
             if(!adminTotalCount[i])
                 adminTotalCount[i] =0;
             adminTotalCount[i] += Number($(children[i]).text());
+            console.log(adminTotalCount[i])
+            //console.log(adminTotalCount[i])
         }            
     });        
     for(var i=0,il=adminTotalCount.length;i<il;i++){            

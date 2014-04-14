@@ -737,11 +737,28 @@ i18n.__ = function(value){
     return language.toast[value];
 }
 function updateVoteDependencies(first){
+<<<<<<< HEAD
+=======
+        // console.log(first);
+
+    i18n.__("got")
+>>>>>>> ac41d77e1a8fd33f2ca10039909512dc1a18eba7
     Me.update({"_id":first.followid},{$inc:{"votes":1,"yvotes":1,"mvotes":1,"wvotes":1,"dvotes":1}});
                     
     // another way to know global feeds 
     Media.update({"_id":first.likeid},{$inc:{"votes":1}});
+<<<<<<< HEAD
  
+=======
+    //console.log(first)
+    // cursor.userid = first.followid;
+    //     cursor.display = "n";
+    //     updateCursor(cursor);
+    //     delete cursor._id;
+   
+
+
+>>>>>>> ac41d77e1a8fd33f2ca10039909512dc1a18eba7
     var cursorMedia = Media.findOne({"_id":first.likeid});
     // console.log(cursorMedia);
     activeAnimation = true;

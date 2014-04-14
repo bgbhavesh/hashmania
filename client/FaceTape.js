@@ -474,7 +474,8 @@ Meteor.startup(function () {
                 if(Session.get("clientid")){
                     $("#loginScreen").hide();
                     $("#Main").show();
-                    // App.setAdminParameters();
+                    //if(App.setAdminParameters())
+                      //App.setAdminParameters();
                     fitTextFunction();
                 }
                 else{

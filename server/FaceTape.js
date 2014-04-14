@@ -738,15 +738,17 @@ i18n.__ = function(value){
 }
 function updateVoteDependencies(first){
         // console.log(first);
-    i18n.__("ptsfromyourvote")
+
+    i18n.__("got")
     Me.update({"_id":first.followid},{$inc:{"votes":1,"yvotes":1,"mvotes":1,"wvotes":1,"dvotes":1}});
                     
     // another way to know global feeds 
     Media.update({"_id":first.likeid},{$inc:{"votes":1}});
-    cursor.userid = first.followid;
-        cursor.display = "n";
-        updateCursor(cursor);
-        delete cursor._id;
+    //console.log(first)
+    // cursor.userid = first.followid;
+    //     cursor.display = "n";
+    //     updateCursor(cursor);
+    //     delete cursor._id;
    
 
 
@@ -1252,17 +1254,17 @@ App.isAdmin = isAdmin;
         countDownSecs = 60 - secs;
 
     }
-    App.generateRunTime = generateRunTime;
-    function maileverymin(){
-        console.log("maileverymin")
-        var rule = new schedule.RecurrenceRule();
-        rule.second = 0;
-        var j = schedule.scheduleJob(rule, function(){
-                console.log("schedule is good minute");
-                //emailDailyGen("625237041","hastenf@gmail.com");
+     App.generateRunTime = generateRunTime;
+    // function maileverymin(){
+    //     console.log("maileverymin")
+    //     var rule = new schedule.RecurrenceRule();
+    //     rule.second = 0;
+    //     var j = schedule.scheduleJob(rule, function(){
+    //             console.log("schedule is good minute");
+    //             //emailDailyGen("625237041","hastenf@gmail.com");
 
-        });
-    }
+    //     });
+    // }
     // function maileveryhour(){
     //     var rule = new schedule.RecurrenceRule();
     //     rule.minute = 1;

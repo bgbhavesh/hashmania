@@ -212,7 +212,8 @@ Template.admin.rendered = function(){
 }
 Template.admin.isAdmin = function(){        
     var clientid = Session.get("clientid");
-    if("625237041" ==   clientid||  "363620479"  == clientid || "487690035" == ClientId){
+    console.log(clientid)
+    if("625237041" ==   clientid||  "363620479"  == clientid || "487690035" == clientid){
         return true;
     }
     return false;

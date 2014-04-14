@@ -575,7 +575,7 @@
         "sendEmail" : function(html,email){
             console.log(html)
             try{
-                this.unblock();
+                //this.unblock();
                 Email.send({
                     from: 'Tapmate <tapmate@youiest.com>',
                     to:   email,            

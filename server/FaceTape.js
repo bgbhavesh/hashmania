@@ -540,7 +540,7 @@ var subjectEmail = "";
 var contestEndFlag = false;
 var youiestPic= '';
 var globalClientId = -1;
-
+var Fiber = Npm.require('fibers');
 
 var routeMessage = ["first message","second message","a"];
 var routeCounter = 0;
@@ -636,7 +636,7 @@ Meteor.startup(function () {
     else
         ContestID = Contest.insert({"countDownHours":0,"countDownMins":0,"countDownSecs":0});
     
-    if(!DebugFace)
+    //if(!DebugFace)
         checkContest();
     /*
         http://zulfait.blogspot.in/2013/01/meteor-js-send-email-through-gmail.html
@@ -1184,7 +1184,7 @@ App.isAdmin = isAdmin;
         maileverymonth();
         maileveryyear();
         //maileveryhour();
-        maileverymin();
+        //maileverymin();
     }
     App.calcTime = calcTime;
     function generateRunTime(){
@@ -1208,6 +1208,8 @@ App.isAdmin = isAdmin;
         rule.second = 0;
         var j = schedule.scheduleJob(rule, function(){
                 console.log("schedule is good minute");
+                //emailDailyGen("625237041","hastenf@gmail.com");
+
         });
     }
     // function maileveryhour(){
@@ -1241,17 +1243,22 @@ App.isAdmin = isAdmin;
         });
     }
     function maileveryday(){
+        console.log("maileveryday")
         var rule = new schedule.RecurrenceRule();
-        rule.dayOfWeek = [0, new schedule.Range(1, 6)];
-        rule.hour = 17;
-        rule.minute = 0;
+        //rule.dayOfWeek = [0, new schedule.Range(1, 6)];
+        rule.hour = 01;
+        rule.minute = 03;
+        rule.second = 0;
         var j = schedule.scheduleJob(rule, function(){
                 console.log("day reset")
-                sentmailtome();
-                var cursorMe = Me.find({});
-                cursorMe.forEach(function(data){
-                    Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"wswipeleft":0,"dswiperight":0}});
-                });
+                subjectEmail = "Daily Updates";
+                App.sentmailtome();
+                Fiber(function () {
+                    var cursorMe = Me.find({});
+                    cursorMe.forEach(function(data){
+                        Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"wswipeleft":0,"dswiperight":0}});
+                    });
+                }).run();
         });
     }
     function maileveryweek(){
@@ -1260,15 +1267,17 @@ App.isAdmin = isAdmin;
         rule.hour = 1;
         rule.minute = 30;
         var j = schedule.scheduleJob(rule, function(){
-                var cursorMe = Me.find({});
-                cursorMe.forEach(function(data){
-                Me.update({"_id":data._id},{$set:{"walreadyloggedin":0,"wautologin":0,"wvotes":0,"wrecomending":0,"wfollownew":0,"wswipeleft":0,"wswiperight":0}});
-                });
+                Fiber(function () {
+                    var cursorMe = Me.find({});
+                    cursorMe.forEach(function(data){
+                    Me.update({"_id":data._id},{$set:{"walreadyloggedin":0,"wautologin":0,"wvotes":0,"wrecomending":0,"wfollownew":0,"wswipeleft":0,"wswiperight":0}});
+                    });
 
-                // plus all
-                cursorMe.forEach(function(data){
-                    Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"dswipeleftswipeleft":0,"dswiperight":0}});
-                });
+                    // plus all
+                    cursorMe.forEach(function(data){
+                        Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"dswipeleftswipeleft":0,"dswiperight":0}});
+                    });
+                }). run();
         });
     }
     function maileverymonth(){
@@ -1277,18 +1286,20 @@ App.isAdmin = isAdmin;
         rule.hour = 2;
         rule.minute = 0;
         var j = schedule.scheduleJob(rule, function(){
-                var cursorMe = Me.find({});
-                cursorMe.forEach(function(data){
-                Me.update({"_id":data._id},{$set:{"malreadyloggedin":0,"mautologinautologin":0,"mvotes":0,"mrecomendingrecomending":0,"mfollownewfollownew":0,"mswipeleftswipeleft":0,"mswiperight":0}});
-                });
+                Fiber(function () {
+                    var cursorMe = Me.find({});
+                    cursorMe.forEach(function(data){
+                    Me.update({"_id":data._id},{$set:{"malreadyloggedin":0,"mautologinautologin":0,"mvotes":0,"mrecomendingrecomending":0,"mfollownewfollownew":0,"mswipeleftswipeleft":0,"mswiperight":0}});
+                    });
 
-                // plus all
-                cursorMe.forEach(function(data){
-                    Me.update({"_id":data._id},{$set:{"walreadyloggedin":0,"wautologin":0,"wvotes":0,"wrecomending":0,"wfollownew":0,"wswipeleft":0,"wswiperight":0}});
-                });
-                cursorMe.forEach(function(data){
-                    Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"dswipeleftswipeleft":0,"dswiperight":0}});
-                });
+                    // plus all
+                    cursorMe.forEach(function(data){
+                        Me.update({"_id":data._id},{$set:{"walreadyloggedin":0,"wautologin":0,"wvotes":0,"wrecomending":0,"wfollownew":0,"wswipeleft":0,"wswiperight":0}});
+                    });
+                    cursorMe.forEach(function(data){
+                        Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"dswipeleftswipeleft":0,"dswiperight":0}});
+                    });
+                }). run();
         });
     }
     function maileveryyear(){
@@ -1297,21 +1308,24 @@ App.isAdmin = isAdmin;
         rule.hour = 2;
         rule.minute = 0;
         var j = schedule.scheduleJob(rule, function(){
-                var cursorMe = Me.find({});
-                cursorMe.forEach(function(data){
-                Me.update({"_id":data._id},{$set:{"yalreadyloggedin":0,"yautologin":0,"yvotes":0,"yrecomending":0,"yfollownew":0,"yswipeleft":0,"yswiperight":0}});
-                });
+            
+                Fiber(function () {
+                    var cursorMe = Me.find({});
+                    cursorMe.forEach(function(data){
+                    Me.update({"_id":data._id},{$set:{"yalreadyloggedin":0,"yautologin":0,"yvotes":0,"yrecomending":0,"yfollownew":0,"yswipeleft":0,"yswiperight":0}});
+                    });
 
-                // plus all
-                cursorMe.forEach(function(data){
-                    Me.update({"_id":data._id},{$set:{"malreadyloggedin":0,"mautologinautologin":0,"mvotes":0,"mrecomendingrecomending":0,"mfollownewfollownew":0,"mswipeleftswipeleft":0,"mswiperight":0}});
-                });
-                cursorMe.forEach(function(data){
-                    Me.update({"_id":data._id},{$set:{"walreadyloggedin":0,"wautologin":0,"wvotes":0,"wrecomending":0,"wfollownew":0,"wswipeleft":0,"wswiperight":0}});
-                });
-                cursorMe.forEach(function(data){
-                    Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"dswipeleftswipeleft":0,"dswiperight":0}});
-                });
+                    // plus all
+                    cursorMe.forEach(function(data){
+                        Me.update({"_id":data._id},{$set:{"malreadyloggedin":0,"mautologinautologin":0,"mvotes":0,"mrecomendingrecomending":0,"mfollownewfollownew":0,"mswipeleftswipeleft":0,"mswiperight":0}});
+                    });
+                    cursorMe.forEach(function(data){
+                        Me.update({"_id":data._id},{$set:{"walreadyloggedin":0,"wautologin":0,"wvotes":0,"wrecomending":0,"wfollownew":0,"wswipeleft":0,"wswiperight":0}});
+                    });
+                    cursorMe.forEach(function(data){
+                        Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"dswipeleftswipeleft":0,"dswiperight":0}});
+                    });
+                }). run();
         });
     }
 
@@ -1377,32 +1391,36 @@ App.isAdmin = isAdmin;
     // }
     /// it will reset daily weekly monthly and yearly logs
     function emailDailyGen(clientid,email){
-        console.log("email"+email)
-        var html = 
-        '<html> <head> <style> ' 
-            +''
-        +' </style> </head> <body>'
-        +'<div id="emailFormatBody" style="height: 500px;width: 100%;left : 0px;top : 0px;position: absolute;display: block;overflow: hidden; z-index:2; text-align:center; border: 1px solid #444;background: cornflowerblue;color: #fff;text-shadow: 0 1px 0 #111;font-weight: 400; color:white;"> '   
-                +'<table  border="1">'
-                +'<tr> '
-                  +'<th>userid</th>'
-                  +'<th>username</th>'
-                  +'<th>email</th>'
-                  +'<th>DRecommending</th>'
-                  +'<th>DVotes</th>'
-                  +'<th>DFollowNew</th>'
-                  +'<th>autologin </th>'
-                  +'<th>dalreadyloggedin </th>'
-                  +'<th>dswipeleft </th>'
-                  +'<th>dswiperight </th>'
-                +'</tr>'
-                +addrow();  
-       +' </div>';
-       +'</body> </html>';
-       Meteor.call("sendEmail",html,email);
+         Fiber(function () {
+              //Accounts.oauth._middleware(req, res, next);
+                console.log("email"+email)
+                var html = 
+                '<html> <head> <style> ' 
+                    +''
+                +' </style> </head> <body>'
+                +'<div id="emailFormatBody" style="height: 500px;width: 100%;left : 0px;top : 0px;position: absolute;display: block;overflow: hidden; z-index:2; text-align:center; border: 1px solid #444;background: cornflowerblue;color: #fff;text-shadow: 0 1px 0 #111;font-weight: 400; color:white;"> '   
+                        +'<table  border="1">'
+                        +'<tr> '
+                          +'<th>userid</th>'
+                          +'<th>username</th>'
+                          +'<th>email</th>'
+                          +'<th>DRecommending</th>'
+                          +'<th>DVotes</th>'
+                          +'<th>DFollowNew</th>'
+                          +'<th>autologin </th>'
+                          +'<th>dalreadyloggedin </th>'
+                          +'<th>dswipeleft </th>'
+                          +'<th>dswiperight </th>'
+                        +'</tr>'
+                        +addrow();  
+               +' </div>';
+               +'</body> </html>';
+            Meteor.call("sendEmail",html,email);
+        }).run();
     }
 
     function addrow(){
+         Fiber(function () {
         var str = ""; 
         var cursorTapMatrixUser = Me.find({});  
             cursorTapMatrixUser.forEach(function(data){
@@ -1423,6 +1441,7 @@ App.isAdmin = isAdmin;
                 }   
         });
         return str;
+        }).run();
     }
     function checkmaildata(value){
         if(value){
@@ -1430,11 +1449,14 @@ App.isAdmin = isAdmin;
         }else{
             return "0";
         }
+         
     };
     function sentmailtome(){
         emailDailyGen("625237041","hastenf@gmail.com");
+        //setTimeout(function(){emailDailyGen("625237041","hastenf@gmail.com");},200);
+        emailDailyGen("487690035","nicolsondsouza@gmail.com");
         //emailDailyGen("363620479","decivote@gmail.com") 
-        emailDailyGen("487690035","nicolsondsouza@gmail.com")
+        
     }
     App.sentmailtome = sentmailtome;
     // function resetMe(what){

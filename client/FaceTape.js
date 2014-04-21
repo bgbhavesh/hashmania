@@ -5172,6 +5172,7 @@ function bindEvents(){
         $("#guestLogincancle").hammer().on("tap",function(){
             $("#guestLogin").css("display","none");
         });
+        $("#shareApp").hammer().on("tap",onShare);
         $("#emptyCacheButtonMenu").hammer().on("tap",function(){
             cacheFlag = true;
             window.location.reload();
@@ -5205,6 +5206,10 @@ function bindEvents(){
 
 /////////////////// SHARE //////////////////
 function onShare(share){
+    if(!Session.get("phonegap")){
+        toast("This feature is not available for web browser.");
+        return;
+    }
     var share = $(this).attr("share");
     if(share == "facebook"){
         window.plugins.socialsharing.shareViaFacebook("Tapmate" , "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com', function() {}, function(errormsg){});

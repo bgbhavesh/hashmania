@@ -636,7 +636,7 @@ Meteor.startup(function () {
     else
         ContestID = Contest.insert({"countDownHours":0,"countDownMins":0,"countDownSecs":0});
     
-    //if(!DebugFace)
+    if(!DebugFace)
         checkContest();
     /*
         http://zulfait.blogspot.in/2013/01/meteor-js-send-email-through-gmail.html
@@ -729,7 +729,19 @@ function checkSecondVote(first){
     }
     Votes.update({"_id":first._id},{$set : {"checked":true}});
     updateVoteDependencies(first);
-
+    reminderOtherUserAboutNewVote(first);
+}
+function reminderOtherUserAboutNewVote(first){
+    var cursorVotes = Votes.find({"likeid":first.likeid});
+    cursorVotes.forEach(function(data){
+        if(data.followid != first.followid){
+            var cursorMe = Me.findOne({"_id":data.followid})
+            var username = cursorMe.username;
+            if(!first.low)
+                first.low = Feed.findOne({"likeid":first.likeid}).low;
+            TapmateNotification.insert({"senderid":data.followid,"message":username +" also voted on pic.","notify":false,"low":first.low,"likeid":first.likeid});
+        }
+    });
 }
 var i18n = {};
 i18n.__ = function(value){

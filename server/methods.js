@@ -698,7 +698,7 @@ language.html = [
                 Email.send({
                     from: 'Tapmate <tapmate@youiest.com>',
                     to:   email,            
-                    subject : subjectEmail,
+                    subject : App.subjectEmail,
                     html : html
                 });
 

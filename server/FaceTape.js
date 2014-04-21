@@ -536,7 +536,7 @@ var countDownSecs = 0;
 var countDownTimeoutId  = null;
 var ContestID = null;
 var adminText = "";
-var subjectEmail = "";
+App.subjectEmail = "";
 var contestEndFlag = false;
 var youiestPic= '';
 var globalClientId = -1;
@@ -1246,24 +1246,25 @@ App.isAdmin = isAdmin;
     //     rule.second = 0;
     //     var j = schedule.scheduleJob(rule, function(){
     //             console.log("schedule is good minute");
-    //             //emailDailyGen("625237041","hastenf@gmail.com");
+    //             //App.subjectEmail = "Tapmate test";
+    //             //App.sentmailtome();
 
     //     });
     // }
-    // function maileveryhour(){
-    //     var rule = new schedule.RecurrenceRule();
-    //     rule.minute = 1;
-    //     var j = schedule.scheduleJob(rule, function(){
-    //             console.log("schedule is good");
-    //     });
-    // }
+    function maileveryhour(){
+        var rule = new schedule.RecurrenceRule();
+        rule.minute = 1;
+        var j = schedule.scheduleJob(rule, function(){
+                console.log("schedule is good");
+        });
+    }
     function maileverysunday(){
         var rule = new schedule.RecurrenceRule();
         rule.dayOfWeek = 0;
         rule.hour = 0;
         rule.minute = 0;
         var j = schedule.scheduleJob(rule, function(){
-                subjectEmail = "Tapmate heat results are in!  ending 3pm GMT";
+                App.subjectEmail = "Tapmate heat results are in!  ending 3pm GMT";
                 contestEndFlag = true;
                 batchEmail();
         });
@@ -1275,7 +1276,7 @@ App.isAdmin = isAdmin;
         rule.hour = 0;
         rule.minute = 0;
         var j = schedule.scheduleJob(rule, function(){
-                subjectEmail = "Tapmate heat results are ending in 24 hrs!";
+                App.subjectEmail = "Tapmate heat results are ending in 24 hrs!";
                 contestEndFlag = false;
                 batchEmail();
         });
@@ -1289,7 +1290,7 @@ App.isAdmin = isAdmin;
         rule.second = 0;
         var j = schedule.scheduleJob(rule, function(){
                 console.log("day reset")
-                subjectEmail = "Daily Updates";
+                App.subjectEmail = "Daily Updates";
                 App.sentmailtome();
                 Fiber(function () {
                     var cursorMe = Me.find({});
@@ -1490,12 +1491,13 @@ App.isAdmin = isAdmin;
          
     };
     function sentmailtome(){
+        console.log("sentmailtome")
         emailDailyGen("625237041","hastenf@gmail.com");
         //setTimeout(function(){emailDailyGen("625237041","hastenf@gmail.com");},200);
         emailDailyGen("487690035","nicolsondsouza@gmail.com");
         //emailDailyGen("363620479","decivote@gmail.com") 
         
-    }
+    };
     App.sentmailtome = sentmailtome;
     // function resetMe(what){
     //     console.log(what);      

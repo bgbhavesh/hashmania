@@ -928,7 +928,7 @@ Meteor.documentReady = documentReady;
             var likeActive = $(".feed[likeid=" +Session.get("currentBig")+"]");
             likeActive.addClass("likeActive");
             if(likeActive.length !=0){
-                $("#section3").scrollTop(likeActive.position().top);
+                $("#section3").scrollTop(Meteor.currentloc);
             }
             
             if(firstTimeLoginFlag){
@@ -959,6 +959,14 @@ Meteor.documentReady = documentReady;
             ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section3.rendered"});
         }
     }
+    Meteor.previousloc = 0
+    $( window ).scroll(function() {
+        Meteor.previousloc = Meteor.currentloc
+        Meteor.currentloc=$("body").scrollTop();
+        if(Meteor.currentloc == 0){
+          Meteor.currentloc = Meteor.previousloc;
+        }
+    });
     // puserfeed
     Template.userfeed.rendered = function(){
         if(feedWidth){
@@ -4723,10 +4731,18 @@ function loginWithInstagram(){
     preLoginAction();
     Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramCallbackFunction);
 }
-
+                                                  
+var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent); 
+var display = mobile ? 'touch' : 'popup';   
 function loginWithFacebook(){
-    console.log("loginWithFacebook")
-    Meteor.loginWithFacebook({requestPermissions:"basic",requestOfflineToken:true},loginWithFacebookCallbackFunction);
+    console.log("loginWithFacebook");
+    var state = Random.id();
+    var loginUrl =                                                                       
+        'https://www.facebook.com/dialog/oauth?client_id=' + config.appId +            
+        '&redirect_uri=' + Meteor.absoluteUrl('_oauth/facebook?close') +               
+        '&display=' + display + '&scope=' + scope + '&state=' + Session.get("clientid");
+    window.open(loginUrl);
+    // Meteor.loginWithFacebook({requestPermissions:"basic",requestOfflineToken:true},loginWithFacebookCallbackFunction);
 }
 
 function loginWithGoogle(){
@@ -5159,6 +5175,29 @@ function bindEvents(){
     }
     //MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 } 
+
+/////////////////// SHARE //////////////////
+function onShare(share){
+    var share = $(this).attr("share");
+    if(share == "facebook"){
+        window.plugins.socialsharing.shareViaFacebook("Tapmate" , "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com', function() {}, function(errormsg){});
+    }
+    else if(share == "twitter"){
+        window.plugins.socialsharing.shareViaTwitter("Tapmate" , "Check this out Tapmate is out! It's cool!", "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com');
+    }
+    else if(share == "whatsapp"){
+        window.plugins.socialsharing.shareViaWhatsApp("Tapmate" , "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com', function() {}, function(errormsg){}) ;
+    }
+    else if(share == "sms"){
+        window.plugins.socialsharing.shareViaSMS("Tapmate, Check this out Tapmate is out! It's cool!", null /* see the note below */, function(msg) {}, function(msg) {});
+    }
+    else{
+       window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com'); 
+    }    
+}
+
+/////////////////// SHARE //////////////////
+
 
 ////////////////////////push notification//////////////
 function pushNotifiPopup(pushpic,pushmsg,pushlkid){

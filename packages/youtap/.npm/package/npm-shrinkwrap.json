@@ -21,6 +21,36 @@
           "version": "0.0.3"
         }
       }
+    },
+    "passport": {
+      "version": "0.2.0",
+      "dependencies": {
+        "passport-strategy": {
+          "version": "1.0.0"
+        },
+        "pause": {
+          "version": "0.0.1"
+        }
+      }
+    },
+    "passport-facebook": {
+      "version": "1.0.3",
+      "dependencies": {
+        "passport-oauth2": {
+          "version": "1.1.2",
+          "dependencies": {
+            "passport-strategy": {
+              "version": "1.0.0"
+            },
+            "oauth": {
+              "version": "0.9.11"
+            },
+            "uid2": {
+              "version": "0.0.3"
+            }
+          }
+        }
+      }
     }
   }
 }

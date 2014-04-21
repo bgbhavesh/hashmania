@@ -1,21 +1,10 @@
 schedule = Npm.require('node-schedule');
 paypal = Npm.require('paypal-rest-sdk');
 FB = Npm.require('fb');
-// cryptsy.api('allmytrades', null, function (err, data) {
-// 	console.log(err);
-// 	console.log(data);
-// });
+passport = Npm.require('passport');
+facebook = Npm.require('passport-facebook');
 
 
-
-// var rule = new schedule.RecurrenceRule();
-// console.log(rule)
-// rule.second = 1;
-// // rule.minute = 1;
-
-// var j = schedule.scheduleJob(rule, function(){
-//     console.log('The answer to life, the universe, and everything!');
-// });
 URL = Npm.require('url'),
 http = Npm.require('http'),
 Meteor.getBase = function (sURL){

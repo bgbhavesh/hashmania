@@ -547,11 +547,11 @@ Template.loginWithInstagram.rendered = function(){
     $("#loginButton,#loginwithInsta").hammer().off("tap",clickOnLoginButton);
     $("#loginButton,#loginwithInsta").hammer().on("tap",clickOnLoginButton);
 
-    $("#loginWithAppButton").hammer().off("tap",onLoginWithApp);
-    $("#loginWithAppButton").hammer().on("tap",onLoginWithApp);
+    // $("#loginWithAppButton").hammer().off("tap",onLoginWithApp);
+    // $("#loginWithAppButton").hammer().on("tap",onLoginWithApp);
 
-    $("#signupWithAppButton").hammer().off("tap",onLoginWithApp);
-    $("#signupWithAppButton").hammer().on("tap",onLoginWithApp);
+    // $("#signupWithAppButton").hammer().off("tap",onLoginWithApp);
+    // $("#signupWithAppButton").hammer().on("tap",onLoginWithApp);
 
     $("#seLogin").hammer().off("tap",onLoginWithTapmate);
     $("#seLogin").hammer().on("tap",onLoginWithTapmate);
@@ -598,8 +598,7 @@ function onLoginWithTapmate(){
         TapmateUser = email;
     }
     else{
-        $("#seError").css("display","block");
-
+        showLoginErrorMessage("onLoginWithTapmate")
     }
 }
 function onSignUpWithTapmate(){
@@ -611,13 +610,18 @@ function onSignUpWithTapmate(){
         TapmateUser = email;
     }
     else{
-        $("#seError").css("display","block");
+        showLoginErrorMessage("onSignUpWithTapmate")
     }
 }
-
+function showLoginErrorMessage(message){
+    $("#errorMessage").html(message);
+    $("#seError").css("display","block");
+}
 function loginWithTapmateCallbackFunction(err){
     if(err){
         console.log(err);
+        showLoginErrorMessage("loginWithTapmateCallbackFunction")
+        
     }else{
         set("clientid",TapmateUser);
         autoLogin();
@@ -716,7 +720,7 @@ Meteor.documentReady = documentReady;
         }
     });
     function removeEvents(event){
-        // console.log(event);
+        console.log(event);
         if(Meteor.status().connected)
             removeCursor(this._id);   
     }
@@ -2130,7 +2134,7 @@ function removeCursor(val){
         // Recommend.remove({"_id":val});
         // Popular.remove({"_id":val});
         // Search.remove({"_id":val});
-        //Feed.remove({"_id":val});   
+        Feed.remove({"_id":val});   
     }
     catch(error){
         console.log(error);
@@ -2441,10 +2445,14 @@ function tapOnBigFeedInterval(event,localDiv,voteInsert){
     try{
            //console.log(event);     
         VoteStart =   new Date().getTime() ;
-        var x = event.gesture.center.pageX;
+        var x = event.gesture.center.pageX - adjustLeft;
+        // console.log(x);
+        // console.log(adjustLeft);
+        // console.log(x - adjustLeft);
+        
         var y = event.gesture.center.pageY;            
         var height = $("#Main").height();
-        var width = $("#Main").width();
+        var width = $("#Main").width() ;
         var bigheight = $("#quadrant").height();           
         var left = (x/width) * 100;
         var top = (y/height) * 100; 
@@ -2541,6 +2549,7 @@ function tapOnBigFeedInterval(event,localDiv,voteInsert){
                         tapBigTutorial(75,70,"recommend","Tap again on pic to recommend this pic to your friend.");
                         tutorialJSON.third = true;
                     },1000);
+                    updateCursor(cursorBig);
                                    
                 }
                 if(voteFlag || groupType){
@@ -3591,6 +3600,16 @@ function autoLogin(){
             ClientId = null;
             return ;
         }
+        if(isNaN(ClientId)){
+            Session.set("clientid",ClientId);
+            suscribeMeteor(ClientId);
+            Session.set("username",ClientId);
+            Meteor.call("guestFirstTimeLogin",ClientId,function(){
+                console.log("finish");
+            });
+            // Tapmate user conditions
+            return ;
+        }
         if(ClientId){
             preLoginAct();
             //console.log(ClientId);
@@ -3612,14 +3631,15 @@ function autoLogin(){
             showKeywordPopup();
         }
         else{
-            ClientId = "guest"+Random.id()
-            set("clientid",ClientId)
-            Session.set("clientid",ClientId);
-            suscribeMeteor(ClientId);        
-            Session.set("username",ClientId);
-            Meteor.call("guestFirstTimeLogin",ClientId,function(){
-                console.log("finish");
-            });
+            // GoodBye Guest ID
+            // ClientId = "guest"+Random.id()
+            // set("clientid",ClientId)
+            // Session.set("clientid",ClientId);
+            // suscribeMeteor(ClientId);
+            // Session.set("username",ClientId);
+            // Meteor.call("guestFirstTimeLogin",ClientId,function(){
+            //     console.log("finish");
+            // });
         }
     }
     catch(error){
@@ -4962,8 +4982,41 @@ function checkdevice(){
     else {
         deviceType="others";
     }
-        Me.update({"_id":Session.get("clientid")},{$set : {"deviceType":deviceType,"windowWidth":$(window).width(),"windowHeight":$(window).height()}});
-
+    var windowHeight = $(window).height();
+    var windowWidth = $(window).width();
+    Me.update({"_id":Session.get("clientid")},{$set : {"deviceType":deviceType,"windowWidth":windowWidth,"windowHeight":windowHeight}});
+}
+var autoSizeTimeOut = null;
+var adjustLeft = 0;
+function autoSize(){
+        var windowHeight = $(window).height();
+        var windowWidth = $(window).width();
+        var adjustedWidth = 0;
+            adjustedWidth = (windowHeight / 4 ) * 3 ;
+        if(windowWidth > adjustedWidth){
+            
+            adjustLeft = (adjustedWidth/2);
+            $("#bodyWrapper").width(adjustedWidth);
+            $("#bodyWrapper").css({"left":"50%","margin-left": -adjustLeft +"px"})
+            feedWidth = null;
+            var one = $(".extrabutton")[0];
+            if(one){
+                var height = $(one).width();      
+                $("#currentFollow").css({"height":height +"px","width":height +"px"});
+            }
+        }
+        else{
+            $("#bodyWrapper").css({"left":"0px","margin-left": "0px","height":"100%","width":"100%"})
+            $("#currentFollow").css({"height":"80px","width":"80px"});
+            adjustLeft = 0;
+        }
+        feedWidth = null;
+        fitTextFunction();
+        if(autoSizeTimeOut)
+            clearTimeout(autoSizeTimeOut);
+        autoSizeTimeOut = setTimeout(autoSize,300);
+        Template.Section2.rendered();
+        Template.Section3.rendered();
 }
 var pushId = null;
 function bindEvents(){
@@ -5066,6 +5119,10 @@ function bindEvents(){
         $("#getEmailButton").hammer().on("tap",getEmailButton);
         $("#logininstagram").hammer().on("tap",onClicklogininstagram);
         $("#goinstaplaystore").hammer().on("tap",onClickgoinstaplaystore);
+
+        $("#loginwithfb").hammer().on("tap",loginWithFacebook);
+        $("#loginwithgoog").hammer().on("tap",loginWithGoogle);
+
         $("#guestLogincancle").hammer().on("tap",function(){
             $("#guestLogin").css("display","none");
         });
@@ -5078,6 +5135,7 @@ function bindEvents(){
         $(window).bind('beforeunload',function(){
             saveCollection();
         });
+        $(window).resize(autoSize);
         $("#pushimagePopUp").hammer().on("tap",OnClickPushImage);
 
         touchScroll("snapy");
@@ -5085,7 +5143,8 @@ function bindEvents(){
             if(!Session.get("phonegap"))
             hideLoader();
             //console.log("loader hidden");
-            // bindTouchEvents();         
+            // bindTouchEvents();
+        autoSize();         
         i18n = {}; 
         language = {};
         temporarylang();
@@ -6196,13 +6255,13 @@ function snapy(){
 }
 function openCloseSnapLeft(){
     if(snapLeftFlag){        
-        $("#snapy").transition({"left":"-90%"});
-        $("#beforeLogin").transition({"left":"0%"});
-        $("#snapButton").transition({"left":"0%"});
+        $("#snapy")["transition"]({"left":"-90%"});
+        //$("#beforeLogin").transition({"left":"0%"});
+        $("#snapButton")["transition"]({"left":"0%"});
     }
     else{
       $("#snapy").transition({"left":"0%"});
-      $("#beforeLogin").transition({"left":"90%"});
+      //$("#beforeLogin").transition({"left":"90%"});
       $("#snapButton").transition({"left":"90%"});
       followsFlag = true;
       openCloseFollows();

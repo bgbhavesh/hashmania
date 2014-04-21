@@ -24,6 +24,7 @@ body{
 	overflow: hidden;
 
 	background: #E5E5E5  ;
+    background-color: #111;
 	color: #808080  ;
 	font-weight: normal;
 	font-family: Helvetica, Arial, sans-serif  ;
@@ -42,7 +43,7 @@ body{
     left : 0px;
     top : 0px;
     position: absolute;
-    overflow: hidden;
+    overflow: visible;
 
 	background: #E5E5E5  ;
 	color: #808080  ;
@@ -115,6 +116,7 @@ body{
 #Main{
 	background-size: 100% 100%;
 	display: block;
+    overflow: visible;
 }
 #snapy{
     width:90%;
@@ -606,12 +608,12 @@ body{
 
 
 #loginButton{
-    position: absolute;
-	top: 50%;
+    position: relative;
+/*	top: 50%;
 	left: 50%;
 	margin-left: -140px;
 	margin-top: -21px;
-	z-index: 2;
+	z-index: 2;*/
 }
 #loginWithAppButton{
 	position: absolute;

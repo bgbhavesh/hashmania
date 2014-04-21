@@ -448,7 +448,7 @@ body{
 	left: 0px;
 	top: 0px;
 }
-#popup,#ContactUsPopUp, #keywordPopup,#AboutUsPopUp,#walkthroughMessageBox,#language{
+#popup,#ContactUsPopUp, #keywordPopup,#AboutUsPopUp,#walkthroughMessageBox,#language,#welcomePopUp{
 	position: absolute;
 	text-align: center;
 	display: none;
@@ -475,6 +475,15 @@ body{
 	left: 50%;
 	top: 50%;
 	z-index: 5;
+	margin-left: -40%;
+	width: 80%;	
+	height: auto;
+	margin-top: -75px;
+}
+#welcomePopUp{
+	z-index: 7;
+	left: 50%;
+	top: 50%;
 	margin-left: -40%;
 	width: 80%;	
 	height: auto;

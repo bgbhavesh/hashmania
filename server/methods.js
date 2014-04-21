@@ -43,7 +43,8 @@ language.toast = {
     "hate"          : "You dislike the picture...",
     "Recentslabel"      :"Recents",
     "languageButton"    :"Language <i class='globe icon'></i>",
-    "Logout"                  :"  Log Out",
+    "shareApp"                :"<i class='url icon'></i> Share",
+    "Logout"                  :"<i class='sign out icon'></i> Log Out",
     "about"                   :"<i class='font icon'></i> About",
     "alreadyMessage"          : "Don't recognize yourself? <br><br> Log in with instagram. ",
     "Login With Instagram"    :"Login With Instagram",
@@ -94,6 +95,7 @@ language.html = [
         ["a#loginButton","Login With Instagram"],
         ["a#logout","Logout"],
         // ["a#contest","Contest"],
+        ["a#shareApp","shareApp"],
         ["a#pushNotification","Push Notification"],
         ["a#languageButton","languageButton"],
         ["b#Recentslabel","Recentslabel"],
@@ -692,7 +694,7 @@ language.html = [
             }
         },
         "sendEmail" : function(html,email){
-            console.log(html)
+            //console.log(html)
             try{
                 //this.unblock();
                 Email.send({
@@ -718,7 +720,7 @@ language.html = [
 
         "sendNewsLetters" : function(message){
             try{
-                adminText = "<br>" +message;
+                App.adminText = "<br>" +message;
                 return true;
             }
             catch(error){
@@ -939,7 +941,7 @@ language.html = [
             var recent = "https://api.instagram.com/v1/users/" +youiestId +"/media/recent?access_token=" +access;
             var data = Meteor.http.get(recent);  
             var myText = "";   
-            adminText = "";    
+            App.adminText = "";    
 
             if(data){
                 if(data.statusCode == 200){
@@ -951,7 +953,7 @@ language.html = [
                         else
                             caption = "";
                         myText = caption;
-                        adminText += caption;
+                        App.adminText += caption;
                                          
                     }
                     
@@ -974,7 +976,7 @@ language.html = [
                                 images = images.url;
                             else
                                 images = "";
-                            youiestPic = images;
+                            App.youiestPic = images;
                             
                         }
                     }
@@ -983,7 +985,7 @@ language.html = [
                          if(caption.length > 0){
                             var caption1 = imageArray[0].caption.from;
                             if(caption1){
-                               YouestUsername = caption1.full_name;
+                               App.YouestUsername = caption1.full_name;
                             }
                         }
                     }
@@ -1043,9 +1045,11 @@ language.html = [
             //Meteor.call("getTextForNewsletters");        
             //emailDailyGen("625237041","hastenf@gmail.com")  
             //resetMe("day");
-            App.sentmailtome();
+            //App.sentmailtome();
             //calcTime();
             // maileveryday();
+            //App.myVotesOfWeek("625237041");
+            App.emailGeneration("625237041","hastenf@gmail.com");
         },
         "removeGlobalFeed" : function(){
             // GlobalFeed.remove({});

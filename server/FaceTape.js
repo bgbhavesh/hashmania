@@ -535,13 +535,13 @@ var countDownMins = 0;
 var countDownSecs = 0;
 var countDownTimeoutId  = null;
 var ContestID = null;
-var adminText = "";
+App.adminText = "";
 App.subjectEmail = "";
 var contestEndFlag = false;
-var youiestPic= '';
+App.youiestPic= '';
 var globalClientId = -1;
 var Fiber = Npm.require('fibers');
-
+App.YouestUsername="";
 var routeMessage = ["first message","second message","a"];
 var routeCounter = 0;
 // Meteor.Router.add({
@@ -636,7 +636,7 @@ Meteor.startup(function () {
     else
         ContestID = Contest.insert({"countDownHours":0,"countDownMins":0,"countDownSecs":0});
     
-    if(!DebugFace)
+    //if(!DebugFace)
         checkContest();
     /*
         http://zulfait.blogspot.in/2013/01/meteor-js-send-email-through-gmail.html
@@ -749,21 +749,11 @@ function updateVoteDependencies(first){
     //var notifyCount =0;
 
     cursorRecomm.forEach(function(data){
-        abcd(data);
-    }); 
-    var cursorRecomm = Feed.find({"likeid":first.likeid,"type":2,"clientid":first.followid});
-    //var notifyCount =0;
-
-    cursorRecomm.forEach(function(data){
-        abcd(data);
-    }); 
-}
-function abcd(data){
         var distance = Math.sqrt(((data.left-first.left) * (data.left-first.left)) + ((data.top-first.top) * (data.top-first.top)));; 
         //console.log(distance);  
         distance = Math.round(distance);
         distance = 50 - distance;
-        Feed.update({"_id":data._id},{$set:{"distance":distance,"notify":"no"}});                    
+        // Recommend.update({"_id":data._id},{$set:{"distance":distance,"notify":"no"}});                    
         Meteor.call("incScore",data.whoid,distance);
         //console.log(data);
         var message = data.whousername +" "+i18n.__("got")+" "+distance +" "+i18n.__("ptsfromyourvote");
@@ -775,6 +765,7 @@ function abcd(data){
         }
         console.log(senderMessage);
         TapmateNotification.insert({"senderid":data.whoid,"message":senderMessage,"notify":false,"low":data.low,"likeid":data.likeid});
+    }); 
 }
 App.checkSecondVote = checkSecondVote;
 //// votes done
@@ -1589,9 +1580,9 @@ App.isAdmin = isAdmin;
         +'<div id="emailFormatBody" style="height: 500px;width: 500px;left : 0px;top : 0px;position: absolute;display: block;overflow: hidden; z-index:2; text-align:center; border: 1px solid #444;background: cornflowerblue;color: #fff;text-shadow: 0 1px 0 #111;font-weight: 400; color:white;"> '   
             +'<div style="font-size: 39px; background: steelblue; font-family: serif;"> Tapmate </div>'
             +'<div style="margin-top: 9px;">'
-                +'<div style="width: 30%;max-height: 25%; float:left;"><img style="width: 88%;max-height: 26%; float: center;" src="'+youiestPic +'"/></div>'
-                +'<div style="width: 70%;max-height: 25%; float:left;">Message from '+YouestUsername+':'
-                +adminText
+                +'<div style="width: 30%;max-height: 25%; float:left;"><img style="width: 88%;max-height: 26%; float: center;" src="'+App.youiestPic +'"/></div>'
+                +'<div style="width: 70%;max-height: 25%; float:left;">Message from '+App.YouestUsername+':'
+                +App.adminText
                 +'</div>'
             +'</div>'   
             +'<div style="width: 100%;max-height: 5%; float:center; margin-top: 32%;">If you are unable to see the images. Please click on Display image link.</div>' 
@@ -1604,9 +1595,12 @@ App.isAdmin = isAdmin;
            +'<div style="height: 182px;">'
                 +youKnowsBetter(clientid)
            +'</div>'
-           '<div style="height: 182px;">'
+           +'<div style="height: 182px;">'
                 +usersRanking()
-           +'</div>'        
+           +'</div>'
+           +'<div style="height: 182px;">'
+                +myVotesOfWeek(clientid)
+           +'</div>'       
        +' </div>';
        +'</body> </html>';
        if(contestEndFlag)
@@ -1614,6 +1608,18 @@ App.isAdmin = isAdmin;
        Meteor.call("sendEmail",html,email);
     }
     App.emailGeneration = emailGeneration;
+    function myVotesOfWeek(clientid){
+        console.log("myVotesOfWeek");        
+        var cursorRecPic = Feed.find({"whoid":clientid},{sort : {"date": -1,"distance":-1},limit:3});
+        var str = '<div  style="height:10%;width:100%;position:absolute;">My Top Votes of Week</div>';
+        cursorRecPic.forEach(function(data){
+            //console.log(data);//recPic.push(data.low);
+            str += createStringtopvotes(data.low,data.distance);        
+        });
+        return str;
+    }
+    App.myVotesOfWeek = myVotesOfWeek;
+
     function usersRanking(){
         console.log("usersRanking");          
         var cursorRecommend = Me.find({},{sort: {"score" : -1}}); 
@@ -1663,7 +1669,10 @@ App.isAdmin = isAdmin;
         return '<div style="width: 30%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' +picture  +'"/></a><div style="background: steelblue;"> ' +score +' </div></div>'
     }
     function createString1(username,picture,score){
-        return '<div style="width: 14%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' +picture  +'"/></a><div style="background: steelblue;"> ' +score +' </div></div>'
+        return '<div style="width: 30%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' +picture  +'"/></a><div style="background: steelblue;"> ' +score +' </div></div>'
+    }
+    function createStringtopvotes(picture,score){
+        return '<div style="width: 30%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <img style="width: 100%;max-height: 140px;" src="' +picture  +'"/></a><div style="background: steelblue;"> ' +score +' </div></div>'
     }
     ///HASTEN CODE///
     function startCounting(){        

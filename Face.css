@@ -829,10 +829,11 @@ body{
 	position: absolute;
 }
 #section4{
-	height: 59.5%;
+	height: 60%;
 	width: 100%;	
 	position: absolute;
-	top: 40.5%;
+	background: #333;
+	top: 40%;
 }
 #quadrant,.quadrant{
   height:100%;
@@ -949,6 +950,15 @@ body{
 
 
 /*First Section CSS Rules*/
+#currentFollowWrapper{
+	width: 0%;
+	position: absolute;
+	background-color: transparent;
+	height: 92%;
+	right: 0px;
+	bottom: 0;
+	z-index: 9;
+}
 #currentFollow{
 	width: 25%;
 	position: absolute;
@@ -957,7 +967,7 @@ body{
 	width: 80px;
 	right: 0px;
 	bottom: 60%;
-	z-index: 5;
+	z-index: 9;
 
 }
 #currentFollow .button{
@@ -1297,9 +1307,11 @@ body{
 
 .bigFeed{
 	position: absolute;
-	height: 100%;
+	height: 97%;
 	width: 100%;
   	z-index: 1;  
+  	top: 3%;
+
 }
 .bigSecondFeed{
 	position: relative;
@@ -1334,6 +1346,16 @@ body{
 	background-size: 100% 100%;
   	z-index : 7;
   	opacity: 0.8;
+}
+#snapButtonWrapper{
+	width: 10%;
+	display: none;
+	position: absolute;
+	z-index: 10;
+	height: 99%;
+	right: 0%;
+	top: 1%;
+	background: transparent;
 }
 #snapButton{
 	width: 10%;

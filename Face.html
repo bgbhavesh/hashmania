@@ -272,11 +272,7 @@
 
 
 
-<template name="editkeyword">
-  {{#each eachkeyword}}
-		<li class="dt"> {{keyword}} ,&nbsp;&nbsp;&nbsp;&nbsp;  </li>       
-  {{/each}}
-</template>
+
 <template name="loginWithInstagram">
 	
    	<div id="loginsignupform" class="ui form segment">
@@ -342,6 +338,8 @@
   <div id="likeButton"> 
   </div>
   <div id="followButton"> 
+  </div>
+  <div id="snapButtonWrapper" >
   </div>
   <div id="snapButton" >
   <i class="icon list layout"></i> 
@@ -602,6 +600,7 @@
 	</div>
 </template>
 <template name="Section2">
+	<div id="currentFollowWrapper"></div> 
 		<div id="currentFollow">
 			<div class="ui icon button">
 				<i class="left arrow icon" id="openclosearrow"></i>
@@ -610,6 +609,7 @@
 				<img class="currentFollowimg" src="{{currentFollow.profile_picture}}">
 			{{/isolate}}
 		</div> 
+
   <div id="section2" data-step="2" data-intro="Users of Tapmate." class="ui inverted segment">
 		
 		

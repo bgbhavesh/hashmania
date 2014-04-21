@@ -31,7 +31,7 @@
     
   <div id="adminListCat">
     <input id="addKeywordText" type="text"> <input id="addKeywordButton" type="button" class="ui button" value="Add"><br>
-    <div id="adminListItems" style="margin-top: 5%"> 
+    <div id="adminListItems" style="margin-top: 15%"> 
    
     {{> editkeyword}}   
          
@@ -180,4 +180,10 @@
   </div>
   </div>
   {{/if}}
+</template>
+
+<template name="editkeyword">
+  {{#each eachkeyword}}
+    <li class="dt"> {{keyword}} ,&nbsp;&nbsp;&nbsp;&nbsp;  </li>       
+  {{/each}}
 </template>

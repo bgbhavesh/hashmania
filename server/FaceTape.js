@@ -636,7 +636,7 @@ Meteor.startup(function () {
     else
         ContestID = Contest.insert({"countDownHours":0,"countDownMins":0,"countDownSecs":0});
     
-    //if(!DebugFace)
+    if(!DebugFace)
         checkContest();
     /*
         http://zulfait.blogspot.in/2013/01/meteor-js-send-email-through-gmail.html
@@ -749,11 +749,21 @@ function updateVoteDependencies(first){
     //var notifyCount =0;
 
     cursorRecomm.forEach(function(data){
+        abcd(data);
+    }); 
+    var cursorRecomm = Feed.find({"likeid":first.likeid,"type":2,"clientid":first.followid});
+    //var notifyCount =0;
+
+    cursorRecomm.forEach(function(data){
+        abcd(data);
+    }); 
+}
+function abcd(data){
         var distance = Math.sqrt(((data.left-first.left) * (data.left-first.left)) + ((data.top-first.top) * (data.top-first.top)));; 
         //console.log(distance);  
         distance = Math.round(distance);
         distance = 50 - distance;
-        // Recommend.update({"_id":data._id},{$set:{"distance":distance,"notify":"no"}});                    
+        Feed.update({"_id":data._id},{$set:{"distance":distance,"notify":"no"}});                    
         Meteor.call("incScore",data.whoid,distance);
         //console.log(data);
         var message = data.whousername +" "+i18n.__("got")+" "+distance +" "+i18n.__("ptsfromyourvote");
@@ -765,7 +775,6 @@ function updateVoteDependencies(first){
         }
         console.log(senderMessage);
         TapmateNotification.insert({"senderid":data.whoid,"message":senderMessage,"notify":false,"low":data.low,"likeid":data.likeid});
-    }); 
 }
 App.checkSecondVote = checkSecondVote;
 //// votes done

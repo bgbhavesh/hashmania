@@ -1302,6 +1302,7 @@ language.html = [
             var access = null;
            
             var firstTimeFlag = false;
+            var cursorMe = Me.findOne({"_id":ClientId})
             if(!cursorMe){
                 firstTimeFlag = true;
                 var insert = {"_id":ClientId,"followid":ClientId,"profile_picture":profile_picture,"username" :username,"recomended":0,"score":0,"timesLoggedin":0,"movedme":0,"movedrecomm":0,"votes":0,"vor":0,"recomending":0,"logout":0,"follownew":0,"swipeleft":0,"swiperight":0,"alreadyloggedin":0,"heatscore":0}
@@ -1314,12 +1315,13 @@ language.html = [
                 // UserSession.insert(SessionInsert);
                 Me.insert(insert);
                 //if(DebugFace){
-                    App.addlocallfollows(ClientId);
                 //}
                     
 
             }                 
-                            
+            
+            App.addlocallfollows(ClientId);            
+            
             Meteor.setTimeout(function(){
                         Meteor.call("globalfeed",ClientId,null);
                         Meteor.call("popular",ClientId,null);

@@ -19,6 +19,7 @@
 	Dissemination of this information or reproduction of this material
 	is strictly forbidden unless prior written permission is obtained
 	from Youiest LLC. -->
+	<meta name="description" content="Tapmate is an Instagram TM guessing game. How well do your friends know you? <br> Find out with this new game! <br> In Tapmate you guess reactions to fashions, memes, celebrities or whatever else you "like" on Instagram.">
 </head>
 
 <body>
@@ -273,11 +274,41 @@
 
 
 <template name="loginWithInstagram">
-	<div id="loginButton" class="ui instagram button">
-		  <i class="instagram icon"></i>
-		  Login With Instagram
-	</div>
-
+	
+   	<div id="loginsignupform" class="ui form segment">
+   		<div id="loginButton" class="ui instagram button">
+			  <i class="instagram icon"></i>
+			  Login With Instagram
+		</div>
+		<div class="field">
+			<label>Username</label>
+			<div class="ui left labeled icon input">
+			<input id="seEmail" type="text" placeholder="Email">
+			<i class="mail icon"></i>
+			<div class="ui corner label">
+			    <i class="icon asterisk"></i>
+			</div>
+			</div>
+		</div>
+		<div class="field">
+			<label>Password</label>
+			<div class="ui left labeled icon input">
+		  	<input id="sePass" type="password">
+	  		<i class="lock icon"></i>
+	  		<div class="ui corner label">
+	    		<i class="icon asterisk"></i>
+		  	</div>
+			</div>
+		</div>
+		<div id="seError" class="ui error message">
+			<div id="errorMessage" class="header">We noticed some issues</div>
+		</div>
+		<div id="seLogin" class="ui blue submit button">Login</div>
+		<div id="seSignup" class="ui blue submit button">Sign Up</div>
+    </div>
+</template>
+<template name="signup"> 
+  	
 </template>
 <template name="main"> 
   <div id="Main">

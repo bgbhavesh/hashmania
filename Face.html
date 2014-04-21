@@ -401,6 +401,13 @@
 		<div id="hideAboutUsPopUp" class="tiny circular ui button">ok</div><br><br>
 	</div>
 
+	<div id="welcomePopUp" class="ui inverted segment"> <br>
+		<div id="pushtext">Welcome to Tapmate!</div>
+		All you need to know to get started is this: tap the big image below! The first tap is your 
+		position and the following are guesses of others position. Have fun!<br><br>
+		<div id="hideWelcomePopUp" class="tiny circular ui button">ok</div><br><br>
+	</div>
+
 	<div id="pushimagePopUp" class="ui inverted segment"> 
 		<div id="pushtext">message</div>
 		<img id="pushnotificationimages" src="">
@@ -456,6 +463,10 @@
 	</div>
 	<div id="gamemenu">
 	<div class="item" >
+		{{> profilemenu}}
+	</div>
+
+	<div class="item" >
 
 	  <div id="menuGame"><b>Game</b></div>
 	  <div class="menu">
@@ -468,20 +479,27 @@
 	  <div id="accounts"><b>Accounts</b></div>
 	  <div class="menu">
 		<a id="loginwithInsta" class="item"> <i class="italic icon"></i>  Log in with Instagram </a>
-		<a id="loginwithfb" class="item">  <i class="warning icon"></i>  <i class="facebook sign icon"></i>  Log in with Facebook  </a>    
-		<a id="loginwithgoog" class="item"> <i class="warning icon"></i>  <i class="google plus sign icon"></i>  Log in with Google </a>    
-
-
-		  <a id="logout" class="item">  Log Out </a>  
+		<a id="shareApp" class="item"> <i class="url icon"></i> Share </a>
+		  <a id="logout" class="item"> <i class="sign out icon"></i> Log Out </a>  
 	  </div>
 	</div>
 
 	<div class="item">
 	  <div id="invitefriends"><b>Invite Friends</b></div>
 	  <div class="menu">
-		  <a id="invfacebook" class="item"> <i class="facebook icon"></i> Contact Us </a>
-		  <a id="invgoogle" class="item"><i class="google plus icon"></i> About </a>
-		  <a id="invtwitter" class="item"><i class="twitter icon"></i> Feedback </a>
+		  <a id="invfacebook" class="item"> <i class="facebook icon"></i> Facebook </a>
+		  <a id="invgoogle" class="item"><i class="google plus icon"></i> Google Plus </a>
+		  <a id="invtwitter" class="item"><i class="twitter icon"></i> Twitter </a>
+	  </div>
+	</div>
+
+	<div class="item">
+	  <div id="sharefriends"><b>Share</b></div>
+	  <div class="menu">
+		  <a id="invfacebook" class="item"> <i class="facebook icon"></i> On Facebook </a>
+		  <a id="invgoogle" class="item"><i class="google plus icon"></i> On Google Plus </a>
+		  <a id="invtwitter" class="item"><i class="twitter icon"></i> On Twitter </a>
+		  <a id="invtwitter" class="item"><i class="twitter icon"></i> On Twitter </a>
 	  </div>
 	</div>
 
@@ -567,6 +585,15 @@
 	{{> Section3}}
 	{{> Section4}}
   </div>
+</template>
+<template name="profilemenu">
+	{{#each user}}
+	<div><b>Profile</b></div>
+    <div class="menu" id="profileItem">
+        <a class="item"><div id="contest" class="item"><img src="{{profile_picture}}" style="width: 29%;float: left;"><div style="text-align: left;margin-left: 35%;">Username: {{username}}<br><br> Email:{{email}}</div></div></a>
+        <a class="item" ></a>
+    </div>
+    {{/each}} 
 </template>
 <template name="distanceTemplate">
 	{{distance}} | {{heat}}

@@ -941,11 +941,12 @@ Meteor.documentReady = documentReady;
                         Session.set("currentBig",likeid);
                         firstTimeLoginFlag = false;
                         if(!DebugFace){
-                            tutorialJSON = {}
-                            tutorialFlag = true;
-                            tutorialJSON.first = true;
-                            tapBigTutorial(70,50,"vote","Tap on pic to vote.");
+                            // tutorialJSON = {}
+                            // tutorialFlag = true;
+                            // tutorialJSON.first = true;
+                            // tapBigTutorial(70,50,"vote","Tap on pic to vote.");
                             $("#tap").hammer().on("tap",tapOnBigFeed);
+                            $("#welcomePopUp").show();
                         }
                         $("#keywordPopup").hide();
                         doubletapOnFollowsIcons(null,"363620479","http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg")
@@ -1081,6 +1082,24 @@ Meteor.documentReady = documentReady;
         $(".followsgroup").hammer().on("doubletap",doubleTapOnGroup);
         $(".followsgroup").hammer().off("hold");
         $(".followsgroup").hammer().on("hold",holdOnGroup);
+    }
+    Template.profilemenu.user = function(){
+        try{
+              return Me.find({"_id":Session.get("clientid")});
+        }
+        catch(error){
+            console.log(error);
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.profilemenu.user"});
+        }
+    }
+    Template.profilemenu.rendered = function(){
+        try{
+              $("#profileItem").hammer().on("tap",OnclickProfileLink);
+        }
+        catch(error){
+            console.log(error);
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.profilemenu.user"});
+        }
     }
     /// Last duplicate
     Template.Section1.recents = function(){
@@ -4361,6 +4380,9 @@ function onClickfeedbackButton(){
     var emailurl = "https://play.google.com/store/apps/details?id=com.youiest.tapmatrix";
     window.open(emailurl, '_system');
 }
+function OnclickProfileLink(){
+    window.open("http://youtap.meteor.com/profile/"+Session.get("clientid"), '_system');
+}
 function onClickAboutUsButton(){
     openCloseSnapLeft();
     $("#AboutUsPopUp").css("top","0%")
@@ -4395,6 +4417,11 @@ function onClicklanguageButton(){
 function hideAboutForm(){
     $("#AboutUsPopUp").animate({ "top": "100%" }, 700,function(){
         $("#AboutUsPopUp").hide();
+    });
+}
+function hideWelcomePopUp(){
+    $("#welcomePopUp").animate({ "top": "100%" }, 700,function(){
+        $("#welcomePopUp").hide();
     });
 }
 function onClickAggAcceptButton(){
@@ -5081,7 +5108,7 @@ function bindEvents(){
         // $("#tutPrev").hammer().on("tap",tutorialPreviousButton);
         // $("#tutDone").hammer().on("tap",tutorialDoneButton);
         $("#gamePromptOkButton").hammer().on("tap",function(){console.log("gamePromptOkButton");gamePrompt();});
-
+        $("#hideWelcomePopUp").hammer().on("tap",hideWelcomePopUp);
         $("#hideAboutUsPopUp").hammer().on("tap",hideAboutForm);
         $("#aboutUsButton").hammer().on("tap",onClickAboutUsButton);
         $("#feedbackButton").hammer().on("tap",onClickfeedbackButton);

@@ -805,7 +805,10 @@ Meteor.documentReady = documentReady;
 
             $("#currentFollow").hammer().off("tap",openCloseFollows);
             $("#currentFollow").hammer().on("tap",openCloseFollows);
-            
+
+            $("#currentFollowWrapper").hammer().off("tap",openCloseFollows);
+            $("#currentFollowWrapper").hammer().on("tap",openCloseFollows);
+
             $("#section2").unbind("touchstart,touchmove");
             touchScroll("section2");            
 
@@ -1528,7 +1531,6 @@ Meteor.documentReady = documentReady;
         }
     }
     
-    
     Template.groupvote.votes = function(){
         try{
             var currentBig = Session.get("currentBig");
@@ -1603,30 +1605,6 @@ Meteor.documentReady = documentReady;
             ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.eachcomment"});
         }
     } 
-    Template.keyword.eachkeyword = function(){
-        try{
-            var defineKeyword=SponserKeyword.find({})
-            if(defineKeyword){
-              return defineKeyword;
-            }else{
-              
-            }
-            
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.keyword.eachkeyword"});
-        }
-    }
-    Template.editkeyword.eachkeyword = function(){
-        try{
-            return SponserKeyword.find({});
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.editkeyword.eachkeyword"});
-        }
-    }
     Template.server.status = function(){
         return Meteor.status().connected;
     }
@@ -5072,7 +5050,8 @@ function bindEvents(){
             saveCollection();
         });
         $("#pushimagePopUp").hammer().on("tap",OnClickPushImage);
-
+        $("#snapButtonWrapper").hammer().off("tap",openCloseSnapLeft)
+        $("#snapButtonWrapper").hammer().on("tap",openCloseSnapLeft)
         touchScroll("snapy");
             ///Last Event
             if(!Session.get("phonegap"))
@@ -6205,11 +6184,13 @@ function openCloseSnapLeft(){
         $("#snapy").transition({"left":"-90%"});
         $("#beforeLogin").transition({"left":"0%"});
         $("#snapButton").transition({"left":"0%"});
+        $("#snapButtonWrapper").css({"display":"none"});
     }
     else{
       $("#snapy").transition({"left":"0%"});
       $("#beforeLogin").transition({"left":"90%"});
       $("#snapButton").transition({"left":"90%"});
+      $("#snapButtonWrapper").css({"display":"block"}); 
       followsFlag = true;
       openCloseFollows();
 
@@ -6225,12 +6206,13 @@ function openCloseSnapRight(){
         $("#snapy").transition({"left":"-90%"});
         $("#beforeLogin").transition({"left":"0%"});
         $("#snapButton").transition({"left":"0%"});
+        $("#snapButtonWrapper").css({"display":"none"});
     }
     else{
       $("#snapy").transition({"left":"0%"});
       $("#beforeLogin").transition({"left":"90%"});
       $("#snapButton").transition({"left":"90%"});
-
+      $("#snapButtonWrapper").css({"display":"block"});
     }
     snapRightFlag = !snapRightFlag;
 }
@@ -6238,11 +6220,13 @@ var followsFlag = false;
 function openCloseFollows(){
     if(followsFlag){
         $("#section2").transition({"left":"100%"});
+        $("#currentFollowWrapper").transition({"right":"0px","width":"0%"});
         $("#currentFollow").transition({"right":"0px"});
         $("#openclosearrow").animate("class","left arrow icon");
     }
     else{
         $("#section2").transition({"left":"28%"});
+        $("#currentFollowWrapper").transition({"right":"72%","width":"28%"});
         $("#currentFollow").transition({"right":"72%"});
         $("#openclosearrow").animate("class","right arrow icon");
         if(tutorialJSON.fifth && !tutorialJSON.sixth){

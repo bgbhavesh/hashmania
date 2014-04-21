@@ -4,10 +4,7 @@ Router.map(function () {
         path: '/admin',
         template: 'admin',
         data : function (){
-           // Meteor.documentReady();
-           //console.log()
            Session.set("clientid",get("clientid"));
-           //console.log(Session.get("clientid"))
            Meteor.documentReady();
         }
     }); 
@@ -154,7 +151,7 @@ Template.admin.totalUser = function(){
     return Me.find({}).count();
 }
 Template.admin.users = function(){
-    return Me.find({});
+    return Me.find({},{sort : {"dalreadyloggedin": -1}});
 }
 //Template.admin.events ({
 //    "click #adminPanelCloseButton" : ,
@@ -186,10 +183,10 @@ Template.admin.rendered = function(){
     $("#addKeywordButton").hammer().on("tap",function (){
       var tempKeyword = null;
       tempKeyword = $("#addKeywordText").val();
-      console.log(tempKeyword);
+      //console.log(tempKeyword);
       if(!tempKeyword)
         return;
-      SponserKeyword.insert({"keyword":tempKeyword})
+      SponserKeyword.insert({"keyword":tempKeyword,"date": new Date()})
       $("#addKeywordText").val('');
     });
     $("#emailClose").hammer().off("tap");
@@ -202,7 +199,7 @@ Template.admin.rendered = function(){
             if(!adminTotalCount[i])
                 adminTotalCount[i] =0;
             adminTotalCount[i] += Number($(children[i]).text());
-            console.log(adminTotalCount[i])
+            //console.log(adminTotalCount[i])
             //console.log(adminTotalCount[i])
         }            
     });        
@@ -212,10 +209,33 @@ Template.admin.rendered = function(){
 }
 Template.admin.isAdmin = function(){        
     var clientid = Session.get("clientid");
-    if("625237041" ==   clientid||  "363620479"  == clientid || "487690035" == ClientId){
+    if("625237041" ==   clientid||  "363620479"  == clientid || "487690035" == clientid){
         return true;
     }
     return false;
 }
-   
+Template.editkeyword.eachkeyword = function(){
+    try{
+        return SponserKeyword.find({},{sort : {"date": -1}});
+    }
+    catch(error){
+        console.log(error);
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.editkeyword.eachkeyword"});
+    }
+}
+// Template.keyword.eachkeyword = function(){
+//         try{
+//             var defineKeyword=SponserKeyword.find({},{sort : {"date": -1}});
+//             if(defineKeyword){
+//               return defineKeyword;
+//             }else{
+              
+//             }
+            
+//         }
+//         catch(error){
+//             console.log(error);
+//             ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.keyword.eachkeyword"});
+//         }
+//     }  
     // Admin Template Ends//

@@ -1595,9 +1595,12 @@ App.isAdmin = isAdmin;
            +'<div style="height: 182px;">'
                 +youKnowsBetter(clientid)
            +'</div>'
-           '<div style="height: 182px;">'
+           +'<div style="height: 182px;">'
                 +usersRanking()
-           +'</div>'        
+           +'</div>'
+           +'<div style="height: 182px;">'
+                +myVotesOfWeek()
+           +'</div>'       
        +' </div>';
        +'</body> </html>';
        if(contestEndFlag)
@@ -1605,6 +1608,17 @@ App.isAdmin = isAdmin;
        Meteor.call("sendEmail",html,email);
     }
     App.emailGeneration = emailGeneration;
+    function myVotesOfWeek(){
+        console.log("myVotesOfWeek");        
+        var cursorRecPic = Feed.find({"clientid":profId,"display":"n"},{sort : {"date": -1},limit:4});
+        var str = '<div  style="height:10%;width:100%;position:absolute;">My Top Votes of Week</div>';
+        // cursorRecPic.forEach(function(data){
+        //     //console.log(data);recPic.push(data.low);
+        //     str += createString1(data.username,data.profile_picture,data.heatscore);        
+        // });
+        return str;
+    }
+    App.myVotesOfWeek = myVotesOfWeek;
     function usersRanking(){
         console.log("usersRanking");          
         var cursorRecommend = Me.find({},{sort: {"score" : -1}}); 
@@ -1654,6 +1668,9 @@ App.isAdmin = isAdmin;
         return '<div style="width: 30%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' +picture  +'"/></a><div style="background: steelblue;"> ' +score +' </div></div>'
     }
     function createString1(username,picture,score){
+        return '<div style="width: 14%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' +picture  +'"/></a><div style="background: steelblue;"> ' +score +' </div></div>'
+    }
+    function createStringtopvotes(username,picture,score){
         return '<div style="width: 14%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' +picture  +'"/></a><div style="background: steelblue;"> ' +score +' </div></div>'
     }
     ///HASTEN CODE///

@@ -1297,19 +1297,22 @@ App.isAdmin = isAdmin;
         console.log("maileveryday")
         var rule = new schedule.RecurrenceRule();
         //rule.dayOfWeek = [0, new schedule.Range(1, 6)];
-        rule.hour = 13;
-        rule.minute = 43;
+        rule.hour = 1;
+        rule.minute = 15;
         rule.second = 0;
         var j = schedule.scheduleJob(rule, function(){
                 console.log("day reset")
                 App.subjectEmail = "Daily Updates";
                 Fiber(function () {
-                    App.sentmailtome();
-                    var cursorMe = Me.find({});
-                    cursorMe.forEach(function(data){
-                        Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"wswipeleft":0,"dswiperight":0}});
-                    });
+                Meteor.setTimeout(scheduleFixing,300);
                 }).run();
+        });
+    }
+    function scheduleFixing(){
+        App.sentmailtome();
+        var cursorMe = Me.find({});
+        cursorMe.forEach(function(data){
+            Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"wswipeleft":0,"dswiperight":0}});
         });
     }
     function maileveryweek(){
@@ -1442,9 +1445,10 @@ App.isAdmin = isAdmin;
     // }
     /// it will reset daily weekly monthly and yearly logs
     function emailDailyGen(clientid,email){
-         Fiber(function () {
+         // Fiber(function () {
               //Accounts.oauth._middleware(req, res, next);
-                console.log("email"+email)
+                console.log("emailDailyGen");
+                var extraData = addrow();
                 var html = 
                 '<html> <head> <style> ' 
                     +''
@@ -1463,21 +1467,25 @@ App.isAdmin = isAdmin;
                           +'<th>dswipeleft </th>'
                           +'<th>dswiperight </th>'
                         +'</tr>'
-                        +addrow();  
+                        +extraData;  
                +' </div>'
-               +'</body> </html>'
+               +'</body> </html>';
+               console.log("html generation edded");
+               console.log(extraData);
             Meteor.call("sendEmail",html,email);
-       }).run();
+       // }).run();
     }
     App.emailDailyGen = emailDailyGen;
-    var htmlstr = "";
+    
     function addrow(){
+        var htmlstr = "";
         //Fiber(function () {
         //str = ""; 
+        console.log("addrow")
         var cursorTapMatrixUser = Me.find({});  
             cursorTapMatrixUser.forEach(function(data){
-                //console.log(data)
-                if(data.dalreadyloggedin){
+                console.log(data.dalreadyloggedin)
+                // if(data.dalreadyloggedin){
                     //console.log("data"+data.dalreadyloggedin);
                     htmlstr += '<tr> '
                                   +'<th>'+data._id+'</th>'
@@ -1491,7 +1499,7 @@ App.isAdmin = isAdmin;
                                   +'<th>'+checkmaildata(data.dswipeleftswipeleft) +'</th>'
                                   +'<th>'+checkmaildata(data.dswiperight) +'</th>'
                             +'</tr>';
-                }   
+                // }   
         });
         console.log("htmlstr"+htmlstr)
         return htmlstr;
@@ -1506,13 +1514,14 @@ App.isAdmin = isAdmin;
          
     };
     function sentmailtome(){
-        Fiber(function () {
+        //Fiber(function () {
         console.log("sentmailtome")
         //emailDailyGen("625237041","hastenf@gmail.com");
-        setTimeout(function(){emailDailyGen("625237041","hastenf@gmail.com");},200);
-        //emailDailyGen("487690035","nicolsondsouza@gmail.com");
+        // setTimeout(function(){},200);
+        //emailDailyGen("625237041","hastenf@gmail.com");
+        emailDailyGen("487690035","nicolsondsouza@gmail.com");
         //emailDailyGen("363620479","decivote@gmail.com") 
-        }).run();
+        //}).run();
     };
     App.sentmailtome = sentmailtome;
     // function resetMe(what){

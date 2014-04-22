@@ -1,0 +1,1 @@
+meteor deploy youtap.meteor.com --settings youtapsettings.json

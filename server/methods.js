@@ -694,9 +694,10 @@ language.html = [
             }
         },
         "sendEmail" : function(html,email){
-            console.log(html)
             try{
-                //this.unblock();
+                console.log("sendEmail from methods");
+                console.log(html)
+                this.unblock();
                 Email.send({
                     from: 'Tapmate <tapmate@youiest.com>',
                     to:   email,            

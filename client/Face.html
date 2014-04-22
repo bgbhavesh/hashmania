@@ -455,7 +455,7 @@
   
  
    <!--  <div id="menuWrapper"> --> <!--bug on z-index so made wrapper--> 
-
+  {{> Section2}} 
   <div id="snapy" class="ui large vertical inverted labeled icon sidebar menu active">
 	<div class="item" id="menuresents">
 	  <b id="Recentslabel"> Preview </b>
@@ -491,6 +491,17 @@
 		  <a id="invgoogle" class="item"><i class="google plus icon"></i> Google Plus </a>
 		  <a id="invtwitter" class="item"><i class="twitter icon"></i> Twitter </a>
 	  </div>
+	</div>
+
+	<div class="item">
+		<div id="rating"><b>Rate Me</b></div>
+		<div class="ui heart rating">
+			<i class="icon active"></i>
+			<i class="icon active"></i>
+			<i class="icon active"></i>
+			<i class="icon"></i>
+			<i class="icon"></i>
+		</div>
 	</div>
 
 	<div class="item">
@@ -571,7 +582,7 @@
 <template name="BeforeLogin">
   <div id="beforeLogin">
 	{{> header}}  
-	{{> Section2}}
+	
 	{{> Section3}}
 	{{> Section4}}
   </div>
@@ -617,7 +628,7 @@
 	</div>
 </template>
 <template name="Section2">
-	<div id="currentFollowWrapper"></div> 
+	
 		<div id="currentFollow">
 			<div class="ui icon button">
 				<i class="left arrow icon" id="openclosearrow"></i>
@@ -652,29 +663,31 @@
 		  <div id="hidecheckmark"> </div>   
 		</div>
 		<div id="atbutton" class="square">
-			  <img src="images/email.png">
+			  <img src="images/email.png"/>
 		</div>
 		<div class="ui inverted divider"></div>
 	</div>
 	<div id="section2Label" ><i style="font-size:2em;" class="user icon"></i></div>
 	
 	<div id="groupDiv">
-		{{> grouptemplate}}
+		{{#isolate}}
+			{{> grouptemplate}}
+		{{/isolate}}
 	</div>
   </div>
   
 </template>
 <template name="grouptemplate">
-  {{#each group}}
+  	{{#each group}}
 	<div class="{{activity}} followsgroup" myid="{{_id}}" type="group">  
 		<div class="groupCount ui blue tiny button">{{this.follows.length}}</div>
 		<div class="groupImages">   
-		  {{#each picture}}
-			<img class="groupicons" src="{{this}}">
-		  {{/each}}
+			{{#each picture}}
+				<img class="groupicons" src="{{this}}">
+			{{/each}}
 		</div>
 	</div>
-  {{/each}}
+  	{{/each}}
 </template>
 <template name="myself">
   {{#each eachMyself}}

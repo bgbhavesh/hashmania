@@ -619,8 +619,8 @@ function showLoginErrorMessage(message){
 }
 function loginWithTapmateCallbackFunction(err){
     if(err){
-        console.log(err);
-        showLoginErrorMessage("loginWithTapmateCallbackFunction")
+        // console.log(err);
+        showLoginErrorMessage(err.reason)
         
     }else{
         set("clientid",TapmateUser);
@@ -759,11 +759,7 @@ Meteor.documentReady = documentReady;
             }
         }
     })
-    Template.editkeyword.events({
-      "click li" : function(event){
-          SponserKeyword.remove({"_id":this._id});
-      }
-    });
+    
     Template.groupvote.rendered = function(){
         
         $(".grouping").each(function(index,element){
@@ -938,6 +934,7 @@ Meteor.documentReady = documentReady;
                     //console.log(likeid);
                     if(likeid){
                         beforeCurrentBig()
+                        if(!Session.set("currentBig"))
                         Session.set("currentBig",likeid);
                         firstTimeLoginFlag = false;
                         if(!DebugFace){
@@ -1652,15 +1649,7 @@ Meteor.documentReady = documentReady;
             ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.keyword.eachkeyword"});
         }
     }
-    Template.editkeyword.eachkeyword = function(){
-        try{
-            return SponserKeyword.find({});
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.editkeyword.eachkeyword"});
-        }
-    }
+
     Template.server.status = function(){
         return Meteor.status().connected;
     }
@@ -5035,6 +5024,7 @@ function checkdevice(){
 var autoSizeTimeOut = null;
 var adjustLeft = 0;
 function autoSize(){
+        console.log("autoSize");
         var windowHeight = $(window).height();
         var windowWidth = $(window).width();
         var adjustedWidth = 0;
@@ -5058,11 +5048,16 @@ function autoSize(){
         }
         feedWidth = null;
         fitTextFunction();
-        if(autoSizeTimeOut)
-            clearTimeout(autoSizeTimeOut);
-        autoSizeTimeOut = setTimeout(autoSize,300);
+        if(Template.Section2)
         Template.Section2.rendered();
+        if(Template.Section3)
         Template.Section3.rendered();
+        if(autoSizeTimeOut){
+            return;
+        }
+            
+        autoSizeTimeOut = setTimeout(autoSize,300);
+        
 }
 var pushId = null;
 function bindEvents(){
@@ -5172,6 +5167,7 @@ function bindEvents(){
         $("#guestLogincancle").hammer().on("tap",function(){
             $("#guestLogin").css("display","none");
         });
+        $("#shareApp").hammer().on("tap",onShare);
         $("#emptyCacheButtonMenu").hammer().on("tap",function(){
             cacheFlag = true;
             window.location.reload();
@@ -5184,7 +5180,8 @@ function bindEvents(){
         $(window).resize(autoSize);
         $("#pushimagePopUp").hammer().on("tap",OnClickPushImage);
         $("#snapButtonWrapper").hammer().off("tap",openCloseSnapLeft)
-        $("#snapButtonWrapper").hammer().on("tap",openCloseSnapLeft)
+        $("#snapButtonWrapper").hammer().on("tap",openCloseSnapLeft);
+        $(".ui.heart.rating .icon").hammer().on("tap",setRattings);
         touchScroll("snapy");
             ///Last Event
             if(!Session.get("phonegap"))
@@ -5202,9 +5199,24 @@ function bindEvents(){
     }
     //MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 } 
-
+function setRattings(){
+    var icon = $(".ui.heart.rating .icon");
+    icon.removeClass("active");
+    for(var i=0,il=icon.length;i<il;i++){
+        $(icon[i]).addClass("active")
+        if(icon[i] == this){
+            Me.update({"_id":Session.get("clientid")},{$set : {"rating": i+1}});
+            break;
+        }
+    }
+    onClickfeedbackButton();
+}
 /////////////////// SHARE //////////////////
 function onShare(share){
+    if(!Session.get("phonegap")){
+        toast("This feature is not available for web browser.");
+        return;
+    }
     var share = $(this).attr("share");
     if(share == "facebook"){
         window.plugins.socialsharing.shareViaFacebook("Tapmate" , "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com', function() {}, function(errormsg){});
@@ -6369,9 +6381,9 @@ function openCloseFollows(){
         $("#openclosearrow").animate("class","left arrow icon");
     }
     else{
-        $("#section2").transition({"left":"28%"});
-        $("#currentFollowWrapper").transition({"right":"72%","width":"28%"});
-        $("#currentFollow").transition({"right":"72%"});
+        $("#section2").transition({"left":"25%"});
+        $("#currentFollowWrapper").transition({"right":"75%","width":"25%"});
+        $("#currentFollow").transition({"right":"75%"});
         $("#openclosearrow").animate("class","right arrow icon");
         if(tutorialJSON.fifth && !tutorialJSON.sixth){
             semanticpopup(82,36,"Users",i18n.__("urfriends"));

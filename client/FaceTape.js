@@ -6379,8 +6379,10 @@ function openCloseFollows(){
         $("#currentFollowWrapper").transition({"right":"0px","width":"0%"});
         $("#currentFollow").transition({"right":"0px"});
         $("#openclosearrow").animate("class","left arrow icon");
+        $("#section2").css({"display":"none"});
     }
     else{
+        $("#section2").css({"display":"block"});
         $("#section2").transition({"left":"25%"});
         $("#currentFollowWrapper").transition({"right":"75%","width":"25%"});
         $("#currentFollow").transition({"right":"75%"});

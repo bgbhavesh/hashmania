@@ -118,9 +118,13 @@
 
 <template name="body">
 <div id="bodyWrapper">
-  {{> bodystatic}}
-  {{> main}}  
-  {{> keyword}}
+	{{> bodystatic}}
+	{{> main}}  
+	{{> keyword}}
+  	
+  	{{#isolate}}
+	 	{{> Section2}}     
+	{{/isolate}}
  </div>
 </template>
 
@@ -455,7 +459,7 @@
   
  
    <!--  <div id="menuWrapper"> --> <!--bug on z-index so made wrapper--> 
-  {{> Section2}} 
+  
   <div id="snapy" class="ui large vertical inverted labeled icon sidebar menu active">
 	<div class="item" id="menuresents">
 	  <b id="Recentslabel"> Preview </b>
@@ -628,7 +632,7 @@
 	</div>
 </template>
 <template name="Section2">
-	
+	<!-- <div id="currentFollowWrapper"> -->
 		<div id="currentFollow">
 			<div class="ui icon button">
 				<i class="left arrow icon" id="openclosearrow"></i>
@@ -637,43 +641,40 @@
 				<img class="currentFollowimg" src="{{currentFollow.profile_picture}}">
 			{{/isolate}}
 		</div> 
-
+	<!-- </div> --> 
   <div id="section2" data-step="2" data-intro="Users of Tapmate." class="ui inverted segment">
-		
-		
-		
-		<div id="keyboardButton" class="ui button tiny">{{alpahbet}}</div>
-		<!-- <div id="groupButton" class="button"><i class="hide icon"></i></div> -->
-		<!-- <div id="openUser" class="button"><i class="hide icon"></i></div> -->
-	<div class="followSection">
-		{{#isolate}}    
-		{{#each follows}}
-			<div class="followsIcons {{activity}}" myid="{{followid}}" name="{{username}}" type="me" hits="{{hits}}">  
-				<img src="{{profile_picture}}">
-				<div class="{{status}}users usersstatus"> </div>        
-			</div>
-		{{/each}}
-		{{/isolate}}
-		<div class="ui inverted divider" style="top: -4%; position: relative;"></div>
-	</div>
-	
-	<div class="buttonSection">
-		<div id="addGroup" class="groupfollow" data-title="Alert" data-content="The @ button allows you to invite people by adding them to the group.">  
-		  <div id="showcheckmark"> </div>   
-		  <div id="hidecheckmark"> </div>   
-		</div>
-		<div id="atbutton" class="square">
-			  <img src="images/email.png"/>
-		</div>
-		<div class="ui inverted divider"></div>
-	</div>
-	<div id="section2Label" ><i style="font-size:2em;" class="user icon"></i></div>
-	
-	<div id="groupDiv">
-		{{#isolate}}
-			{{> grouptemplate}}
-		{{/isolate}}
-	</div>
+  		<div id="keyboardButton" class="ui button tiny">{{alpahbet}}</div>
+    <!-- <div id="groupButton" class="button"><i class="hide icon"></i></div> -->
+    <!-- <div id="openUser" class="button"><i class="hide icon"></i></div> -->
+  <div class="followSection">
+    {{#isolate}}    
+    {{#each follows}}
+      <div class="followsIcons {{activity}}" myid="{{followid}}" name="{{username}}" type="me" hits="{{hits}}">  
+        <img src="{{profile_picture}}">
+        <div class="{{status}}users usersstatus"> </div>        
+      </div>
+    {{/each}}
+    {{/isolate}}
+    <div class="ui inverted divider" style="top: -4%; position: relative;"></div>
+  </div>
+  
+  <div class="buttonSection">
+    <div id="addGroup" class="groupfollow" data-title="Alert" data-content="The @ button allows you to invite people by adding them to the group.">  
+      <div id="showcheckmark"> </div>   
+      <div id="hidecheckmark"> </div>   
+    </div>
+    <div id="atbutton" class="square">
+        <img src="images/email.png"/>
+    </div>
+    <div class="ui inverted divider"></div>
+  </div>
+  <div id="section2Label" ><i style="font-size:2em;" class="user icon"></i></div>
+  
+  <div id="groupDiv">
+    {{#isolate}}
+      {{> grouptemplate}}
+    {{/isolate}}
+  </div>
   </div>
   
 </template>

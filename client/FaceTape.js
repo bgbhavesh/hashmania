@@ -6375,12 +6375,13 @@ function openCloseSnapRight(){
 var followsFlag = false;
 function openCloseFollows(){
     if(followsFlag){
-        $("#section2").transition({"left":"100%"});
+        $("#section2").transition({"left":"100%"},function(){$("#section2").hide();});
         $("#currentFollowWrapper").transition({"right":"0px","width":"0%"});
         $("#currentFollow").transition({"right":"0px"});
         $("#openclosearrow").animate("class","left arrow icon");
     }
     else{
+        $("#section2").show();
         $("#section2").transition({"left":"25%"});
         $("#currentFollowWrapper").transition({"right":"75%","width":"25%"});
         $("#currentFollow").transition({"right":"75%"});

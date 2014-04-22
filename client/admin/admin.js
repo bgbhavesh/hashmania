@@ -227,6 +227,20 @@ Template.editkeyword.eachkeyword = function(){
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.editkeyword.eachkeyword"});
     }
 }
+Template.editkeyword.eachkeyword = function(){
+    try{
+        return SponserKeyword.find({});
+    }
+    catch(error){
+        console.log(error);
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.editkeyword.eachkeyword"});
+    }
+}
+Template.editkeyword.events({
+    "click li" : function(event){
+        SponserKeyword.remove({"_id":this._id});
+    }
+});
 // Template.keyword.eachkeyword = function(){
 //         try{
 //             var defineKeyword=SponserKeyword.find({},{sort : {"date": -1}});

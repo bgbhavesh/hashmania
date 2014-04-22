@@ -413,6 +413,7 @@ var timeoutfeeds=null;
 var feedWidth = null;
 var taponfollows=null;
 var actionArray = [];
+var tapCount=0;
 if (Meteor.isClient) {
     ///Session Variables
     Session.set("activeFollows",null);
@@ -829,7 +830,7 @@ Meteor.documentReady = documentReady;
             // just a concept less processing
             var one = $(".extrabutton")[0];
             if(one){
-                var height = $(one).width();            
+                var height = $(one).width()-10;            
                 $(".followsIcons,#addGroup,#atbutton").css({"height":height +"px"});
             }
             if(Session.get("currentBig")){
@@ -5040,10 +5041,12 @@ function autoSize(){
                 var height = $(one).width();      
                 $("#currentFollow").css({"height":height +"px","width":height +"px"});
             }
+            $("#section2").css({"display":"block"});
         }
         else{
             $("#bodyWrapper").css({"left":"0px","margin-left": "0px","height":"100%","width":"100%"})
             $("#currentFollow").css({"height":"80px","width":"80px"});
+            $("#section2").css({"display":"none"});
             adjustLeft = 0;
         }
         feedWidth = null;
@@ -5074,7 +5077,7 @@ function bindEvents(){
         // checkFormAndTimer("first");
         window.localStorage.setItem("redirect",window.location);
         $("#Main").hammer().on("swiperight",swipeRight);
-        $("#Main").hammer().on("swipeleft",swipeLeft);   
+        $("#Main").hammer().on("swipeleft",swipeLeft);  
         
         //  so that it doesn't block the UI.
         $("#tap").hammer().on("swiperight",swipeRight);
@@ -5163,7 +5166,7 @@ function bindEvents(){
 
         $("#loginwithfb").hammer().on("tap",loginWithFacebook);
         $("#loginwithgoog").hammer().on("tap",loginWithGoogle);
-
+        $("#invmail").hammer().on("tap",clickOnInvMail);
         $("#guestLogincancle").hammer().on("tap",function(){
             $("#guestLogin").css("display","none");
         });
@@ -5182,6 +5185,7 @@ function bindEvents(){
         $("#snapButtonWrapper").hammer().off("tap",openCloseSnapLeft)
         $("#snapButtonWrapper").hammer().on("tap",openCloseSnapLeft);
         $(".ui.heart.rating .icon").hammer().on("tap",setRattings);
+        $("#bodyWrapper").hammer().on("tap",tapOnBodyWrapper);
         touchScroll("snapy");
             ///Last Event
             if(!Session.get("phonegap"))
@@ -5198,6 +5202,23 @@ function bindEvents(){
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "bindEvents"});
     }
     //MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+}
+function clickOnInvMail(){
+    var emailurl = 'mailto:tapmate@tapmate.mailgun.org?subject=You have been invited to join tapmate&body=click here to download it <br>http://youtap.meteor.com/app/tapmateYouiestcom';
+    window.open(emailurl, '_system');
+}
+function tapOnBodyWrapper(){
+  if(Session.get("clientid")){
+      if(tapCount==10){
+          console.log("tapCount"+tapCount);
+          var cursorMe = Me.findOne({"_id":Session.get("clientid")});
+          if(cursorMe.rating)
+          $("#RatingPopUp").css("top","0%")
+          $("#RatingPopUp").show();  
+          $("#RatingPopUp").animate({ "top": "50%" }, 700);
+      }
+      tapCount++;
+  }
 } 
 function setRattings(){
     var icon = $(".ui.heart.rating .icon");
@@ -5209,7 +5230,10 @@ function setRattings(){
             break;
         }
     }
+    $("#RatingPopUp").animate({ "top": "100%" }, 700);
+    $("#RatingPopUp").hide();  
     onClickfeedbackButton();
+
 }
 /////////////////// SHARE //////////////////
 function onShare(share){
@@ -5711,9 +5735,7 @@ function showRestartWalkthrough(){
     
 // }
 function onClickAtButton(){
-
     var emailurl = 'mailto:tapmate@tapmate.mailgun.org?subject=' +groupIds()  +'&body='+i18n.__("emailstring1")+'<br>' +emailparse() +"<br> <img src='" +getPicture() +"'> \\n "+i18n.__("emailstring2")+" ";
-    //console.log(emailurl);
     window.open(emailurl, '_system');
 }
 
@@ -6362,20 +6384,28 @@ function openCloseSnapRight(){
         $("#snapy").transition({"left":"-90%"});
         $("#beforeLogin").transition({"left":"0%"});
         $("#snapButton").transition({"left":"0%"});
-        $("#snapButtonWrapper").css({"display":"none"});
+        console.log(adjustLeft)
+          $("#snapButtonWrapper").css({"display":"none"});
     }
     else{
       $("#snapy").transition({"left":"0%"});
       $("#beforeLogin").transition({"left":"90%"});
       $("#snapButton").transition({"left":"90%"});
-      $("#snapButtonWrapper").css({"display":"block"});
+      console.log(adjustLeft)
+      if(adjustLeft!=0){
+        $("#snapButtonWrapper").css({"display":"block"});
+      }
     }
     snapRightFlag = !snapRightFlag;
 }
 var followsFlag = false;
 function openCloseFollows(){
     if(followsFlag){
-        $("#section2").transition({"left":"100%"},function(){$("#section2").hide();});
+        if(adjustLeft!=0){
+          $("#section2").transition({"left":"100%"});
+        }else{
+          $("#section2").transition({"left":"100%"},function(){$("#section2").hide();});
+        }
         $("#currentFollowWrapper").transition({"right":"0px","width":"0%"});
         $("#currentFollow").transition({"right":"0px"});
         $("#openclosearrow").animate("class","left arrow icon");

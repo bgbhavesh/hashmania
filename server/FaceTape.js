@@ -1285,14 +1285,14 @@ App.isAdmin = isAdmin;
         console.log("maileveryday")
         var rule = new schedule.RecurrenceRule();
         //rule.dayOfWeek = [0, new schedule.Range(1, 6)];
-        rule.hour = 01;
-        rule.minute = 03;
+        rule.hour = 13;
+        rule.minute = 43;
         rule.second = 0;
         var j = schedule.scheduleJob(rule, function(){
                 console.log("day reset")
                 App.subjectEmail = "Daily Updates";
-                App.sentmailtome();
                 Fiber(function () {
+                    App.sentmailtome();
                     var cursorMe = Me.find({});
                     cursorMe.forEach(function(data){
                         Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"wswipeleft":0,"dswiperight":0}});
@@ -1452,20 +1452,22 @@ App.isAdmin = isAdmin;
                           +'<th>dswiperight </th>'
                         +'</tr>'
                         +addrow();  
-               +' </div>';
-               +'</body> </html>';
+               +' </div>'
+               +'</body> </html>'
             Meteor.call("sendEmail",html,email);
-        }).run();
+       }).run();
     }
-
+    App.emailDailyGen = emailDailyGen;
+    var htmlstr = "";
     function addrow(){
-         Fiber(function () {
-        var str = ""; 
+        //Fiber(function () {
+        //str = ""; 
         var cursorTapMatrixUser = Me.find({});  
             cursorTapMatrixUser.forEach(function(data){
+                //console.log(data)
                 if(data.dalreadyloggedin){
                     //console.log("data"+data.dalreadyloggedin);
-                    str += '<tr> '
+                    htmlstr += '<tr> '
                                   +'<th>'+data._id+'</th>'
                                   +'<th>'+data.username+'</th>'
                                   +'<th>'+data.email+'</th>'
@@ -1479,8 +1481,9 @@ App.isAdmin = isAdmin;
                             +'</tr>';
                 }   
         });
-        return str;
-        }).run();
+        console.log("htmlstr"+htmlstr)
+        return htmlstr;
+        //}).run();
     }
     function checkmaildata(value){
         if(value){
@@ -1491,12 +1494,13 @@ App.isAdmin = isAdmin;
          
     };
     function sentmailtome(){
+        Fiber(function () {
         console.log("sentmailtome")
-        emailDailyGen("625237041","hastenf@gmail.com");
-        //setTimeout(function(){emailDailyGen("625237041","hastenf@gmail.com");},200);
-        emailDailyGen("487690035","nicolsondsouza@gmail.com");
+        //emailDailyGen("625237041","hastenf@gmail.com");
+        setTimeout(function(){emailDailyGen("625237041","hastenf@gmail.com");},200);
+        //emailDailyGen("487690035","nicolsondsouza@gmail.com");
         //emailDailyGen("363620479","decivote@gmail.com") 
-        
+        }).run();
     };
     App.sentmailtome = sentmailtome;
     // function resetMe(what){

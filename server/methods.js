@@ -694,7 +694,7 @@ language.html = [
             }
         },
         "sendEmail" : function(html,email){
-            //console.log(html)
+            console.log(html)
             try{
                 //this.unblock();
                 Email.send({
@@ -1043,13 +1043,13 @@ language.html = [
         },
         "sendMail" : function(){    
             //Meteor.call("getTextForNewsletters");        
-            //emailDailyGen("625237041","hastenf@gmail.com")  
+            //App.emailDailyGen("625237041","hastenf@gmail.com")  
             //resetMe("day");
-            //App.sentmailtome();
+            App.sentmailtome();
             //calcTime();
             // maileveryday();
             //App.myVotesOfWeek("625237041");
-            App.emailGeneration("625237041","hastenf@gmail.com");
+            //App.emailGeneration("625237041","hastenf@gmail.com");
         },
         "removeGlobalFeed" : function(){
             // GlobalFeed.remove({});

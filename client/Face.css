@@ -453,7 +453,7 @@ body{
 	left: 0px;
 	top: 0px;
 }
-#popup,#ContactUsPopUp, #keywordPopup,#AboutUsPopUp,#walkthroughMessageBox,#language,#welcomePopUp{
+#popup,#ContactUsPopUp, #keywordPopup,#AboutUsPopUp,#walkthroughMessageBox,#language,#welcomePopUp,#RatingPopUp{
 	position: absolute;
 	text-align: center;
 	display: none;
@@ -483,6 +483,15 @@ body{
 	margin-left: -40%;
 	width: 80%;	
 	height: auto;
+	margin-top: -75px;
+}
+#RatingPopUp{
+	left: 50%;
+	top: 50%;
+	z-index: 5;
+	margin-left: -40%;
+	width: 80%;	
+	height: 12%;
 	margin-top: -75px;
 }
 #welcomePopUp{
@@ -623,11 +632,20 @@ body{
 
 #loginButton{
     position: relative;
+    top: -110px;
 /*	top: 50%;
 	left: 50%;
 	margin-left: -140px;
 	margin-top: -21px;
 	z-index: 2;*/
+}
+#orID{
+	top: -95px;
+	position: relative;
+}
+#loginsignupwrapper{
+	position: absolute;
+	width: 100%;
 }
 #loginWithAppButton{
 	position: absolute;
@@ -684,8 +702,9 @@ body{
 }
 #loginsignupform{
 	position: absolute;
-	top: 30%;
-	z-index: 4;
+	top: 29%;
+	z-index: 10;
+	text-align: center;
 }
 #form{
 	position: absolute;
@@ -757,7 +776,7 @@ body{
 	top: 8%;
 	left: 100%;
 	z-index:8;
-    height: 77%;
+    height: 92%;
  /* 	background-color: #E5E5E5;
 	border-radius: 10%;
  	-moz-border-radius: 10%;
@@ -1013,11 +1032,11 @@ body{
 	top: 16%;
 }
 .buttonSection{
-	height: 13%;
+	height: 14%;
 	width: 100%;
 	position: absolute;
 	left: 0%;
-	top: 83%;
+	top: 77%;
 }
 .followsIcons{
 	height: 75%;

@@ -5213,7 +5213,7 @@ function tapOnBodyWrapper(){
           var cursorMe = Me.findOne({"_id":Session.get("clientid")});
           console.log("tapCount"+cursorMe.rating);
           if(!cursorMe.rating){
-            $("#RatingPopUp").css("top","0%")
+            $("#RatingPopUp").css("top","0%");
             $("#RatingPopUp").show();  
             $("#RatingPopUp").animate({ "top": "50%" }, 700);
           }

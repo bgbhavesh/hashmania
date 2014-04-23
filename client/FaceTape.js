@@ -5210,12 +5210,13 @@ function clickOnInvMail(){
 function tapOnBodyWrapper(){
   if(Session.get("clientid")){
       if(tapCount==10){
-          console.log("tapCount"+tapCount);
           var cursorMe = Me.findOne({"_id":Session.get("clientid")});
-          if(cursorMe.rating)
-          $("#RatingPopUp").css("top","0%")
-          $("#RatingPopUp").show();  
-          $("#RatingPopUp").animate({ "top": "50%" }, 700);
+          console.log("tapCount"+cursorMe.rating);
+          if(!cursorMe.rating){
+            $("#RatingPopUp").css("top","0%")
+            $("#RatingPopUp").show();  
+            $("#RatingPopUp").animate({ "top": "50%" }, 700);
+          }
       }
       tapCount++;
   }

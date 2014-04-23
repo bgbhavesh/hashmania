@@ -59,7 +59,14 @@ var openCenteredPopup = function(url, width, height,state,callback) {
                   ',left=' + left + ',top=' + top + ',scrollbars=yes');           
                                                                                   
   var newwindow = null;                            
-    if(Session.get("phonegap")){       
+    if(Session.get("phonegap")){ 
+        url = encodeURI(url);
+        if(App.isAdmin(Session.get("clientid"))){
+          {
+              alert(url);
+
+          }
+        }      
         newwindow = window.open(url, '_blank', 'location=yes');
     }
     else{  
@@ -934,9 +941,10 @@ Meteor.documentReady = documentReady;
                     //console.log(likeid);
                     if(likeid){
                         beforeCurrentBig()
-                        if(!Session.set("currentBig"))
-                        Session.set("currentBig",likeid);
+                        if(!Session.get("currentBig"))
+                            Session.set("currentBig",likeid);
                         firstTimeLoginFlag = false;
+                        setTimeout(tapOnRightArrow,1000);
                         if(!DebugFace){
                             // tutorialJSON = {}
                             // tutorialFlag = true;

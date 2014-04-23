@@ -735,7 +735,7 @@ function reminderOtherUserAboutNewVote(first){
     var cursorVotes = Votes.find({"likeid":first.likeid});
     cursorVotes.forEach(function(data){
         if(data.followid != first.followid){
-            var cursorMe = Me.findOne({"_id":data.followid})
+            var cursorMe = Me.findOne({"_id":first.followid})
             var username = cursorMe.username;
             if(!first.low)
                 first.low = Feed.findOne({"likeid":first.likeid}).low;

@@ -1,0 +1,189 @@
+
+<template name="admin"> 
+  {{#if isAdmin}}
+  <div id="emailFormat" style="height: 99%;width: 99%;left : 0px;top : 0px;position: absolute;display: none;overflow: hidden; z-index:2; text-align:center; border: 1px solid #444;background: #222;color: #fff;text-shadow: 0 1px 0 #111;font-weight: 400; color:white;"> 
+  <div id="emailFormatBody" style="height: 99%;width: 99%;left : 0px;top : 0px;position: absolute;display: block;overflow: hidden; z-index:2; text-align:center; border: 1px solid #444;background: #222;color: #fff;text-shadow: 0 1px 0 #111;font-weight: 400; color:white;">    
+    <div id="emailHeader" style="height: 20%;width: 80%;position: relative;border: 1px solid black;margin-left: 10%;margin-top: 4%;">
+      <textarea id="emailHeaderMessage" style="height: 80%;width: 80%;left: 0%;top: 5%;position: relative;"></textarea>
+      <input id="emailPreview" type="ui button" value="Preview"> 
+    </div> 
+    <div id="emailLeadersboard"  style="background-color: black;height: 20%;width: 80%;position: relative;border: 1px solid black;margin-left: 10%;margin-top: 4%;">
+
+    </div>
+    <div id="emailKnowYouBetter" style="background-color: black;height: 20%;width: 80%;position: relative;border: 1px solid black;margin-left: 10%;margin-top: 4%;">
+
+    </div>
+    <div id="emailYouKnowBetter" style="background-color: black;height: 20%;width: 80%;position: relative;border: 1px solid black;margin-left: 10%;margin-top: 4%;">
+
+    </div>
+    <div id="emailClose" class="ui button"> Cancel </div>
+    <div id="emailDone" class="ui button"> Send Newsletters </div>
+  </div>
+  </div>
+  </div>
+  <div id="adminPanel" > 
+    <input id="showList" type="button" class="ui button" value="Show List">
+    <input id="showTable" type="button" class="ui button" value="Show Table">
+    <input id="adminPanelCloseButton" type="button" class="ui button" value="Close">
+    <div id="addKeyword"> 
+    
+    </div>
+    
+  <div id="adminListCat">
+    <input id="addKeywordText" type="text"> <input id="addKeywordButton" type="button" class="ui button" value="Add"><br>
+    <div id="adminListItems" style="margin-top: 15%"> 
+   
+    {{> editkeyword}}   
+         
+    </div>
+  </div>
+   
+   <div class="adminCategory" id="adminTableCat"> 
+    <div class="adminCategory" > Total Number of Users : {{totalUser}}</div>
+    <table  border="1">
+      <tr> 
+      <th>userid</th>
+      <th>username</th>
+      <th>email</th>
+      <th>deviceType</th>
+      <th>windowWidth</th>
+      <th>windowHeight</th>          
+      <th>Recommending</th>
+      <th>YRecommending</th>
+      <th>MRecommending</th>
+      <th>WRecommending</th>
+      <th>DRecommending</th>
+      <th>Recomended</th>
+      <th>Votes</th>
+      <th>YVotes</th>
+      <th>MVotes</th>
+      <th>WVotes</th>
+      <th>DVotes</th>
+      <th>VOR</th>
+      <th>FollowNew</th>
+      <th>YFollowNew</th>
+      <th>MFollowNew</th>
+      <th>WFollowNew</th>
+      <th>DFollowNew</th>
+      <th>MovedMe</th>
+      <th>MovedRecomm</th>
+      <th>LoggedInCount </th>
+      <th>autologin </th>
+      <th>alreadyloggedin </th>
+      <th>yalreadyloggedin </th>
+      <th>malreadyloggedin </th>
+      <th>walreadyloggedin </th>
+      <th>dalreadyloggedin </th>
+      <th>swipeleft </th>
+      <th>yswipeleft </th>
+      <th>mswipeleft </th>
+      <th>wswipeleft </th>
+      <th>dswipeleft </th>
+      <th>swiperight </th>
+      <th>yswiperight </th>
+      <th>mswiperight </th>
+      <th>wswiperight </th>
+      <th>dswiperight </th>
+      <th>logout </th>
+      <th>Score</th>
+      </tr>
+      {{#each users}}
+      <tr class="adminTable">  
+        <td>{{_id}}</td>
+        <td>{{username}}</td>
+        <td>{{email}}</td>
+        <th>{{deviceType}}</th>
+        <th>{{windowWidth}}</th>
+        <th>{{windowHeight}}</th>
+        <td>{{recomending}}</td>
+        <td>{{yrecomending}}</td>
+        <td>{{mrecomending}}</td>
+        <td>{{wrecomending}}</td>
+        <td>{{drecomending}}</td>
+        <td>{{recomended}}</td>
+        <td>{{votes}}</td>
+        <td>{{yvotes}}</td>
+        <td>{{mvotes}}</td>
+        <td>{{wvotes}}</td>
+        <td>{{dvotes}}</td>            
+        <td>{{vor}}</td>
+        <td>{{follownew}}</td>
+        <td>{{yfollownew}}</td>
+        <td>{{mfollownew}}</td>
+        <td>{{wfollownew}}</td>
+        <td>{{dfollownew}}</td>
+        <td>{{movedme}}</td>
+        <td>{{movedrecomm}}</td>
+        <td>{{timesLoggedin}} </td>
+        <td>{{autologin}} </td>
+        <td>{{alreadyloggedin}} </td>
+        <td>{{yalreadyloggedin}} </td>
+        <td>{{malreadyloggedin}} </td>
+        <td>{{walreadyloggedin}} </td>
+        <td>{{dalreadyloggedin}} </td>
+        <td>{{swipeleft}} </td>
+        <td>{{yswipeleft}} </td>
+        <td>{{mswipeleft}} </td>
+        <td>{{wswipeleft}} </td>
+        <td>{{dswipeleft}} </td>
+        <td>{{swiperight}} </td>
+        <td>{{yswiperight}} </td>
+        <td>{{mswiperight}} </td>
+        <td>{{wswiperight}} </td>
+        <td>{{dswiperight}} </td>
+        <td>{{logout}} </td>
+        <td>{{score}} </td>
+      </tr>
+      {{/each}}
+      <tr class="adminTotal">
+        <th>Total</th>
+        <th id="adminRecommending"></th>
+        <th id="yadminRecommending"></th>
+        <th id="madminRecommending"></th>
+        <th id="wadminRecommending"></th>
+        <th id="dadminRecommending"></th>
+        <th id="adminRecomended"></th>            
+        <th id="adminVotes"> </th>
+        <th id="yadminVotes"> </th>
+        <th id="madminVotes"> </th>
+        <th id="wadminVotes"> </th>
+        <th id="dadminVotes"> </th>            
+        <th id="adminVOR"> </th>
+        <th id="adminFollowNew"> </th>
+        <th id="yadminFollowNew"> </th>
+        <th id="madminFollowNew"> </th>
+        <th id="wadminFollowNew"> </th>
+        <th id="dadminFollowNew"> </th>
+        <th id="MovedMe"></th>
+        <th id="MovedRecomm"></th>
+        <th id="adminLoggedInCount"> </th>
+        <th id="adminautologin"> </th>
+        <th id="alreadyloggedin"> </th>
+        <th id="yalreadyloggedin"> </th>
+        <th id="malreadyloggedin"> </th>
+        <th id="walreadyloggedin"> </th>
+        <th id="dalreadyloggedin"> </th>
+        <th id="swipeleft"> </th>
+        <th id="yswipeleft"> </th>
+        <th id="mswipeleft"> </th>
+        <th id="wswipeleft"> </th>
+        <th id="dswipeleft"> </th>
+        <th id="swiperight"> </th>
+        <th id="yswiperight"> </th>
+        <th id="mswiperight"> </th>
+        <th id="wswiperight"> </th>
+        <th id="dswiperight"> </th>
+        <th id="adminlogout"> </th>
+        <th id="score"> </th>
+      </tr>
+    </table>
+  </div>
+  </div>
+  {{/if}}
+</template>
+
+<template name="editkeyword">
+  {{#each eachkeyword}}
+    <li class="dt"> {{keyword}} ,&nbsp;&nbsp;&nbsp;&nbsp;  </li>       
+  {{/each}}
+</template>

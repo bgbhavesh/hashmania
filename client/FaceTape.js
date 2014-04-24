@@ -44,7 +44,8 @@ if(window["App"] === undefined)
 };                                                                                
                                                                                   
                                                                                   
-var openCenteredPopup = function(url, width, height,state,callback) {             
+var openCenteredPopup = function(url, width, height,state,callback) {
+  // state = callback;             
   var screenX = typeof window.screenX !== 'undefined'                             
         ? window.screenX : window.screenLeft;                                     
   var screenY = typeof window.screenY !== 'undefined'                             
@@ -61,12 +62,12 @@ var openCenteredPopup = function(url, width, height,state,callback) {
   var newwindow = null;                            
     if(Session.get("phonegap")){ 
         url = encodeURI(url);
-        if(App.isAdmin(Session.get("clientid"))){
-          {
-              alert(url);
+        // if(App.isAdmin(Session.get("clientid"))){
+        //   {
+        //       alert(url);
 
-          }
-        }      
+        //   }
+        // }      
         newwindow = window.open(url, '_blank', 'location=yes');
     }
     else{  
@@ -448,13 +449,14 @@ if (Meteor.isClient) {
           if(state || clientid){        
                 
           }else{
-                preLoginAction();
+              preLoginAction();
               Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramCallbackFunction); 
           }
       
           if(state){
-              loginOnceStateReady(state,loginWithInstagramCallbackFunction);
-              window.localStorage.setItem("state","");
+              // loginOnceStateReady(state,loginWithInstagramCallbackFunction);
+              // window.localStorage.setItem("state","");
+              state();
           }
       }
       catch(error){
@@ -482,6 +484,7 @@ Meteor.startup(function () {
                 if(Session.get("clientid")){
                     $("#loginScreen").hide();
                     $("#Main").show();
+                    $("#currentFollow").show();
                     //if(App.setAdminParameters())
                       //App.setAdminParameters();
                     fitTextFunction();
@@ -685,7 +688,7 @@ Meteor.documentReady = documentReady;
             //     //console.log(first);
             //     //console.log(second)
             // });
-
+            removeCursor(this._id)
             $(event.currentTarget).attr("src","images/face.jpg");            
         }
         
@@ -698,7 +701,7 @@ Meteor.documentReady = documentReady;
             //     //console.log(first);
             //     //console.log(second)
             // });
-
+            Meteor.call("checkWithServer",this);
             $(event.currentTarget).attr("src","images/face.jpg");            
         },
         "error .groupicons img" : function(event){
@@ -922,8 +925,8 @@ Meteor.documentReady = documentReady;
 
             var feed = $(".feed");
             //var recomm = $(".recomm");
-            if(!feedWidth)
-                feedWidth = $(feed[0]).width();
+            // if(!feedWidth)
+            feedWidth = $(feed[0]).width();
             if(feedWidth){
               feed.css("height",feedWidth);
               //recomm.css("height",height);
@@ -942,6 +945,7 @@ Meteor.documentReady = documentReady;
                     //console.log(likeid);
                     if(likeid){
                         beforeCurrentBig()
+                        // console.log(Session.get("currentBig"))
                         if(!Session.get("currentBig"))
                             Session.set("currentBig",likeid);
                         firstTimeLoginFlag = false;
@@ -952,9 +956,7 @@ Meteor.documentReady = documentReady;
                             // tutorialJSON.first = true;
                             // tapBigTutorial(70,50,"vote","Tap on pic to vote.");
                             $("#tap").hammer().on("tap",tapOnBigFeed);
-                            $("#welcomePopUp").show();
                         }
-                        $("#keywordPopup").hide();
                         doubletapOnFollowsIcons(null,"363620479","http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg")
                     }
                 }
@@ -2555,6 +2557,7 @@ function tapOnBigFeedInterval(event,localDiv,voteInsert){
                         cursorFollow = voteInsert;
                         cursorBig = voteInsert;
                     }
+                    profilePic = cursorFollow.profile_picture;
                     var VotesInsert = {"checked":false,"place":quadrantPlace,"profile_picture":cursorFollow.profile_picture, "followid":Session.get("clientid"),"likeid":cursorBig.likeid,"low":cursorBig.low ,"left": left,"top": top,"date" : date};
                     actionArray.push(activeFollowsId);
                     appendVotes(VotesInsert);
@@ -3130,14 +3133,16 @@ function logOutUser(){
         $("#loader").show();
         //console.log(Accounts);
         if(Session.get("phonegap")){
+            var urlHistoryCount = 0;
             var url = "https://instagram.com/accounts/logout/";
             anotherWindow = window.open(url, '_blank', 'location=yes');
             window['mywindow'] = anotherWindow;
-            window['mywindow'].addEventListener('loadstart', function(event) {           
-                if(event.url =="http://instagram.com/"){      
+            window['mywindow'].addEventListener('loadstart', function(event) {
+                if(urlHistoryCount){      
                     showLoader(); 
                     window['mywindow'].close();                                
                 }
+                urlHistoryCount++;
             });
             //
         }
@@ -3146,12 +3151,13 @@ function logOutUser(){
         showLoader("Logging Out User..");
         Me.update({"_id":Session.get("clientid")},{$inc : {"logout":1}});
         Meteor.logout(afterLogOut);
-        swipeLeft();
+        
         Session.set("clientid",null);
         window.localStorage.setItem("clientid","");
         $("#alreadyUser").hide();
         openCloseSnapLeft();
         window.localStorage.clear();
+        swipeLeft();
     }
     catch(error){
         console.log(error);
@@ -3163,6 +3169,7 @@ function logOutUser(){
 function afterLogOut(){
     // hideLoader();
     showLoader("You have been LogOut.");
+    window.location.reload();
     //console.log("LogOutSuccess");
 }
 
@@ -3511,7 +3518,16 @@ function closeOverlay(){
     Session.set("actionFollow",null);
     Session.set("recommendedFollow",null);
 }
-function swipeLeft(){
+function swipeLeft(event){
+    if(event){
+        if(event.gesture)
+            event.gesture.preventDefault();
+        event.preventDefault(); 
+    }
+    
+    // if(Hammer.utils.isVertical(event.gesture.direction)) { return; }
+    //     event.gesture.preventDefault();
+    // }
     var starttimer = new Date().getTime();
     try{
         hideAllButtons();
@@ -3563,7 +3579,15 @@ function swipeLeft(){
     }
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
-function swipeRight(){
+function swipeRight(event){
+    if(event){
+        if(event.gesture)
+            event.gesture.preventDefault();
+        event.preventDefault(); 
+    }
+    // if(Hammer.utils.isVertical(event.gesture.direction)) { return; }
+    //     event.gesture.preventDefault();
+    // }
     var starttimer = new Date().getTime();
     try{
         hideAllButtons();
@@ -3632,6 +3656,7 @@ function autoLogin(){
             Session.set("clientid",ClientId);
             suscribeMeteor(ClientId);
             Session.set("username",ClientId);
+            profilePic = ".images/face.jpg";
             Meteor.call("guestFirstTimeLogin",ClientId,function(){
                 console.log("finish");
             });
@@ -3650,6 +3675,7 @@ function autoLogin(){
             Meteor.call("firstTimeLogin",Session.get("clientid"),function(err,data){                
                 if(data){
                     window.localStorage.setItem("profile_picture",data.profile_picture);
+                    profilePic = data.profile_picture;
                 }                
             });
             //console.log(profilePic);
@@ -5033,6 +5059,8 @@ function checkdevice(){
 var autoSizeTimeOut = null;
 var adjustLeft = 0;
 function autoSize(){
+        return;
+        // inconsistent right now
         console.log("autoSize");
         var windowHeight = $(window).height();
         var windowWidth = $(window).width();
@@ -5159,9 +5187,11 @@ function bindEvents(){
         $("#optimize").hammer().on("tap",onOptimize)
         // $("#videotutorial").hammer().on("tap",function(){$("#videotutorialpopup").show(); openCloseSnapLeft();});
         //$(".language a").hammer().on("tap",onSetLang);
-        $("#section3").hammer().on('touch', section3dragstart);
-        $("#section3").hammer().on('release', section3dragend);
-        $("#section3").hammer().on('drag', section3drag);
+        
+        // $("#section3").hammer().on('touch', section3dragstart);
+        // $("#section3").hammer().on('release', section3dragend);
+        // $("#section3").hammer().on('drag', section3drag);
+        
         // chat feature
         $("#chatboxclosebutton").hammer().on("tap",clickChatBoxCloseButton);
         $("#chatsendbutton").hammer().on("tap",clickChatSendButton);
@@ -5216,19 +5246,28 @@ function clickOnInvMail(){
     window.open(emailurl, '_system');
 }
 function tapOnBodyWrapper(){
-  if(Session.get("clientid")){
-      if(tapCount==10){
-          var cursorMe = Me.findOne({"_id":Session.get("clientid")});
-          console.log("tapCount"+cursorMe.rating);
-          if(!cursorMe.rating){
-            $("#RatingPopUp").css("top","0%")
-            $("#RatingPopUp").show();  
-            $("#RatingPopUp").animate({ "top": "50%" }, 700);
-          }
-      }
-      tapCount++;
-  }
+    if(Session.get("clientid")){
+        if(tapCount==20){
+            ratingPopUp();
+        }
+        else if(tapCount==2){
+            $("#welcomePopUp").show();
+        }
+        else if(tapCount==10){
+            showKeywordPopup();
+        }
+        tapCount++;
+    }
 } 
+function ratingPopUp(){
+    var cursorMe = Me.findOne({"_id":Session.get("clientid")});
+    console.log("tapCount"+cursorMe.rating);
+    if(!cursorMe.rating){
+        $("#RatingPopUp").css("top","0%")
+        $("#RatingPopUp").show();  
+        $("#RatingPopUp").animate({ "top": "50%" }, 700);
+    }
+}
 function setRattings(){
     var icon = $(".ui.heart.rating .icon");
     icon.removeClass("active");

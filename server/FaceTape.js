@@ -567,11 +567,11 @@ function testNewUser(){
     //         Meteor.users.remove({"_id":data._id})
     //     }
     // });
-    // Meteor.users.remove({"services.instagram.id":"491204471"})
-    // Me.remove({"_id":"491204471"});
-    // Follows.find({"followid":"491204471"}).forEach(function(data){
-    //     Follows.remove({"_id":data._id});
-    // });
+    Me.remove({"_id":"491204471"});
+    Follows.find({"followid":"491204471"}).forEach(function(data){
+        Follows.remove({"_id":data._id});
+    });
+    Meteor.users.remove({"services.instagram.id":"491204471"});
 }
 App.testNewUser = testNewUser;
 if (Meteor.isServer) {

@@ -122,9 +122,7 @@
 	{{> main}}  
 	{{> keyword}}
   	
-  	{{#isolate}}
-	 	{{> Section2}}     
-	{{/isolate}}
+  	
  </div>
 </template>
 
@@ -291,7 +289,7 @@
 	      Or
 	    </div></div>
 		<div class="field">
-			<label>Username</label>
+			<label>Email</label>
 			<div class="ui left labeled icon input">
 			<input id="seEmail" type="text" placeholder="Email">
 			<i class="mail icon"></i>
@@ -390,7 +388,7 @@
 		Now you are good to go..<br><br>
 		<div id="logininstagram" class="tiny circular ui button">Login with Instagram</div><br><br>
 		<div id="goinstaplaystore" class="tiny circular ui button">Dont know Instagram?</div><br><br>
-		<div id="guestLogincancle" class="tiny circular ui button">Cancle</div><br><br>
+		<div id="guestLogincancle" class="tiny circular ui button">cancel</div><br><br>
 	</div>
 	
 
@@ -594,7 +592,9 @@
 <template name="BeforeLogin">
   <div id="beforeLogin">
 	{{> header}}  
-	
+	{{#isolate}}
+	 	{{> Section2}}     
+	{{/isolate}}
 	{{> Section3}}
 	{{> Section4}}
   </div>

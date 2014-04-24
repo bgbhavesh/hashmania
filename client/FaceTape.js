@@ -4383,7 +4383,25 @@ function hideLoginForm(){
     
 }
 function onClickfeedbackButton(){
-    var emailurl = "https://play.google.com/store/apps/details?id=com.youiest.tapmatrix";
+    var emailurl = null;
+    var ua = navigator.userAgent;
+    var checker = {
+      iphone: ua.match(/(iPhone|iPod|iPad)/),
+      blackberry: ua.match(/BlackBerry/),
+      android: ua.match(/Android/)
+    };
+    if (checker.android){
+        emailurl ="https://play.google.com/store/apps/details?id=com.youiest.tapmatrix";
+    }
+    else if (checker.iphone){
+        emailurl ="https://itunes.apple.com/ms/app/tapmate/id774935608";
+    }
+    else if (checker.blackberry){
+        //deviceType="blackberry";
+    }
+    else {
+        emailurl ="http://youtap.meteor.com/app/tapmateYouiestcom";
+    }
     window.open(emailurl, '_system');
 }
 function OnclickProfileLink(){

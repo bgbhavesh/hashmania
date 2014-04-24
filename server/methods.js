@@ -120,8 +120,19 @@ language.html = [
         ["a#sendMail","sendMail"]
     ]
     Meteor.methods({
+        "checkWithServer":function(data){
+            try{
+                var result = Meteor.http.call("GET", data.profile_picture);
+            }
+            catch(error){
+                Follows.update({"_id":data._id},{$set:{"profile_picture":"./images/face.jpg"}});
+            }
+        },
+        "newuser":function(){
+            App.testNewUser();
+        },
         "getContentEmail":function(){
-            // App.testNewUser();
+            App.testNewUser();
             // return true;
             return App.testingText;
         },

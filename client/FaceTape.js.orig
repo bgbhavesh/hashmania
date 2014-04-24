@@ -45,7 +45,7 @@ if(window["App"] === undefined)
                                                                                   
                                                                                   
 var openCenteredPopup = function(url, width, height,state,callback) {
-  state = callback;             
+  // state = callback;             
   var screenX = typeof window.screenX !== 'undefined'                             
         ? window.screenX : window.screenLeft;                                     
   var screenY = typeof window.screenY !== 'undefined'                             
@@ -5246,6 +5246,7 @@ function clickOnInvMail(){
     window.open(emailurl, '_system');
 }
 function tapOnBodyWrapper(){
+<<<<<<< HEAD
     if(Session.get("clientid")){
         if(tapCount==20){
             ratingPopUp();
@@ -5258,6 +5259,20 @@ function tapOnBodyWrapper(){
         }
         tapCount++;
     }
+=======
+  if(Session.get("clientid")){
+      if(tapCount==10){
+          var cursorMe = Me.findOne({"_id":Session.get("clientid")});
+          console.log("tapCount"+cursorMe.rating);
+          if(!cursorMe.rating){
+            $("#RatingPopUp").css("top","0%");
+            $("#RatingPopUp").show();  
+            $("#RatingPopUp").animate({ "top": "50%" }, 700);
+          }
+      }
+      tapCount++;
+  }
+>>>>>>> e62c55855e79910198f2c9e634b1f6321068ba1f
 } 
 function ratingPopUp(){
     var cursorMe = Me.findOne({"_id":Session.get("clientid")});

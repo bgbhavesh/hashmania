@@ -4470,9 +4470,9 @@ function hideAboutForm(){
     });
 }
 function hideWelcomePopUp(){
-    $("#welcomePopUp").animate({ "top": "100%" }, 700,function(){
+    //$("#welcomePopUp").animate({ "top": "100%" }, 700,function(){
         $("#welcomePopUp").hide();
-    });
+    //});
 }
 function onClickAggAcceptButton(){
     $("#Aggrements").hide();

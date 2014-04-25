@@ -732,6 +732,8 @@ function checkSecondVote(first){
     reminderOtherUserAboutNewVote(first);
 }
 function reminderOtherUserAboutNewVote(first){
+    if(isNaN(first.followid))
+        return;
     var cursorVotes = Votes.find({"likeid":first.likeid});
     cursorVotes.forEach(function(data){
         if(data.followid != first.followid){

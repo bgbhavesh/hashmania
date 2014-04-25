@@ -5,9 +5,9 @@
 	<meta name="viewport" content="height=device-height, width=device-width, user-scalable=no" />
 	<!-- Meta Tag For BlackBerry Events -->
 	<meta name="touch-event-mode" content="native=false, native=disable, native=no" />
-	<link rel="shortcut icon" type="image/png" href="/images/logo.png"/>  
+	<link rel="shortcut icon" type="image/png" href="/images/logo.png"/> 
 	<!-- YOUIEST LLC CONFIDENTIAL
-
+	
 	[2013] - [2014] Youiest LLC
 	All Rights Reserved.
 	NOTICE: All information contained herein is, and remains
@@ -374,7 +374,7 @@
 	<div id="popup" class="ui button"> 
 		<div id="popupMessage"> </div>     
 	</div>
-
+	<div id="languageBackground"></div>
    <div id="language" class="language ui vertical menu"> lang: <!--<select id="langswitch">  Call run() function-->
    
    </div>
@@ -391,7 +391,7 @@
 		<div id="guestLogincancle" class="tiny circular ui button">cancel</div><br><br>
 	</div>
 	
-
+	<div id="ContactUsPopUpBackground"></div>
 	<div id="ContactUsPopUp" class="ui inverted segment"> 
 		Please email us any bugs you find: 
 		<br/>
@@ -401,14 +401,14 @@
 		<br/>
 		We hope you agree this is crazily great.
 	</div>
-
+	<div id="AboutUsPopUpBackground"></div>
 	<div id="AboutUsPopUp" class="ui inverted segment"> <br>
 		Tapmate uses the Instagram(tm) API and is not endorsed or
 		certified by Instagram(tm) logos and trademarks displayed on this
 		app are property of Instagram, Inc.<br><br>
 		<div id="hideAboutUsPopUp" class="tiny circular ui button">ok</div><br><br>
 	</div>
-
+	<div id="RatingPopUpBackground"></div>
 	<div id="RatingPopUp" class="ui inverted segment"> <br>
 	<div id="rating"><b>Rate Me</b></div>
 		<div class="ui heart rating">
@@ -419,7 +419,7 @@
 			<i class="icon"></i>
 		</div>
 	</div>
-
+	<div id="welcomePopUpBackground"></div>
 	<div id="welcomePopUp" class="ui inverted segment"> <br>
 		<div id="pushtext">Welcome to Tapmate!</div>
 		All you need to know to get started is this: tap the big image below! The first tap is your 
@@ -498,7 +498,7 @@
 	  <div id="accounts"><b>Accounts</b></div>
 	  <div class="menu">
 		<a id="loginwithInsta" class="item"> <i class="italic icon"></i>  Log in with Instagram </a>
-		<a id="shareApp" class="item"> <i class="url icon"></i> Share </a>
+		<a id="shareApp" class="item"> <i class="upload icon"></i> Share </a>
 		<a id="logout" class="item"> <i class="sign out icon"></i> Log Out </a>  
 	  </div>
 	</div>
@@ -552,6 +552,7 @@
 
 
 <template name="keyword">
+	<div id="keywordPopupBackgroun"d></div>
   <div id="keywordPopup" class="ui vertical menu">
 		<div  id="keywordButton" class="ui icon input">
 			<input  id="searchKeyword" type="text" placeholder="search Instagram..">
@@ -625,7 +626,7 @@
 	</div>
 </template>
 <template name="Section2">
-	<!-- <div id="currentFollowWrapper"> -->
+	<div id="currentFollowWrapper"></div> 
 		<div id="currentFollow">
 			<div class="ui icon button">
 				<i class="left arrow icon" id="openclosearrow"></i>
@@ -633,8 +634,7 @@
 			{{#isolate}} 
 				<img class="currentFollowimg" src="{{currentFollow.profile_picture}}">
 			{{/isolate}}
-		</div> 
-	<!-- </div> --> 
+		</div>
   <div id="section2" data-step="2" data-intro="Users of Tapmate." class="ui inverted segment">
   		<div id="keyboardButton" class="ui button tiny">{{alpahbet}}</div>
     <!-- <div id="groupButton" class="button"><i class="hide icon"></i></div> -->
@@ -1062,6 +1062,7 @@
 			((Double Tap User to Follow))
 		  </div>
 		  <br>
+		  <div id="sharePic" style="float: right;"><i class="huge upload icon"></i></div>
   {{/if}}
 </template>
 

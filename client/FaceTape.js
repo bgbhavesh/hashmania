@@ -1071,9 +1071,11 @@ Meteor.documentReady = documentReady;
     }
     Template.chatting.rendered = function(){
         try{
-            $("#send,#creatorProfile").hammer().off("tap");
+            $("#send,#creatorProfile,#sharePic").hammer().off("tap");
             $("#send").hammer().on("tap",tapOnSend);
             $("#creatorProfile").hammer().on("doubletap",tapOnVoting);
+            $("#sharePic").hammer().on("tap",clickOneSharePic);
+
         }
         catch(error){
             console.log(error);
@@ -2465,10 +2467,8 @@ function beforeCurrentBig(){
   currentMoveVote=null;
 }
 function tapOnBigFeed(event){
-     
      var localDiv = this;
      setTimeout(function(){tapOnBigFeedInterval(event,localDiv)},10)
-                 
  }
 function tapOnBigFeedInterval(event,localDiv,voteInsert){
     var starttimer = new Date().getTime();
@@ -3524,7 +3524,10 @@ function swipeLeft(event){
             event.gesture.preventDefault();
         event.preventDefault(); 
     }
-    
+    $("#outer").animate({"opacity":"0.0"},500,"linear")
+    $("#hprogressBar").animate({"opacity":"0.0"},500,"linear")
+    $("#inner-inner").animate({"opacity":"0.0"},500,"linear")
+    $("#inerhprogressBar").animate({"opacity":"0.0"},500,"linear")
     // if(Hammer.utils.isVertical(event.gesture.direction)) { return; }
     //     event.gesture.preventDefault();
     // }
@@ -3585,6 +3588,10 @@ function swipeRight(event){
             event.gesture.preventDefault();
         event.preventDefault(); 
     }
+    $("#outer").animate({"opacity":"0.0"},500,"linear")
+    $("#hprogressBar").animate({"opacity":"0.0"},500,"linear")
+    $("#inner-inner").animate({"opacity":"0.0"},500,"linear")
+    $("#inerhprogressBar").animate({"opacity":"0.0"},500,"linear")
     // if(Hammer.utils.isVertical(event.gesture.direction)) { return; }
     //     event.gesture.preventDefault();
     // }
@@ -4000,6 +4007,7 @@ function onSetLang(){
     // window.localStorage.setItem("lang",currlang);
     // selectlang(currlang);
     $("#language").hide();
+    $("#languageBackground").hide();
     $("#language").html("");
 }
 /*
@@ -4398,9 +4406,14 @@ function onsendMail(){
 }
 function onClickContactUsButton(){
     openCloseSnapLeft();
+    $("#ContactUsPopUpBackground").show();
     $("#ContactUsPopUp").css("top","0%")
     $("#ContactUsPopUp").show();  
     $("#ContactUsPopUp").animate({ "top": "50%" }, 900);
+}
+function hideContactUsPopUp(){
+  $("#ContactUsPopUp").hide();
+  $("#ContactUsPopUpBackground").hide();
 }
 function hideLoginForm(){
     $("#loginform").animate({ "top": "100%" }, 700,function(){
@@ -4438,6 +4451,7 @@ function onClickAboutUsButton(){
     $("#AboutUsPopUp").css("top","0%")
     $("#AboutUsPopUp").show();  
     $("#AboutUsPopUp").animate({ "top": "50%" }, 700);
+    $("#AboutUsPopUpBackground").show(); 
 }
 var languageArray = [
                         ["ar","Arabic"],
@@ -4460,17 +4474,20 @@ function onClicklanguageButton(){
     $(".language a").hammer().on("tap",onSetLang);
     openCloseSnapLeft();
     $("#language").css("top","0%")
-    $("#language").show();  
+    $("#language").show(); 
+    $("#languageBackground").show(); 
     $("#language").animate({ "top": "25%" }, 900);
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function hideAboutForm(){
     $("#AboutUsPopUp").animate({ "top": "100%" }, 700,function(){
         $("#AboutUsPopUp").hide();
+        $("#AboutUsPopUpBackground").hide(); 
     });
 }
 function hideWelcomePopUp(){
     //$("#welcomePopUp").animate({ "top": "100%" }, 700,function(){
+        $("#welcomePopUpBackground").hide();
         $("#welcomePopUp").hide();
     //});
 }
@@ -4992,6 +5009,7 @@ function showKeywordPopup(){
         // $("#searchKeyword").attr("placeholder",i18n.__("enterkeyword"));
         if(Session.get("clientid"))
         $("#keywordPopup").show();
+        //$("#keywordPopupBackground").show();
         firstTimeConnectionFlag = false;
     }
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
@@ -5012,7 +5030,8 @@ function searchHash(){
             toast("Searching keyword " +searchKeyword +" complete.")
         }
     });
-    $("#keywordPopup").hide();    
+    $("#keywordPopup").hide();
+    $("#keywordPopupBackground").hide();
     $("#searchKeyword").val('');    
 //   var keyword = Session.get("searchKeyword");
 //   console.log(keyword);
@@ -5032,12 +5051,14 @@ function searchHash(){
 function onCLickHashGo(){
     $("#searchKeyword").attr("placeholder",i18n.__("enterkeyword"));
     $("#keywordPopup").css("top","0%")
-    $("#keywordPopup").show();  
+    $("#keywordPopup").show(); 
+    $("#keywordPopupBackground").show(); 
     $("#keywordPopup").animate({ "top": "43%" }, 700);
 }
 function onClickHashGoCancel(){
     $("#keywordPopup").animate({ "top": "100%" }, 700,function(){
       $("#keywordPopup").hide();
+      $("#keywordPopupBackground").hide();
     });
     Session.get("searchKeyword",null);
 }
@@ -5154,7 +5175,8 @@ function bindEvents(){
         $("#close").hammer().on("tap",closeOverlay);
         $("#logout").hammer().on("tap",logOutUser);
         $("#instruction").hammer().on("tap",function(){$("#instructionPanel,#1instruct").show("slow"); openCloseSnapLeft();});
-        $("#ContactUsPopUp").hammer().on("tap",function(){$(this).hide("slow");});
+        $("#ContactUsPopUp").hammer().on("tap",hideContactUsPopUp);
+        $("#ContactUsPopUpBackground").hammer().on("tap",hideContactUsPopUp);
         // $(".menu").hammer().on("tap",openCloseSnap);        
         // $("#tutorialButtonMenu").hammer().on("tap",function(){tutorial();});
         $(".keyboard li").hammer().on("tap",tapOnAlpahbet);  
@@ -5165,6 +5187,7 @@ function bindEvents(){
         // $("#hash").hammer().on("tap",onCLickHashGo);
         $("#hashgosearch").hammer().on("tap",searchHash);
         $("#hashgocancel").hammer().on("tap",onClickHashGoCancel);
+        $("#keywordPopupBackground").hammer().on("tap",onClickHashGoCancel);
         $("#loaderError").hammer().on("tap",function(){loginOnceReady(); hideLoader();});
         $("#instructionNext,#instructionPrev,#instructionDone").hammer().on("tap",onInstructionButtonClick);        
         $("#media").hammer().on("tap",onClickMedia);
@@ -5177,10 +5200,13 @@ function bindEvents(){
         // $("#tutDone").hammer().on("tap",tutorialDoneButton);
         $("#gamePromptOkButton").hammer().on("tap",function(){console.log("gamePromptOkButton");gamePrompt();});
         $("#hideWelcomePopUp").hammer().on("tap",hideWelcomePopUp);
+        $("#welcomePopUpBackground").hammer().on("tap",hideWelcomePopUp);
         $("#hideAboutUsPopUp").hammer().on("tap",hideAboutForm);
+        $("#AboutUsPopUpBackground").hammer().on("tap",hideAboutForm);
         $("#aboutUsButton").hammer().on("tap",onClickAboutUsButton);
         $("#feedbackButton").hammer().on("tap",onClickfeedbackButton);
         $("#languageButton").hammer().on("tap",onClicklanguageButton);
+        $("#languageBackground").hammer().on("tap",onSetLang);
         $("#AggrementAccept").hammer().on("tap",onClickAggAcceptButton);
         $("#AggrementDeny").hammer().on("tap",onClickAggDenyButton);
         $("#hprogressBar").hammer().on("touch",loveProgDragstart);
@@ -5270,6 +5296,8 @@ function tapOnBodyWrapper(){
         }
         else if(tapCount==2){
             $("#welcomePopUp").show();
+            $("#welcomePopUpBackground").show();
+            //$('#welcomePopUp').bPopup();
         }
         else if(tapCount==10){
             showKeywordPopup();
@@ -5282,7 +5310,8 @@ function ratingPopUp(){
     console.log("tapCount"+cursorMe.rating);
     if(!cursorMe.rating){
         $("#RatingPopUp").css("top","0%")
-        $("#RatingPopUp").show();  
+        $("#RatingPopUp").show();
+        $("#RatingPopUpBackground").show();
         $("#RatingPopUp").animate({ "top": "50%" }, 700);
     }
 }
@@ -5296,6 +5325,7 @@ function setRattings(){
             break;
         }
     }
+    $("#RatingPopUpBackground").hide();
     $("#RatingPopUp").animate({ "top": "100%" }, 700);
     $("#RatingPopUp").hide();  
     onClickfeedbackButton();
@@ -5307,24 +5337,49 @@ function onShare(share){
         toast("This feature is not available for web browser.");
         return;
     }
-    var share = $(this).attr("share");
-    if(share == "facebook"){
-        window.plugins.socialsharing.shareViaFacebook("Tapmate" , "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com', function() {}, function(errormsg){});
-    }
-    else if(share == "twitter"){
-        window.plugins.socialsharing.shareViaTwitter("Tapmate" , "Check this out Tapmate is out! It's cool!", "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com');
-    }
-    else if(share == "whatsapp"){
-        window.plugins.socialsharing.shareViaWhatsApp("Tapmate" , "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com', function() {}, function(errormsg){}) ;
-    }
-    else if(share == "sms"){
-        window.plugins.socialsharing.shareViaSMS("Tapmate, Check this out Tapmate is out! It's cool!", null /* see the note below */, function(msg) {}, function(msg) {});
-    }
-    else{
+    // var share = $(this).attr("share");
+    // if(share == "facebook"){
+    //     window.plugins.socialsharing.shareViaFacebook("Tapmate" , "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com', function() {}, function(errormsg){});
+    // }
+    // else if(share == "twitter"){
+    //     window.plugins.socialsharing.shareViaTwitter("Tapmate" , "Check this out Tapmate is out! It's cool!", "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com');
+    // }
+    // else if(share == "whatsapp"){
+    //     window.plugins.socialsharing.shareViaWhatsApp("Tapmate" , "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com', function() {}, function(errormsg){}) ;
+    // }
+    // else if(share == "sms"){
+    //     window.plugins.socialsharing.shareViaSMS("Tapmate, Check this out Tapmate is out! It's cool!", null /* see the note below */, function(msg) {}, function(msg) {});
+    // }
+    // else{
        window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com'); 
-    }    
+    // }    
 }
-
+function clickOneSharePic(share){
+    var myShareImage=$(".bigFeed img").attr("src");
+    console.log(myShareImage)
+    if(!Session.get("phonegap")){
+        toast("This feature is not available for web browser.");
+        return;
+    }
+    // var share = $(this).attr("share");
+    // var myShareImage=$(".bigFeed img").attr("src");
+    // console.log(myShareImage)
+    // if(share == "facebook"){
+    //     window.plugins.socialsharing.shareViaFacebook("Tapmate" , myShareImage, 'http://tapmate.youiest.com', function() {}, function(errormsg){});
+    // }
+    // else if(share == "twitter"){
+    //     window.plugins.socialsharing.shareViaTwitter("Tapmate" , "Check this out Tapmate is out! It's cool!", myShareImage, 'http://tapmate.youiest.com');
+    // }
+    // else if(share == "whatsapp"){
+    //     window.plugins.socialsharing.shareViaWhatsApp("Tapmate" , myShareImage, 'http://tapmate.youiest.com', function() {}, function(errormsg){}) ;
+    // }
+    // else if(share == "sms"){
+    //     window.plugins.socialsharing.shareViaSMS("Tapmate, Check this out Tapmate is out! It's cool!", null /* see the note below */, function(msg) {}, function(msg) {});
+    // }
+    // else{
+       window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", myShareImage, 'http://tapmate.youiest.com'); 
+    // }    
+}
 /////////////////// SHARE //////////////////
 
 
@@ -6451,7 +6506,7 @@ function openCloseSnapRight(){
         $("#beforeLogin").transition({"left":"0%"});
         $("#snapButton").transition({"left":"0%"});
         console.log(adjustLeft)
-          $("#snapButtonWrapper").css({"display":"none"});
+          //$("#snapButtonWrapper").css({"display":"none"});
     }
     else{
       $("#snapy").transition({"left":"0%"});
@@ -6459,7 +6514,7 @@ function openCloseSnapRight(){
       $("#snapButton").transition({"left":"90%"});
       console.log(adjustLeft)
       if(adjustLeft!=0){
-        $("#snapButtonWrapper").css({"display":"block"});
+       // $("#snapButtonWrapper").css({"display":"block"});
       }
     }
     snapRightFlag = !snapRightFlag;

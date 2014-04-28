@@ -635,6 +635,8 @@ function loginWithTapmateCallbackFunction(err){
         
     }else{
         set("clientid",TapmateUser);
+        $("#welcomePopUp").show();
+        $("#welcomePopUpBackground").show();
         autoLogin();
     }
 }
@@ -4849,6 +4851,8 @@ function loginWithFacebookCallbackFunction(err){
 function loginWithInstagramCallbackFunction(err){
     var starttimer = new Date().getTime();
     console.log("loginWithInstagramCallbackFunction")
+    $("#welcomePopUp").show();
+    $("#welcomePopUpBackground").show();
     try{
         if(window['mywindow']){
             window['mywindow'].close();
@@ -5263,7 +5267,7 @@ function bindEvents(){
             saveCollection();
         });
         $(window).resize(autoSize);
-        $("#pushimagePopUp").hammer().on("tap",OnClickPushImage);
+        //$("#pushimagePopUp").hammer().on("tap",OnClickPushImage);
         $("#snapButtonWrapper").hammer().off("tap",openCloseSnapLeft)
         $("#snapButtonWrapper").hammer().on("tap",openCloseSnapLeft);
         $(".ui.heart.rating .icon").hammer().on("tap",setRattings);
@@ -5295,8 +5299,8 @@ function tapOnBodyWrapper(){
             ratingPopUp();
         }
         else if(tapCount==2){
-            $("#welcomePopUp").show();
-            $("#welcomePopUpBackground").show();
+            // $("#welcomePopUp").show();
+            // $("#welcomePopUpBackground").show();
             //$('#welcomePopUp').bPopup();
         }
         else if(tapCount==10){
@@ -5388,11 +5392,13 @@ function pushNotifiPopup(pushpic,pushmsg,pushlkid){
     var starttimer = new Date().getTime();
   console.log("pushNotifiPopup");
     if(pushpic && pushmsg && pushlkid){
-        $("#pushnotificationimages").attr("src",pushpic);
-        $("#pushtext").html(pushmsg);
-        $("#pushimagePopUp").css("top","0%")
-        $("#pushimagePopUp").css("display","block");
-        $("#pushimagePopUp").animate({ "top": "39%" }, 1500);
+        // $("#pushnotificationimages").attr("src",pushpic);
+        // $("#pushtext").html(pushmsg);
+        // $("#pushimagePopUp").css("top","0%")
+        // $("#pushimagePopUp").css("display","block");
+        // $("#pushimagePopUp").animate({ "top": "39%" }, 1500);
+        Meteor.subscribe("pushnotification",Session.get("clientid"),pushlkid);
+        Session.set("currentBig",pushlkid);
     }
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }

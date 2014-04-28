@@ -10,6 +10,16 @@
         }
     });
 
+    Meteor.publish("pushnotification",function(clientid,likeid){
+        try{
+            return Feed.find({"clientid" : clientid,"likeid":likeid});
+        }
+        catch(error){
+            var insert = {"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"publish.pushnotification"};
+            console.log(insert);
+            ErrorUpdate.insert(insert);
+        }
+    });
     
     Meteor.publish("groupvoterecommend",function(clientid,likeid){
         try{

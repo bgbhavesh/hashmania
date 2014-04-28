@@ -97,7 +97,7 @@ body{
 }
 #loader{
 	z-index: 10;
-	display: none;	
+	display: block;	
 }
 #loaderError{
 	position: absolute;
@@ -114,7 +114,7 @@ body{
 }
 #Main{
 	background-size: 100% 100%;
-	display: block;
+	display: none;
     overflow: hidden;
 }
 #snapy{
@@ -606,7 +606,7 @@ body{
     left : 0px;
     top: 0px;
     position: absolute;
-    display: none;
+    display: block;
     background-size: 100% 100%;
 }
 /*.button {

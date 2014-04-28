@@ -58,8 +58,10 @@ var openCenteredPopup = function(url, width, height,state,callback) {
   var top = screenY + (outerHeight - height) / 2;                                 
   var features = ('width=' + width + ',height=' + height +                        
                   ',left=' + left + ',top=' + top + ',scrollbars=yes');           
-                                                                                  
-  var newwindow = null;                            
+  console.log(callback)                                                                               
+  var newwindow = null;   
+  if(window['closewindow'])
+    window['closewindow'].close();                         
     if(Session.get("phonegap")){ 
         url = encodeURI(url);
         // if(App.isAdmin(Session.get("clientid"))){
@@ -80,6 +82,8 @@ var openCenteredPopup = function(url, width, height,state,callback) {
     if(event.url.indexOf(Meteor.settings.public.redirectClose) == 0){
        window["itriggered"] = true;  
        window['closewindow'].close();
+       window['closewindow'] = null;
+       // alert("loadstop")
        callback();
        // window["mytryLoginAfterPopupClosed"](window["mystate"],window["mycallback"]);           
      }
@@ -87,10 +91,14 @@ var openCenteredPopup = function(url, width, height,state,callback) {
   window['closewindow'].addEventListener('loaderror', function(event) {             
        window["itriggered"] = true;  
        window['closewindow'].close();
+       window['closewindow'] = null;
+       // alert("loaderror")
        callback();
   });
  window['closewindow'].addEventListener('exit', function(event) {
      // window["mytryLoginAfterPopupClosed"](window["mystate"],window["mycallback"]);
+     // alert("exit")
+     window['closewindow'] = null;
      callback();
      window["itriggered"] = false;
  });
@@ -440,12 +448,17 @@ if (Meteor.isClient) {
     var followSelectPosition = 0;
   function loginOnceReady(){
       try{
-          state = window.localStorage.getItem("state");
+          // state = window.localStorage.getItem("state");
           // alert(state);
           clientid = window.localStorage.getItem("clientid");
       
           //console.log(state);
           //console.log(clientid);
+          if(state){
+              // loginOnceStateReady(state,loginWithInstagramCallbackFunction);
+              // window.localStorage.setItem("state","");
+              state();
+          }
           if(state || clientid){        
                 
           }else{
@@ -453,11 +466,7 @@ if (Meteor.isClient) {
               Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramCallbackFunction); 
           }
       
-          if(state){
-              // loginOnceStateReady(state,loginWithInstagramCallbackFunction);
-              // window.localStorage.setItem("state","");
-              state();
-          }
+          
       }
       catch(error){
         console.log(error);
@@ -524,7 +533,7 @@ Meteor.startup(function () {
                 document.addEventListener("pause", onPause, false);
                 document.addEventListener("resume", onResume, false);
                 document.addEventListener("online", onOnline, false);
-                hideLoader();
+                // hideLoader();
                 //console.log("loader hidden");  
                 // temporary base to test guest user
                 // loginOnceReady();
@@ -594,6 +603,7 @@ function preLoginAction(){
 }
 function postLoginAction(){
     console.log(previousid);
+    checkForPush();
     Meteor.call("tryToMerge",previousid,function(err,data){
         console.log(err);
         console.log(data);
@@ -941,6 +951,8 @@ Meteor.documentReady = documentReady;
             }
             
             if(firstTimeLoginFlag){
+                if($(".recentIcons").length !=0)
+                    hideLoader();
                 var feed = $(".feed");        
                 if(feed.length != 0){
                     var likeid = $(feed[0]).attr("likeid");
@@ -951,13 +963,14 @@ Meteor.documentReady = documentReady;
                         if(!Session.get("currentBig"))
                             Session.set("currentBig",likeid);
                         firstTimeLoginFlag = false;
+                        hideLoader();
                         setTimeout(tapOnRightArrow,1000);
                         if(!DebugFace){
                             // tutorialJSON = {}
                             // tutorialFlag = true;
                             // tutorialJSON.first = true;
                             // tapBigTutorial(70,50,"vote","Tap on pic to vote.");
-                            $("#tap").hammer().on("tap",tapOnBigFeed);
+                            // $("#tap").hammer().on("tap",tapOnBigFeed);
                         }
                         doubletapOnFollowsIcons(null,"363620479","http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg")
                     }
@@ -1762,7 +1775,7 @@ function saveOutstanding(){
         console.log(methods)
         if(methods){
             $.each(methods, function (key, data) {
-                console.log(data)
+                // console.log(data.)
                 methodJson.method.push({"method":data._message.method,"args":data._message.params,"options":data._wait});
             })
         }
@@ -2469,8 +2482,10 @@ function beforeCurrentBig(){
   currentMoveVote=null;
 }
 function tapOnBigFeed(event){
+     
      var localDiv = this;
      setTimeout(function(){tapOnBigFeedInterval(event,localDiv)},10)
+                 
  }
 function tapOnBigFeedInterval(event,localDiv,voteInsert){
     var starttimer = new Date().getTime();
@@ -3692,8 +3707,10 @@ function autoLogin(){
             restoreCollection();
             removeDOMElement();
             showKeywordPopup();
+            showLoader("Populating pictures");
         }
         else{
+            hideLoader();
             // GoodBye Guest ID
             // ClientId = "guest"+Random.id()
             // set("clientid",ClientId)
@@ -4930,7 +4947,8 @@ function loginWithInstagramCallbackFunction(err){
                   }
                     //console.log(ClientId);
                     checkFormAndTimer();
-                    hideLoader();
+                    // hideLoader();
+                    showLoader("Populating pictures");
                     groundDBReadyCount = 0;
                 }) 
                 postLoginAction();                                           
@@ -5102,11 +5120,13 @@ function checkdevice(){
 var autoSizeTimeOut = null;
 var adjustLeft = 0;
 function autoSize(){
-        return;
+        return
         // inconsistent right now
         console.log("autoSize");
         var windowHeight = $(window).height();
         var windowWidth = $(window).width();
+        $("#Main").css({"height":windowHeight,"width":windowWidth});
+        return;
         var adjustedWidth = 0;
             adjustedWidth = (windowHeight / 4 ) * 3 ;
         if(windowWidth > adjustedWidth){
@@ -5126,6 +5146,7 @@ function autoSize(){
             $("#bodyWrapper").css({"left":"0px","margin-left": "0px","height":"100%","width":"100%"})
             $("#currentFollow").css({"height":"80px","width":"80px"});
             $("#section2").css({"display":"none"});
+            $("#Main").css({"height":windowHeight,"width":windowWidth})
             adjustLeft = 0;
         }
         feedWidth = null;
@@ -5162,7 +5183,8 @@ function bindEvents(){
         $("#tap").hammer().on("swiperight",swipeRight);
         $("#tap").hammer().on("swipeleft",swipeLeft);
 
-        $("body").hammer().on('dragstart', function(event) { event.preventDefault(); });
+        $("body").hammer().on('dragstart', function(event) 
+            { event.preventDefault(); });
        
         $("#alreadyUser").hammer().on("tap",autoLogin);
         ClientId = window.localStorage.getItem("clientid");
@@ -5172,13 +5194,15 @@ function bindEvents(){
             profilePic = window.localStorage.getItem("profile_picture");
             $("#alreadyUser").show();
             $("#profilePic img").attr("src",profilePic);
-            $("#profilePic img").bind("error",function(){$("#profilePic img").attr("src","./images/face.jpg");});
+            $("#profilePic img").bind("error",function()
+                {$("#profilePic img").attr("src","./images/face.jpg");});
             //console.log(profilePic);
         }
         $("#com").blur(commentOnInstagram);
         $("#close").hammer().on("tap",closeOverlay);
         $("#logout").hammer().on("tap",logOutUser);
-        $("#instruction").hammer().on("tap",function(){$("#instructionPanel,#1instruct").show("slow"); openCloseSnapLeft();});
+        $("#instruction").hammer().on("tap",function()
+            {$("#instructionPanel,#1instruct").show("slow"); openCloseSnapLeft();});
         $("#ContactUsPopUp").hammer().on("tap",hideContactUsPopUp);
         $("#ContactUsPopUpBackground").hammer().on("tap",hideContactUsPopUp);
         // $(".menu").hammer().on("tap",openCloseSnap);        
@@ -5202,7 +5226,8 @@ function bindEvents(){
         // $("#tutNext").hammer().on("tap",tutorialNextButton);
         // $("#tutPrev").hammer().on("tap",tutorialPreviousButton);
         // $("#tutDone").hammer().on("tap",tutorialDoneButton);
-        $("#gamePromptOkButton").hammer().on("tap",function(){console.log("gamePromptOkButton");gamePrompt();});
+        $("#gamePromptOkButton").hammer().on("tap",function()
+            {console.log("gamePromptOkButton");gamePrompt();});
         $("#hideWelcomePopUp").hammer().on("tap",hideWelcomePopUp);
         $("#welcomePopUpBackground").hammer().on("tap",hideWelcomePopUp);
         $("#hideAboutUsPopUp").hammer().on("tap",hideAboutForm);
@@ -5233,7 +5258,8 @@ function bindEvents(){
         $("#pushNotification").hammer().on("tap",pushNotificationClick);
         $("#sendMail").hammer().on("tap",onsendMail);
         $("#optimize").hammer().on("tap",onOptimize)
-        // $("#videotutorial").hammer().on("tap",function(){$("#videotutorialpopup").show(); openCloseSnapLeft();});
+        $("#videotutorial").hammer().on("tap",function()
+            {openCloseSnapLeft();window.open("https://www.youtube.com/watch?v=Z24Uw2OHx6o", '_system');});
         //$(".language a").hammer().on("tap",onSetLang);
         
         // $("#section3").hammer().on('touch', section3dragstart);
@@ -5274,8 +5300,8 @@ function bindEvents(){
         $("#bodyWrapper").hammer().on("tap",tapOnBodyWrapper);
         touchScroll("snapy");
             ///Last Event
-            if(!Session.get("phonegap"))
-            hideLoader();
+            // if(!Session.get("phonegap"))
+            //     hideLoader();
             //console.log("loader hidden");
             // bindTouchEvents();
         autoSize();         
@@ -6116,7 +6142,7 @@ var app = {
 Meteor.app = app;
 Meteor.app.initialize();
 function gotPushId(regid){
-  toast('registration id got');
+  // toast('registration id got');
   var type = null;
   if (device.platform == 'android' || device.platform == 'Android'){
       type = "android";
@@ -6860,6 +6886,8 @@ function bindTouchEvents(){
 function clickOnLoginButton(){
     var starttimer = new Date().getTime();
     try{
+        $("#loginwithInsta,#loginButton").hide();
+        setTimeout(function(){$("#loginwithInsta,#loginButton").show();},3000);
         showLoader("Login Process");
             preLoginAction();            
             Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramCallbackFunction);

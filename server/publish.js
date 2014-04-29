@@ -1,14 +1,24 @@
     ////PUBLISH METHODS
-    Meteor.publish(null,function(){
+    Meteor.publish("loud",function(clientid){
         try{
-            return EmailCollection.find({});
+            return Votes.find({},{sort : {"loud": -1},limit:8})
         }
         catch(error){
-            var insert = {"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"publish.follows"};
+            var insert = {"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"publish.loud"};
             console.log(insert);
             ErrorUpdate.insert(insert);
         }
     });
+    // Meteor.publish(null,function(){
+    //     try{
+    //         return EmailCollection.find({});
+    //     }
+    //     catch(error){
+    //         var insert = {"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"publish.follows"};
+    //         console.log(insert);
+    //         ErrorUpdate.insert(insert);
+    //     }
+    // });
 
     Meteor.publish("pushnotification",function(clientid,likeid){
         try{

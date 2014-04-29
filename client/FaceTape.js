@@ -312,7 +312,7 @@ function suscribeMeteor(ClientId){
     Meteor.subscribe("onerecent", Session.get("clientid"));
     Meteor.subscribe("followsgroup", Session.get("clientid"));
     Meteor.subscribe("usersession", Session.get("clientid"));
-    //Meteor.subscribe("methodtimer", Session.get("clientid"));
+    Meteor.subscribe("loud", Session.get("clientid"));
 }
 Meteor.suscribeCusom = suscribeCusom;
 function suscribeCusom(){
@@ -333,7 +333,7 @@ function suscribeCusom(){
     Meteor.subscribe("onerecent", Session.get("clientid"));
     Meteor.subscribe("followsgroup", Session.get("clientid"));
     Meteor.subscribe("usersession", Session.get("clientid"));
-    //Meteor.subscribe("methodtimer", Session.get("clientid"));
+    Meteor.subscribe("loud", Session.get("clientid"));
 }
 //// If already suscribed then unsuscribe it //// 
 function unSuscribeMeteor(){
@@ -1146,6 +1146,10 @@ Meteor.documentReady = documentReady;
         }
     }
     /// Last duplicate
+    
+    Template.loud.recents = function(){
+        return Votes.find({},{sort : {"loud": -1},limit:8})
+    }
     Template.Section1.recents = function(){
         try{
             return Feed.find({"clientid":Session.get("clientid"),"display":"n"},{sort : {"date": -1},limit:Session.get("limit")*1});
@@ -2586,7 +2590,8 @@ function tapOnBigFeedInterval(event,localDiv,voteInsert){
                         cursorBig = voteInsert;
                     }
                     profilePic = cursorFollow.profile_picture;
-                    var VotesInsert = {"checked":false,"place":quadrantPlace,"profile_picture":cursorFollow.profile_picture, "followid":Session.get("clientid"),"likeid":cursorBig.likeid,"low":cursorBig.low ,"left": left,"top": top,"date" : date};
+                    var loud = left + (100 - top);
+                    var VotesInsert = {"checked":false,"place":quadrantPlace,"profile_picture":cursorFollow.profile_picture, "followid":Session.get("clientid"),"likeid":cursorBig.likeid,"low":cursorBig.low ,"left": left,"top": top,"date" : date,"loud":loud};
                     actionArray.push(activeFollowsId);
                     appendVotes(VotesInsert);
                     

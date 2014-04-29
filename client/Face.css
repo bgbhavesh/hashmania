@@ -1236,6 +1236,18 @@ body{
 	margin-left: -10px;
 	z-index: 1;
 }
+.loudIcons{
+    height: 22%;
+    width: 23%;
+    position: static;
+    float: left;
+    margin: 1%; 
+}
+.loudIcons img{
+    /*height: 10%;*/
+    width: 100%;
+
+}
 .recentIcons{
 	height: 22%;
 	width: 23%;

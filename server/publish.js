@@ -96,7 +96,7 @@
                 return Me.find({});    
             }
             // comeback here
-            return Me.find({"_id":userid},{fields: {'followid':1,'fullname':1,'heatscore':1,'profile_picture':1,'username':1,'score':1,'email':1,"rating":1}});
+            return Me.find({"_id":userid},{fields: {'followid':1,'fullname':1,'heatscore':1,'profile_picture':1,'username':1,'score':1,'email':1,"rating":1,'facebooktoken':1,'facebookexpires':1}});
         }
         catch(error){
             var insert = {"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"publish.me"};

@@ -4850,6 +4850,7 @@ function loginWithInstagram(){
                                                   
 var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent); 
 var display = mobile ? 'touch' : 'popup';   
+
 function loginWithFacebook(){
     console.log("loginWithFacebook");
     var state = Random.id();
@@ -4879,9 +4880,13 @@ function loginWithFacebookCallbackFunction(err){
 
 function loginWithInstagramCallbackFunction(err){
     var starttimer = new Date().getTime();
+<<<<<<< HEAD
+    console.log("loginWithInstagramCallbackFunction")
+=======
     // console.log("loginWithInstagramCallbackFunction")
     $("#welcomePopUp").show();
     $("#welcomePopUpBackground").show();
+>>>>>>> fbde09018712bd0862d12be664d02b42168f803f
     try{
         if(window['mywindow']){
             window['mywindow'].close();
@@ -4912,7 +4917,9 @@ function loginWithInstagramCallbackFunction(err){
                     window.localStorage.setItem("emailtoken",null);
                 }
                 preLoginAct();
-                showLoader("Login successful");   
+                showLoader("Login successful");  
+                $("#welcomePopUp").show();
+                $("#welcomePopUpBackground").show(); 
                 Meteor.call("getInformation",pushId,function(error,data){
                     var ClientId;
                     //console.log(error);

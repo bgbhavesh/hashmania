@@ -1,17 +1,16 @@
 {
   "meteor": {},
   "dependencies": {
-    "basePackages": {
-    }
+    "basePackages": {}
   },
   "packages": {
-    "accounts-instagram": {
+    "accounts-instagram": {},
+    "accounts-oauth2-helper": {
+      "path": "./private/accounts-oauth2-helper"
     },
-    "accounts-oauth2-helper" : {
-      "path" : "./private/accounts-oauth2-helper"
+    "accounts-oauth-helper": {
+      "path": "./private/accounts-oauth-helper"
     },
-    "accounts-oauth-helper" : {
-      "path" : "./private/accounts-oauth-helper"
-    }
+    "collectionFS": {}
   }
 }

@@ -723,6 +723,13 @@ body{
 	top: 46%;
 	z-index: 10;
 	text-align: center;
+    width: 90%;
+    left: 5%;
+}
+#loginsignupform .field{
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 2%;
 }
 #form{
 	position: absolute;

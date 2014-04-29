@@ -410,6 +410,8 @@ Meteor.Router.add('/instance', 'GET', function() {
     }  
     // App.testingText = this;
 });
+
+
 App.parseSubject = parseSubject;
 function getIP(object){
     if(object)
@@ -576,7 +578,7 @@ function testNewUser(){
 App.testNewUser = testNewUser;
 if (Meteor.isServer) {
 Meteor.startup(function () {
-        // console.log());
+        // console.log(querystring);
         if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
             DebugFace = true;
         // testNewUser();
@@ -933,6 +935,7 @@ function notifyTheUser(first){
                 // }
                 // else{
                     pushToUser(cursorMe.pushid,first.message,cursorMe.pushtype,first.low,first.likeid);
+                    // postOnFacebook(first);
                 // }
                 
             }
@@ -941,6 +944,62 @@ function notifyTheUser(first){
         TapmateNotification.update({"_id":first._id},{$set : {"notify":true}});
     }
 }
+
+function postOnFacebook(message){
+    console.log("postOnFacebook");
+    // var facebookfb = Npm.require('fb');
+    var cursorMe = Me.findOne({"_id":"487690035"});
+    // if(cursorMe){
+    //     if(cursorMe.facebooktoken){
+    //         var facebooktoken = cursorMe.facebooktoken;
+    //         facebookfb.setAccessToken(facebooktoken);
+    //         var body = '<b> Posting with HTML </b>';
+    //         // <img src="http://images.ak.instagram.com/profiles/profile_487690035_75sq_1383644609.jpg"/>
+    //         facebookfb.api('me/feed', 'post', { message: body}, function (res) {
+    //           if(!res || res.error) {
+    //             console.log(!res ? 'error occurred' : res.error);
+    //             return;
+    //           }
+    //           console.log('Post Id: ' + res.id);
+    //         });
+    //     }
+    // }
+    var img = "http://images.ak.instagram.com/profiles/profile_487690035_75sq_1383644609.jpg";
+    var https = Npm.require('https'); //Https module of Node.js
+    var fs = Npm.require('fs'); //FileSystem module of Node.js
+    // var FormData = Npm.require('form-data'); //Pretty multipart form maker.
+    // console.log(fs.createReadStream('./public/images/logo.png'));
+    // return;
+    var ACCESS_TOKEN = cursorMe.facebooktoken;
+    
+    var form = new FormData(); //Create multipart form
+    form.append('file', fs.createReadStream('first.jpg')); //Put file
+    form.append('message', "Tapmate"); //Put message
+     
+    //POST request options, notice 'path' has access_token parameter
+    var options = {
+        method: 'post',
+        host: 'graph.facebook.com',
+        path: '/me/photos?access_token='+ACCESS_TOKEN,
+        headers: form.getHeaders(),
+    }
+     
+    //Do POST request, callback for response
+    var request = https.request(options, function (res){
+         console.log(res);
+    });
+     
+    //Binds form to request
+    form.pipe(request);
+     
+    //If anything goes wrong (request-wise not FB)
+    request.on('error', function (error) {
+         console.log(error);
+    });
+}
+
+App.postOnFacebook = postOnFacebook;
+
 App.notifyTheUser = notifyTheUser;
 var notificationCount = 0;
 function pushToUser(registrationid,mymessage,type,low,likeid){
@@ -1451,6 +1510,10 @@ App.isAdmin = isAdmin;
               //Accounts.oauth._middleware(req, res, next);
                 console.log("emailDailyGen");
                 var extraData = addrow();
+                if(!extraData){
+                    console.log("nothing to send!");
+                    return;
+                }
                 var html = 
                 '<html> <head> <style> ' 
                     +''
@@ -1483,11 +1546,12 @@ App.isAdmin = isAdmin;
         var htmlstr = "";
         //Fiber(function () {
         //str = ""; 
+        var emailCount = 0;
         console.log("addrow")
         var cursorTapMatrixUser = Me.find({});  
             cursorTapMatrixUser.forEach(function(data){
                 console.log(data.dalreadyloggedin)
-                // if(data.dalreadyloggedin){
+                if(data.dalreadyloggedin){
                     //console.log("data"+data.dalreadyloggedin);
                     htmlstr += '<tr> '
                                   +'<th>'+data._id+'</th>'
@@ -1501,9 +1565,13 @@ App.isAdmin = isAdmin;
                                   +'<th>'+checkmaildata(data.dswipeleftswipeleft) +'</th>'
                                   +'<th>'+checkmaildata(data.dswiperight) +'</th>'
                             +'</tr>';
-                // }   
+                    emailCount++;
+                }   
         });
-        console.log("htmlstr"+htmlstr)
+        // console.log("htmlstr"+htmlstr)
+        if(emailCount==0)
+            return null;
+
         return htmlstr;
         //}).run();
     }

@@ -120,6 +120,9 @@ language.html = [
         ["a#sendMail","sendMail"]
     ]
     Meteor.methods({
+        "postOnFacebook" : function(){
+            App.postOnFacebook();
+        },
         "checkWithServer":function(data){
             try{
                 var result = Meteor.http.call("GET", data.profile_picture);

@@ -31,7 +31,7 @@ if(window["App"] === undefined)
   if(!Session.get("phonegap"))                                                    
   var checkPopupOpen = setInterval(function() {                                   
     try {  
-        console.log("my show popup interval")                                                                       
+        // console.log("my show popup interval")                                                                       
       var popupClosed = popup.closed || popup.closed === undefined;               
     } catch (e) {                                                                 
       return;                                                                     
@@ -58,7 +58,7 @@ var openCenteredPopup = function(url, width, height,state,callback) {
   var top = screenY + (outerHeight - height) / 2;                                 
   var features = ('width=' + width + ',height=' + height +                        
                   ',left=' + left + ',top=' + top + ',scrollbars=yes');           
-  console.log(callback)                                                                               
+  // console.log(callback)                                                                               
   var newwindow = null;   
   if(window['closewindow'])
     window['closewindow'].close();                         
@@ -599,14 +599,14 @@ function preLoginAction(){
         previousid = Meteor.user()._id;
         set("previousid",previousid);
     }
-    console.log(previousid);
+    // console.log(previousid);
 }
 function postLoginAction(){
-    console.log(previousid);
+    // console.log(previousid);
     checkForPush();
     Meteor.call("tryToMerge",previousid,function(err,data){
-        console.log(err);
-        console.log(data);
+        // console.log(err);
+        // console.log(data);
     });
 }
 var TapmateUser = null;
@@ -633,6 +633,17 @@ function onSignUpWithTapmate(){
     else{
         showLoginErrorMessage("onSignUpWithTapmate")
     }
+}
+function convertEmail(email){
+    email = email.toLowerCase();
+    var finalEmail = "";
+    var ch = null;
+    for(var i=0,il=email.length;i<il;i++){
+        ch = email.charAt(i);
+        if(ch != " ")
+        finalEmail+= ch
+    }
+    return finalEmail;
 }
 function showLoginErrorMessage(message){
     $("#errorMessage").html(message);
@@ -1743,12 +1754,12 @@ function saveCollection(){
 }
 function startSession(){
     SessionstartTime = new Date().getTime();
-    console.log("start "+SessionstartTime);
+    // console.log("start "+SessionstartTime);
 }
 function StopSession(){
     SessionEndTime = new Date().getTime();
     var totalSession=(new Date().getTime() - SessionstartTime)/1000;
-    console.log("Session "+totalSession);
+    // console.log("Session "+totalSession);
     var SessionInsert = {"clientid":Session.get("clientid"),"username" :Session.get("username"),"InDate":SessionstartTime,"OutDate":SessionEndTime,"sessionTime":totalSession,"width":$(window).width(),"height":$(window).height()}
     UserSession.insert(SessionInsert);
 }
@@ -4709,7 +4720,7 @@ function everyFive(periods) {
 function checkFormAndTimer(first){
     var starttimer = new Date().getTime();
     try{
-        console.log("here")
+        // console.log("here")
         var austDay = new Date();
         austDay = new Date(austDay.getFullYear() + 1, 1 - 1, 26);
         $('#timer').countdown({until: austDay,format:'HMS',onTick: everyFive, tickInterval: 1});
@@ -4839,17 +4850,19 @@ function loginWithInstagram(){
                                                   
 var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent); 
 var display = mobile ? 'touch' : 'popup';   
+
 function loginWithFacebook(){
     console.log("loginWithFacebook");
     var state = Random.id();
     var loginUrl =                                                                       
-        'https://www.facebook.com/dialog/oauth?client_id=' + config.appId +            
-        '&redirect_uri=' + Meteor.absoluteUrl('_oauth/facebook?close') +               
-        '&display=' + display + '&scope=' + scope + '&state=' + Session.get("clientid");
+        'https://www.facebook.com/dialog/oauth?client_id=' + "679347035440335" +            
+        '&redirect_uri=' + Meteor.absoluteUrl('facebook?close') +               
+        '&display=' + "popup" + '&scope=' + "email,publish_actions" + '&state=' + Session.get("clientid");
     window.open(loginUrl);
     // Meteor.loginWithFacebook({requestPermissions:"basic",requestOfflineToken:true},loginWithFacebookCallbackFunction);
 }
-
+https://www.facebook.com/dialog/oauth?client_id=679347035440335&redirect_uri=http://localhost:3000/facebook?close&display=popup&scope=email&state=GEm5wJLmwqoWdXa3z
+Meteor.facebook = loginWithFacebook
 function loginWithGoogle(){
     console.log("loginWithGoogle")
     Meteor.loginWithGoogle({requestPermissions:'https://www.googleapis.com/auth/userinfo.profile',requestOfflineToken:true},loginWithGoogleCallbackFunction);
@@ -4867,7 +4880,7 @@ function loginWithFacebookCallbackFunction(err){
 
 function loginWithInstagramCallbackFunction(err){
     var starttimer = new Date().getTime();
-    console.log("loginWithInstagramCallbackFunction")
+    // console.log("loginWithInstagramCallbackFunction")
     $("#welcomePopUp").show();
     $("#welcomePopUpBackground").show();
     try{
@@ -4908,23 +4921,23 @@ function loginWithInstagramCallbackFunction(err){
                     var previousClientId = null;
                   if(data){
                         previousClientId = window.localStorage.getItem("clientid");
-                        console.log(Number(previousClientId) +" testing guestid")        
+                        // console.log(Number(previousClientId) +" testing guestid")        
                         if(Number(previousClientId)<0){
                             Meteor.call("updateGuestToUser",previousClientId,data.id,function(err,data){
-                                console.log(err);
-                                console.log(data);
+                                // console.log(err);
+                                // console.log(data);
                             });
                         }
                     ClientId = data.id;
                     profilePic = data.profile_picture;
                     username = data.username;
-                    console.log(profilePic);
-                    console.log(ClientId)
+                    // console.log(profilePic);
+                    // console.log(ClientId)
                     var previousClientId = Session.get("clientid");
                     Session.set("clientid",ClientId);
                     if(previousClientId && ClientId)
                     Meteor.call("convertGuestToUser",previousClientId,ClientId,function(){
-                        console.log("converted");
+                        // console.log("converted");
                     });
                     Session.set("username",data.username)
                     window.localStorage.setItem("clientid",ClientId);
@@ -5251,7 +5264,7 @@ function bindEvents(){
         $("#inerhprogressBar").hammer().on("touch",loveProgDragstart);
         $("#inerhprogressBar").hammer().on("release",loveProgDragend);
         $("#inerhprogressBar").hammer().on("drag",loveProgDrag);
-
+        $("#invfacebook").hammer().on("tap",loginWithFacebook);
         //$(".outer").hammer().on("tap",);
         //$("#startWalkthrough").hammer().on("tap",function(){introJs().start()});
         // $("#startWalkthrough").hammer().on("tap",onStartWalkthrou );
@@ -5337,7 +5350,7 @@ function tapOnBodyWrapper(){
 } 
 function ratingPopUp(){
     var cursorMe = Me.findOne({"_id":Session.get("clientid")});
-    console.log("tapCount"+cursorMe.rating);
+    // console.log("tapCount"+cursorMe.rating);
     if(!cursorMe.rating){
         $("#RatingPopUp").css("top","0%")
         $("#RatingPopUp").show();
@@ -5416,7 +5429,7 @@ function clickOneSharePic(share){
 ////////////////////////push notification//////////////
 function pushNotifiPopup(pushpic,pushmsg,pushlkid){
     var starttimer = new Date().getTime();
-  console.log("pushNotifiPopup");
+    // console.log("pushNotifiPopup");
     if(pushpic && pushmsg && pushlkid){
         // $("#pushnotificationimages").attr("src",pushpic);
         // $("#pushtext").html(pushmsg);

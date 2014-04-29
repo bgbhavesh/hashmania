@@ -476,6 +476,10 @@
    <!--  <div id="menuWrapper"> --> <!--bug on z-index so made wrapper--> 
   
   <div id="snapy" class="ui large vertical inverted labeled icon sidebar menu active">
+  	<div class="item" id="menuresents">
+	  <b id="loud"> Loudness </b>
+	  {{> loud}}
+	</div>
 	<div class="item" id="menuresents">
 	  <b id="Recentslabel"> Preview </b>
 	  {{> Section1}}
@@ -589,13 +593,29 @@
 	{{#each user}}
 	<div><b>Profile</b></div>
     <div class="menu" id="profileItem">
-        <a class="item"><div id="contest" class="item"><img src="{{profile_picture}}" style="width: 29%;float: left;"><div style="text-align: left;margin-left: 35%;">Username: {{username}}<br><br> Email: {{email}}</div></div></a>
+        <a class="item">
+        	<div id="contest" class="item">
+        	<img src="{{profile_picture}}" style="width: 29%;float: left;">
+        	<div style="text-align: left;margin-left: 35%;">Username: {{username}}
+	        	<br><br> Email: {{email}}
+	        	</div>
+        	</div>
+        </a>
         <a class="item" ></a>
     </div>
     {{/each}} 
 </template>
 <template name="distanceTemplate">
 	{{distance}} | {{heat}}
+</template>
+<template name="loud"> 
+	<div id="loudness" class="menu">
+		{{#each recents}}
+		  <div class="loudIcons" likeid="{{likeid}}">  
+			  <img src="{{low}}">        
+		  </div>
+		{{/each}}   
+  	</div>
 </template>
 <template name="Section1">
   <div id="section1" class="menu">

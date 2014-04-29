@@ -4868,8 +4868,6 @@ function loginWithFacebookCallbackFunction(err){
 function loginWithInstagramCallbackFunction(err){
     var starttimer = new Date().getTime();
     console.log("loginWithInstagramCallbackFunction")
-    $("#welcomePopUp").show();
-    $("#welcomePopUpBackground").show();
     try{
         if(window['mywindow']){
             window['mywindow'].close();
@@ -4900,7 +4898,9 @@ function loginWithInstagramCallbackFunction(err){
                     window.localStorage.setItem("emailtoken",null);
                 }
                 preLoginAct();
-                showLoader("Login successful");   
+                showLoader("Login successful");  
+                $("#welcomePopUp").show();
+                $("#welcomePopUpBackground").show(); 
                 Meteor.call("getInformation",pushId,function(error,data){
                     var ClientId;
                     //console.log(error);

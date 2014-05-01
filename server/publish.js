@@ -1,7 +1,7 @@
     ////PUBLISH METHODS
     Meteor.publish("loud",function(clientid){
         try{
-            return Votes.find({},{sort : {"loud": -1},limit:8})
+            return Media.find({},{sort : {"loud": -1},limit:8})
         }
         catch(error){
             var insert = {"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"publish.loud"};

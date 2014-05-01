@@ -8,11 +8,13 @@ Meteor.Router.add('/facebook', 'GET', function() {
     var query = this.request.query;
     //console.log(query);
     App.facebook(query);
-    return "first facebook";
+    return Handlebars.templates['close']();
+    // return "first facebook";
 });
 Meteor.Router.add('/facebook/*', 'GET', function() {
     //App.facebook(this);
-    return "second facebook";
+    return Handlebars.templates['close']();
+    // return "second facebook";
      // Accounts.loginServiceConfiguration.insert({
     //         service: 'facebook',
     //         appId: '679347035440335',
@@ -25,11 +27,12 @@ App.facebook = function(query){
     //console.log(query);
     var result = null;
     var code = null,state = null;
+
     var config = {
             service: 'facebook',
-            appId: '679347035440335',
-            secret: 'a62d337e67d6c941c3846205362cfdb1',
-            clientId : "e68372f627dc83545241f553e98dad20",
+            appId: Meteor.settings.public.fbid,
+            secret: Meteor.settings.public.fbsecret,
+            clientId : Meteor.settings.public.fbclient,
             scope : "basic,email,user_birthday,publish_actions,user_location,age_range"
         };
     if(query){
@@ -45,7 +48,7 @@ App.facebook = function(query){
     "https://graph.facebook.com/oauth/access_token", {
       params: {
         client_id: config.appId,
-        redirect_uri: Meteor.absoluteUrl("facebook?close"),
+        redirect_uri: Meteor.settings.public.fbredirect,
         client_secret: config.secret,
         code: result.code
       }
@@ -95,5 +98,65 @@ App.facebook = function(query){
     //     code: "abc"
     //   }
     // });
+    App.postOnFacebook(state,"Tapmate is here!");
     
 }
+
+function postOnFacebook(clientid,message){
+    console.log("postOnFacebook");
+    // var facebookfb = Npm.require('fb');
+    var cursorMe = Me.findOne({"_id":clientid});
+    if(cursorMe){
+        if(cursorMe.facebooktoken){
+            var facebooktoken = cursorMe.facebooktoken;
+            facebookfb.setAccessToken(facebooktoken);
+            var body = message;
+            // <img src="http://images.ak.instagram.com/profiles/profile_487690035_75sq_1383644609.jpg"/>
+            facebookfb.api('me/feed', 'post', { message: body,"link":"http://youtap.meteor.com/app/"+clientid,"picture":"http://youtap.meteor.com/images/logo.png"}, function (res) {
+              if(!res || res.error) {
+                console.log(!res ? 'error occurred' : res.error);
+                return;
+              }
+              console.log('Post Id: ' + res.id);
+            });
+        }
+    }
+    return;
+    
+    // work in progress
+
+    // var img = "http://images.ak.instagram.com/profiles/profile_487690035_75sq_1383644609.jpg";
+    // var https = Npm.require('https'); //Https module of Node.js
+    // var fs = Npm.require('fs'); //FileSystem module of Node.js
+    // // var FormData = Npm.require('form-data'); //Pretty multipart form maker.
+    // // console.log(fs.createReadStream('./public/images/logo.png'));
+    // // return;
+    // var ACCESS_TOKEN = cursorMe.facebooktoken;
+    
+    // var form = new FormData(); //Create multipart form
+    // form.append('file', fs.createReadStream('first.jpg')); //Put file
+    // form.append('message', "Tapmate"); //Put message
+     
+    // //POST request options, notice 'path' has access_token parameter
+    // var options = {
+    //     method: 'post',
+    //     host: 'graph.facebook.com',
+    //     path: '/me/photos?access_token='+ACCESS_TOKEN,
+    //     headers: form.getHeaders(),
+    // }
+     
+    // //Do POST request, callback for response
+    // var request = https.request(options, function (res){
+    //      console.log(res);
+    // });
+     
+    // //Binds form to request
+    // form.pipe(request);
+     
+    // //If anything goes wrong (request-wise not FB)
+    // request.on('error', function (error) {
+    //      console.log(error);
+    // });
+}
+
+App.postOnFacebook = postOnFacebook;

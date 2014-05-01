@@ -802,7 +802,8 @@ language.html = [
         },
         "media" : function(mediaid,access){
             try{
-                var cursorMedia = Media.findOne({"_id":mediaid})
+                var cursorMedia = Media.findOne({"_id":mediaid});
+                var username,profile_picture,id,fullname,link,low,low
                 if(cursorMedia){
     
                 }
@@ -820,12 +821,17 @@ language.html = [
                         //console.log(data.data.data);
                         mediajson = data.data.data;
                         if(mediajson){
-                           var username = mediajson.user.username; 
-                           var profile_picture = mediajson.user.profile_picture;
-                           var id = mediajson.user.id;
-                           var fullname = mediajson.user.full_name;
+                           username = mediajson.user.username; 
+                           profile_picture = mediajson.user.profile_picture;
+                           id = mediajson.user.id;
+                           fullname = mediajson.user.full_name;
+                           link = mediajson.link;
+                           low = mediajson.images.low_resolution.url;
+                           thumb = mediajson.images.thumbnail.url;
+                           std = mediajson.images.standard_resolution.url;
+                           // console.log(mediajson.link)
                            this.unblock();
-                           Media.insert({"_id":mediaid,"profile_picture":profile_picture,"username":username,"clientid":id,"fullname":fullname});
+                           Media.insert({"_id":mediaid,"profile_picture":profile_picture,"username":username,"clientid":id,"fullname":fullname,"link":link,"low" : low, "thumb" :thumb, "std" : std,"loud":0,"votes":0,"recomend":0});
                         }
                     }
                     return data;

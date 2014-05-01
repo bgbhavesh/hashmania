@@ -945,60 +945,7 @@ function notifyTheUser(first){
     }
 }
 
-function postOnFacebook(message){
-    console.log("postOnFacebook");
-    // var facebookfb = Npm.require('fb');
-    var cursorMe = Me.findOne({"_id":"487690035"});
-    // if(cursorMe){
-    //     if(cursorMe.facebooktoken){
-    //         var facebooktoken = cursorMe.facebooktoken;
-    //         facebookfb.setAccessToken(facebooktoken);
-    //         var body = '<b> Posting with HTML </b>';
-    //         // <img src="http://images.ak.instagram.com/profiles/profile_487690035_75sq_1383644609.jpg"/>
-    //         facebookfb.api('me/feed', 'post', { message: body}, function (res) {
-    //           if(!res || res.error) {
-    //             console.log(!res ? 'error occurred' : res.error);
-    //             return;
-    //           }
-    //           console.log('Post Id: ' + res.id);
-    //         });
-    //     }
-    // }
-    var img = "http://images.ak.instagram.com/profiles/profile_487690035_75sq_1383644609.jpg";
-    var https = Npm.require('https'); //Https module of Node.js
-    var fs = Npm.require('fs'); //FileSystem module of Node.js
-    // var FormData = Npm.require('form-data'); //Pretty multipart form maker.
-    // console.log(fs.createReadStream('./public/images/logo.png'));
-    // return;
-    var ACCESS_TOKEN = cursorMe.facebooktoken;
-    
-    var form = new FormData(); //Create multipart form
-    form.append('file', fs.createReadStream('first.jpg')); //Put file
-    form.append('message', "Tapmate"); //Put message
-     
-    //POST request options, notice 'path' has access_token parameter
-    var options = {
-        method: 'post',
-        host: 'graph.facebook.com',
-        path: '/me/photos?access_token='+ACCESS_TOKEN,
-        headers: form.getHeaders(),
-    }
-     
-    //Do POST request, callback for response
-    var request = https.request(options, function (res){
-         console.log(res);
-    });
-     
-    //Binds form to request
-    form.pipe(request);
-     
-    //If anything goes wrong (request-wise not FB)
-    request.on('error', function (error) {
-         console.log(error);
-    });
-}
 
-App.postOnFacebook = postOnFacebook;
 
 App.notifyTheUser = notifyTheUser;
 var notificationCount = 0;

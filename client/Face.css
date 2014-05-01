@@ -102,7 +102,7 @@ body{
 #loaderError{
 	position: absolute;
 	display: none;
-	z-index: 11;
+	z-index: 99;
 }
 #loadClass{
 	position: absolute;

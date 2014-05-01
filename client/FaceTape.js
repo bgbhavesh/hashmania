@@ -810,7 +810,7 @@ Meteor.documentReady = documentReady;
     Template.server.rendered = function(){
         $("#status").hammer().off("tap");
         $("#status").hammer().on("tap",tapOnConnection);
-        showKeywordPopup()
+        //showKeywordPopup()
     }
     Template.Section1.rendered = function(){
         try{
@@ -2647,7 +2647,7 @@ function tapOnBigFeedInterval(event,localDiv,voteInsert){
                                 // above old bottom new
                                 insert.clientid = cursorFollow.followid;
                                 insert.source = "recommend";
-                                insert.type = 2;
+                                insert.type = 3;
                                 insert.checked = false;
 
                                 appendRecommend(insert);
@@ -3726,7 +3726,7 @@ function autoLogin(){
             checkFormAndTimer();
             restoreCollection();
             removeDOMElement();
-            showKeywordPopup();
+            //showKeywordPopup();
             showLoader("Populating pictures");
         }
         else{
@@ -5060,10 +5060,11 @@ function showKeywordPopup(){
     if(Meteor.status().connected && firstTimeConnectionFlag && !tutorialFlag){
         // if(!DebugFace)
         // $("#searchKeyword").attr("placeholder",i18n.__("enterkeyword"));
-        if(Session.get("clientid"))
-        $("#keywordPopup").show();
-        //$("#keywordPopupBackground").show();
-        firstTimeConnectionFlag = false;
+        if(Session.get("clientid")){
+           $("#keywordPopup").show();
+          $("#keywordPopupBackground").show();
+          firstTimeConnectionFlag = false;
+        }
     }
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }

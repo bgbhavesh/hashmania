@@ -6,7 +6,11 @@
         "secret" : "bb5e315798e64bcb926d12c1519e0d62",
         "DDP" : "ddp+sockjs://ddp--****-youtap.meteor.com/sockjs",
         "redirectServer" : "http://youtap.meteor.com/_oauth/instagram?close=close",
-        "redirectClose" : "http://youtap.meteor.com/_oauth"
-
+        "redirectClose" : "http://youtap.meteor.com/_oauth",
+        "fbredirect" : "http://youtap.meteor.com/facebook?close",
+        "fbid" : "317297441740673",
+        "fbsecret" :"6061ce735c0469c412fa4abc8b22e52c",
+        "fbclient": "7c5254d6b3bada6e80917b228dd9333e",
+        "fbpost" : "http://youtap.meteor.com/app/"
     }
 }

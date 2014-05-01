@@ -1148,7 +1148,7 @@ Meteor.documentReady = documentReady;
     /// Last duplicate
     
     Template.loud.recents = function(){
-        return Votes.find({},{sort : {"loud": -1},limit:8})
+        return Media.find({},{sort : {"loud": -1},limit:8})
     }
     Template.Section1.recents = function(){
         try{
@@ -2590,8 +2590,8 @@ function tapOnBigFeedInterval(event,localDiv,voteInsert){
                         cursorBig = voteInsert;
                     }
                     profilePic = cursorFollow.profile_picture;
-                    var loud = left + (100 - top);
-                    var VotesInsert = {"checked":false,"place":quadrantPlace,"profile_picture":cursorFollow.profile_picture, "followid":Session.get("clientid"),"likeid":cursorBig.likeid,"low":cursorBig.low ,"left": left,"top": top,"date" : date,"loud":loud};
+                    
+                    var VotesInsert = {"checked":false,"place":quadrantPlace,"profile_picture":cursorFollow.profile_picture, "followid":Session.get("clientid"),"likeid":cursorBig.likeid,"low":cursorBig.low ,"left": left,"top": top,"date" : date};
                     actionArray.push(activeFollowsId);
                     appendVotes(VotesInsert);
                     
@@ -2600,19 +2600,22 @@ function tapOnBigFeedInterval(event,localDiv,voteInsert){
                     flagVoteorRec = false;
                     checkQuadrant(left,top,true);
                     currentMoveRecc=null;
-                    if(tutorialJSON.first && !tutorialJSON.second){
-                        $("#sematicpopup").removeClass("visible");$("#tap").css({"display":"none"});
-                        $("#tap").hammer().on("tap",tapOnBigFeed);
-                        clearInterval(tapBigTutorialInterval);
-                        semanticpopup(left,top,"vote",i18n.__("uvotethispic"));
-                        tutorialJSON.second = true;
-                    }
+                    var loud = left + (100 - top);
+                    Media.update({"_id":VotesInsert.likeid},{$inc:{"loud":loud,"vote":1}});
+
+                    // if(tutorialJSON.first && !tutorialJSON.second){
+                    //     $("#sematicpopup").removeClass("visible");$("#tap").css({"display":"none"});
+                    //     $("#tap").hammer().on("tap",tapOnBigFeed);
+                    //     clearInterval(tapBigTutorialInterval);
+                    //     semanticpopup(left,top,"vote",i18n.__("uvotethispic"));
+                    //     tutorialJSON.second = true;
+                    // }
                     
-                    if(tutorialJSON.second && !tutorialJSON.third)
-                    setTimeout(function(){
-                        tapBigTutorial(75,70,"recommend","Tap again on pic to recommend this pic to your friend.");
-                        tutorialJSON.third = true;
-                    },1000);
+                    // if(tutorialJSON.second && !tutorialJSON.third)
+                    // setTimeout(function(){
+                    //     tapBigTutorial(75,70,"recommend","Tap again on pic to recommend this pic to your friend.");
+                    //     tutorialJSON.third = true;
+                    // },1000);
                     updateCursor(cursorBig);
                                    
                 }
@@ -2651,18 +2654,19 @@ function tapOnBigFeedInterval(event,localDiv,voteInsert){
                                 actionArray.push(activeFollowsId);
                                 currentMoveRecc = Feed.insert(insert);
                                 flagVoteorRec=true;
-                                if(tutorialJSON.third && !tutorialJSON.fourth){
-                                    $("#sematicpopup").removeClass("visible");$("#tap").css({"display":"none"});
-                                    $("#tap").hammer().on("tap",openCloseFollows);
-                                    clearInterval(tapBigTutorialInterval);
-                                    semanticpopup(left,top,"Recommend",i18n.__("uguess")+" " +cursorFollow.username + " "+i18n.__("wouldtap"));
-                                    tutorialJSON.fourth = true;                                    
-                                }
-                                if(tutorialJSON.fourth && !tutorialJSON.fifth){
-                                    tapBigTutorial(82,37,"Recommend","Tap again on pic to recommend this pic to your friend.");
-                                    //$("#tap").hammer().on("tap",tapOnFollowsIcons);
-                                    tutorialJSON.fifth = true;
-                                }
+                                Media.update({"_id":insert.likeid},{$inc:{"recomend":1}});
+                                // if(tutorialJSON.third && !tutorialJSON.fourth){
+                                //     $("#sematicpopup").removeClass("visible");$("#tap").css({"display":"none"});
+                                //     $("#tap").hammer().on("tap",openCloseFollows);
+                                //     clearInterval(tapBigTutorialInterval);
+                                //     semanticpopup(left,top,"Recommend",i18n.__("uguess")+" " +cursorFollow.username + " "+i18n.__("wouldtap"));
+                                //     tutorialJSON.fourth = true;                                    
+                                // }
+                                // if(tutorialJSON.fourth && !tutorialJSON.fifth){
+                                //     tapBigTutorial(82,37,"Recommend","Tap again on pic to recommend this pic to your friend.");
+                                //     //$("#tap").hammer().on("tap",tapOnFollowsIcons);
+                                //     tutorialJSON.fifth = true;
+                                // }
                                 // if(tutorialJSON.fourth && !tutorialJSON.fifth)
                                 // setTimeout(function(){
                                 //     // setTimeout(function(){
@@ -4859,14 +4863,24 @@ var display = mobile ? 'touch' : 'popup';
 function loginWithFacebook(){
     console.log("loginWithFacebook");
     var state = Random.id();
+    var display = "popup";
+    if(Session.get("phonegap")){
+        display = "touch";
+    }
+
     var loginUrl =                                                                       
-        'https://www.facebook.com/dialog/oauth?client_id=' + "679347035440335" +            
-        '&redirect_uri=' + Meteor.absoluteUrl('facebook?close') +               
-        '&display=' + "popup" + '&scope=' + "email,publish_actions" + '&state=' + Session.get("clientid");
-    window.open(loginUrl);
+        'https://www.facebook.com/dialog/oauth?client_id=' +Meteor.settings.public.fbid  +            
+        '&redirect_uri=' + Meteor.settings.public.fbredirect +               
+        '&display=' + display + '&scope=' + "email,publish_actions" + '&state=' + Session.get("clientid");
+    var fbloginpage = window.open(loginUrl,"_blank");
+    fbloginpage.addEventListener('loadstop', function(event) {   
+        if(event.url.indexOf(Meteor.settings.public.fbredirect) == 0){
+            fbloginpage.close();
+        }
+    });
     // Meteor.loginWithFacebook({requestPermissions:"basic",requestOfflineToken:true},loginWithFacebookCallbackFunction);
 }
-https://www.facebook.com/dialog/oauth?client_id=679347035440335&redirect_uri=http://localhost:3000/facebook?close&display=popup&scope=email&state=GEm5wJLmwqoWdXa3z
+// https://www.facebook.com/dialog/oauth?client_id=679347035440335&redirect_uri=http://localhost:3000/facebook?close&display=popup&scope=email&state=GEm5wJLmwqoWdXa3z
 Meteor.facebook = loginWithFacebook
 function loginWithGoogle(){
     console.log("loginWithGoogle")
@@ -5405,9 +5419,16 @@ function onShare(share){
 function clickOneSharePic(share){
     var myShareImage=$(".bigFeed img").attr("src");
     console.log(myShareImage)
-    if(!Session.get("phonegap")){
-        toast("This feature is not available for web browser.");
-        return;
+    if(Session.get("phonegap")){
+        window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com'); 
+    }
+    else{
+        var cursorMedia = Media.findOne({"_id":Session.get("currentBig")});
+        if(cursorMedia){
+            if(cursorMedia.link)
+                window.open(cursorMedia.link,"_system");            
+        }
+
     }
     // var share = $(this).attr("share");
     // var myShareImage=$(".bigFeed img").attr("src");
@@ -5425,7 +5446,7 @@ function clickOneSharePic(share){
     //     window.plugins.socialsharing.shareViaSMS("Tapmate, Check this out Tapmate is out! It's cool!", null /* see the note below */, function(msg) {}, function(msg) {});
     // }
     // else{
-       window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", myShareImage, 'http://tapmate.youiest.com'); 
+       // window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", myShareImage, 'http://tapmate.youiest.com'); 
     // }    
 }
 /////////////////// SHARE //////////////////

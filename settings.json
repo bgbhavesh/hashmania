@@ -5,7 +5,11 @@
         "clientid" : "f28d28f5785443349d0a60d0e8b9f98a",
         "secret" : "359db797bbdf45f0ae09d648a87943b9",
         "DDP" : "",
-        "redirectServer" : "http://localhost:3000/_oauth/instagram?close=close"
-
+        "redirectServer" : "http://localhost:3000/_oauth/instagram?close=close",
+        "fbredirect" : "http://localhost:3000/facebook?close",
+        "fbid" : "679347035440335",
+        "fbsecret" :"a62d337e67d6c941c3846205362cfdb1",
+        "fbclient": "e68372f627dc83545241f553e98dad20",
+        "fbpost" : "http://youtap.meteor.com/app/"
     }
 }

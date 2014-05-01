@@ -96,7 +96,7 @@ body{
 	
 }
 #loader{
-	z-index: 10;
+	z-index: 20;
 	display: block;	
 }
 #loaderError{
@@ -121,7 +121,7 @@ body{
     width:90%;
     left: -90%;
     display: block;
-    z-index: 10;
+    z-index: 25;
     text-align: center;
     overflow: scroll;
     background-color: #333;
@@ -1412,14 +1412,14 @@ body{
 	position: absolute;
 	display: none;
 	background-size: 100% 100%;
-  	z-index : 7;
+  	z-index : 10;
   	opacity: 0.8;
 }
 #snapButtonWrapper{
 	width: 10%;
 	display: none;
 	position: absolute;
-	z-index: 10;
+	z-index: 25;
 	height: 99%;
 	right: 0%;
 	top: 1%;
@@ -1429,7 +1429,7 @@ body{
 #snapButton{
 	width: 10%;
 	display: block;
-	z-index: 10;
+	z-index: 25;
 	height: 7%;
 	font-size: xx-large;
 	float: right;

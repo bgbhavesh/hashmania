@@ -163,7 +163,9 @@ body{
     width: 90%;
 
 }
-
+#showpicsmenu1{
+	height: 35%;
+}
 .menuarrow{
 	background-image: url(images/menuarrow.png);
 	height: 32px;
@@ -774,7 +776,7 @@ body{
 	height: 11%;
 	width: 100%;
 }
-#section1{
+#section1,#loudness{
 	height: 40%;
 	width: 100%;
 	position: relative;
@@ -1425,7 +1427,7 @@ body{
 	position: absolute;
 	z-index: 25;
 	height: 99%;
-	right: 0%;
+	left: 90%;
 	top: 1%;
 	background-color: black;
 	opacity: 0.7;

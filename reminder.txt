@@ -1,3 +1,4 @@
+meteor deploy youtap.meteor.com --settings youtapsettings.json
 
 
 1521 Concord Pike STE 303

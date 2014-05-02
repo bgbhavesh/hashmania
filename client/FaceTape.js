@@ -960,7 +960,9 @@ Meteor.documentReady = documentReady;
             if(likeActive.length !=0){
                 $("#section3").scrollTop(Meteor.currentloc);
             }
-            
+                    return "http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg";
+
+363620479
             if(firstTimeLoginFlag){
                 if($(".recentIcons").length !=0)
                     hideLoader();
@@ -969,7 +971,9 @@ Meteor.documentReady = documentReady;
                     var likeid = $(feed[0]).attr("likeid");
                     //console.log(likeid);
                     if(likeid){
-                        beforeCurrentBig()
+                        beforeCurrentBig();
+                        
+                        
                         // console.log(Session.get("currentBig"))
                         if(!Session.get("currentBig"))
                             Session.set("currentBig",likeid);
@@ -982,6 +986,13 @@ Meteor.documentReady = documentReady;
                             // tutorialJSON.first = true;
                             // tapBigTutorial(70,50,"vote","Tap on pic to vote.");
                             // $("#tap").hammer().on("tap",tapOnBigFeed);
+                        }
+
+                        // youiest section default condition
+                        var uservote = $(".followsIcons:nth-child(2)")
+                        if(uservote.length ==1){
+                            doubletapOnFollowsIcons(null,"363620479","http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg",true)
+                            doubletapOnFollowsIcons(null,uservote.attr("myid"),uservote.children("img").attr("src"))
                         }
                         // doubletapOnFollowsIcons(null,"363620479","http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg")
                     }
@@ -1961,7 +1972,7 @@ function getUTCTimestamp(){
     return UTC.getTime(); 
 }
 //  CHAT FEATURE
-function doubletapOnFollowsIcons(event,myid,pic){
+function doubletapOnFollowsIcons(event,myid,pic,extra){
     var starttimer = new Date().getTime();
     clearTimeout(taponfollows);
     var element = this;
@@ -1987,7 +1998,8 @@ function doubletapOnFollowsIcons(event,myid,pic){
         }
         
         //$(".usersfeed,#usersfeed").css({"display":"none"});
-        Session.set("userid",id);
+        if(!extra)
+            Session.set("userid",id);
         Session.set("userselfpic",userselfpic);
         Meteor.call("usersVotesAdd",Session.get("clientid"),id)
         $(this).addClass("followanimation");
@@ -2243,14 +2255,16 @@ function updateCursor(cursorArg){
     cursor.forEach(function(data){
         if(data.cache)
             Feed._collection.update({"_id":data._id},{$set : {"display":"n","date":new Date().getTime()}});
-        
+
         Feed.update({"_id":data._id},{$set : {"display":"n","date":new Date().getTime()}});
-        
     });
-    cursor = UsersVote.find({"likeid":likeid,"display":"y"}); 
-    cursor.forEach(function(data){
-        UsersVote.update({"_id":data._id},{$set : {"display":"n","date":new Date().getTime()}}); 
-    });
+    
+    // https://trello.com/c/sdfV2jbk/837-don-t-remove-voted-pics-from-tapmate-users-feed-they-re-there-to-check-back-on
+    // cursor = UsersVote.find({"likeid":likeid,"display":"y"}); 
+    // cursor.forEach(function(data){
+    //     UsersVote.update({"_id":data._id},{$set : {"display":"n","date":new Date().getTime()}}); 
+    // });
+
   // if(type == "l"){
   //   //console.log("l");
   //   Likes.update({"_id":cursor._id},{$set : {"display":"n"}});  

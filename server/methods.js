@@ -1101,8 +1101,6 @@ language.html = [
                         data.low = cursorFeed.low;
                         UsersVote.insert(data);
                     }
-                    
-                    // console.log(data);
                 }
             });
         },

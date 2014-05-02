@@ -794,7 +794,32 @@
 				<img src="{{low}}">
 			</div>
 		{{/each}}
+		
 	</div>
+</template>
+<template name="multipleusers">
+	  {{#if anotheruserselfpic}}
+		<div class="userfeed" likeid="{{likeid}}" source="{{source}}" type="{{type}}">
+			<img src="{{anotheruserselfpic}}">
+		</div> 
+		{{/if}}
+		{{#each anotherUserFeed}}
+			<div class="userfeed" likeid="{{likeid}}" source="{{source}}" type="{{type}}">
+				<img src="{{low}}">
+			</div>
+		{{/each}}
+</template>
+<template name="nothing">
+	  {{#if anotheruserselfpic}}
+		<div class="userfeed" likeid="{{likeid}}" source="{{source}}" type="{{type}}">
+			<img src="{{anotheruserselfpic}}">
+		</div> 
+		{{/if}}
+		{{#each anotherUserFeed}}
+			<div class="userfeed" likeid="{{likeid}}" source="{{source}}" type="{{type}}">
+				<img src="{{low}}">
+			</div>
+		{{/each}}
 </template>
 <!-- Divided begin -->
 <template name="preload">

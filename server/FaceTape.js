@@ -749,7 +749,6 @@ function reminderOtherUserAboutNewVote(first){
 }
 var i18n = {};
 i18n.__ = function(value){
-    console.log(language.toast[value])
     return language.toast[value];
 }
 function updateVoteDependencies(first){

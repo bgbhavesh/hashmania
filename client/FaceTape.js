@@ -983,11 +983,11 @@ Meteor.documentReady = documentReady;
                             // tapBigTutorial(70,50,"vote","Tap on pic to vote.");
                             // $("#tap").hammer().on("tap",tapOnBigFeed);
                         }
-                        doubletapOnFollowsIcons(null,"363620479","http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg")
+                        // doubletapOnFollowsIcons(null,"363620479","http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg")
                     }
                 }
             }
-            var one = $(".followsIcons")[0]; 
+            // var one = $(".followsIcons")[0]; 
         }
         catch(error){
             console.log(error);
@@ -1008,17 +1008,23 @@ Meteor.documentReady = documentReady;
             $(".usersfeed,#usersfeed").css("height",feedWidth);                    
         }
         // console.log($(".userfeed").length)
-        if($(".userfeed").length == 1)
-            $("#usersfeed").hide();
-        else
-            $("#usersfeed").show();
+        if($(".userfeed").length == 2){
+            Meteor.call("usersVotesAdd",Session.get("clientid"),"363620479")
+            
         $(".userfeed").hammer().off("tap");
         $(".userfeed").hammer().on("tap",tapOnFeed);
+        }
     }
     Template.userfeed.userselfpic = function(){
-        return Session.get("userselfpic");
+        return "http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg";
     }
     Template.userfeed.eachUserFeed = function(){
+        return UsersVote.find({"clientid":Session.get("clientid"),"followid":"363620479","display":"y"});
+    }
+    Template.userfeed.anotheruserselfpic = function(){
+        return Session.get("userselfpic");
+    }
+    Template.userfeed.anotherUserFeed = function(){
         return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
     }
     // Template.static.rendered = function(){
@@ -1322,15 +1328,15 @@ Meteor.documentReady = documentReady;
           // }     
     }
 
-    Template.onetwo.eachfeed = function(){
-        // if(Session.get("userid")){
-        //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
-        //     // ,{sort : {"date": -1},"limit":Session.get("limit")}
-        // }
-        // else{
-            return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":2},{sort : {"date": -1},"limit":Session.get("limit")*2});    
-        // }        
-    }
+    // Template.onetwo.eachfeed = function(){
+    //     // if(Session.get("userid")){
+    //     //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
+    //     //     // ,{sort : {"date": -1},"limit":Session.get("limit")}
+    //     // }
+    //     // else{
+    //         return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":2},{sort : {"date": -1},"limit":Session.get("limit")*2});    
+    //     // }        
+    // }
     Template.onethree.eachfeed = function(){
         // if(Session.get("userid")){
         //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
@@ -4603,6 +4609,7 @@ function toastQueuing(){
 
 
 function showLoader(message){
+    firstTimeLoginFlag = true;
     var starttimer = new Date().getTime();
     clearTimeout(loaderErrorTimeoutId);
     if(message)
@@ -5418,9 +5425,18 @@ function onShare(share){
 }
 function clickOneSharePic(share){
     var myShareImage=$(".bigFeed img").attr("src");
-    console.log(myShareImage)
+    var myCurrentImage = null;
     if(Session.get("phonegap")){
-        window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com'); 
+      var cursorMedia = Media.findOne({"_id":Session.get("currentBig")});
+        if(cursorMedia){
+            if(cursorMedia.std)
+                myCurrentImage = cursorMedia.std;         
+        }
+        
+        if(!myCurrentImage)
+            myCurrentImage = myShareImage;
+
+        window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", myCurrentImage, 'http://tapmate.youiest.com'); 
     }
     else{
         var cursorMedia = Media.findOne({"_id":Session.get("currentBig")});

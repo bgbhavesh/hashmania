@@ -476,22 +476,23 @@
    <!--  <div id="menuWrapper"> --> <!--bug on z-index so made wrapper--> 
   
   <div id="snapy" class="ui large vertical inverted labeled icon sidebar menu active">
+  <div id="showpicsmenu1">
   	<div class="item" id="menuresents">
 	  <b id="loud"> Loudness </b>
 	  {{> loud}}
-	</div>
+	</div></div>
+	  <div id="showpicsmenu1">
 	<div class="item" id="menuresents">
 	  <b id="Recentslabel"> Preview </b>
 	  {{> Section1}}
-	</div>
+	</div></div>
 	<div id="gamemenu">
 	<div class="item" >
 		{{> profilemenu}}
 	</div>
 
 	<div class="item" >
-
-	  <div id="menuGame"><b>Game</b></div>
+	<div id="menuGame"><b>Game</b></div>
 	  <div class="menu">
 		<a id="contest" class="item"><i class="time icon"></i> <div id="timer"> No Contest Now </div> </a>
 		<a class="item"><i class="star half empty icon"></i> {{> distanceTemplate}}</a>
@@ -597,7 +598,7 @@
         	<div id="contest" class="item">
         	<img src="{{profile_picture}}" style="width: 29%;float: left;">
         	<div style="text-align: left;margin-left: 35%;">Username: {{username}}
-	        	<br><br> Email: {{email}}
+	        	<br><br> <br><br><!-- Email: {{email}} -->
 	        	</div>
         	</div>
         </a>

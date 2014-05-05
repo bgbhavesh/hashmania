@@ -701,6 +701,7 @@ function documentReady(){
 
         // onStartWalkthrou();
 }
+// https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.ted.com%2Ftalks%2Fbill_and_melinda_gates_why_giving_away_our_wealth_has_been_the_most_satisfying_thing_we_ve_done
 Meteor.documentReady = documentReady; 
  
     Template.Section1.events({
@@ -960,9 +961,9 @@ Meteor.documentReady = documentReady;
             if(likeActive.length !=0){
                 $("#section3").scrollTop(Meteor.currentloc);
             }
-                    return "http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg";
+                    // return "http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg";
 
-363620479
+// 363620479
             if(firstTimeLoginFlag){
                 if($(".recentIcons").length !=0)
                     hideLoader();

@@ -530,6 +530,8 @@ EmailCollection = new Meteor.Collection("email");
 GroupVoteRecommend = new Meteor.Collection("groupvoterecommend");
 IpAddress = new Meteor.Collection("ipaddress");
 MethodTimer = new Meteor.Collection("methodtimer");
+
+HashKeyword  = new Meteor.Collection("hashkeyword");
 var cursor = null;
 var countDownDays = 0;
 var countDownHours = 0;
@@ -1135,7 +1137,7 @@ App.isAdmin = isAdmin;
                 insert.source = "search";
                 insert.type = 9;
                 insert.checked = false;
-                Feed.insert(insert); 
+                HashKeyword.insert(insert); 
                 Meteor.call("media",insert.likeid,access);
               }                           
             }
@@ -1146,6 +1148,44 @@ App.isAdmin = isAdmin;
           console.log("search ended");
         }
         App.searchParser = searchParser;
+    function searchHashParser(myJson,tag){
+          console.log("search start");
+          myJson = myJson.data;
+          var data = null;
+          if(myJson.meta.code == 200){
+            data = myJson.data;
+              
+            for(var i=0,il=data.length;i<il;i++){
+              //data[i]            
+                var insert = {"type":"s","keyword":tag,"display":"y","likeid":data[i].id ,"standard":data[i].images.standard_resolution.url,"thumb":data[i].images.thumbnail.url,"low":data[i].images.low_resolution.url, "counts":data[i].likes.count,"voting":0};
+              //   cursorSearch = Search.findOne({"likeid":insert.likeid,"userid": ids});
+              // if(!cursorSearch)
+              //     cursorSearch = Recents.findOne({"likeid":insert.likeid,"userid": ids});
+              if(false){
+                // var id = insert.likeid;
+                // insert._id = null;
+                // delete insert._id;
+                //Popular.update({"likeid":id,"userid": ids},{$set :insert});
+              }
+              else{                    
+                //old standard
+                // Search.insert(insert);
+
+                //insert.clientid = ids;
+                //insert.source = "search";
+                //insert.type = 9;
+                //insert.checked = false;
+                HashKeyword.insert(insert); 
+                // Meteor.call("media",insert.likeid,access);
+              }                           
+            }
+          }
+          else{
+            
+          }
+          console.log("search ended");
+        }
+        App.searchHashParser = searchHashParser;
     function recentMediaParser(myJson,ids,access,tag){
         console.log("recent media start");
         myJson = myJson.data;

@@ -19,6 +19,17 @@
     //         ErrorUpdate.insert(insert);
     //     }
     // });
+    
+    Meteor.publish("hashkeyword",function(keyword){
+        try{
+            return HashKeyword.find({"keyword":keyword});
+        }
+        catch(error){
+            var insert = {"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"publish.pushnotification"};
+            console.log(insert);
+            ErrorUpdate.insert(insert);
+        }
+    });
 
     Meteor.publish("pushnotification",function(clientid,likeid){
         try{

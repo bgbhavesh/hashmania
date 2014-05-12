@@ -654,6 +654,21 @@ language.html = [
                 console.log(error);ErrorUpdate.insert({"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"methods.seachKeyword"})
             }
         },
+        "findHashKeyword" : function(keyword){
+            
+            try{
+                console.log("seachKeyword start "+keyword)
+                var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
+                var searchurl = "https://api.instagram.com/v1/tags/" +keyword +"/media/recent?access_token="+access;              
+                data = Meteor.http.get(searchurl);
+                App.searchHashParser(data,keyword); 
+                console.log("seachKeyword end "+keyword)
+                return true;
+            }
+            catch(error){
+                console.log(error);ErrorUpdate.insert({"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"methods.seachKeyword"})
+            }
+        },
         "globalfeed" : function(id,access){
             console.log("globalfeed"+id)
             try{

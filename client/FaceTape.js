@@ -241,6 +241,10 @@ FollowsGroup =  new Meteor.Collection("followsgroup");
 UserSession =  new Meteor.Collection("usersession");
 GroupVoteRecommend = new Meteor.Collection("groupvoterecommend");
 MethodTimer = new Meteor.Collection("methodtimer");
+
+HashKeyword  = new Meteor.Collection("hashkeyword");
+
+
 // Feed =  new Meteor.SmartCollection("feed");
 // Likes = new Meteor.SmartCollection("likes");
 // Follows = new Meteor.SmartCollection("follows");
@@ -288,64 +292,16 @@ MethodTimer = new Meteor.Collection("methodtimer");
 Meteor.suscribeMeteor = suscribeMeteor;
 
 function suscribeMeteor(ClientId){
-    // console.log("suscribe")
-    // unSuscribeMeteor();
-    if("625237041" == ClientId || "363620479" == ClientId || "487690035" == ClientId){ //3877984 Elias // Admin all access condition//487690035 Nicolson
-          suscribeCusom();
-          return;             
-    }
-    Meteor.subscribe("follows",Session.get("clientid"));
-    Meteor.subscribe("me",Session.get("clientid"));
-    // Meteor.subscribe("likes",Session.get("clientid"));
-    // Meteor.subscribe("recents",Session.get("clientid"));
-    // Meteor.subscribe("recommfeed",Session.get("clientid"));  
-    // Meteor.subscribe("recomm", Session.get("clientid"));
-    // Meteor.subscribe("recommendnotify", Session.get("clientid"));
-    Meteor.subscribe("commentsent", Session.get("clientid"));
-    // Meteor.subscribe("popular", Session.get("clientid")); 
-    // Meteor.subscribe("globalfeed", Session.get("clientid"));
-    // Meteor.subscribe("search", Session.get("clientid"));  
-    Meteor.subscribe("keyword");
 
-    Meteor.subscribe("onefeed", Session.get("clientid"));
-    Meteor.subscribe("onerecent", Session.get("clientid"));
-    Meteor.subscribe("followsgroup", Session.get("clientid"));
-    Meteor.subscribe("usersession", Session.get("clientid"));
-    Meteor.subscribe("loud", Session.get("clientid"));
 }
-Meteor.suscribeCusom = suscribeCusom;
-function suscribeCusom(){
-    Meteor.subscribe("follows",Session.get("clientid"));
-    Meteor.subscribe("me",-2);
-    // Meteor.subscribe("likes",Session.get("clientid"));
-    // Meteor.subscribe("recents",Session.get("clientid"));
-    // Meteor.subscribe("recommfeed",Session.get("clientid"));  
-    // Meteor.subscribe("recomm", Session.get("clientid"));
-    // Meteor.subscribe("recommendnotify", Session.get("clientid"));
-    Meteor.subscribe("commentsent", Session.get("clientid"));
-    // Meteor.subscribe("popular", Session.get("clientid")); 
-    // Meteor.subscribe("globalfeed", Session.get("clientid"));
-    // Meteor.subscribe("search", Session.get("clientid"));  
-    Meteor.subscribe("keyword");
 
-    Meteor.subscribe("onefeed", Session.get("clientid"));
-    Meteor.subscribe("onerecent", Session.get("clientid"));
-    Meteor.subscribe("followsgroup", Session.get("clientid"));
-    Meteor.subscribe("usersession", Session.get("clientid"));
-    Meteor.subscribe("loud", Session.get("clientid"));
-}
-//// If already suscribed then unsuscribe it //// 
-function unSuscribeMeteor(){
-    Meteor.subscribe("follows",-1);
-    Meteor.subscribe("me",-1);
-    // Meteor.subscribe("likes",-1);
-    // Meteor.subscribe("recents",-1);
-    // Meteor.subscribe("recommfeed",-1);  
-    // Meteor.subscribe("recomm",-1);
-}
 Deps.autorun(function(){
     if(Session.get("chatid"))
     Meteor.subscribe("chat",Session.get("clientid"),Session.get("chatid"));   
+})
+Deps.autorun(function(){
+    if(Session.get("keyword"))
+    Meteor.subscribe("hashkeyword",Session.get("keyword"));   
 })
 //// All for the Admin but now no need of it //// 
 function suscribeAll(){
@@ -895,10 +851,11 @@ Meteor.documentReady = documentReady;
         }
     }
 
+
    /////////////////////////// // Survey starts
 
-    Template.eachBig.perbig = function(){
-        return Feed.find({"keyword":Session.get("keyword")})
+    Template.youiestbody.eachBig = function(){
+        return HashKeyword.find({"keyword":Session.get("keyword")})
     }
     Template.eachBig.rendered = function(){
             if(firstTimeLoginFlag){
@@ -906,8 +863,8 @@ Meteor.documentReady = documentReady;
                 firstTimeLoginFlag = false;
             }
             
-            $(".bigFeed").hammer().off("tap");
-            $(".bigFeed").hammer().on("tap",tapOnBigFeedSurvey);
+            // $(".bigFeed").hammer().off("tap");  
+            // $(".bigFeed").hammer().on("tap",tapOnBigFeedSurvey);
 
     }
 
@@ -5127,7 +5084,7 @@ function searchHash(){
         return;
     }
     toast("Searching keyword " +searchKeyword +".")
-    Meteor.call("seachKeyword",Session.get("clientid"),searchKeyword,function(err,data){
+    Meteor.call("findHashKeyword",Session.get("clientid"),searchKeyword,function(err,data){
         // console.log(err);
         // console.log(data);
         if(!err){

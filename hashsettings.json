@@ -1,0 +1,16 @@
+{
+    "public": {
+        "nicolson" : "helloworld",
+        "redirect" : "http://hashrepublic.meteor.com/_oauth/instagram?close=close&response_type=code",
+        "clientid" : "4ccd0a53a79f4ef3b77bd1b9a1066694",
+        "secret" : "ea4b3fb6b9214ccaba19663648bb8b7f",
+        "DDP" : "ddp+sockjs://ddp--****-hashrepublic.meteor.com/sockjs",
+        "redirectServer" : "http://hashrepublic.meteor.com/_oauth/instagram?close=close",
+        "redirectClose" : "http://hashrepublic.meteor.com/_oauth",
+        "fbredirect" : "http://youtap.meteor.com/facebook?close",
+        "fbid" : "317297441740673",
+        "fbsecret" :"6061ce735c0469c412fa4abc8b22e52c",
+        "fbclient": "7c5254d6b3bada6e80917b228dd9333e",
+        "fbpost" : "http://hashrepublic.meteor.com/app/"
+    }
+}

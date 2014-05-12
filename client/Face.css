@@ -166,6 +166,10 @@ body{
 #showpicsmenu1{
 	height: 35%;
 }
+#surveybig{
+	position: absolute;
+	margin-top: 10%;
+}
 .menuarrow{
 	background-image: url(images/menuarrow.png);
 	height: 32px;

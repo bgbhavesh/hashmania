@@ -1402,7 +1402,8 @@ body{
 .hashFeed img{
     height: 100%;
     width: 100%;
-    position: relative;
+    position: absolute;
+    left: 0px;
 }
 .bigFeed img{
 	height: 100%;

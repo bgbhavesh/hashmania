@@ -659,7 +659,7 @@ language.html = [
             // try{
                 var cursorSponserKeyword = SponserKeyword.findOne({"keyword":keyword});
                 if(cursorSponserKeyword){
-
+                    SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});
                 }
                 else{
                     SponserKeyword.insert({"keyword":keyword,"hits":1,"ranking":0});

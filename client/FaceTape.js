@@ -5462,6 +5462,7 @@ function bindEvents(){
         $("#snapButtonWrapper").hammer().on("tap",openCloseSnapLeft);
         $(".ui.heart.rating .icon").hammer().on("tap",setRattings);
         $("#bodyWrapper").hammer().on("tap",tapOnBodyWrapper);
+        $(".appname").hammer().on("tap",onCLickHashGo);
         touchScroll("snapy");
             ///Last Event
             // if(!Session.get("phonegap"))

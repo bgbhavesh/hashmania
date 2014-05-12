@@ -3,14 +3,14 @@
 	{{> bodystatic}}
 	{{> main}}  
 	{{> keyword}}
-  	{{> youiestbody}}
+  	
   	
  </div>
 </template>
 
 <template name="bodystatic">
   
-  <div id="loader"style="display: none;">
+  <div id="loader">
 	<div id="loginLoader">
 		<img src="images/eagle.png">
 		<img src="images/rooster.png">
@@ -58,6 +58,11 @@
   </div>
 
   <div id="snapy" class="ui large vertical inverted labeled icon sidebar menu active">
+  <div id="showpicsmenu1">
+  	<div class="item" id="menuresents">
+	  <b id="loud"> Loudness </b>
+	  {{> loud}}
+	</div></div>
 	  <div id="showpicsmenu1">
 	<div class="item" id="menuresents">
 	  <b id="Recentslabel"> Preview </b>
@@ -196,6 +201,16 @@
 	{{distance}} | {{heat}}
 </template>
 
+<template name="loud"> 
+	<div id="loudness" class="menu">
+		{{#each recents}}
+		  <div class="loudIcons" likeid="{{likeid}}">  
+			  <img src="{{low}}">        
+		  </div>
+		{{/each}}   
+  	</div>
+</template>
+
 <template name="Section1">
   <div id="section1" class="menu">
 	{{#each recents}}
@@ -310,34 +325,3 @@
   	{{/each}}
 </template>
 
-<template name="youiestbody">
-  <div id="surveybig" class="ui labeled vertical fluid  icon menu" style="overflow-y: scroll;height: 100%;width: 100%;margin-top:0px;">
-
-  </div>
-</template>
-<template name="eachBig">
-	<div class="bigFeed bigSecondFeed" likeid="{{likeid}}"> 
-	  {{#isolate}}   
-		<img src="{{low}}">
-	  {{/isolate}}
-		<div class="quadrant" id="{{likeid}}">
-			<div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>
-			<div id="inerhprogressBar">
-				<i class='big bullhorn icon' style="margin-left: 0px"></i>
-			</div>
-			<div id="outer" class="ui warning progress">
-				<div class="inner"  id="verticalprogress"></div> <hr style="height:100%;width:2px;margin-bottom:-8px;padding:0px;">
-			</div>
-
-			<div id="inner-inner"><i class='big thumbs up icon' style="margin-left: 0px;"></i></div>     
-		</div>
-	</div>
-</template>
-
-<template name="srvyvotes"> 
-  {{#each votes}}
-		<div class="voting" style="left : {{left}}%;top:{{top}}%;" myid="{{followid}}" votingid="{{_id}}">
-		  <img src="{{profile_picture}}">          
-		</div>
-  {{/each}}
-</template>

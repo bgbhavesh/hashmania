@@ -165,15 +165,15 @@ Package.reload.Reload._reload = function () {                                   
 // Core Ends
 
 //// Routers
-var mainSurvey = null;
-function routingFunction(clientid){
-    Meteor.subscribe("me",clientid);  
-    Meteor.subscribe("onerecent",clientid);
-    Meteor.subscribe("onefeed",clientid);
-    Meteor.subscribe("votesimgs",clientid);
-    // $("body").css({"overflow-y": "scroll"});
-    Session.set("profile",clientid);
-}
+// var mainSurvey = null;
+// function routingFunction(clientid){
+//     Meteor.subscribe("me",clientid);  
+//     Meteor.subscribe("onerecent",clientid);
+//     Meteor.subscribe("onefeed",clientid);
+//     Meteor.subscribe("votesimgs",clientid);
+//     // $("body").css({"overflow-y": "scroll"});
+//     Session.set("profile",clientid);
+// }
 Router.map(function () {
     
     this.route('home', {
@@ -211,7 +211,6 @@ App.bug = bug;
 
 // //// initialization
 
-var ACCESSTOKEN = null;
 var ClientId = null;
 ClientId = null;
 
@@ -223,7 +222,7 @@ Follows = new Meteor.Collection("follows");
 // Recommend = new Meteor.Collection("likesonpictures");
 Me = new Meteor.Collection("myself");
 Votes = new Meteor.Collection("votes");
-Comments = new Meteor.Collection("comments");
+// Comments = new Meteor.Collection("comments");
 // Popular = new Meteor.Collection("popular");
 // GlobalFeed = new Meteor.Collection("globalfeed");
 Media =  new Meteor.Collection("media");
@@ -685,7 +684,7 @@ function documentReady(){
             setTimeout(checkOptimized,110);
             setTimeout(location,120);
             setTimeout(defaultfeeds,150);
-            
+            setTimeout(showKeywordPopup,250);
 
             // snapy();  
             // autoLogin();
@@ -735,48 +734,48 @@ Meteor.documentReady = documentReady;
             $(event.currentTarget).attr("src","images/face.jpg");            
         }
     });
-    Template.userfeed.events({
-        "error .userfeed img" : function(event){
-            // console.log(this.low);
-            if(Meteor.status().connected)
-                UsersVote.remove({"_id":this._id});
-        }
-    });
-    Template.Section3.events({
-        "error .recommendImages img" : function(event){
-            // console.log(this.low);
-            if(Meteor.status().connected)
-                removeCursor(this._id);            
-        },
-        "error .feed img" : function(event){
-            // console.log(event);
-            if(Meteor.status().connected)
-                removeCursor(this._id);   
-        }
-    });
+    // Template.userfeed.events({
+    //     "error .userfeed img" : function(event){
+    //         // console.log(this.low);
+    //         if(Meteor.status().connected)
+    //             UsersVote.remove({"_id":this._id});
+    //     }
+    // });
+    // Template.Section3.events({
+    //     "error .recommendImages img" : function(event){
+    //         // console.log(this.low);
+    //         if(Meteor.status().connected)
+    //             removeCursor(this._id);            
+    //     },
+    //     "error .feed img" : function(event){
+    //         // console.log(event);
+    //         if(Meteor.status().connected)
+    //             removeCursor(this._id);   
+    //     }
+    // });
     function removeEvents(event){
         // console.log(event);
         if(Meteor.status().connected)
             removeCursor(this._id);   
     }
-    var eventJson = {
-        "error .feed img" : removeEvents
-    };
-    Template.onetwo.events(eventJson);
-    Template.preload.events(eventJson);
-    Template.onethree.events(eventJson);
-    Template.onefeed.events(eventJson);
-    Template.oneglobal.events(eventJson);
-    Template.onepopular.events(eventJson);
-    Template.onehash.events(eventJson);
+    // var eventJson = {
+    //     "error .feed img" : removeEvents
+    // };
+    // Template.onetwo.events(eventJson);
+    // Template.preload.events(eventJson);
+    // Template.onethree.events(eventJson);
+    // Template.onefeed.events(eventJson);
+    // Template.oneglobal.events(eventJson);
+    // Template.onepopular.events(eventJson);
+    // Template.onehash.events(eventJson);
 
     
-    Template.Section4.events({
-        "error .voting img,.sender img,.receiver img" : function(event){
-            // console.log(event);
-            $(event.currentTarget).attr("src","images/face.jpg");            
-        }
-    })
+    // Template.Section4.events({
+    //     "error .voting img,.sender img,.receiver img" : function(event){
+    //         // console.log(event);
+    //         $(event.currentTarget).attr("src","images/face.jpg");            
+    //     }
+    // })
     Template.keyword.events({
         "click .eachkeyword" : function(event){
             try{
@@ -795,16 +794,16 @@ Meteor.documentReady = documentReady;
         }
     })
     
-    Template.groupvote.rendered = function(){
+    // Template.groupvote.rendered = function(){
         
-        $(".grouping").each(function(index,element){
-            var groupImage = $(element).children("img");
-            for(var i=0,il=groupImage.length;i<il;i++){
-                $(groupImage[i]).css("left",i*20 +"px");
-            }
-        })
-        VoteEnd =   new Date().getTime();
-    }
+    //     $(".grouping").each(function(index,element){
+    //         var groupImage = $(element).children("img");
+    //         for(var i=0,il=groupImage.length;i<il;i++){
+    //             $(groupImage[i]).css("left",i*20 +"px");
+    //         }
+    //     })
+    //     VoteEnd =   new Date().getTime();
+    // }
     // Template.header.rendered = function(){
     //     setTimeout(checkScoreToast,1000);
     // }
@@ -895,6 +894,34 @@ Meteor.documentReady = documentReady;
             ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.rendered"});
         }
     }
+
+   /////////////////////////// // Survey starts
+
+    Template.eachBig.perbig = function(){
+        return Feed.find({"keyword":Session.get("keyword")})
+    }
+    Template.eachBig.rendered = function(){
+            if(firstTimeLoginFlag){
+                currentSurveyBig = $(".bigFeed:first");
+                firstTimeLoginFlag = false;
+            }
+            
+            $(".bigFeed").hammer().off("tap");
+            $(".bigFeed").hammer().on("tap",tapOnBigFeedSurvey);
+
+    }
+
+    Template.srvyvotes.votes = function(){
+            try{
+                    return Votes.find({"likeid":Session.get("currentBig")});
+            }
+            catch(error){
+                console.log(error);
+                ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.srvyvotes.votes"});
+            }
+    }
+// ///////////////////////survey ends
+
     // Template.onefeed.rendered = function(){
         /// duplicate feed check algo
         
@@ -922,123 +949,123 @@ Meteor.documentReady = documentReady;
         //     }
         // }
     // }
-    Template.Section3.rendered = function(){
-        try{
-            // console.log("Section3.rendered");
-            $(".feed").hammer().off("tap");
-            $(".feed").hammer().on("tap",tapOnFeed);
-            // $(".right").hammer().off("tap",tapOnRightArrow);
-            // $(".right").hammer().on("tap",tapOnRightArrow);
-            $("#section3").unbind("touchstart,touchmove");
-            // $("#section3Label").hammer().off("tap");
-            // $("#section3Label").hammer().on("tap",toggleFeeds);
+//     Template.Section3.rendered = function(){
+//         try{
+//             // console.log("Section3.rendered");
+//             $(".feed").hammer().off("tap");
+//             $(".feed").hammer().on("tap",tapOnFeed);
+//             // $(".right").hammer().off("tap",tapOnRightArrow);
+//             // $(".right").hammer().on("tap",tapOnRightArrow);
+//             $("#section3").unbind("touchstart,touchmove");
+//             // $("#section3Label").hammer().off("tap");
+//             // $("#section3Label").hammer().on("tap",toggleFeeds);
 
 
-            $("#globalFeed").hammer().off("tap",onClickGlobalFeed);
-            $("#myFeed").hammer().off("tap",onClickMyFeed);
-            $("#popular").hammer().off("tap",onClickPopular);
-            $("#hash").hammer().off("tap",onCLickHashGo);
+//             $("#globalFeed").hammer().off("tap",onClickGlobalFeed);
+//             $("#myFeed").hammer().off("tap",onClickMyFeed);
+//             $("#popular").hammer().off("tap",onClickPopular);
+//             $("#hash").hammer().off("tap",onCLickHashGo);
 
-            $("#globalFeed").hammer().on("tap",onClickGlobalFeed);
-            $("#myFeed").hammer().on("tap",onClickMyFeed);
-            $("#popular").hammer().on("tap",onClickPopular);
-            $("#hash").hammer().on("tap",onCLickHashGo);
+//             $("#globalFeed").hammer().on("tap",onClickGlobalFeed);
+//             $("#myFeed").hammer().on("tap",onClickMyFeed);
+//             $("#popular").hammer().on("tap",onClickPopular);
+//             $("#hash").hammer().on("tap",onCLickHashGo);
 
 
-            touchScroll("section3");
+//             touchScroll("section3");
 
-            var feed = $(".feed");
-            //var recomm = $(".recomm");
-            // if(!feedWidth)
-            feedWidth = $(feed[0]).width();
-            if(feedWidth){
-              feed.css("height",feedWidth);
-              //recomm.css("height",height);
-              $(".right,.globalFeed,.popular,.hash,.usersfeed,#usersfeed").css("height",feedWidth);                    
-            }
-            var likeActive = $(".feed[likeid=" +Session.get("currentBig")+"]");
-            likeActive.addClass("likeActive");
-            if(likeActive.length !=0){
-                $("#section3").scrollTop(Meteor.currentloc);
-            }
-                    // return "http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg";
+//             var feed = $(".feed");
+//             //var recomm = $(".recomm");
+//             // if(!feedWidth)
+//             feedWidth = $(feed[0]).width();
+//             if(feedWidth){
+//               feed.css("height",feedWidth);
+//               //recomm.css("height",height);
+//               $(".right,.globalFeed,.popular,.hash,.usersfeed,#usersfeed").css("height",feedWidth);                    
+//             }
+//             var likeActive = $(".feed[likeid=" +Session.get("currentBig")+"]");
+//             likeActive.addClass("likeActive");
+//             if(likeActive.length !=0){
+//                 $("#section3").scrollTop(Meteor.currentloc);
+//             }
+//                     // return "http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg";
 
-// 363620479
-            if(firstTimeLoginFlag){
-                if($(".recentIcons").length !=0)
-                    hideLoader();
-                var feed = $(".feed");        
-                if(feed.length != 0){
-                    var likeid = $(feed[0]).attr("likeid");
-                    //console.log(likeid);
-                    if(likeid){
-                        beforeCurrentBig();
+// // 363620479
+//             if(firstTimeLoginFlag){
+//                 if($(".recentIcons").length !=0)
+//                     hideLoader();
+//                 var feed = $(".feed");        
+//                 if(feed.length != 0){
+//                     var likeid = $(feed[0]).attr("likeid");
+//                     //console.log(likeid);
+//                     if(likeid){
+//                         beforeCurrentBig();
                         
                         
-                        // console.log(Session.get("currentBig"))
-                        if(!Session.get("currentBig"))
-                            Session.set("currentBig",likeid);
-                        firstTimeLoginFlag = false;
-                        hideLoader();
-                        setTimeout(tapOnRightArrow,1000);
-                        if(!DebugFace){
-                            // tutorialJSON = {}
-                            // tutorialFlag = true;
-                            // tutorialJSON.first = true;
-                            // tapBigTutorial(70,50,"vote","Tap on pic to vote.");
-                            // $("#tap").hammer().on("tap",tapOnBigFeed);
-                        }
+//                         // console.log(Session.get("currentBig"))
+//                         if(!Session.get("currentBig"))
+//                             Session.set("currentBig",likeid);
+//                         firstTimeLoginFlag = false;
+//                         hideLoader();
+//                         setTimeout(tapOnRightArrow,1000);
+//                         if(!DebugFace){
+//                             // tutorialJSON = {}
+//                             // tutorialFlag = true;
+//                             // tutorialJSON.first = true;
+//                             // tapBigTutorial(70,50,"vote","Tap on pic to vote.");
+//                             // $("#tap").hammer().on("tap",tapOnBigFeed);
+//                         }
 
-                        // youiest section default condition
-                        var uservote = $(".followsIcons:nth-child(2)")
-                        if(uservote.length ==1){
-                            doubletapOnFollowsIcons(null,"363620479","http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg",true)
-                            doubletapOnFollowsIcons(null,uservote.attr("myid"),uservote.children("img").attr("src"))
-                        }
-                        // doubletapOnFollowsIcons(null,"363620479","http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg")
-                    }
-                }
-            }
-            // var one = $(".followsIcons")[0]; 
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section3.rendered"});
-        }
-    }
-    Meteor.previousloc = 0
-    $( window ).scroll(function() {
-        Meteor.previousloc = Meteor.currentloc
-        Meteor.currentloc=$("body").scrollTop();
-        if(Meteor.currentloc == 0){
-          Meteor.currentloc = Meteor.previousloc;
-        }
-    });
+//                         // youiest section default condition
+//                         var uservote = $(".followsIcons:nth-child(2)")
+//                         if(uservote.length ==1){
+//                             doubletapOnFollowsIcons(null,"363620479","http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg",true)
+//                             doubletapOnFollowsIcons(null,uservote.attr("myid"),uservote.children("img").attr("src"))
+//                         }
+//                         // doubletapOnFollowsIcons(null,"363620479","http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg")
+//                     }
+//                 }
+//             }
+//             // var one = $(".followsIcons")[0]; 
+//         }
+//         catch(error){
+//             console.log(error);
+//             ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section3.rendered"});
+//         }
+//     }
+//     Meteor.previousloc = 0
+//     $( window ).scroll(function() {
+//         Meteor.previousloc = Meteor.currentloc
+//         Meteor.currentloc=$("body").scrollTop();
+//         if(Meteor.currentloc == 0){
+//           Meteor.currentloc = Meteor.previousloc;
+//         }
+//     });
     // puserfeed
-    Template.userfeed.rendered = function(){
-        if(feedWidth){
-            $(".usersfeed,#usersfeed").css("height",feedWidth);                    
-        }
-        // console.log($(".userfeed").length)
-        if($(".userfeed").length == 2){
-            Meteor.call("usersVotesAdd",Session.get("clientid"),"363620479")
+    // Template.userfeed.rendered = function(){
+    //     if(feedWidth){
+    //         $(".usersfeed,#usersfeed").css("height",feedWidth);                    
+    //     }
+    //     // console.log($(".userfeed").length)
+    //     if($(".userfeed").length == 2){
+    //         Meteor.call("usersVotesAdd",Session.get("clientid"),"363620479")
             
-        $(".userfeed").hammer().off("tap");
-        $(".userfeed").hammer().on("tap",tapOnFeed);
-        }
-    }
-    Template.userfeed.userselfpic = function(){
-        return "http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg";
-    }
-    Template.userfeed.eachUserFeed = function(){
-        return UsersVote.find({"clientid":Session.get("clientid"),"followid":"363620479","display":"y"});
-    }
-    Template.userfeed.anotheruserselfpic = function(){
-        return Session.get("userselfpic");
-    }
-    Template.userfeed.anotherUserFeed = function(){
-        return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
-    }
+    //     $(".userfeed").hammer().off("tap");
+    //     $(".userfeed").hammer().on("tap",tapOnFeed);
+    //     }
+    // }
+    // Template.userfeed.userselfpic = function(){
+    //     return "http://images.ak.instagram.com/profiles/profile_363620479_75sq_1376154548.jpg";
+    // }
+    // Template.userfeed.eachUserFeed = function(){
+    //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":"363620479","display":"y"});
+    // }
+    // Template.userfeed.anotheruserselfpic = function(){
+    //     return Session.get("userselfpic");
+    // }
+    // Template.userfeed.anotherUserFeed = function(){
+    //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
+    // }
     // Template.static.rendered = function(){
     //     // console.log("static.rendered");
     //     $("#globalFeed").hammer().off("tap",onClickGlobalFeed);
@@ -1060,30 +1087,30 @@ Meteor.documentReady = documentReady;
     //     checkPictureToast();        
     // }
 
-    Template.Section4.rendered = function(){
-        try{
-            // console.log("Section4.rendered");
-            $(".bigFeed").hammer().off("tap");
-            $(".bigFeed").hammer().on("tap",tapOnBigFeed);
+    // Template.Section4.rendered = function(){
+    //     try{
+    //         // console.log("Section4.rendered");
+    //         $(".bigFeed").hammer().off("tap");
+    //         $(".bigFeed").hammer().on("tap",tapOnBigFeed);
     
-            $(".recomm").hammer().off("tap");
-            $(".recomm").hammer().on("tap",tapOnRecomm);
-            $(".recomm").hammer().off("hold");
-            $(".recomm").hammer().on("hold",holdOnRecomm);
+    //         $(".recomm").hammer().off("tap");
+    //         $(".recomm").hammer().on("tap",tapOnRecomm);
+    //         $(".recomm").hammer().off("hold");
+    //         $(".recomm").hammer().on("hold",holdOnRecomm);
     
-            $(".voting").hammer().off("doubletap");
-            $(".voting").hammer().on("doubletap",tapOnVoting);
-            $(".voting").hammer().off("tap");
-            $(".voting").hammer().on("tap",tapOnVoting);
-            $(".voting").hammer().off("hold");
-            $(".voting").hammer().on("hold",holdOnVoting);
+    //         $(".voting").hammer().off("doubletap");
+    //         $(".voting").hammer().on("doubletap",tapOnVoting);
+    //         $(".voting").hammer().off("tap");
+    //         $(".voting").hammer().on("tap",tapOnVoting);
+    //         $(".voting").hammer().off("hold");
+    //         $(".voting").hammer().on("hold",holdOnVoting);
 
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section4.rendered"});
-        }
-    }
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section4.rendered"});
+    //     }
+    // }
     // Template.vote.rendered = function(){
     //     try{
     //         // if(activeAnimation){
@@ -1098,34 +1125,34 @@ Meteor.documentReady = documentReady;
     //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.vote.rendered"});
     //     }
     // }    
-    Template.bigImage.rendered = function(){
-        try{
-            if(Session.get("currentBig") && tapOnFeedFlag){
-                // $(".bigFeed").css({"opacity":"0.0"});
-                // $(".bigFeed").animate({"opacity":"1.0"},1000,"easeOutBounce");
-                // $(".bigFeed").css({"z-index":"0"}) 
-                // animateQuadrantPicsOnTap();           
-                tapOnFeedFlag = false;
-            }                        
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.bigImage.rendered"});
-        }
-    }
-    Template.chatting.rendered = function(){
-        try{
-            $("#send,#creatorProfile,#sharePic").hammer().off("tap");
-            $("#send").hammer().on("tap",tapOnSend);
-            $("#creatorProfile").hammer().on("doubletap",tapOnVoting);
-            $("#sharePic").hammer().on("tap",clickOneSharePic);
+    // Template.bigImage.rendered = function(){
+    //     try{
+    //         if(Session.get("currentBig") && tapOnFeedFlag){
+    //             // $(".bigFeed").css({"opacity":"0.0"});
+    //             // $(".bigFeed").animate({"opacity":"1.0"},1000,"easeOutBounce");
+    //             // $(".bigFeed").css({"z-index":"0"}) 
+    //             // animateQuadrantPicsOnTap();           
+    //             tapOnFeedFlag = false;
+    //         }                        
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.bigImage.rendered"});
+    //     }
+    // }
+    // Template.chatting.rendered = function(){
+    //     try{
+    //         $("#send,#creatorProfile,#sharePic").hammer().off("tap");
+    //         $("#send").hammer().on("tap",tapOnSend);
+    //         $("#creatorProfile").hammer().on("doubletap",tapOnVoting);
+    //         $("#sharePic").hammer().on("tap",clickOneSharePic);
 
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.rendered"});
-        }
-    }
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.rendered"});
+    //     }
+    // }
 
     
 
@@ -1165,9 +1192,9 @@ Meteor.documentReady = documentReady;
     }
     /// Last duplicate
     
-    Template.loud.recents = function(){
-        return Media.find({},{sort : {"loud": -1},limit:8})
-    }
+    // Template.loud.recents = function(){
+    //     return Media.find({},{sort : {"loud": -1},limit:8})
+    // }
     Template.Section1.recents = function(){
         try{
             return Feed.find({"clientid":Session.get("clientid"),"display":"n"},{sort : {"date": -1},limit:Session.get("limit")*1});
@@ -1179,37 +1206,37 @@ Meteor.documentReady = documentReady;
         }
     }
 
-    /////////////////////start profile//////////////
-    Template.votesProfile.recent = function(){
-        try{
-            return Votes.find({"followid":Session.get("profile")},{sort : {"date": -1},limit:4});
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recents1.recents"});
-        }
-    }
-    Template.feedsProfile.recent = function(){
-        try{
-            return Feed.find({"clientid":Session.get("profile"),"display":"y"},{sort : {"date": -1},limit:4});
+    // /////////////////////start profile//////////////
+    // Template.votesProfile.recent = function(){
+    //     try{
+    //         return Votes.find({"followid":Session.get("profile")},{sort : {"date": -1},limit:4});
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recents1.recents"});
+    //     }
+    // }
+    // Template.feedsProfile.recent = function(){
+    //     try{
+    //         return Feed.find({"clientid":Session.get("profile"),"display":"y"},{sort : {"date": -1},limit:4});
 
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recents1.recents"});
-        }
-    }
-    Template.recents1.recent = function(){
-        try{
-            return Feed.find({"clientid":Session.get("profile"),"display":"n"},{sort : {"date": -1},limit:4});
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recents1.recents"});
+    //     }
+    // }
+    // Template.recents1.recent = function(){
+    //     try{
+    //         return Feed.find({"clientid":Session.get("profile"),"display":"n"},{sort : {"date": -1},limit:4});
 
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recents1.recents"});
-        }
-    }
-    /////////////////////////////end profile////////////////////
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recents1.recents"});
+    //     }
+    // }
+    // /////////////////////////////end profile////////////////////
     Template.distanceTemplate.distance = function(){
         try{
             var cursorMe = Me.findOne({"_id":Session.get("clientid")})        
@@ -1235,25 +1262,25 @@ Meteor.documentReady = documentReady;
         }
     }
 
-    // Template.Section2.follows = function(){  
-    //     try{
-    //         var cursorLOP = Recommend.find({"likeid":Session.get("currentBig")});
-    //         var activeLOPArray = [];
-    //         cursorLOP.forEach(function(data){   
-    //               activeLOPArray.push(data.followid);                           
-    //         });
-    //         var searchByFollow = Session.get("searchByFollow");
-    //         if( searchByFollow == "0-50")
-    //             return Follows.find({"userid":Session.get("clientid"),"followid":{$nin: activeLOPArray}},{sort : {"hits":-1},limit:50});
-    //         else
-    //              return Follows.find({"userid":Session.get("clientid"),"followid":{$nin: activeLOPArray},"username":{$regex : "^"+searchByFollow +".*",$options: 'i'}},
-    //                 {sort : {"hits":-1},limit:50});
-    //     }
-    //     catch(error){
-    //         console.log(error);
-    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.follows"});
-    //     }
-    // } 
+    Template.Section2.follows = function(){  
+        try{
+            var cursorLOP = Recommend.find({"likeid":Session.get("currentBig")});
+            var activeLOPArray = [];
+            cursorLOP.forEach(function(data){   
+                  activeLOPArray.push(data.followid);                           
+            });
+            var searchByFollow = Session.get("searchByFollow");
+            if( searchByFollow == "0-50")
+                return Follows.find({"userid":Session.get("clientid"),"followid":{$nin: activeLOPArray}},{sort : {"hits":-1},limit:50});
+            else
+                 return Follows.find({"userid":Session.get("clientid"),"followid":{$nin: activeLOPArray},"username":{$regex : "^"+searchByFollow +".*",$options: 'i'}},
+                    {sort : {"hits":-1},limit:50});
+        }
+        catch(error){
+            console.log(error);
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.follows"});
+        }
+    } 
 
     Template.Section2.follows = function(){  
         // try{
@@ -1332,13 +1359,13 @@ Meteor.documentReady = documentReady;
 
 
     // All in one
-    Template.preload.eachfeed = function(){
-        // var cursorSearch=Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":7},{sort : {"date": -1},"limit":Session.get("limit")*2});
-        //   if(cursorSearch){
-        //       defaultfeeds();
-              return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":1},{sort : {"date": -1},"limit":Session.get("limit")*2});
-          // }     
-    }
+    // Template.preload.eachfeed = function(){
+    //     // var cursorSearch=Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":7},{sort : {"date": -1},"limit":Session.get("limit")*2});
+    //     //   if(cursorSearch){
+    //     //       defaultfeeds();
+    //           return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":1},{sort : {"date": -1},"limit":Session.get("limit")*2});
+    //       // }     
+    // }
 
     // Template.onetwo.eachfeed = function(){
     //     // if(Session.get("userid")){
@@ -1349,57 +1376,57 @@ Meteor.documentReady = documentReady;
     //         return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":2},{sort : {"date": -1},"limit":Session.get("limit")*2});    
     //     // }        
     // }
-    Template.onethree.eachfeed = function(){
-        // if(Session.get("userid")){
-        //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
-        //     // ,{sort : {"date": -1},"limit":Session.get("limit")}
-        // }
-        // else{
-            return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":3},{sort : {"date": -1},"limit":Session.get("limit")*2});    
-        // }        
-    }
-    Template.onefeed.eachfeed = function(){
-        // if(Session.get("userid")){
-        //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
-        //     // ,{sort : {"date": -1},"limit":Session.get("limit")}
-        // }
-        // else{
-          // var cursorSearch=Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":7},{sort : {"date": -1},"limit":Session.get("limit")*2});
-          // if(cursorSearch){
-          //     return defaultfeeds();
-          //     //return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":7},{sort : {"date": -1},"limit":Session.get("limit")*2});
-          // }else{
-              return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":7},{sort : {"date": -1},"limit":Session.get("limit")*2});    
-          //}
-        // }        
-    }
-    Template.oneglobal.eachfeed = function(){
-        // if(Session.get("userid")){
-        //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
-        //     // ,{sort : {"date": -1},"limit":Session.get("limit")}
-        // }
-        // else{
-            return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":4},{sort : {"date": -1},"limit":Session.get("limit")*2});    
-        // }        
-    }
-    Template.onepopular.eachfeed = function(){
-        // if(Session.get("userid")){
-        //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
-        //     // ,{sort : {"date": -1},"limit":Session.get("limit")}
-        // }
-        // else{
-            return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":8},{sort : {"date": -1},"limit":Session.get("limit")*2});    
-        // }        
-    }
-    Template.onehash.eachfeed = function(){
-        // if(Session.get("userid")){
-        //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
-        //     // ,{sort : {"date": -1},"limit":Session.get("limit")}
-        // }
-        // else{
-            return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":9},{sort : {"date": -1},"limit":Session.get("limit")*2});    
-        // }        
-    }
+    // Template.onethree.eachfeed = function(){
+    //     // if(Session.get("userid")){
+    //     //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
+    //     //     // ,{sort : {"date": -1},"limit":Session.get("limit")}
+    //     // }
+    //     // else{
+    //         return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":3},{sort : {"date": -1},"limit":Session.get("limit")*2});    
+    //     // }        
+    // }
+    // Template.onefeed.eachfeed = function(){
+    //     // if(Session.get("userid")){
+    //     //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
+    //     //     // ,{sort : {"date": -1},"limit":Session.get("limit")}
+    //     // }
+    //     // else{
+    //       // var cursorSearch=Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":7},{sort : {"date": -1},"limit":Session.get("limit")*2});
+    //       // if(cursorSearch){
+    //       //     return defaultfeeds();
+    //       //     //return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":7},{sort : {"date": -1},"limit":Session.get("limit")*2});
+    //       // }else{
+    //           return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":7},{sort : {"date": -1},"limit":Session.get("limit")*2});    
+    //       //}
+    //     // }        
+    // }
+    // Template.oneglobal.eachfeed = function(){
+    //     // if(Session.get("userid")){
+    //     //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
+    //     //     // ,{sort : {"date": -1},"limit":Session.get("limit")}
+    //     // }
+    //     // else{
+    //         return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":4},{sort : {"date": -1},"limit":Session.get("limit")*2});    
+    //     // }        
+    // }
+    // Template.onepopular.eachfeed = function(){
+    //     // if(Session.get("userid")){
+    //     //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
+    //     //     // ,{sort : {"date": -1},"limit":Session.get("limit")}
+    //     // }
+    //     // else{
+    //         return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":8},{sort : {"date": -1},"limit":Session.get("limit")*2});    
+    //     // }        
+    // }
+    // Template.onehash.eachfeed = function(){
+    //     // if(Session.get("userid")){
+    //     //     return UsersVote.find({"clientid":Session.get("clientid"),"followid":Session.get("userid"),"display":"y"});
+    //     //     // ,{sort : {"date": -1},"limit":Session.get("limit")}
+    //     // }
+    //     // else{
+    //         return Feed.find({"clientid" : Session.get("clientid"),"display":"y","type":9},{sort : {"date": -1},"limit":Session.get("limit")*2});    
+    //     // }        
+    // }
     //temp
     Template.server.unseenCount = function(){
         try{
@@ -1519,182 +1546,182 @@ Meteor.documentReady = documentReady;
     //     }
     // }
     
-    Template.bigImage.low = function(){
-        var currentBig = Session.get("currentBig");
-        //var cursorLike = Likes.findOne({"likeid":currentBig});        
-        //    if(cursorLike){          
-        //      return cursorLike.low;
-        //}        
-        //var cursorRecomm = Recommend.findOne({"likeid":currentBig,"followid":Session.get("clientid")});
-        //    if(cursorRecomm){
-        //      return cursorRecomm.low;
-        //}          
-        //var cursorPopular = Popular.findOne({"likeid":currentBig,"userid":Session.get("clientid")});                  
-        //    if(cursorPopular){          
-        //      return cursorPopular.low;
-        //}
-        //var cursorGlobalFeed = GlobalFeed.findOne({"likeid":currentBig,"globalid":Session.get("clientid")});                  
-        //    if(cursorGlobalFeed){          
-        //      return cursorGlobalFeed.low;
-        //}
-        //var cursorSearch = Search.findOne({"likeid":currentBig,"userid":Session.get("clientid")});                  
-        //      if(cursorSearch){          
-        //        return cursorSearch.low;
-        //}
-        //var cursorRecents = Recents.findOne({"likeid":currentBig,"userid":Session.get("clientid")});                  
-        //    if(cursorRecents){          
-        //      return cursorRecents.low;
-        //}
-        try{
-            cursor = cursorparser();
-            // if(!cursor)
-            // cursor = Recents.findOne({"likeid":currentBig,"userid":Session.get("clientid")});
+    // Template.bigImage.low = function(){
+    //     var currentBig = Session.get("currentBig");
+    //     //var cursorLike = Likes.findOne({"likeid":currentBig});        
+    //     //    if(cursorLike){          
+    //     //      return cursorLike.low;
+    //     //}        
+    //     //var cursorRecomm = Recommend.findOne({"likeid":currentBig,"followid":Session.get("clientid")});
+    //     //    if(cursorRecomm){
+    //     //      return cursorRecomm.low;
+    //     //}          
+    //     //var cursorPopular = Popular.findOne({"likeid":currentBig,"userid":Session.get("clientid")});                  
+    //     //    if(cursorPopular){          
+    //     //      return cursorPopular.low;
+    //     //}
+    //     //var cursorGlobalFeed = GlobalFeed.findOne({"likeid":currentBig,"globalid":Session.get("clientid")});                  
+    //     //    if(cursorGlobalFeed){          
+    //     //      return cursorGlobalFeed.low;
+    //     //}
+    //     //var cursorSearch = Search.findOne({"likeid":currentBig,"userid":Session.get("clientid")});                  
+    //     //      if(cursorSearch){          
+    //     //        return cursorSearch.low;
+    //     //}
+    //     //var cursorRecents = Recents.findOne({"likeid":currentBig,"userid":Session.get("clientid")});                  
+    //     //    if(cursorRecents){          
+    //     //      return cursorRecents.low;
+    //     //}
+    //     try{
+    //         cursor = cursorparser();
+    //         // if(!cursor)
+    //         // cursor = Recents.findOne({"likeid":currentBig,"userid":Session.get("clientid")});
             
-            if(cursor){
-                return cursor.low;
-            }else{
-              return "images/logo.png";
-            }
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.bigImage.low"});
-        }
-    }
-    Template.recommended.recents = function(){
-        try{   
-            var currentBig = Session.get("currentBig");   
-            var cursorVote = Votes.findOne({"followid":Session.get("clientid"),"likeid":currentBig})
-            if(cursorVote){
-                return Feed.find({"likeid":currentBig,"type": 3, "clientid":Session.get("clientid")});
-            }
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recommended.recents"});
-        }
-    }
-    Template.recommending.recents = function(){
-        try{      
-            var currentBig = Session.get("currentBig"); 
-            var cursorVote = Votes.findOne({"followid":Session.get("clientid"),"likeid":currentBig})
-            if(cursorVote){
-                return Feed.find({"likeid":currentBig,"type": 3,"whoid":Session.get("clientid")});
-            }
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recommending.recents"});
-        }
-    }
-    Template.recommending.recentstwo = function(){
-        try{      
-            var currentBig = Session.get("currentBig"); 
-            var cursorVote = Votes.findOne({"followid":Session.get("clientid"),"likeid":currentBig})
-            if(cursorVote){
-                return Feed.find({"likeid":currentBig,"type": 2,"whoid":Session.get("clientid")});
-            }
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recommending.recents"});
-        }
-    }
-    Template.vote.votes = function(){
-        try{
-            var currentBig = Session.get("currentBig");
-            var cursorVote = Votes.findOne({"followid":Session.get("clientid"),"likeid":currentBig})        
-            var cursorGroupVoteRecommend = GroupVoteRecommend.findOne({"clientid":Session.get("clientid"),"likeid":currentBig});
-            if(cursorGroupVoteRecommend){
-                return Votes.find({"likeid":currentBig,"followid":{$in: cursorGroupVoteRecommend.follows}});
-            }
-            if(cursorVote){
-                return Votes.find({"likeid":currentBig});
-            }
-            else
-                return null;
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.vote.votes"});
-        }
-    }
+    //         if(cursor){
+    //             return cursor.low;
+    //         }else{
+    //           return "images/logo.png";
+    //         }
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.bigImage.low"});
+    //     }
+    // }
+    // Template.recommended.recents = function(){
+    //     try{   
+    //         var currentBig = Session.get("currentBig");   
+    //         var cursorVote = Votes.findOne({"followid":Session.get("clientid"),"likeid":currentBig})
+    //         if(cursorVote){
+    //             return Feed.find({"likeid":currentBig,"type": 3, "clientid":Session.get("clientid")});
+    //         }
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recommended.recents"});
+    //     }
+    // }
+    // Template.recommending.recents = function(){
+    //     try{      
+    //         var currentBig = Session.get("currentBig"); 
+    //         var cursorVote = Votes.findOne({"followid":Session.get("clientid"),"likeid":currentBig})
+    //         if(cursorVote){
+    //             return Feed.find({"likeid":currentBig,"type": 3,"whoid":Session.get("clientid")});
+    //         }
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recommending.recents"});
+    //     }
+    // }
+    // Template.recommending.recentstwo = function(){
+    //     try{      
+    //         var currentBig = Session.get("currentBig"); 
+    //         var cursorVote = Votes.findOne({"followid":Session.get("clientid"),"likeid":currentBig})
+    //         if(cursorVote){
+    //             return Feed.find({"likeid":currentBig,"type": 2,"whoid":Session.get("clientid")});
+    //         }
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.recommending.recents"});
+    //     }
+    // }
+    // Template.vote.votes = function(){
+    //     try{
+    //         var currentBig = Session.get("currentBig");
+    //         var cursorVote = Votes.findOne({"followid":Session.get("clientid"),"likeid":currentBig})        
+    //         var cursorGroupVoteRecommend = GroupVoteRecommend.findOne({"clientid":Session.get("clientid"),"likeid":currentBig});
+    //         if(cursorGroupVoteRecommend){
+    //             return Votes.find({"likeid":currentBig,"followid":{$in: cursorGroupVoteRecommend.follows}});
+    //         }
+    //         if(cursorVote){
+    //             return Votes.find({"likeid":currentBig});
+    //         }
+    //         else
+    //             return null;
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.vote.votes"});
+    //     }
+    // }
     
     
-    Template.groupvote.votes = function(){
-        try{
-            var currentBig = Session.get("currentBig");
-            var cursorVote = Votes.findOne({"followid":Session.get("clientid"),"likeid":currentBig});
-            //console.log(cursorVote);       
-            if(cursorVote){
-                return GroupVoteRecommend.find({"likeid":currentBig,"clientid":Session.get("clientid")});
-            }
-            else
-                return null;
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.groupvote.votes"});
-        }
-    }
-    Template.chatting.recommending = function(){
-        try{
-            if(Session.get("actionFollow")){
-                var cursorRecomm = Feed.findOne({"_id":Session.get("actionFollow")})
-                if(cursorRecomm)
-                if(cursorRecomm.whoid == Session.get("clientid")){
-                    return cursorRecomm;
-                }
-            }
-            return false;
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.recommending"});
-        }
-    }
-    Template.chatting.creator = function(){
-        try{
-            var cursorVotes = Votes.findOne({"_id":Session.get("actionFollow")});
-            if(cursorVotes){
-                return Media.findOne({"_id": cursorVotes.likeid});    
-            }
-            return false;
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.creator"});
-        }
-    }
-    Template.chatting.recommended = function(){
-        try{
-            return Session.get("recommendedFollow");
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.recommended"});
-        }
-    }
-    Template.chatting.othername = function(){
-        try{
-            var cursorRecomm = Feed.findOne({"_id":Session.get("actionFollow")})
-            if(cursorRecomm)
-                return {"followusername" : cursorRecomm.followusername, "left" :cursorRecomm.left,"top" :cursorRecomm.top,"username":Session.get("username")};
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.othername"});
-        }
-    }
-    Template.chatting.eachcomment = function(){
-        try{
-            return Comments.find({"likeid":Session.get("currentBig")})
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.eachcomment"});
-        }
-    } 
+    // Template.groupvote.votes = function(){
+    //     try{
+    //         var currentBig = Session.get("currentBig");
+    //         var cursorVote = Votes.findOne({"followid":Session.get("clientid"),"likeid":currentBig});
+    //         //console.log(cursorVote);       
+    //         if(cursorVote){
+    //             return GroupVoteRecommend.find({"likeid":currentBig,"clientid":Session.get("clientid")});
+    //         }
+    //         else
+    //             return null;
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.groupvote.votes"});
+    //     }
+    // }
+    // Template.chatting.recommending = function(){
+    //     try{
+    //         if(Session.get("actionFollow")){
+    //             var cursorRecomm = Feed.findOne({"_id":Session.get("actionFollow")})
+    //             if(cursorRecomm)
+    //             if(cursorRecomm.whoid == Session.get("clientid")){
+    //                 return cursorRecomm;
+    //             }
+    //         }
+    //         return false;
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.recommending"});
+    //     }
+    // }
+    // Template.chatting.creator = function(){
+    //     try{
+    //         var cursorVotes = Votes.findOne({"_id":Session.get("actionFollow")});
+    //         if(cursorVotes){
+    //             return Media.findOne({"_id": cursorVotes.likeid});    
+    //         }
+    //         return false;
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.creator"});
+    //     }
+    // }
+    // Template.chatting.recommended = function(){
+    //     try{
+    //         return Session.get("recommendedFollow");
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.recommended"});
+    //     }
+    // }
+    // Template.chatting.othername = function(){
+    //     try{
+    //         var cursorRecomm = Feed.findOne({"_id":Session.get("actionFollow")})
+    //         if(cursorRecomm)
+    //             return {"followusername" : cursorRecomm.followusername, "left" :cursorRecomm.left,"top" :cursorRecomm.top,"username":Session.get("username")};
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.othername"});
+    //     }
+    // }
+    // Template.chatting.eachcomment = function(){
+    //     try{
+    //         return Comments.find({"likeid":Session.get("currentBig")})
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.eachcomment"});
+    //     }
+    // } 
     Template.keyword.eachkeyword = function(){
         try{
             var defineKeyword=SponserKeyword.find({})
@@ -1714,40 +1741,40 @@ Meteor.documentReady = documentReady;
     Template.server.status = function(){
         return Meteor.status().connected;
     }
-    Template.myprofile.profile = function(){
-        var profile = Session.get("profile");
-        if(isNaN(profile)){
-            return Me.find({"username":profile});
-        }
-        else{
-            return Me.find({"_id":profile});    
-        }        
-    }
+    // Template.myprofile.profile = function(){
+    //     var profile = Session.get("profile");
+    //     if(isNaN(profile)){
+    //         return Me.find({"username":profile});
+    //     }
+    //     else{
+    //         return Me.find({"_id":profile});    
+    //     }        
+    // }
 
 }
 
-////// CHAT START  /////
+// ////// CHAT START  /////
 
-    Template.chatfeature.chat = function(){
-        return Chat.find({"clientid":Session.get("clientid"),"chatid":Session.get("chatid")});
-    }
-    Template.chatfeature.rendered = function(){
-        $(".summary").hammer().off("hold",deleteOnHold)
-        $(".summary").hammer().on("hold",deleteOnHold)
-    }
-    function deleteOnHold(){
-        var id = $(this).attr("myid");
-        Chat.remove({"_id":id});
-    }
-    Template.chatfeature.pic = function(){
-        if(this.position == "right"){
-            return profilePic;
-        }
-        else{
-            return Session.get("senderpic");
-        }
-    }
-///// CHAT ENDS /////
+//     Template.chatfeature.chat = function(){
+//         return Chat.find({"clientid":Session.get("clientid"),"chatid":Session.get("chatid")});
+//     }
+//     Template.chatfeature.rendered = function(){
+//         $(".summary").hammer().off("hold",deleteOnHold)
+//         $(".summary").hammer().on("hold",deleteOnHold)
+//     }
+//     function deleteOnHold(){
+//         var id = $(this).attr("myid");
+//         Chat.remove({"_id":id});
+//     }
+//     Template.chatfeature.pic = function(){
+//         if(this.position == "right"){
+//             return profilePic;
+//         }
+//         else{
+//             return Session.get("senderpic");
+//         }
+//     }
+// ///// CHAT ENDS /////
 
 
 // Replacement of ground db
@@ -3748,7 +3775,7 @@ function autoLogin(){
             restoreCollection();
             removeDOMElement();
             //showKeywordPopup();
-            showLoader("Populating pictures");
+            //showLoader("Populating pictures");
         }
         else{
             hideLoader();
@@ -4629,7 +4656,7 @@ function showLoader(message){
     clearTimeout(loaderErrorTimeoutId);
     if(message)
         $("#loaderMessage").text(message);
-    $("#loader").show();
+    //$("#loader").show();
     $("#loaderError").hide();
     if(message!="You have been LogOut.")
       loaderErrorTimeoutId = setTimeout(function(){$("#loaderError").show();},30000);
@@ -5093,6 +5120,7 @@ function showKeywordPopup(){
 function searchHash(){
     var starttimer = new Date().getTime();
   var searchKeyword = $("#searchKeyword").val();
+  Session.set("keyword",searchKeyword)
     if(!searchKeyword){
         toast(i18n.__("enterKeyword"));
         //toast("Please enter some keywords.")

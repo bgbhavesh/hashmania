@@ -101,6 +101,19 @@ from Youiest LLC.
 //       query.ordered, oldResults, query.results, query);                                               // 886
 //   }                                                                                                   // 887
 // };
+
+Meteor.myRedirect = function(res, query){
+    // var state = query.state;
+    // var url = state.split("-URL-")[1];
+    // res.writeHead(302, {'Location': state.split("-URL-")[1]});
+    // res.end();
+    // return;
+    res.writeHead(200, {'Content-Type': 'text/html'});                                    
+  var content =                                                                         
+        '<html><head><script>window.close();</script></head></html>';          
+  res.end(content, 'utf-8');
+    
+}
 App = {};
 
 function sendEmailMailGun(senderName,to,html){

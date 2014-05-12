@@ -854,17 +854,17 @@ Meteor.documentReady = documentReady;
 
    /////////////////////////// // Survey starts
 
-    Template.youiestbody.eachBig = function(){
+    Template.hashmania.eachBig = function(){
         return HashKeyword.find({"keyword":Session.get("keyword")})
     }
-    Template.eachBig.rendered = function(){
+    Template.hashmania.rendered = function(){
             if(firstTimeLoginFlag){
                 currentSurveyBig = $(".bigFeed:first");
                 firstTimeLoginFlag = false;
             }
             
-            // $(".bigFeed").hammer().off("tap");  
-            // $(".bigFeed").hammer().on("tap",tapOnBigFeedSurvey);
+            $(".bigFeed").hammer().off("tap");  
+            $(".bigFeed").hammer().on("tap",tapOnBigFeedSurvey);
 
     }
 
@@ -876,6 +876,101 @@ Meteor.documentReady = documentReady;
                 console.log(error);
                 ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.srvyvotes.votes"});
             }
+    }
+    function tapOnBigFeedSurvey(event){
+        currentSurveyBig = $(this);
+        var x = event.gesture.center.pageX;
+        var y = event.gesture.center.pageY;
+        // y = y - $(this)[0].offsetTop;
+        var offset = $(event.currentTarget).offset();
+        var w = $("#surveybig");
+        
+        // console.log(offset.top +" " +w.scrollTop() +" " +y)
+        var height = $(this).height();
+        var width = $("body").width();
+        var bigheight = $(".quadrant").height();          
+        var left = (x/width) * 100;
+        var top = (y/height) * 100; 
+        var leftpx = x;
+        top = y - offset.top;
+        var toppx = top;
+        top = (top/height) * 100;
+        left = Math.round(left) ;
+        top = Math.round(top) ;
+        
+        var likeid = $(this).attr("likeid")
+        progress2(left, $('#hprogressBar'),top, $('#outer'),likeid);
+        
+        Session.set("currentBig",likeid)
+        var clientid = Session.get("clientid");
+        var votepic = null;
+        if(clientid.match("survey")){
+            votepic = "/images/face.jpg";
+        }
+        else{
+            votepic = get("profile_picture");
+        }
+        
+        voteFlag = false;
+        var date = new Date().getTime();
+        // console.log(likeid +" " +Session.get("currentBig"));
+        top+=40;
+        var VotesInsert = {"checked":false,"place":"","profile_picture":votepic, "followid": Session.get("clientid"),"likeid":likeid ,"left": left,"top": top,"date" : date};
+        // currentSurveyBig.append(getVoteHTML(VotesInsert.left,VotesInsert.top,"%"))
+        var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
+        var bigFeed = $(".voting")
+        if(cursorBig){
+             var voteloc =$(".voting[votingid='" +cursorBig._id +"']")
+            if(voteloc.length==0){
+                Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
+                // appendVotesManually(this);
+            }
+            else{
+                Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
+                voteloc.css({"left":left+"%","top":VotesInsert.top-40+"%"})
+            }
+            var place = App.checkQuadrant(left,top);
+        } 
+        else{
+                currentMoveVote = Votes.insert(VotesInsert);
+                // appendVotesManually(this,VotesInsert);
+        }
+        
+        // currentSurveyBig = currentSurveyBig.next(".bigFeed");
+        // setTimeout(pageScroll,2000);
+    }
+    function progress2(percent, $element, percent1, $element1,likeid) {
+            var addstring="div#"+likeid
+            var barDiv =$(addstring).children("#hprogressBar");
+            var hprogressBar =  percent+5;
+
+            $(addstring).find("div#inerhprogressBar").transition({ left: hprogressBar + "%" }, 500);
+            $(barDiv).find("div").transition({ width: hprogressBar + "%" }, 500)
+            promoteper=100-percent1;
+            cursorlove=percent1;
+            $(addstring).find("#inner-inner").css("top",cursorlove+"%");
+            $("#inner-inner").transition({"top":cursorlove+"%"});
+            $(addstring).find("#verticalprogress").css("height",promoteper +"%")
+
+            $(addstring).find("#outer")
+            .transition({"opacity":"0.0"},500,"linear")
+            .transition({"opacity":"1.0"},100,"linear")
+            $(addstring).find(".inner")
+            .transition({"opacity":"0.0"},500,"linear")
+            .transition({"opacity":"1.0"},100,"linear")
+            $(addstring).find("div#hprogressBar")
+            .transition({"opacity":"0.0"},500,"linear")
+            .transition({"opacity":"1.0"},100,"linear")
+            $(barDiv).find("div")
+            .transition({"opacity":"0.0"},500,"linear")
+            .transition({"opacity":"1.0"},100,"linear")
+            $(addstring).find("div#inerhprogressBar")
+            .transition({"opacity":"0.0"},1,"linear")
+            .transition({"opacity":"1.0"},100,"linear")
+            $(addstring).find("#inner-inner")
+            .transition({"opacity":"0.0"},500,"linear")
+            .transition({"opacity":"1.0"},100,"linear")
+            
     }
 // ///////////////////////survey ends
 

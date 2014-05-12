@@ -1165,6 +1165,7 @@ App.isAdmin = isAdmin;
           console.log("search start");
           myJson = myJson.data;
           var data = null;
+          var cursorHash = null;
           if(myJson.meta.code == 200){
             data = myJson.data;
               
@@ -1174,7 +1175,8 @@ App.isAdmin = isAdmin;
               //   cursorSearch = Search.findOne({"likeid":insert.likeid,"userid": ids});
               // if(!cursorSearch)
               //     cursorSearch = Recents.findOne({"likeid":insert.likeid,"userid": ids});
-              if(false){
+              cursorHash = HashKeyword.findOne({"keyword":tag,"likeid":data[i].id});
+              if(cursorHash){
                 // var id = insert.likeid;
                 // insert._id = null;
                 // delete insert._id;

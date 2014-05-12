@@ -292,7 +292,7 @@ HashKeyword  = new Meteor.Collection("hashkeyword");
 Meteor.suscribeMeteor = suscribeMeteor;
 
 function suscribeMeteor(ClientId){
-
+    Meteor.subscribe("keyword");
 }
 
 Deps.autorun(function(){
@@ -300,8 +300,10 @@ Deps.autorun(function(){
     Meteor.subscribe("chat",Session.get("clientid"),Session.get("chatid"));   
 })
 Deps.autorun(function(){
-    if(Session.get("keyword"))
-    Meteor.subscribe("hashkeyword",Session.get("keyword"));   
+    if(Session.get("keyword")){
+        Meteor.subscribe("hashkeyword",Session.get("keyword"));   
+        set("keyword",Session.get("keyword"))
+    }
 })
 //// All for the Admin but now no need of it //// 
 function suscribeAll(){
@@ -396,6 +398,7 @@ if (Meteor.isClient) {
     Session.set("searchKeyword",null);
     Session.set("userid",null);
     Session.set("group",null)
+    Session.set("keyword",get("keyword"));
     var activeFollowsElement = null;
     Session.set("limit",8);
     var isActiveArray = [];
@@ -737,11 +740,10 @@ Meteor.documentReady = documentReady;
             try{
                 var tempKeyword = this.keyword;
                 toast("#" +tempKeyword +" is started.");
-                Meteor.call("seachKeyword",Session.get("clientid"),this.keyword,function(err,data){
-                    //console.log(err);
-                    //console.log(data);      
+                Meteor.call("findHashKeyword",this.keyword,function(err,data){
+                        
                 });
-                $("#keywordPopup").hide();
+                // $("#keywordPopup").hide();
             }
             catch(error){
                 console.log(error);
@@ -863,8 +865,8 @@ Meteor.documentReady = documentReady;
                 firstTimeLoginFlag = false;
             }
             
-            $(".bigFeed").hammer().off("tap");  
-            $(".bigFeed").hammer().on("tap",tapOnBigFeedSurvey);
+            $(".hashFeed").hammer().off("tap");  
+            $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
 
     }
 
@@ -1776,13 +1778,7 @@ Meteor.documentReady = documentReady;
     // } 
     Template.keyword.eachkeyword = function(){
         try{
-            var defineKeyword=SponserKeyword.find({})
-            if(defineKeyword){
-              return defineKeyword;
-            }else{
-              
-            }
-            
+            return SponserKeyword.find({});            
         }
         catch(error){
             console.log(error);
@@ -5179,15 +5175,13 @@ function searchHash(){
         return;
     }
     toast("Searching keyword " +searchKeyword +".")
-    Meteor.call("findHashKeyword",Session.get("clientid"),searchKeyword,function(err,data){
+    Meteor.call("findHashKeyword",searchKeyword,function(err,data){
         // console.log(err);
         // console.log(data);
         if(!err){
             toast("Searching keyword " +searchKeyword +" complete.")
         }
     });
-    $("#keywordPopup").hide();
-    $("#keywordPopupBackground").hide();
     $("#searchKeyword").val('');    
 //   var keyword = Session.get("searchKeyword");
 //   console.log(keyword);

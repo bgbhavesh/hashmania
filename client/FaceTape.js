@@ -1815,7 +1815,7 @@ Meteor.documentReady = documentReady;
     // } 
     Template.keyword.eachkeyword = function(){
         try{
-            return SponserKeyword.find({});            
+            return SponserKeyword.find({},{sort : {"hits": -1}});            
         }
         catch(error){
             console.log(error);
@@ -3849,12 +3849,12 @@ function autoLogin(){
             Session.set("username",window.localStorage.getItem("username"));
             Me.update({"_id":Session.get("clientid")},{$inc : {"alreadyloggedin":1,"yalreadyloggedin":1,"malreadyloggedin":1,"walreadyloggedin":1,"dalreadyloggedin":1}});
             firstTimeLoginFlag = true;
-            Meteor.call("firstTimeLogin",Session.get("clientid"),function(err,data){                
-                if(data){
-                    window.localStorage.setItem("profile_picture",data.profile_picture);
-                    profilePic = data.profile_picture;
-                }                
-            });
+            // Meteor.call("firstTimeLogin",Session.get("clientid"),function(err,data){                
+            //     if(data){
+            //         window.localStorage.setItem("profile_picture",data.profile_picture);
+            //         profilePic = data.profile_picture;
+            //     }                
+            // });
             //console.log(profilePic);
             checkFormAndTimer();
             restoreCollection();
@@ -3865,14 +3865,14 @@ function autoLogin(){
         else{
             hideLoader();
             // GoodBye Guest ID
-            // ClientId = "guest"+Random.id()
-            // set("clientid",ClientId)
-            // Session.set("clientid",ClientId);
-            // suscribeMeteor(ClientId);
-            // Session.set("username",ClientId);
-            // Meteor.call("guestFirstTimeLogin",ClientId,function(){
-            //     console.log("finish");
-            // });
+            ClientId = "guest"+Random.id()
+            set("clientid",ClientId)
+            Session.set("clientid",ClientId);
+            suscribeMeteor(ClientId);
+            Session.set("username",ClientId);
+            Meteor.call("guestFirstTimeLogin",ClientId,function(){
+                console.log("finish");
+            });
         }
     }
     catch(error){

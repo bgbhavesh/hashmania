@@ -583,10 +583,13 @@ function onLoginWithTapmate(){
 function onSignUpWithTapmate(){
     var email = $("#seEmail").val();
     var pass = $("#sePass").val();
-    if(email && pass){
-        $("#seError").css("display","none");
-        Accounts.createUser({"email":email,"password":pass}, loginWithTapmateCallbackFunction);
-        TapmateUser = email;
+    if(email){
+        set("email",email);
+        set("clientid",email);
+        Session.set("clientid",email);
+        // $("#seError").css("display","none");
+        // Accounts.createUser({"email":email,"password":pass}, loginWithTapmateCallbackFunction);
+        // TapmateUser = email;
     }
     else{
         showLoginErrorMessage("onSignUpWithTapmate")
@@ -644,7 +647,7 @@ function documentReady(){
             setTimeout(location,120);
             setTimeout(defaultfeeds,150);
             setTimeout(showKeywordPopup,250);
-
+            suscribeMeteor();
             // snapy();  
             // autoLogin();
             // bindEvents();
@@ -3865,14 +3868,14 @@ function autoLogin(){
         else{
             hideLoader();
             // GoodBye Guest ID
-            ClientId = "guest"+Random.id()
-            set("clientid",ClientId)
-            Session.set("clientid",ClientId);
-            suscribeMeteor(ClientId);
-            Session.set("username",ClientId);
-            Meteor.call("guestFirstTimeLogin",ClientId,function(){
-                console.log("finish");
-            });
+            // ClientId = "guest"+Random.id()
+            // set("clientid",ClientId)
+            // Session.set("clientid",ClientId);
+            // suscribeMeteor(ClientId);
+            // Session.set("username",ClientId);
+            // Meteor.call("guestFirstTimeLogin",ClientId,function(){
+            //     console.log("finish");
+            // });
         }
     }
     catch(error){
@@ -5066,7 +5069,7 @@ function loginWithInstagramCallbackFunction(err){
                 }
                 preLoginAct();
                 showLoader("Login successful");   
-                Meteor.call("getInformation",pushId,function(error,data){
+                Meteor.cafll("getInformation",pushId,function(error,data){
                     var ClientId;
                     //console.log(error);
                     //console.log(data);
@@ -5107,7 +5110,7 @@ function loginWithInstagramCallbackFunction(err){
                                 }                                            
                             }
                     });                                
-                    Meteor.call("firstTimeLogin",Session.get("clientid")); 
+                    // Meteor.call("firstTimeLogin",Session.get("clientid")); 
                     Me.update({"_id":ClientId},{$inc : {"timesLoggedin" : 1}});             
                   }
                     //console.log(ClientId);

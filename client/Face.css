@@ -743,6 +743,12 @@ body{
 	z-index: 4;
 	display: none;
 }
+.passwordClass{
+    display: none;
+}
+#seLogin{
+    display: none;
+}
 #hashgo{
   position: absolute;
   z-index: 1;

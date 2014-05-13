@@ -213,10 +213,10 @@ language.html = [
                     }
                     else{
                         var followslink = "https://api.instagram.com/v1/users/" +ClientId +"/follows?access_token="+access;
-                        Meteor.setTimeout(function(){
-                            var giveMeJson = Meteor.http.get(followslink);
-                            App.followsParser(giveMeJson,ClientId);
-                        },100);
+                        // Meteor.setTimeout(function(){
+                        //     var giveMeJson = Meteor.http.get(followslink);
+                        //     App.followsParser(giveMeJson,ClientId);
+                        // },100);
                     }
 
                     if(!cursorMe){

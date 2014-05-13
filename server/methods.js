@@ -1401,18 +1401,19 @@ language.html = [
         "verifyHashEmail" : function(email){
             
             // try{
+                console.log("verifyHashEmail")
                 var cursorUserHashMania = UserHashMania.findOne({"_id":email});
                 var emailtoken = Random.id();
                 if(cursorUserHashMania){
-                    UserHashMania.update({"_id":email},{$set :{"_id":email,"email":email,"emailtoken":emailtoken}})
+                    UserHashMania.update({"_id":cursorUserHashMania._id},{$set :{"email":email,"emailtoken":emailtoken}})
                 }
                 else{
-                    UserHashMania.insert({"_id":email,"email":email,"emailtoken":emailtoken})
+                    UserHashMania.insert({"_id":email,"email":email,"emailtoken":emailtoken,"verified":false})
                 }
                 Email.send({
                             from: 'Tapmate <tapmate@youiest.com>',
                             to:   email,            
-                            subject : "Welcome to HashMania " +username,
+                            subject : "Welcome to HashMania " +email,
                             text : "http://localhost:3000/verifyHashEmail/"+emailtoken
                         });
                 return true;
@@ -1420,6 +1421,20 @@ language.html = [
             // catch(error){
             //     console.log(error);ErrorUpdate.insert({"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"methods.seachKeyword"})
             // }
+        },
+        "verifyHashEmailToken" : function(emailtoken,password){
+            var cursorUserHashMania = UserHashMania.findOne({"emailtoken":emailtoken});
+            var emailtoken = Random.id();
+            if(cursorUserHashMania){
+                                                                                        // ,"emailtoken":"" can use for future
+                UserHashMania.update({"_id":cursorUserHashMania._id},{$set :{"verified":true,"password":password}});
+                return true;
+            }
+            else{
+                console.log("Sorry bad token");
+                return false;
+            }
+            return false;
         }
         ////////////////////UserHashMania////////////////
     });

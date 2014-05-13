@@ -236,7 +236,7 @@ ErrorUpdate = new Meteor.Collection("error");
 MiniGame = new Meteor.Collection("minigame");
 TapmateNotification = new Meteor.Collection("notification");
 UsersVote = new Meteor.Collection("usersvote");
-Chat = new Meteor.Collection("chat");
+// Chat = new Meteor.Collection("chat");
 FollowsGroup =  new Meteor.Collection("followsgroup");
 UserSession =  new Meteor.Collection("usersession");
 GroupVoteRecommend = new Meteor.Collection("groupvoterecommend");
@@ -294,11 +294,11 @@ Meteor.suscribeMeteor = suscribeMeteor;
 function suscribeMeteor(ClientId){
     Meteor.subscribe("keyword");
 }
-
-Deps.autorun(function(){
-    if(Session.get("chatid"))
-    Meteor.subscribe("chat",Session.get("clientid"),Session.get("chatid"));   
-})
+////chat feature/////////
+// Deps.autorun(function(){
+//     if(Session.get("chatid"))
+//     Meteor.subscribe("chat",Session.get("clientid"),Session.get("chatid"));   
+// })
 Deps.autorun(function(){
     if(Session.get("keyword")){
         Meteor.subscribe("hashkeyword",Session.get("keyword"));   
@@ -583,13 +583,10 @@ function onLoginWithTapmate(){
 function onSignUpWithTapmate(){
     var email = $("#seEmail").val();
     var pass = $("#sePass").val();
-    if(email){
-        set("email",email);
-        set("clientid",email);
-        Session.set("clientid",email);
-        // $("#seError").css("display","none");
-        // Accounts.createUser({"email":email,"password":pass}, loginWithTapmateCallbackFunction);
-        // TapmateUser = email;
+    if(email && pass){
+        $("#seError").css("display","none");
+        Accounts.createUser({"email":email,"password":pass}, loginWithTapmateCallbackFunction);
+        TapmateUser = email;
     }
     else{
         showLoginErrorMessage("onSignUpWithTapmate")
@@ -647,7 +644,7 @@ function documentReady(){
             setTimeout(location,120);
             setTimeout(defaultfeeds,150);
             setTimeout(showKeywordPopup,250);
-            suscribeMeteor();
+
             // snapy();  
             // autoLogin();
             // bindEvents();
@@ -1818,7 +1815,7 @@ Meteor.documentReady = documentReady;
     // } 
     Template.keyword.eachkeyword = function(){
         try{
-            return SponserKeyword.find({},{sort : {"hits": -1}});            
+            return SponserKeyword.find({});            
         }
         catch(error){
             console.log(error);
@@ -2027,67 +2024,67 @@ function tapOnRecentIcons(event){
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"tapOnRecentIcons","time":((new Date().getTime())-starttimer)});
 }
 
-// CHAT FEATURE
+// // CHAT FEATURE
 
-function holdOnFollowsIcons(){
-    var starttimer = new Date().getTime();
-    var element = this;
-    $(".statename").html("(Chat Mode)").css({"font-size": "48%","float":"right","top": "57%","left":"0%"});
-    $(".chatbox").show();
-    // toast("Chat is not fully supprted. <br> It's still in progress.");
-    $("#chatinputbox").attr("placeholder",i18n.__("chathere"));
+// function holdOnFollowsIcons(){
+//     var starttimer = new Date().getTime();
+//     var element = this;
+//     $(".statename").html("(Chat Mode)").css({"font-size": "48%","float":"right","top": "57%","left":"0%"});
+//     $(".chatbox").show();
+//     // toast("Chat is not fully supprted. <br> It's still in progress.");
+//     $("#chatinputbox").attr("placeholder",i18n.__("chathere"));
 
-    var id = $(element).attr("myid");
-    var type = $(element).attr("type");
-    if(type == "group"){
-        FollowsGroup.remove({"_id":id});
-        return;
-    }
-    else{
-        if(id){
-            Session.set("chatid",id);
-            var cursorFollow = Follows.findOne({"followid":id})
-            if(cursorFollow)
-            Session.set("senderpic",cursorFollow.profile_picture);
-        }        
-    }
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"holdOnFollowsIcons","time":((new Date().getTime())-starttimer)});
-}
+//     var id = $(element).attr("myid");
+//     var type = $(element).attr("type");
+//     if(type == "group"){
+//         FollowsGroup.remove({"_id":id});
+//         return;
+//     }
+//     else{
+//         if(id){
+//             Session.set("chatid",id);
+//             var cursorFollow = Follows.findOne({"followid":id})
+//             if(cursorFollow)
+//             Session.set("senderpic",cursorFollow.profile_picture);
+//         }        
+//     }
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"holdOnFollowsIcons","time":((new Date().getTime())-starttimer)});
+// }
 
-function clickChatBoxCloseButton(){
-    console.log("close chat box");
-    $(".statename").html("").css({"font-size": "48%","float":"right","top": "57%","left":"0%"});
-    $(".chatbox").hide();
-}
+// function clickChatBoxCloseButton(){
+//     console.log("close chat box");
+//     $(".statename").html("").css({"font-size": "48%","float":"right","top": "57%","left":"0%"});
+//     $(".chatbox").hide();
+// }
 
-function clickChatSendButton(){
-    var starttimer = new Date().getTime();
-    var value = $("#chatinputbox").val();
-    console.log(value);
-    if(value){
+// function clickChatSendButton(){
+//     var starttimer = new Date().getTime();
+//     var value = $("#chatinputbox").val();
+//     console.log(value);
+//     if(value){
 
-        // One for me 2nd for other party.
-        var date = getUTCTimestamp();
-        Chat.insert({"clientid":Session.get("clientid"),"chatid":Session.get("chatid"),"message":value,"position":"right","date" :date,"status":"client"});
-        Chat.insert({"chatid":Session.get("clientid"),"clientid":Session.get("chatid"),"message":value,"position":"left","date" :date,"status":"client"});    
-    }
-    $("#chatinputbox").val("");
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"clickChatSendButton","time":((new Date().getTime())-starttimer)});
-}
-// Deps.autorun(function(){
-Chat.find({"status":"server"}).observe({
-    "added" : function(first){
-        Chat.update({"_id":first._id},{$set : {"status":"receive"}});
-    }
-});
-// })
-var dateTimestamp;
-function getUTCTimestamp(){
-    dateTimestamp = new Date();
-    var UTC=new Date(Date.UTC(dateTimestamp.getUTCFullYear(),dateTimestamp.getUTCMonth()-1,dateTimestamp.getUTCDay(),0,0,0,0));
-    return UTC.getTime(); 
-}
-//  CHAT FEATURE
+//         // One for me 2nd for other party.
+//         var date = getUTCTimestamp();
+//         Chat.insert({"clientid":Session.get("clientid"),"chatid":Session.get("chatid"),"message":value,"position":"right","date" :date,"status":"client"});
+//         Chat.insert({"chatid":Session.get("clientid"),"clientid":Session.get("chatid"),"message":value,"position":"left","date" :date,"status":"client"});    
+//     }
+//     $("#chatinputbox").val("");
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"clickChatSendButton","time":((new Date().getTime())-starttimer)});
+// }
+// // Deps.autorun(function(){
+// Chat.find({"status":"server"}).observe({
+//     "added" : function(first){
+//         Chat.update({"_id":first._id},{$set : {"status":"receive"}});
+//     }
+// });
+// // })
+// var dateTimestamp;
+// function getUTCTimestamp(){
+//     dateTimestamp = new Date();
+//     var UTC=new Date(Date.UTC(dateTimestamp.getUTCFullYear(),dateTimestamp.getUTCMonth()-1,dateTimestamp.getUTCDay(),0,0,0,0));
+//     return UTC.getTime(); 
+// }
+// //  CHAT FEATURE
 function doubletapOnFollowsIcons(event,myid,pic,extra){
     var starttimer = new Date().getTime();
     clearTimeout(taponfollows);
@@ -3852,12 +3849,12 @@ function autoLogin(){
             Session.set("username",window.localStorage.getItem("username"));
             Me.update({"_id":Session.get("clientid")},{$inc : {"alreadyloggedin":1,"yalreadyloggedin":1,"malreadyloggedin":1,"walreadyloggedin":1,"dalreadyloggedin":1}});
             firstTimeLoginFlag = true;
-            // Meteor.call("firstTimeLogin",Session.get("clientid"),function(err,data){                
-            //     if(data){
-            //         window.localStorage.setItem("profile_picture",data.profile_picture);
-            //         profilePic = data.profile_picture;
-            //     }                
-            // });
+            Meteor.call("firstTimeLogin",Session.get("clientid"),function(err,data){                
+                if(data){
+                    window.localStorage.setItem("profile_picture",data.profile_picture);
+                    profilePic = data.profile_picture;
+                }                
+            });
             //console.log(profilePic);
             checkFormAndTimer();
             restoreCollection();
@@ -5069,7 +5066,7 @@ function loginWithInstagramCallbackFunction(err){
                 }
                 preLoginAct();
                 showLoader("Login successful");   
-                Meteor.cafll("getInformation",pushId,function(error,data){
+                Meteor.call("getInformation",pushId,function(error,data){
                     var ClientId;
                     //console.log(error);
                     //console.log(data);
@@ -5110,7 +5107,7 @@ function loginWithInstagramCallbackFunction(err){
                                 }                                            
                             }
                     });                                
-                    // Meteor.call("firstTimeLogin",Session.get("clientid")); 
+                    Meteor.call("firstTimeLogin",Session.get("clientid")); 
                     Me.update({"_id":ClientId},{$inc : {"timesLoggedin" : 1}});             
                   }
                     //console.log(ClientId);
@@ -5435,8 +5432,8 @@ function bindEvents(){
         // $("#section3").hammer().on('drag', section3drag);
         
         // chat feature
-        $("#chatboxclosebutton").hammer().on("tap",clickChatBoxCloseButton);
-        $("#chatsendbutton").hammer().on("tap",clickChatSendButton);
+        // $("#chatboxclosebutton").hammer().on("tap",clickChatBoxCloseButton);
+        // $("#chatsendbutton").hammer().on("tap",clickChatSendButton);
         FastClick.attach(document.body);
         $("#addGroup").hammer().on("tap",addGroupButton);
         $("#atbutton").hammer().on("tap",onClickAtButton);

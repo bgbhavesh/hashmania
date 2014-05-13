@@ -669,6 +669,7 @@ function documentReady(){
             
 
             pushNotifiPopup(pushpic,pushmsg,pushlkid);
+            
             setTimeout(snapy,50);
             setTimeout(autoLogin,60);
             setTimeout(bindEvents,70);

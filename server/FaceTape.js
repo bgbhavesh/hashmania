@@ -2356,3 +2356,18 @@ function convertGuestToUser(previousClientId,currentClientId){
         Me.remove({"_id":previousClientId});
 }
 App.convertGuestToUser = convertGuestToUser;
+
+SponserKeyword.find({}).observe({
+    "changed" : function(first,second,third){
+        blinkForSecond(first,second,third);
+    }
+});
+
+function blinkForSecond(old,news){
+    if(old.hits != news.hits){
+        SponserKeyword.update({"_id":old._id},{$set : {"color":"red"}});
+        Meteor.setTimeout(function(){
+            SponserKeyword.update({"_id":old._id},{$set : {"color":"normal"}});
+        },5000)        
+    }
+}

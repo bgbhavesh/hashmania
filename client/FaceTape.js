@@ -1858,7 +1858,15 @@ Meteor.documentReady = documentReady;
             ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.keyword.eachkeyword"});
         }
     }
-
+    Template.keyword.rendered = function(){
+        var keyword = $(".eachkeyword");
+        var startSize = 40;
+        for(var i=0,il=keyword.length;i<il;i++){
+            $(keyword[i]).css("font-size",startSize +"px");
+            if(startSize>10)
+            startSize -= 5;
+        }
+    }
     Template.server.status = function(){
         return Meteor.status().connected;
     }

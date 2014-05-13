@@ -174,6 +174,7 @@ Package.reload.Reload._reload = function () {                                   
 //     // $("body").css({"overflow-y": "scroll"});
 //     Session.set("profile",clientid);
 // }
+var emailAuthFlag = false;
 Router.map(function () {
     
     this.route('home', {
@@ -181,6 +182,15 @@ Router.map(function () {
         template: 'body'
     });
 
+    this.route('index', {
+        path: '/verifyHashEmail/:emailtoken',
+        template: 'body',
+        data : function (){
+            var emailtoken = this.params.emailtoken;
+            emailAuthFlag = emailtoken;
+            window.localStorage.setItem("clientid","");
+        }
+    }); 
     
     this.route('index', {
         path: '/index.html',
@@ -189,7 +199,8 @@ Router.map(function () {
     this.route('index', {
         path: '/*',
         template: 'body'
-    });  
+    }); 
+     
 });
 
 function set(key,value){
@@ -537,7 +548,16 @@ Template.loginWithInstagram.rendered = function(){
     $("#seSignup").hammer().off("tap",onSignUpWithTapmate);
     $("#seSignup").hammer().on("tap",onSignUpWithTapmate);
 
+    if(emailAuthFlag){
+        $(".emailClass").hide();
+        $(".passwordClass").show();
 
+        $("#seSignup").hide();
+        $("#seLogin").show();
+        
+        $("#seError").show();
+        $("#seError div").html("Enter a new password");
+    }
     // $("#loginWithAppButton").hammer().off("tap",onLoginWithApp);   
     // $("#signupButton").hammer().off("tap",onLoginWithAppButton);
     // $("#signupWithAppButton").hammer().off("tap",onSignupWithAppButton);
@@ -571,8 +591,16 @@ var TapmateUser = null;
 function onLoginWithTapmate(){
     var email = $("#seEmail").val();
     var pass = $("#sePass").val();
-    if(email && pass){
+    if(pass){
         $("#seError").css("display","none");
+        Meteor.call("verifyHashEmailToken",emailAuthFlag,pass,function(err,data){
+                if(data){                    
+                    alert("Close the browser and get back to the app");
+                }
+                else{
+                    alert("something")
+                }
+            })
         Meteor.loginWithPassword(email, pass, loginWithTapmateCallbackFunction);
         TapmateUser = email;
     }
@@ -587,9 +615,13 @@ function onSignUpWithTapmate(){
         set("email",email);
         set("clientid",email);
         Session.set("clientid",email);
+        
         // $("#seError").css("display","none");
         // Accounts.createUser({"email":email,"password":pass}, loginWithTapmateCallbackFunction);
         // TapmateUser = email;
+        Meteor.call("verifyHashEmail",email,function(){
+
+        });
     }
     else{
         showLoginErrorMessage("onSignUpWithTapmate")

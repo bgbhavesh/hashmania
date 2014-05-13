@@ -740,7 +740,8 @@ Meteor.documentReady = documentReady;
             try{
                 var tempKeyword = this.keyword;
                 toast("#" +tempKeyword +" is started.");
-                Meteor.call("findHashKeyword",this.keyword,function(err,data){
+                Session.set("keyword",tempKeyword)
+                Meteor.call("findHashKeyword",tempKeyword,function(err,data){
                         
                 });
                 // $("#keywordPopup").hide();

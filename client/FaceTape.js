@@ -4744,7 +4744,7 @@ function showLoader(message){
     //$("#loader").show();
     $("#loaderError").hide();
     if(message!="You have been LogOut.")
-      loaderErrorTimeoutId = setTimeout(function(){$("#loaderError").show();},30000);
+      //loaderErrorTimeoutId = setTimeout(function(){$("#loaderError").show();},30000);
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function validateEmail(email){
@@ -5491,9 +5491,9 @@ function tapOnBodyWrapper(){
             ratingPopUp();
         }
         else if(tapCount==2){
-            // $("#welcomePopUp").show();
-            // $("#welcomePopUpBackground").show();
-            //$('#welcomePopUp').bPopup();
+            $("#welcomePopUp").show();
+            $("#welcomePopUpBackground").show();
+            //$('#welcomePopUp').Popup();
         }
         else if(tapCount==10){
             showKeywordPopup();

@@ -544,7 +544,12 @@ GroupVoteRecommend = new Meteor.Collection("groupvoterecommend");
 IpAddress = new Meteor.Collection("ipaddress");
 MethodTimer = new Meteor.Collection("methodtimer");
 
+
+////////////// HASHMANIA COLLECTION ////////////////
 HashKeyword  = new Meteor.Collection("hashkeyword");
+UserHashMania =  new Meteor.Collection("hashmania");
+////////////// HASHMANIA COLLECTION ////////////////
+
 var cursor = null;
 var countDownDays = 0;
 var countDownHours = 0;

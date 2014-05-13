@@ -562,13 +562,18 @@ body{
 	position: relative;
 }
 #keywordPopup{
-    left: 10%;
+    /*left: 10%;
 	top: 43%;
 	width: 80%;
 	height: 100%;
 	z-index: 5;
 	position: absolute;
-	max-height: 50%;
+	max-height: 50%;*/
+	top: 5%;
+	width: 100%;
+	height: 100%;
+	z-index: 5;
+	position: absolute;
 }
 #keywordButton{
 	height: 15%;
@@ -1805,7 +1810,7 @@ textarea[name="header"]{
     width: 100%;
     position: absolute;
     background-color: #333;
-    z-index: 3;
+    z-index: 4;
 }
 
 .header div{

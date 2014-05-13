@@ -244,13 +244,13 @@ Feed =  new Meteor.Collection("feed");
 // Search = new Meteor.Collection("search");
 SponserKeyword = new Meteor.Collection("sponserkeyword");
 ErrorUpdate = new Meteor.Collection("error");
-MiniGame = new Meteor.Collection("minigame");
+// MiniGame = new Meteor.Collection("minigame");
 TapmateNotification = new Meteor.Collection("notification");
 UsersVote = new Meteor.Collection("usersvote");
 // Chat = new Meteor.Collection("chat");
-FollowsGroup =  new Meteor.Collection("followsgroup");
+// FollowsGroup =  new Meteor.Collection("followsgroup");
 UserSession =  new Meteor.Collection("usersession");
-GroupVoteRecommend = new Meteor.Collection("groupvoterecommend");
+// GroupVoteRecommend = new Meteor.Collection("groupvoterecommend");
 MethodTimer = new Meteor.Collection("methodtimer");
 
 HashKeyword  = new Meteor.Collection("hashkeyword");
@@ -326,7 +326,7 @@ function suscribeAll(){
     // Meteor.subscribe("recommfeed",-2);  
     Meteor.subscribe("recomm",-2);
     Meteor.subscribe("commentsent", -2);
-    Meteor.subscribe("followsgroup", Session.get("clientid"));
+    // Meteor.subscribe("followsgroup", Session.get("clientid"));
     // Meteor.subscribe("error");
     // Meteor.subscribe("popular", Session.get("clientid")); 
     // Meteor.subscribe("globalfeed", Session.get("clientid"));
@@ -627,17 +627,17 @@ function onSignUpWithTapmate(){
         showLoginErrorMessage("onSignUpWithTapmate")
     }
 }
-function convertEmail(email){
-    email = email.toLowerCase();
-    var finalEmail = "";
-    var ch = null;
-    for(var i=0,il=email.length;i<il;i++){
-        ch = email.charAt(i);
-        if(ch != " ")
-        finalEmail+= ch
-    }
-    return finalEmail;
-}
+// function convertEmail(email){
+//     email = email.toLowerCase();
+//     var finalEmail = "";
+//     var ch = null;
+//     for(var i=0,il=email.length;i<il;i++){
+//         ch = email.charAt(i);
+//         if(ch != " ")
+//         finalEmail+= ch
+//     }
+//     return finalEmail;
+// }
 function showLoginErrorMessage(message){
     $("#errorMessage").html(message);
     $("#seError").css("display","block");
@@ -673,12 +673,12 @@ function documentReady(){
             setTimeout(snapy,50);
             setTimeout(autoLogin,60);
             setTimeout(bindEvents,70);
-            setTimeout(onGroupButton,80);
+            // setTimeout(onGroupButton,80);
             setTimeout(startSession,90);
             setTimeout(checkdevice,100);
             setTimeout(checkOptimized,110);
             setTimeout(location,120);
-            setTimeout(defaultfeeds,150);
+            // setTimeout(defaultfeeds,150);
             setTimeout(showKeywordPopup,250);
             suscribeMeteor();
             // snapy();  
@@ -711,24 +711,24 @@ Meteor.documentReady = documentReady;
         }
         
     });
-    Template.Section2.events({
-        "error .followsIcons img" : function(event){
-            // console.log(event);
-            // console.log(this);
-            // HTTP.call("GET", this.profile_picture,function(first,second){
-            //     //console.log(first);
-            //     //console.log(second)
-            // });
-            Meteor.call("checkWithServer",this);
-            $(event.currentTarget).attr("src","images/face.jpg");            
-        },
-        "error .groupicons img" : function(event){
-            $(event.currentTarget).attr("src","images/face.jpg");            
-        },
-        "error .groupImages img" : function(event){
-            $(event.currentTarget).attr("src","images/face.jpg");            
-        }
-    });
+    // Template.Section2.events({
+    //     "error .followsIcons img" : function(event){
+    //         // console.log(event);
+    //         // console.log(this);
+    //         // HTTP.call("GET", this.profile_picture,function(first,second){
+    //         //     //console.log(first);
+    //         //     //console.log(second)
+    //         // });
+    //         Meteor.call("checkWithServer",this);
+    //         $(event.currentTarget).attr("src","images/face.jpg");            
+    //     },
+    //     "error .groupicons img" : function(event){
+    //         $(event.currentTarget).attr("src","images/face.jpg");            
+    //     },
+    //     "error .groupImages img" : function(event){
+    //         $(event.currentTarget).attr("src","images/face.jpg");            
+    //     }
+    // });
     // Template.userfeed.events({
     //     "error .userfeed img" : function(event){
     //         // console.log(this.low);
@@ -818,77 +818,77 @@ Meteor.documentReady = documentReady;
         }
     }
 
-    Template.Section2.rendered = function(){
-        try{
-            // console.log("Section2.rendered");
-            $(".followsIcons").hammer().off("tap",tapOnFollowsIcons);
-            $(".followsIcons").hammer().on("tap",tapOnFollowsIcons);
+    // Template.Section2.rendered = function(){
+    //     try{
+    //         // console.log("Section2.rendered");
+    //         $(".followsIcons").hammer().off("tap",tapOnFollowsIcons);
+    //         $(".followsIcons").hammer().on("tap",tapOnFollowsIcons);
             
-            $(".followsgroup").hammer().off("tap",tapOnFollowsIcons);
+    //         $(".followsgroup").hammer().off("tap",tapOnFollowsIcons);
 
-            $(".followsIcons").hammer().off("doubletap",doubletapOnFollowsIcons);
-            $(".followsIcons").hammer().on("doubletap",doubletapOnFollowsIcons);
+    //         $(".followsIcons").hammer().off("doubletap",doubletapOnFollowsIcons);
+    //         $(".followsIcons").hammer().on("doubletap",doubletapOnFollowsIcons);
 
-            $(".followsIcons").hammer().off("hold",holdOnFollowsIcons);
-            $(".followsIcons").hammer().on("hold",holdOnFollowsIcons);
+    //         $(".followsIcons").hammer().off("hold",holdOnFollowsIcons);
+    //         $(".followsIcons").hammer().on("hold",holdOnFollowsIcons);
 
-            $("#currentFollow").hammer().off("tap",openCloseFollows);
-            $("#currentFollow").hammer().on("tap",openCloseFollows);
+    //         $("#currentFollow").hammer().off("tap",openCloseFollows);
+    //         $("#currentFollow").hammer().on("tap",openCloseFollows);
 
-            $("#currentFollowWrapper").hammer().off("tap",openCloseFollows);
-            $("#currentFollowWrapper").hammer().on("tap",openCloseFollows);
+    //         $("#currentFollowWrapper").hammer().off("tap",openCloseFollows);
+    //         $("#currentFollowWrapper").hammer().on("tap",openCloseFollows);
 
-            $("#section2").unbind("touchstart,touchmove");
-            touchScroll("section2");            
+    //         $("#section2").unbind("touchstart,touchmove");
+    //         touchScroll("section2");            
 
-            $("#keyboardButton").hammer().off("tap",tapOnKeyboardButton);
-            $("#keyboardButton").hammer().on("tap",tapOnKeyboardButton);
+    //         $("#keyboardButton").hammer().off("tap",tapOnKeyboardButton);
+    //         $("#keyboardButton").hammer().on("tap",tapOnKeyboardButton);
             
-            // $("#section2Label").hammer().off("tap",toggleFollows);
-            // $("#section2Label").hammer().on("tap",toggleFollows);
+    //         // $("#section2Label").hammer().off("tap",toggleFollows);
+    //         // $("#section2Label").hammer().on("tap",toggleFollows);
             
-             $("#groupButton").hammer().off("tap",onGroupButton);
-            $("#groupButton").hammer().on("tap",onGroupButton);
+    //          $("#groupButton").hammer().off("tap",onGroupButton);
+    //         $("#groupButton").hammer().on("tap",onGroupButton);
             
             
 
 
 
-            // instead of doing it again and again we can use dynamic css
-            // just a concept less processing
-            var one = $(".extrabutton")[0];
-            if(one){
-                var height = $(one).width()-10;            
-                $(".followsIcons,#addGroup,#atbutton").css({"height":height +"px"});
-            }
-            if(Session.get("currentBig")){
-                var cursorFollowsGroup = FollowsGroup.findOne({"_id":Session.get("activeFollows")});
-                if(cursorFollowsGroup)
-                    return;
+    //         // instead of doing it again and again we can use dynamic css
+    //         // just a concept less processing
+    //         var one = $(".extrabutton")[0];
+    //         if(one){
+    //             var height = $(one).width()-10;            
+    //             $(".followsIcons,#addGroup,#atbutton").css({"height":height +"px"});
+    //         }
+    //         if(Session.get("currentBig")){
+    //             var cursorFollowsGroup = FollowsGroup.findOne({"_id":Session.get("activeFollows")});
+    //             if(cursorFollowsGroup)
+    //                 return;
 
-                var makeActive = $(".followsIcons")[followSelectPosition]
-                if(!makeActive){
-                  followSelectPosition = 0;
-                  makeActive = $(".followsIcons")[0];
-                }
-                if(makeActive){
-                  if($(".followsIcons:first").attr("myid") == Session.get("clientid")){
-                      makeActive = $(".followsIcons")[0];
-                  }
-                    var activeFollowsId = $(makeActive).attr("myid");                    
-                    Session.set("activeFollows",activeFollowsId);
-                    $(".followsIcons").removeClass("active");
-                    $(makeActive).addClass("active");
-                    if($(makeActive).length !=0)
-                    $("#section2").scrollTop($(makeActive).position().top);
-                }             
-            }
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.rendered"});
-        }
-    }
+    //             var makeActive = $(".followsIcons")[followSelectPosition]
+    //             if(!makeActive){
+    //               followSelectPosition = 0;
+    //               makeActive = $(".followsIcons")[0];
+    //             }
+    //             if(makeActive){
+    //               if($(".followsIcons:first").attr("myid") == Session.get("clientid")){
+    //                   makeActive = $(".followsIcons")[0];
+    //               }
+    //                 var activeFollowsId = $(makeActive).attr("myid");                    
+    //                 Session.set("activeFollows",activeFollowsId);
+    //                 $(".followsIcons").removeClass("active");
+    //                 $(makeActive).addClass("active");
+    //                 if($(makeActive).length !=0)
+    //                 $("#section2").scrollTop($(makeActive).position().top);
+    //             }             
+    //         }
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.rendered"});
+    //     }
+    // }
 
 
    /////////////////////////// // Survey starts
@@ -1288,17 +1288,17 @@ Meteor.documentReady = documentReady;
       
     
 
-    Template.grouptemplate.group = function(){
-        return FollowsGroup.find({"clientid":Session.get("clientid")});
-    }
-    Template.grouptemplate.rendered = function(){
-        $(".followsgroup").hammer().off("tap");
-        $(".followsgroup").hammer().on("tap",tapOnGroup);
-        $(".followsgroup").hammer().off("doubletap");
-        $(".followsgroup").hammer().on("doubletap",doubleTapOnGroup);
-        $(".followsgroup").hammer().off("hold");
-        $(".followsgroup").hammer().on("hold",holdOnGroup);
-    }
+    // Template.grouptemplate.group = function(){
+    //     return FollowsGroup.find({"clientid":Session.get("clientid")});
+    // }
+    // Template.grouptemplate.rendered = function(){
+    //     $(".followsgroup").hammer().off("tap");
+    //     $(".followsgroup").hammer().on("tap",tapOnGroup);
+    //     $(".followsgroup").hammer().off("doubletap");
+    //     $(".followsgroup").hammer().on("doubletap",doubleTapOnGroup);
+    //     $(".followsgroup").hammer().off("hold");
+    //     $(".followsgroup").hammer().on("hold",holdOnGroup);
+    // }
     Template.profilemenu.user = function(){
         try{
               return Me.find({"_id":Session.get("clientid")});
@@ -1389,83 +1389,83 @@ Meteor.documentReady = documentReady;
         }
     }
 
-    Template.Section2.follows = function(){  
-        try{
-            var cursorLOP = Recommend.find({"likeid":Session.get("currentBig")});
-            var activeLOPArray = [];
-            cursorLOP.forEach(function(data){   
-                  activeLOPArray.push(data.followid);                           
-            });
-            var searchByFollow = Session.get("searchByFollow");
-            if( searchByFollow == "0-50")
-                return Follows.find({"userid":Session.get("clientid"),"followid":{$nin: activeLOPArray}},{sort : {"hits":-1},limit:50});
-            else
-                 return Follows.find({"userid":Session.get("clientid"),"followid":{$nin: activeLOPArray},"username":{$regex : "^"+searchByFollow +".*",$options: 'i'}},
-                    {sort : {"hits":-1},limit:50});
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.follows"});
-        }
-    } 
+    // Template.Section2.follows = function(){  
+    //     try{
+    //         var cursorLOP = Recommend.find({"likeid":Session.get("currentBig")});
+    //         var activeLOPArray = [];
+    //         cursorLOP.forEach(function(data){   
+    //               activeLOPArray.push(data.followid);                           
+    //         });
+    //         var searchByFollow = Session.get("searchByFollow");
+    //         if( searchByFollow == "0-50")
+    //             return Follows.find({"userid":Session.get("clientid"),"followid":{$nin: activeLOPArray}},{sort : {"hits":-1},limit:50});
+    //         else
+    //              return Follows.find({"userid":Session.get("clientid"),"followid":{$nin: activeLOPArray},"username":{$regex : "^"+searchByFollow +".*",$options: 'i'}},
+    //                 {sort : {"hits":-1},limit:50});
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.follows"});
+    //     }
+    // } 
 
-    Template.Section2.follows = function(){  
-        // try{
-            var cursorLOP = Feed.find({"likeid":Session.get("currentBig"),"whoid" : Session.get("clientid")});
-            var cursorVotes = Votes.find({"likeid":Session.get("currentBig")});
-            var activeLOPArray = [];
+    // Template.Section2.follows = function(){  
+    //     // try{
+    //         var cursorLOP = Feed.find({"likeid":Session.get("currentBig"),"whoid" : Session.get("clientid")});
+    //         var cursorVotes = Votes.find({"likeid":Session.get("currentBig")});
+    //         var activeLOPArray = [];
             
-            cursorVotes.forEach(function(data){   
-                  activeLOPArray.push(data.followid);                           
-            });
+    //         cursorVotes.forEach(function(data){   
+    //               activeLOPArray.push(data.followid);                           
+    //         });
 
-            cursorLOP.forEach(function(data){   
-                  activeLOPArray.push(data.followid);                           
-            });
-            // Session.get("actionArray");
-            // not supporting reactive
-            // for(var i=0,il=actionArray.length;i<il;i++){
-            //       activeLOPArray.push(actionArray[i]);
-            // }
-            var searchByFollow = Session.get("searchByFollow");
-            // code made by misunderstanding
-            // if(Session.get("group")){
-            //     var cursorFollowsGroup = FollowsGroup.findOne({"_id":Session.get("group")});
-            //     var activeGroupArray = [];
-            //     if(cursorFollowsGroup)
-            //         activeGroupArray = cursorFollowsGroup.follows;
-            //     console.log(activeGroupArray)
-            //     return Follows.find({"userid":Session.get("clientid"),"followid":{$nin: activeLOPArray},"followid":{$in : activeGroupArray}},{sort : {"hits":-1},limit:50});
-            // }
-            if( searchByFollow == "0-50")
-                return Follows.find({"userid":Session.get("clientid"),"followid":{$nin: activeLOPArray}},{sort : {"hits":-1},limit:50});
-            else{
-                searchByFollow = searchByFollow+"|" +Session.get("username");
-                return Follows.find({"userid":Session.get("clientid"),"followid":{$nin: activeLOPArray},"username":{$regex : "^"+searchByFollow +".*",$options: 'i'}},
-                    {sort : {"hits":-1},limit:50});
-            }
-        // }
-        // catch(error){
-        //     console.log(error);
-        //     ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.follows"});
-        // }
-    } 
-    Template.Section2.currentFollow = function(){
-        // var cursorFollows = 
-        return Follows.findOne({"followid":Session.get("activeFollows")});
-        // if(cursorFollows){
-        //     return cursorFollows.profile_picture;
-        // }
-    }
-    Template.Section2.alpahbet = function(){
-        try{
-            return Session.get("searchByFollow");
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.alpahbet"});
-        }
-    } 
+    //         cursorLOP.forEach(function(data){   
+    //               activeLOPArray.push(data.followid);                           
+    //         });
+    //         // Session.get("actionArray");
+    //         // not supporting reactive
+    //         // for(var i=0,il=actionArray.length;i<il;i++){
+    //         //       activeLOPArray.push(actionArray[i]);
+    //         // }
+    //         var searchByFollow = Session.get("searchByFollow");
+    //         // code made by misunderstanding
+    //         // if(Session.get("group")){
+    //         //     var cursorFollowsGroup = FollowsGroup.findOne({"_id":Session.get("group")});
+    //         //     var activeGroupArray = [];
+    //         //     if(cursorFollowsGroup)
+    //         //         activeGroupArray = cursorFollowsGroup.follows;
+    //         //     console.log(activeGroupArray)
+    //         //     return Follows.find({"userid":Session.get("clientid"),"followid":{$nin: activeLOPArray},"followid":{$in : activeGroupArray}},{sort : {"hits":-1},limit:50});
+    //         // }
+    //         if( searchByFollow == "0-50")
+    //             return Follows.find({"userid":Session.get("clientid"),"followid":{$nin: activeLOPArray}},{sort : {"hits":-1},limit:50});
+    //         else{
+    //             searchByFollow = searchByFollow+"|" +Session.get("username");
+    //             return Follows.find({"userid":Session.get("clientid"),"followid":{$nin: activeLOPArray},"username":{$regex : "^"+searchByFollow +".*",$options: 'i'}},
+    //                 {sort : {"hits":-1},limit:50});
+    //         }
+    //     // }
+    //     // catch(error){
+    //     //     console.log(error);
+    //     //     ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.follows"});
+    //     // }
+    // } 
+    // Template.Section2.currentFollow = function(){
+    //     // var cursorFollows = 
+    //     return Follows.findOne({"followid":Session.get("activeFollows")});
+    //     // if(cursorFollows){
+    //     //     return cursorFollows.profile_picture;
+    //     // }
+    // }
+    // Template.Section2.alpahbet = function(){
+    //     try{
+    //         return Session.get("searchByFollow");
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.Section2.alpahbet"});
+    //     }
+    // } 
     // depricated 
     // Template.myself.eachMyself = function(){
     //     try{
@@ -2121,210 +2121,210 @@ function tapOnRecentIcons(event){
 //     return UTC.getTime(); 
 // }
 // //  CHAT FEATURE
-function doubletapOnFollowsIcons(event,myid,pic,extra){
-    var starttimer = new Date().getTime();
-    clearTimeout(taponfollows);
-    var element = this;
-    var id = $(element).attr("myid");
-    if(myid)
-      id = myid;
+// function doubletapOnFollowsIcons(event,myid,pic,extra){
+//     var starttimer = new Date().getTime();
+//     clearTimeout(taponfollows);
+//     var element = this;
+//     var id = $(element).attr("myid");
+//     if(myid)
+//       id = myid;
 
-    if(id == Session.get("userid")){
-        $(".statename").html("").css({"font-size": "48%","float":"right","top": "57%","left":"0%"});
-       //$(".usersfeed,#usersfeed").css({"display":"block"});
-        Session.set("userid",null);
-        Session.set("userselfpic","");
-        return;
-    }
-    //console.log(id)
-    if(id != Session.get("clientid")){
-        var userselfpic = null;
-        userselfpic = $(this).children("img").attr("src");
-        if(pic)
-            userselfpic = pic;
-        if(!myid){
-          $(".statename").html("(User's Feeds)").css({"font-size": "48%","float":"right","top": "57%","left":"0%"});
-        }
+//     if(id == Session.get("userid")){
+//         $(".statename").html("").css({"font-size": "48%","float":"right","top": "57%","left":"0%"});
+//        //$(".usersfeed,#usersfeed").css({"display":"block"});
+//         Session.set("userid",null);
+//         Session.set("userselfpic","");
+//         return;
+//     }
+//     //console.log(id)
+//     if(id != Session.get("clientid")){
+//         var userselfpic = null;
+//         userselfpic = $(this).children("img").attr("src");
+//         if(pic)
+//             userselfpic = pic;
+//         if(!myid){
+//           $(".statename").html("(User's Feeds)").css({"font-size": "48%","float":"right","top": "57%","left":"0%"});
+//         }
         
-        //$(".usersfeed,#usersfeed").css({"display":"none"});
-        if(!extra)
-            Session.set("userid",id);
-        Session.set("userselfpic",userselfpic);
-        Meteor.call("usersVotesAdd",Session.get("clientid"),id)
-        $(this).addClass("followanimation");
-        setTimeout(function(){$(this).removeClass("followanimation");},6000);
-        // 
-        // Went to server
+//         //$(".usersfeed,#usersfeed").css({"display":"none"});
+//         if(!extra)
+//             Session.set("userid",id);
+//         Session.set("userselfpic",userselfpic);
+//         Meteor.call("usersVotesAdd",Session.get("clientid"),id)
+//         $(this).addClass("followanimation");
+//         setTimeout(function(){$(this).removeClass("followanimation");},6000);
+//         // 
+//         // Went to server
 
-        // var cursorVote = Votes.find({"followid":id},{sort : {"date": -1},"limit":10});
-        // var cursorUsersVote = null;
-        // var clientid = Session.get("clientid");
-        // cursorVote.forEach(function(data){
-        //     console.log(data);
-        //     delete data._id; 
-        //     data.clientid = clientid;
-        //     cursorUsersVote = UsersVote.findOne({"clientid":clientid,"followid":id,"likeid":data.likeid});
-        //     if(!cursorUsersVote)
-        //         UsersVote.insert(data);
-        // });
-        Meteor.subscribe("usersvote",-1,-1);
-        Meteor.subscribe("usersvote",Session.get("clientid"),id);
-        Meteor.subscribe("usersvoten",Session.get("clientid"),id);
-        // UsersVote.insert({});
-    }
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-}
-var editGroupId = null;
-function doubleTapOnGroup(){
-    var starttimer = new Date().getTime();
-    doubleTapFlag = true;
-    editGroupId = $(this).addClass("activeGroup").attr("myid");
-    Session.set("groupflag",true);
-    $("#showcheckmark").hide();
-    $("#hidecheckmark").show();
-    colorGroup(editGroupId,"activeGroup");
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-}
-function tapOnGroup(){
-    var starttimer = new Date().getTime();
-    toast("Group Selected")
-    $(".active").removeClass("active");
-    $("#keyboard").hide("hide");
-    var id = $(this).attr("myid");
-    Session.set("activeFollows",id);
-    colorGroup(id,"active");
-    onGroupButton();
-    setTimeout(function(){
-            if(doubleTapFlag){
-                doubleTapFlag = false;
-                return;
-            }
-            openCloseFollows();
-            // $("#section2").animate({"left":"100%"});
-            // $("#currentFollow").animate({"right":"0px"});
-            // $("#openclosearrow").attr("class","left arrow icon");
-            $(".currentFollowimg").attr("src","./images/group.png");
-          },2000);
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-}
-function colorGroup(id,cla){
-    var starttimer = new Date().getTime();
-    var cursorFollowsGroup = FollowsGroup.findOne({"_id":id});
-    if(cursorFollowsGroup){
-        var follows = cursorFollowsGroup.follows;
-        if(follows)
-        for(var i=0,il=follows.length;i<il;i++){
-            $(".followsIcons[myid='" +follows[i]+"']").addClass(cla); 
-        }
-    }
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-}
-function holdOnGroup(){
-    var myid = $(this).attr("myid");
-    FollowsGroup.remove({"_id":myid});
-}
-var doubleTapFlag = false;
-function addGroupButton(){
-    var starttimer = new Date().getTime();
-    // toggleFollows();
-    if(Session.get("groupflag")){
-        var followGroupArray = [];
-        var pictureGroupArray = [];
-        var myid = null;
-        var groupeCount = 0;
+//         // var cursorVote = Votes.find({"followid":id},{sort : {"date": -1},"limit":10});
+//         // var cursorUsersVote = null;
+//         // var clientid = Session.get("clientid");
+//         // cursorVote.forEach(function(data){
+//         //     console.log(data);
+//         //     delete data._id; 
+//         //     data.clientid = clientid;
+//         //     cursorUsersVote = UsersVote.findOne({"clientid":clientid,"followid":id,"likeid":data.likeid});
+//         //     if(!cursorUsersVote)
+//         //         UsersVote.insert(data);
+//         // });
+//         Meteor.subscribe("usersvote",-1,-1);
+//         Meteor.subscribe("usersvote",Session.get("clientid"),id);
+//         Meteor.subscribe("usersvoten",Session.get("clientid"),id);
+//         // UsersVote.insert({});
+//     }
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+// }
+// var editGroupId = null;
+// function doubleTapOnGroup(){
+//     var starttimer = new Date().getTime();
+//     doubleTapFlag = true;
+//     editGroupId = $(this).addClass("activeGroup").attr("myid");
+//     Session.set("groupflag",true);
+//     $("#showcheckmark").hide();
+//     $("#hidecheckmark").show();
+//     colorGroup(editGroupId,"activeGroup");
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+// }
+// function tapOnGroup(){
+//     var starttimer = new Date().getTime();
+//     toast("Group Selected")
+//     $(".active").removeClass("active");
+//     $("#keyboard").hide("hide");
+//     var id = $(this).attr("myid");
+//     Session.set("activeFollows",id);
+//     colorGroup(id,"active");
+//     onGroupButton();
+//     setTimeout(function(){
+//             if(doubleTapFlag){
+//                 doubleTapFlag = false;
+//                 return;
+//             }
+//             openCloseFollows();
+//             // $("#section2").animate({"left":"100%"});
+//             // $("#currentFollow").animate({"right":"0px"});
+//             // $("#openclosearrow").attr("class","left arrow icon");
+//             $(".currentFollowimg").attr("src","./images/group.png");
+//           },2000);
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+// }
+// function colorGroup(id,cla){
+//     var starttimer = new Date().getTime();
+//     var cursorFollowsGroup = FollowsGroup.findOne({"_id":id});
+//     if(cursorFollowsGroup){
+//         var follows = cursorFollowsGroup.follows;
+//         if(follows)
+//         for(var i=0,il=follows.length;i<il;i++){
+//             $(".followsIcons[myid='" +follows[i]+"']").addClass(cla); 
+//         }
+//     }
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+// }
+// function holdOnGroup(){
+//     var myid = $(this).attr("myid");
+//     FollowsGroup.remove({"_id":myid});
+// }
+// var doubleTapFlag = false;
+// function addGroupButton(){
+//     var starttimer = new Date().getTime();
+//     // toggleFollows();
+//     if(Session.get("groupflag")){
+//         var followGroupArray = [];
+//         var pictureGroupArray = [];
+//         var myid = null;
+//         var groupeCount = 0;
 
-        $(".activeGroup").each(function(index,element){
-            myid = $(element).attr("myid");
-            if(myid != Session.get("clientid")){
-                followGroupArray.push(myid);                
-                var cursorFollow = Follows.findOne({"followid":myid});
-                if(cursorFollow){
-                    pictureGroupArray[pictureGroupArray.length] = cursorFollow.profile_picture;
-                    groupeCount++;
-                }
-            }   
+//         $(".activeGroup").each(function(index,element){
+//             myid = $(element).attr("myid");
+//             if(myid != Session.get("clientid")){
+//                 followGroupArray.push(myid);                
+//                 var cursorFollow = Follows.findOne({"followid":myid});
+//                 if(cursorFollow){
+//                     pictureGroupArray[pictureGroupArray.length] = cursorFollow.profile_picture;
+//                     groupeCount++;
+//                 }
+//             }   
 
-        });
-        Session.set("groupflag",false);
-        $("#showcheckmark").show();
-        $("#hidecheckmark").hide();
-        // semanticpopup(20,40,i18n.__("atheader"),i18n.__("atmessage"))
-        $(".activeGroup").removeClass("activeGroup");
+//         });
+//         Session.set("groupflag",false);
+//         $("#showcheckmark").show();
+//         $("#hidecheckmark").hide();
+//         // semanticpopup(20,40,i18n.__("atheader"),i18n.__("atmessage"))
+//         $(".activeGroup").removeClass("activeGroup");
 
-        if(groupeCount == 0){
-            toast("No users selected.");
-        }
-        else{
-            // console.log({"clientid":Session.get("clientid"),"follows":followGroupArray,"picture":pictureGroupArray,"length":groupeCount})
-            if(editGroupId){
-                FollowsGroup.update({"_id":editGroupId},{$set :{"clientid":Session.get("clientid"),"follows":followGroupArray,"picture":pictureGroupArray,"count":groupeCount}});
-                $(".activeGroup").removeClass("activeGroup")
-            }
-            else{
-                FollowsGroup.insert({"clientid":Session.get("clientid"),"follows":followGroupArray,"picture":pictureGroupArray,"count":groupeCount});
-            }
-            editGroupId = null;
-            toast("Group created.");
-        }
+//         if(groupeCount == 0){
+//             toast("No users selected.");
+//         }
+//         else{
+//             // console.log({"clientid":Session.get("clientid"),"follows":followGroupArray,"picture":pictureGroupArray,"length":groupeCount})
+//             if(editGroupId){
+//                 FollowsGroup.update({"_id":editGroupId},{$set :{"clientid":Session.get("clientid"),"follows":followGroupArray,"picture":pictureGroupArray,"count":groupeCount}});
+//                 $(".activeGroup").removeClass("activeGroup")
+//             }
+//             else{
+//                 FollowsGroup.insert({"clientid":Session.get("clientid"),"follows":followGroupArray,"picture":pictureGroupArray,"count":groupeCount});
+//             }
+//             editGroupId = null;
+//             toast("Group created.");
+//         }
         
-    }
-    else{
-        Session.set("groupflag",true);
-        $("#showcheckmark").hide();
-        $("#hidecheckmark").show();
-        semanticpopup(20,71,i18n.__("atheader"),i18n.__("atmessage"))
-        toast("Add users to create group.");  
-    }
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-}
-function tapOnFollowsIcons(event){
-    var localDiv = this;
-    taponfollows=setTimeout(function(){tapOnFollowsIcons1(event,localDiv)},300);
-}
-function tapOnFollowsIcons1(event,element){    
-  var starttimer = new Date().getTime();    
-    //console.log("tapOnFollowsIcons");
-    // try{
-        var localDiv = null;
-        if(element)
-            localDiv = element;
-        else
-            localDiv = this; 
-        $(".active").removeClass("active"); 
-        if(Session.get("groupflag")){
-            if($(localDiv).attr("class").match("activeGroup")){
-                $(localDiv).removeClass("activeGroup"); 
-            }
-            else{
-                $(localDiv).addClass("activeGroup");
-            }
-        }
-        else{
-            var myid = $(localDiv).attr("myid");
-            var cltid=Session.get("clientid")
-            var name =$(localDiv).attr("name");
-            //console.log(myid);
-            // console.log(myid);
-            // console.log(name);
-            if(myid!=cltid){
-                        toast(i18n.__("userselected1")+" "+name+","+i18n.__("userselected2"));
-            }
-            Session.set("activeFollows",myid);       
-            $(this).addClass("active");
-            $(".followsIcons").each(function(index,element){
-                if(element === localDiv){            
-                    followSelectPosition = index;                  
-                }            
-            }); 
-            openCloseFollows();
-        }
-    // }
-    // catch(error){
-    //     console.log(error);
-    //     ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnFollowsIcons"});
-    // }
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-}    
+//     }
+//     else{
+//         Session.set("groupflag",true);
+//         $("#showcheckmark").hide();
+//         $("#hidecheckmark").show();
+//         semanticpopup(20,71,i18n.__("atheader"),i18n.__("atmessage"))
+//         toast("Add users to create group.");  
+//     }
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+// }
+// function tapOnFollowsIcons(event){
+//     var localDiv = this;
+//     taponfollows=setTimeout(function(){tapOnFollowsIcons1(event,localDiv)},300);
+// }
+// function tapOnFollowsIcons1(event,element){    
+//   var starttimer = new Date().getTime();    
+//     //console.log("tapOnFollowsIcons");
+//     // try{
+//         var localDiv = null;
+//         if(element)
+//             localDiv = element;
+//         else
+//             localDiv = this; 
+//         $(".active").removeClass("active"); 
+//         if(Session.get("groupflag")){
+//             if($(localDiv).attr("class").match("activeGroup")){
+//                 $(localDiv).removeClass("activeGroup"); 
+//             }
+//             else{
+//                 $(localDiv).addClass("activeGroup");
+//             }
+//         }
+//         else{
+//             var myid = $(localDiv).attr("myid");
+//             var cltid=Session.get("clientid")
+//             var name =$(localDiv).attr("name");
+//             //console.log(myid);
+//             // console.log(myid);
+//             // console.log(name);
+//             if(myid!=cltid){
+//                         toast(i18n.__("userselected1")+" "+name+","+i18n.__("userselected2"));
+//             }
+//             Session.set("activeFollows",myid);       
+//             $(this).addClass("active");
+//             $(".followsIcons").each(function(index,element){
+//                 if(element === localDiv){            
+//                     followSelectPosition = index;                  
+//                 }            
+//             }); 
+//             openCloseFollows();
+//         }
+//     // }
+//     // catch(error){
+//     //     console.log(error);
+//     //     ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnFollowsIcons"});
+//     // }
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+// }    
 function cursorparser(){
     var starttimer = new Date().getTime();
     try{
@@ -2448,23 +2448,23 @@ function updateCursor(cursorArg){
     }
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
-function getLeftTop(element){
-    var starttimer = new Date().getTime();
-    // $(element).css("opacity",1);
-    var left = $(element).offset().left;
-    var top = $(element).offset().top;
-    // left = left.substr(0,left.length-2);
-    // top = top.substr(0,top.length-2);
-    // left = Number(left);
-    // top = Number(top);
-    xcenter = left;
-    ycenter = top;
-    left = left / $("#Main").width() * 100;
-    top = top / $("#Main").height() * 100;
-    // setTimeout(function(){$(element).css("opacity",0);},3000)
-    return {left : left, top : top};
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-}
+// function getLeftTop(element){
+//     var starttimer = new Date().getTime();
+//     // $(element).css("opacity",1);
+//     var left = $(element).offset().left;
+//     var top = $(element).offset().top;
+//     // left = left.substr(0,left.length-2);
+//     // top = top.substr(0,top.length-2);
+//     // left = Number(left);
+//     // top = Number(top);
+//     xcenter = left;
+//     ycenter = top;
+//     left = left / $("#Main").width() * 100;
+//     top = top / $("#Main").height() * 100;
+//     // setTimeout(function(){$(element).css("opacity",0);},3000)
+//     return {left : left, top : top};
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+// }
 
 var semanticpopupTimeout = null;
 function semanticpopup(left,top,header,message){
@@ -2481,407 +2481,407 @@ function semanticpopup(left,top,header,message){
     // $("#tap").css({"display":"none"})
     semanticpopupTimeout = setTimeout(function(){$("#sematicpopup").removeClass("visible");},3000);
 }
-var tapBigInterval = null;
-tapBigTutorialInterval = null;
-var intervalLimit = 0;
-function tapBigTutorial(left,top,header,message,diffLeft,diffTop){
-    var starttimer = new Date().getTime();
-    mDiv = $("#tap")[0];
-    // tapBigInterval = setInterval(function(){moveDiv(left,top)},10);
-    var width = 50;
-    var height = 50;
-    if(tapBigTutorialInterval)
-          clearInterval(tapBigTutorialInterval)
-    intervalLimit = 0;
-    tapBigTutorialInterval = setInterval(function(){
-        // to stop infinite loop
-        intervalLimit++;
-        if(intervalLimit>5){
-            clearInterval(tapBigTutorialInterval);
-            return;
-        }
-        $("#tap").css({"display":"block","left":left +"%","top":top +"%"})
-            .animate({"left":left-5 +"%","top":top-5 +"%","height":height +50+"px","width":width +50 +"px"},800,"easeOutBounce")
-            .animate({"left":left +"%","top":top +"%","height":height +"px","width":width +"px"},100,"easeOutBounce")
-            .animate({"left":left-5 +"%","top":top-5 +"%","height":height +50+"px","width":width +50 +"px"},800,"easeOutBounce")
-            .animate({"left":left +"%","top":top +"%","height":height +"px","width":width  +"px"},100,"easeOutBounce",function(){
-                $("#tap").css({"display":"none"})
-            });
-    },4000)
+// var tapBigInterval = null;
+// tapBigTutorialInterval = null;
+// var intervalLimit = 0;
+// function tapBigTutorial(left,top,header,message,diffLeft,diffTop){
+//     var starttimer = new Date().getTime();
+//     mDiv = $("#tap")[0];
+//     // tapBigInterval = setInterval(function(){moveDiv(left,top)},10);
+//     var width = 50;
+//     var height = 50;
+//     if(tapBigTutorialInterval)
+//           clearInterval(tapBigTutorialInterval)
+//     intervalLimit = 0;
+//     tapBigTutorialInterval = setInterval(function(){
+//         // to stop infinite loop
+//         intervalLimit++;
+//         if(intervalLimit>5){
+//             clearInterval(tapBigTutorialInterval);
+//             return;
+//         }
+//         $("#tap").css({"display":"block","left":left +"%","top":top +"%"})
+//             .animate({"left":left-5 +"%","top":top-5 +"%","height":height +50+"px","width":width +50 +"px"},800,"easeOutBounce")
+//             .animate({"left":left +"%","top":top +"%","height":height +"px","width":width +"px"},100,"easeOutBounce")
+//             .animate({"left":left-5 +"%","top":top-5 +"%","height":height +50+"px","width":width +50 +"px"},800,"easeOutBounce")
+//             .animate({"left":left +"%","top":top +"%","height":height +"px","width":width  +"px"},100,"easeOutBounce",function(){
+//                 $("#tap").css({"display":"none"})
+//             });
+//     },4000)
             
-    if(diffLeft) left += diffLeft;
-    if(diffTop) top += diffTop;
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-    // semanticpopup(left,top,header,message);
-}
-function tapOnFeed(event){
-    var starttimer = new Date().getTime();
-    try{
-        Session.set("activeFollows",Session.get("clientid"));
-        $("#outer").animate({"opacity":"0.0"},500,"linear")
-        $("#hprogressBar").animate({"opacity":"0.0"},500,"linear")
-        $("#inner-inner").animate({"opacity":"0.0"},500,"linear")
-        $("#inerhprogressBar").animate({"opacity":"0.0"},500,"linear")
-        followSelectPosition = 0;
-        var sectionActive = $(".likeActive").removeClass("likeActive");
-        $(this).addClass("likeActive");
+//     if(diffLeft) left += diffLeft;
+//     if(diffTop) top += diffTop;
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+//     // semanticpopup(left,top,header,message);
+// }
+// function tapOnFeed(event){
+//     var starttimer = new Date().getTime();
+//     try{
+//         Session.set("activeFollows",Session.get("clientid"));
+//         $("#outer").animate({"opacity":"0.0"},500,"linear")
+//         $("#hprogressBar").animate({"opacity":"0.0"},500,"linear")
+//         $("#inner-inner").animate({"opacity":"0.0"},500,"linear")
+//         $("#inerhprogressBar").animate({"opacity":"0.0"},500,"linear")
+//         followSelectPosition = 0;
+//         var sectionActive = $(".likeActive").removeClass("likeActive");
+//         $(this).addClass("likeActive");
         
     
-        var currentBig = Session.get("currentBig");
-        var likeid = $(this).attr("likeid");
-        if(!likeid){
-            $(".statename").html("").css({"font-size": "48%","float":"right","top": "57%","left":"0%"});
-            Session.set("userid",null);
-            Session.set("userselfpic","");
-            return;
-            //console.log(Session.get("userid"))
-        }           
-        if(currentBig){              
-            if(currentBig != likeid){                    
-                // var cursorRecent = Recents.findOne({"likeid":currentBig,"userid":Session.get("clientid")});                    
-                // if(!cursorRecent){                        
-                    cursor = cursorparser();
-                    if(cursor){
-                        cursor.userid = Session.get("clientid");
-                        cursor.display = "n";
-                        cursor.date = new Date().getTime();
-                        updateCursor(cursor);
-                        delete cursor._id;
-                        // Recents.insert(cursor);                    
-                    }
-                // }  
-                beforeCurrentBig()
-                Session.set("currentBig",likeid);
-                // if(tutorialJSON.seventh)
-                // setTimeout(function(){
-                //     tutorialJSON = {};
-                //     tutorialFlag = false;
-                //     semanticpopup(31,31,"That's it!","Now repeat.");
-                //     semanticpopupTimeout = setTimeout(function(){
-                //         $("#sematicpopup").removeClass("visible");$("#tap").css({"display":"none"})
-                //         if(loginFormFlag)
-                //         $("#loginform").show();
-                //     },3000);
-                // },2000);
+//         var currentBig = Session.get("currentBig");
+//         var likeid = $(this).attr("likeid");
+//         if(!likeid){
+//             $(".statename").html("").css({"font-size": "48%","float":"right","top": "57%","left":"0%"});
+//             Session.set("userid",null);
+//             Session.set("userselfpic","");
+//             return;
+//             //console.log(Session.get("userid"))
+//         }           
+//         if(currentBig){              
+//             if(currentBig != likeid){                    
+//                 // var cursorRecent = Recents.findOne({"likeid":currentBig,"userid":Session.get("clientid")});                    
+//                 // if(!cursorRecent){                        
+//                     cursor = cursorparser();
+//                     if(cursor){
+//                         cursor.userid = Session.get("clientid");
+//                         cursor.display = "n";
+//                         cursor.date = new Date().getTime();
+//                         updateCursor(cursor);
+//                         delete cursor._id;
+//                         // Recents.insert(cursor);                    
+//                     }
+//                 // }  
+//                 beforeCurrentBig()
+//                 Session.set("currentBig",likeid);
+//                 // if(tutorialJSON.seventh)
+//                 // setTimeout(function(){
+//                 //     tutorialJSON = {};
+//                 //     tutorialFlag = false;
+//                 //     semanticpopup(31,31,"That's it!","Now repeat.");
+//                 //     semanticpopupTimeout = setTimeout(function(){
+//                 //         $("#sematicpopup").removeClass("visible");$("#tap").css({"display":"none"})
+//                 //         if(loginFormFlag)
+//                 //         $("#loginform").show();
+//                 //     },3000);
+//                 // },2000);
                 
-                // https://trello.com/c/ZIU48bDP/369-optimize-animation-putting-new-picture-in-big-for-speed-not-animation
+//                 // https://trello.com/c/ZIU48bDP/369-optimize-animation-putting-new-picture-in-big-for-speed-not-animation
 
-                // animateFeedToBig();
-                // console.log("inif")
-                tapOnFeedFlag = true;
-                // animateQuadrantPicsOnTap();
+//                 // animateFeedToBig();
+//                 // console.log("inif")
+//                 tapOnFeedFlag = true;
+//                 // animateQuadrantPicsOnTap();
             
-            }
-            else{     
-                    //    cursor = Likes.findOne({"likeid":currentBig,"userid":Session.get("clientid")})
-                    //console.log(cursor);                        
-                    //if(!cursor)
-                    //    cursor = Recommend.findOne({"likeid":currentBig,"followid":Session.get("clientid")})
-                    //if(!cursor)
-                    //    cursor = Popular.findOne({"likeid":currentBig,"userid":Session.get("clientid")}) 
-                    //if(!cursor)
-                    //    cursor = GlobalFeed.findOne({"globalid":Session.get("clientid"),"likeid":currentBig})
-                    //if(!cursor)
-                    //    cursor = Search.findOne({"likeid":Session.get("currentBig"),"userid":Session.get("clientid")});
-                    cursor = cursorparser()
-                    if(cursor){
-                        cursor.userid = Session.get("clientid");
-                        cursor.date = new Date().getTime();
-                        cursor.display = "n";
-                        updateCursor(cursor);
-                        delete cursor._id;
-                        // Recents.insert(cursor);                    
-                    }              
-                Session.set("currentBig",null);    
-            }                
-        }
-        else{               
-            //console.log(this);
-            beforeCurrentBig();
-            Session.set("currentBig",likeid);
-        }
-        $(".feed").removeClass("likeActive");
-        $(this).addClass("likeActive"); 
-        hideLikeButton();
+//             }
+//             else{     
+//                     //    cursor = Likes.findOne({"likeid":currentBig,"userid":Session.get("clientid")})
+//                     //console.log(cursor);                        
+//                     //if(!cursor)
+//                     //    cursor = Recommend.findOne({"likeid":currentBig,"followid":Session.get("clientid")})
+//                     //if(!cursor)
+//                     //    cursor = Popular.findOne({"likeid":currentBig,"userid":Session.get("clientid")}) 
+//                     //if(!cursor)
+//                     //    cursor = GlobalFeed.findOne({"globalid":Session.get("clientid"),"likeid":currentBig})
+//                     //if(!cursor)
+//                     //    cursor = Search.findOne({"likeid":Session.get("currentBig"),"userid":Session.get("clientid")});
+//                     cursor = cursorparser()
+//                     if(cursor){
+//                         cursor.userid = Session.get("clientid");
+//                         cursor.date = new Date().getTime();
+//                         cursor.display = "n";
+//                         updateCursor(cursor);
+//                         delete cursor._id;
+//                         // Recents.insert(cursor);                    
+//                     }              
+//                 Session.set("currentBig",null);    
+//             }                
+//         }
+//         else{               
+//             //console.log(this);
+//             beforeCurrentBig();
+//             Session.set("currentBig",likeid);
+//         }
+//         $(".feed").removeClass("likeActive");
+//         $(this).addClass("likeActive"); 
+//         hideLikeButton();
 
-        // Found a bug
-        Session.set("actionFollow",null);
-    }
-    catch(error){
-        console.log(error);
-        ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "tapOnFeed"});
-    }
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-}
-function progress1(percent, $element, percent1, $element1) {
-    var starttimer = new Date().getTime();
-        $("#outer")
-        .animate({"opacity":"1.0"},100,"linear")
-        $(".inner")
-        .animate({"opacity":"1.0"},100,"linear")
-        $("#hprogressBar")
-        .animate({"opacity":"1.0"},100,"linear")
-        $("#inner-inner")
-        .animate({"opacity":"1.0"},100,"linear")
-        promoteper=100-(percent1-63);
-        cursorlove=percent1-70;
-        $(".inner").css("height","0%")
-        $(".inner").animate({ "height": promoteper + "%" }, 800);
-        $("#inner-inner").css("top","100%")
-        $("#inner-inner").animate({ "top": cursorlove + "%" }, 750);
-        $("#inerhprogressBar").css("left","0%");
-        $element.find('div').css("width","0%");
-        setTimeout(function(){
-              $("#hprogressBar div")
-              //.animate({"opacity":"0.0"},500,"linear")
-              .animate({"opacity":"1.0"},100,"linear")
-               $("#inerhprogressBar")
-              //.animate({"opacity":"0.0"},1,"linear")
-              .animate({"opacity":"1.0"},100,"linear")
-              var hprogressBar = percent +2;
-              $("#inerhprogressBar").animate({ left: hprogressBar + "%" }, 800);
-              $element.find('div').animate({ width: hprogressBar + "%" }, 800);
-        },1500);
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-}
+//         // Found a bug
+//         Session.set("actionFollow",null);
+//     }
+//     catch(error){
+//         console.log(error);
+//         ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "tapOnFeed"});
+//     }
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+// }
+// function progress1(percent, $element, percent1, $element1) {
+//     var starttimer = new Date().getTime();
+//         $("#outer")
+//         .animate({"opacity":"1.0"},100,"linear")
+//         $(".inner")
+//         .animate({"opacity":"1.0"},100,"linear")
+//         $("#hprogressBar")
+//         .animate({"opacity":"1.0"},100,"linear")
+//         $("#inner-inner")
+//         .animate({"opacity":"1.0"},100,"linear")
+//         promoteper=100-(percent1-63);
+//         cursorlove=percent1-70;
+//         $(".inner").css("height","0%")
+//         $(".inner").animate({ "height": promoteper + "%" }, 800);
+//         $("#inner-inner").css("top","100%")
+//         $("#inner-inner").animate({ "top": cursorlove + "%" }, 750);
+//         $("#inerhprogressBar").css("left","0%");
+//         $element.find('div').css("width","0%");
+//         setTimeout(function(){
+//               $("#hprogressBar div")
+//               //.animate({"opacity":"0.0"},500,"linear")
+//               .animate({"opacity":"1.0"},100,"linear")
+//                $("#inerhprogressBar")
+//               //.animate({"opacity":"0.0"},1,"linear")
+//               .animate({"opacity":"1.0"},100,"linear")
+//               var hprogressBar = percent +2;
+//               $("#inerhprogressBar").animate({ left: hprogressBar + "%" }, 800);
+//               $element.find('div').animate({ width: hprogressBar + "%" }, 800);
+//         },1500);
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+// }
 
-function groupVoteRecommend(cursorFollowsGroup,left,top){
-    var starttimer = new Date().getTime();
-    var follows = cursorFollowsGroup.follows;
-    var picture = cursorFollowsGroup.picture;
-    for(var i=0,il=follows.length;i<il;i++){
-        GroupVoteRecommend.insert({"clientid":follows[i],"follows":follows,"picture":picture,"likeid":Session.get("currentBig"),"left":left,"top":top,"checked":false});
-    }
-    GroupVoteRecommend.insert({"clientid":Session.get("clientid"),"follows":follows,"picture":picture,"likeid":Session.get("currentBig"),"left":left,"top":top,"checked":false});
-        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-}
+// function groupVoteRecommend(cursorFollowsGroup,left,top){
+//     var starttimer = new Date().getTime();
+//     var follows = cursorFollowsGroup.follows;
+//     var picture = cursorFollowsGroup.picture;
+//     for(var i=0,il=follows.length;i<il;i++){
+//         GroupVoteRecommend.insert({"clientid":follows[i],"follows":follows,"picture":picture,"likeid":Session.get("currentBig"),"left":left,"top":top,"checked":false});
+//     }
+//     GroupVoteRecommend.insert({"clientid":Session.get("clientid"),"follows":follows,"picture":picture,"likeid":Session.get("currentBig"),"left":left,"top":top,"checked":false});
+//         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+// }
 
 
-VoteStart = null;
-function beforeCurrentBig(){
-    var starttimer = new Date().getTime();
-  activeLOPArray = [];
-  Session.set("actionFollow",null);
-  currentMoveRecc=null;
-  currentMoveVote=null;
-}
-function tapOnBigFeed(event){
+// VoteStart = null;
+// function beforeCurrentBig(){
+//     var starttimer = new Date().getTime();
+//   activeLOPArray = [];
+//   Session.set("actionFollow",null);
+//   currentMoveRecc=null;
+//   currentMoveVote=null;
+// }
+// function tapOnBigFeed(event){
      
-     var localDiv = this;
-     setTimeout(function(){tapOnBigFeedInterval(event,localDiv)},10)
+//      var localDiv = this;
+//      setTimeout(function(){tapOnBigFeedInterval(event,localDiv)},10)
                  
- }
-function tapOnBigFeedInterval(event,localDiv,voteInsert){
-    var starttimer = new Date().getTime();
-    try{
-           //console.log(event);     
-        VoteStart =   new Date().getTime() ;
-        var x = event.gesture.center.pageX - adjustLeft;
-        // console.log(x);
-        // console.log(adjustLeft);
-        // console.log(x - adjustLeft);
+//  }
+// function tapOnBigFeedInterval(event,localDiv,voteInsert){
+//     var starttimer = new Date().getTime();
+//     try{
+//            //console.log(event);     
+//         VoteStart =   new Date().getTime() ;
+//         var x = event.gesture.center.pageX - adjustLeft;
+//         // console.log(x);
+//         // console.log(adjustLeft);
+//         // console.log(x - adjustLeft);
         
-        var y = event.gesture.center.pageY;            
-        var height = $("#Main").height();
-        var width = $("#Main").width();
-        var bigheight = $("#quadrant").height();           
-        var left = (x/width) * 100;
-        var top = (y/height) * 100; 
-        var bigtop = (y/bigheight) * 100;           
-        left = Math.round(left) -5;
-        top = Math.round(top) - 5;
-        bigtop = Math.round(bigtop) - 5;   
-        var activeFollowsId = Session.get("activeFollows");
-        var currentBig = Session.get("currentBig");
-        var actionFollow = Session.get("actionFollow");
-        var currentElement = localDiv;
-        var voteFlag = true;
-        //console.log(actionFollow);
-        var quadrantPlace = checkQuadrant(left,top,false);
-        if(actionFollow){
-            $("#overlay").hide();
-            var cursorVotes = Votes.findOne({"_id":actionFollow})
-            if(cursorVotes){                    
-                Votes.update({"_id":cursorVotes._id},{$set :{"left": left ,"top": top,"place":quadrantPlace}});
-                currentMoveVote = cursorVotes._id;
-                flagVoteorRec = false;
-                progress1(left, $('#hprogressBar'),bigtop, $('#outer')); 
-                Me.update({"_id":Session.get("clientid")},{$inc:{"movedme":1}})               
-            }
-            else{
-                cursorVotes = Feed.findOne({"_id":actionFollow});
-                if(cursorVotes){
-                    Feed.update({"_id":cursorVotes._id},{$set :{"left": left ,"top": top,"place":quadrantPlace}}); 
-                    currentMoveRecc=cursorVotes._id;
-                    flagVoteorRec=true;
-                    progress1(left, $('#hprogressBar'),bigtop, $('#outer'));                  
-                    Me.update({"_id":Session.get("clientid")},{$inc:{"movedrecomm":1}})
-                }
+//         var y = event.gesture.center.pageY;            
+//         var height = $("#Main").height();
+//         var width = $("#Main").width();
+//         var bigheight = $("#quadrant").height();           
+//         var left = (x/width) * 100;
+//         var top = (y/height) * 100; 
+//         var bigtop = (y/bigheight) * 100;           
+//         left = Math.round(left) -5;
+//         top = Math.round(top) - 5;
+//         bigtop = Math.round(bigtop) - 5;   
+//         var activeFollowsId = Session.get("activeFollows");
+//         var currentBig = Session.get("currentBig");
+//         var actionFollow = Session.get("actionFollow");
+//         var currentElement = localDiv;
+//         var voteFlag = true;
+//         //console.log(actionFollow);
+//         var quadrantPlace = checkQuadrant(left,top,false);
+//         if(actionFollow){
+//             $("#overlay").hide();
+//             var cursorVotes = Votes.findOne({"_id":actionFollow})
+//             if(cursorVotes){                    
+//                 Votes.update({"_id":cursorVotes._id},{$set :{"left": left ,"top": top,"place":quadrantPlace}});
+//                 currentMoveVote = cursorVotes._id;
+//                 flagVoteorRec = false;
+//                 progress1(left, $('#hprogressBar'),bigtop, $('#outer')); 
+//                 Me.update({"_id":Session.get("clientid")},{$inc:{"movedme":1}})               
+//             }
+//             else{
+//                 cursorVotes = Feed.findOne({"_id":actionFollow});
+//                 if(cursorVotes){
+//                     Feed.update({"_id":cursorVotes._id},{$set :{"left": left ,"top": top,"place":quadrantPlace}}); 
+//                     currentMoveRecc=cursorVotes._id;
+//                     flagVoteorRec=true;
+//                     progress1(left, $('#hprogressBar'),bigtop, $('#outer'));                  
+//                     Me.update({"_id":Session.get("clientid")},{$inc:{"movedrecomm":1}})
+//                 }
                 
-            }
-            Session.set("actionFollow",null);
-            return;
-        }
+//             }
+//             Session.set("actionFollow",null);
+//             return;
+//         }
 
-        // Group condition
-        var groupType = FollowsGroup.findOne({"_id":activeFollowsId});
-        if(groupType){
-            groupVoteRecommend(groupType,left,top);
-            activeFollowsId = Session.get("clientid");
+//         // Group condition
+//         var groupType = FollowsGroup.findOne({"_id":activeFollowsId});
+//         if(groupType){
+//             groupVoteRecommend(groupType,left,top);
+//             activeFollowsId = Session.get("clientid");
 
-        } 
-        if(Number(Session.get("clientid")) < 0){
-            toast("Please login with Instagram to use the app.");
-        }
-        if(currentBig && activeFollowsId){
+//         } 
+//         if(Number(Session.get("clientid")) < 0){
+//             toast("Please login with Instagram to use the app.");
+//         }
+//         if(currentBig && activeFollowsId){
                 
                 
-                //console.log(cursorBig);
-                var cursorBig = null;
-                var cursorMine = null;
-                var cursorMe = null,cursorFollow = null;
-                cursorBig = cursorparser();
-                if(!cursorBig)
-                    return;
+//                 //console.log(cursorBig);
+//                 var cursorBig = null;
+//                 var cursorMine = null;
+//                 var cursorMe = null,cursorFollow = null;
+//                 cursorBig = cursorparser();
+//                 if(!cursorBig)
+//                     return;
                 
-                cursorFollow = Follows.findOne({"followid":activeFollowsId});
-                //cursorMe = Me.findOne({"followid":activeFollowsId});
-                //cursorMine = Me.findOne({"followid":Session.get("clientid")}) 
-                // console.log(cursorFollow)                   
-                if(activeFollowsId == Session.get("clientid")){
-                    progress1(left, $('#hprogressBar'),bigtop, $('#outer')); 
-                    voteFlag = false;
-                    var date = new Date().getTime();
-                    if(!cursorFollow)
-                        cursorFollow = {};
-                    if(voteInsert){
-                        cursorFollow = voteInsert;
-                        cursorBig = voteInsert;
-                    }
-                    profilePic = cursorFollow.profile_picture;
+//                 cursorFollow = Follows.findOne({"followid":activeFollowsId});
+//                 //cursorMe = Me.findOne({"followid":activeFollowsId});
+//                 //cursorMine = Me.findOne({"followid":Session.get("clientid")}) 
+//                 // console.log(cursorFollow)                   
+//                 if(activeFollowsId == Session.get("clientid")){
+//                     progress1(left, $('#hprogressBar'),bigtop, $('#outer')); 
+//                     voteFlag = false;
+//                     var date = new Date().getTime();
+//                     if(!cursorFollow)
+//                         cursorFollow = {};
+//                     if(voteInsert){
+//                         cursorFollow = voteInsert;
+//                         cursorBig = voteInsert;
+//                     }
+//                     profilePic = cursorFollow.profile_picture;
                     
-                    var VotesInsert = {"checked":false,"place":quadrantPlace,"profile_picture":cursorFollow.profile_picture, "followid":Session.get("clientid"),"likeid":cursorBig.likeid,"low":cursorBig.low ,"left": left,"top": top,"date" : date};
-                    actionArray.push(activeFollowsId);
-                    appendVotes(VotesInsert);
+//                     var VotesInsert = {"checked":false,"place":quadrantPlace,"profile_picture":cursorFollow.profile_picture, "followid":Session.get("clientid"),"likeid":cursorBig.likeid,"low":cursorBig.low ,"left": left,"top": top,"date" : date};
+//                     actionArray.push(activeFollowsId);
+//                     appendVotes(VotesInsert);
                     
                     
-                    currentMoveVote = Votes.insert(VotesInsert);
-                    flagVoteorRec = false;
-                    checkQuadrant(left,top,true);
-                    currentMoveRecc=null;
-                    var loud = left + (100 - top);
-                    Media.update({"_id":VotesInsert.likeid},{$inc:{"loud":loud,"vote":1}});
+//                     currentMoveVote = Votes.insert(VotesInsert);
+//                     flagVoteorRec = false;
+//                     checkQuadrant(left,top,true);
+//                     currentMoveRecc=null;
+//                     var loud = left + (100 - top);
+//                     Media.update({"_id":VotesInsert.likeid},{$inc:{"loud":loud,"vote":1}});
 
-                    // if(tutorialJSON.first && !tutorialJSON.second){
-                    //     $("#sematicpopup").removeClass("visible");$("#tap").css({"display":"none"});
-                    //     $("#tap").hammer().on("tap",tapOnBigFeed);
-                    //     clearInterval(tapBigTutorialInterval);
-                    //     semanticpopup(left,top,"vote",i18n.__("uvotethispic"));
-                    //     tutorialJSON.second = true;
-                    // }
+//                     // if(tutorialJSON.first && !tutorialJSON.second){
+//                     //     $("#sematicpopup").removeClass("visible");$("#tap").css({"display":"none"});
+//                     //     $("#tap").hammer().on("tap",tapOnBigFeed);
+//                     //     clearInterval(tapBigTutorialInterval);
+//                     //     semanticpopup(left,top,"vote",i18n.__("uvotethispic"));
+//                     //     tutorialJSON.second = true;
+//                     // }
                     
-                    // if(tutorialJSON.second && !tutorialJSON.third)
-                    // setTimeout(function(){
-                    //     tapBigTutorial(75,70,"recommend","Tap again on pic to recommend this pic to your friend.");
-                    //     tutorialJSON.third = true;
-                    // },1000);
-                    updateCursor(cursorBig);
+//                     // if(tutorialJSON.second && !tutorialJSON.third)
+//                     // setTimeout(function(){
+//                     //     tapBigTutorial(75,70,"recommend","Tap again on pic to recommend this pic to your friend.");
+//                     //     tutorialJSON.third = true;
+//                     // },1000);
+//                     updateCursor(cursorBig);
                                    
-                }
-                if(voteFlag || groupType){
-                    //userid is depricated
-                    // checkQuadrant(left,top,true);
-                    var cursorVotes = Votes.findOne({"followid":Session.get("clientid"),"likeid":currentBig});
-                    //console.log(cursorVotes)
-                    if(cursorVotes || groupType){
-                        var loopRecommend = [];
-                        if(!groupType){
-                            loopRecommend.push(activeFollowsId);
-                        }
-                        else{
-                            loopRecommend = groupType.follows;
-                        }
-                        for(var i=0,il=loopRecommend.length;i<il;i++){
-                            activeFollowsId = loopRecommend[i];
-                            cursorFollow = Follows.findOne({"followid":activeFollowsId});
-                            if(Number(activeFollowsId) <0){
-                                console.log("it's a guest user");
-                                cursorFollow = {"username":"guest","profile_picture":"images/face.jpg","followid": "" +activeFollowsId};
-                            }
-                            if(cursorFollow){
-                              //onRecommend();                      
-                                Me.update({"_id":Session.get("clientid")},{$inc :{"recomending":1,"yrecomending":1,"mrecomending":1,"wrecomending":1,"drecomending":1}});
-                                var insert = {"type":"r","display":"y","followusername" :cursorFollow.username, "profile_picture":cursorFollow.profile_picture,"followid":cursorFollow.followid,"likeid":cursorBig.likeid,"who":profilePic,"whoid":Session.get("clientid"),"whousername": Session.get("username"),"low":cursorBig.low /* ,"height":"50px","width":"50px","position":"absolute"*/,"left": left ,"top": top,"notification" : false,"seennotify":true,"tapnotify":true,"date" : new Date().getTime(),"distance":0,"checked":false};
-                                // Recommend.insert(insert); 
-                                // above old bottom new
-                                insert.clientid = cursorFollow.followid;
-                                insert.source = "recommend";
-                                insert.type = 3;
-                                insert.checked = false;
+//                 }
+//                 if(voteFlag || groupType){
+//                     //userid is depricated
+//                     // checkQuadrant(left,top,true);
+//                     var cursorVotes = Votes.findOne({"followid":Session.get("clientid"),"likeid":currentBig});
+//                     //console.log(cursorVotes)
+//                     if(cursorVotes || groupType){
+//                         var loopRecommend = [];
+//                         if(!groupType){
+//                             loopRecommend.push(activeFollowsId);
+//                         }
+//                         else{
+//                             loopRecommend = groupType.follows;
+//                         }
+//                         for(var i=0,il=loopRecommend.length;i<il;i++){
+//                             activeFollowsId = loopRecommend[i];
+//                             cursorFollow = Follows.findOne({"followid":activeFollowsId});
+//                             if(Number(activeFollowsId) <0){
+//                                 console.log("it's a guest user");
+//                                 cursorFollow = {"username":"guest","profile_picture":"images/face.jpg","followid": "" +activeFollowsId};
+//                             }
+//                             if(cursorFollow){
+//                               //onRecommend();                      
+//                                 Me.update({"_id":Session.get("clientid")},{$inc :{"recomending":1,"yrecomending":1,"mrecomending":1,"wrecomending":1,"drecomending":1}});
+//                                 var insert = {"type":"r","display":"y","followusername" :cursorFollow.username, "profile_picture":cursorFollow.profile_picture,"followid":cursorFollow.followid,"likeid":cursorBig.likeid,"who":profilePic,"whoid":Session.get("clientid"),"whousername": Session.get("username"),"low":cursorBig.low /* ,"height":"50px","width":"50px","position":"absolute"*/,"left": left ,"top": top,"notification" : false,"seennotify":true,"tapnotify":true,"date" : new Date().getTime(),"distance":0,"checked":false};
+//                                 // Recommend.insert(insert); 
+//                                 // above old bottom new
+//                                 insert.clientid = cursorFollow.followid;
+//                                 insert.source = "recommend";
+//                                 insert.type = 3;
+//                                 insert.checked = false;
 
-                                appendRecommend(insert);
-                                actionArray.push(activeFollowsId);
-                                currentMoveRecc = Feed.insert(insert);
-                                flagVoteorRec=true;
-                                Media.update({"_id":insert.likeid},{$inc:{"recomend":1}});
-                                // if(tutorialJSON.third && !tutorialJSON.fourth){
-                                //     $("#sematicpopup").removeClass("visible");$("#tap").css({"display":"none"});
-                                //     $("#tap").hammer().on("tap",openCloseFollows);
-                                //     clearInterval(tapBigTutorialInterval);
-                                //     semanticpopup(left,top,"Recommend",i18n.__("uguess")+" " +cursorFollow.username + " "+i18n.__("wouldtap"));
-                                //     tutorialJSON.fourth = true;                                    
-                                // }
-                                // if(tutorialJSON.fourth && !tutorialJSON.fifth){
-                                //     tapBigTutorial(82,37,"Recommend","Tap again on pic to recommend this pic to your friend.");
-                                //     //$("#tap").hammer().on("tap",tapOnFollowsIcons);
-                                //     tutorialJSON.fifth = true;
-                                // }
-                                // if(tutorialJSON.fourth && !tutorialJSON.fifth)
-                                // setTimeout(function(){
-                                //     // setTimeout(function(){
-                                //         var d = getLeftTop("#inner-inner");
-                                //         tapBigTutorial(d.left,d.top,"Love","Move your share meter for this pic.",20,0);
-                                //         tutorialJSON.fifth = true;
-                                //     // },4000);
-                                // },4000);
-                                // semanticpopup(left,top,"recommend","You recommend this pic to " +cursorFollow.username +"!");
-                                var messageNotify = Session.get("username") +" "+i18n.__("hassendpicture");
-                                TapmateNotification.insert({"senderid":cursorFollow.followid,"message":messageNotify,"notify":false,"low":insert.low,"likeid":insert.likeid});
-                                progress1(left, $('#hprogressBar'),bigtop, $('#outer'));
-                                Follows.update({"_id":cursorFollow._id},{$inc : {"hits":1}});
+//                                 appendRecommend(insert);
+//                                 actionArray.push(activeFollowsId);
+//                                 currentMoveRecc = Feed.insert(insert);
+//                                 flagVoteorRec=true;
+//                                 Media.update({"_id":insert.likeid},{$inc:{"recomend":1}});
+//                                 // if(tutorialJSON.third && !tutorialJSON.fourth){
+//                                 //     $("#sematicpopup").removeClass("visible");$("#tap").css({"display":"none"});
+//                                 //     $("#tap").hammer().on("tap",openCloseFollows);
+//                                 //     clearInterval(tapBigTutorialInterval);
+//                                 //     semanticpopup(left,top,"Recommend",i18n.__("uguess")+" " +cursorFollow.username + " "+i18n.__("wouldtap"));
+//                                 //     tutorialJSON.fourth = true;                                    
+//                                 // }
+//                                 // if(tutorialJSON.fourth && !tutorialJSON.fifth){
+//                                 //     tapBigTutorial(82,37,"Recommend","Tap again on pic to recommend this pic to your friend.");
+//                                 //     //$("#tap").hammer().on("tap",tapOnFollowsIcons);
+//                                 //     tutorialJSON.fifth = true;
+//                                 // }
+//                                 // if(tutorialJSON.fourth && !tutorialJSON.fifth)
+//                                 // setTimeout(function(){
+//                                 //     // setTimeout(function(){
+//                                 //         var d = getLeftTop("#inner-inner");
+//                                 //         tapBigTutorial(d.left,d.top,"Love","Move your share meter for this pic.",20,0);
+//                                 //         tutorialJSON.fifth = true;
+//                                 //     // },4000);
+//                                 // },4000);
+//                                 // semanticpopup(left,top,"recommend","You recommend this pic to " +cursorFollow.username +"!");
+//                                 var messageNotify = Session.get("username") +" "+i18n.__("hassendpicture");
+//                                 TapmateNotification.insert({"senderid":cursorFollow.followid,"message":messageNotify,"notify":false,"low":insert.low,"likeid":insert.likeid});
+//                                 progress1(left, $('#hprogressBar'),bigtop, $('#outer'));
+//                                 Follows.update({"_id":cursorFollow._id},{$inc : {"hits":1}});
 
-                                //replacing server call cause we have standard now
-                                //Meteor.call("incRecomend",cursorFollow.followid);  
-                                //Media.update({"_id":Session.get("currentBig")},{$inc:{"recommends":1}});
-                                if(groupType){
-                                }
-                                else{
-                                    var tstmgs=i18n.__("youRecommendPic1")+cursorFollow.username +i18n.__("youRecommendPic2")
-                                    toast(tstmgs);
-                                }
-                                //toast("You recommended this picture to " +cursorFollow.username +"<br>Will they tap the same spot?");                          
-                                var cursorFollow = Follows.findOne({"followid" : Session.get("clientid")})
-                                if(cursorFollow)
-                                    Follows.update({"_id":cursorFollow._id},{$inc : {"hits":2}});
-                                // left = left + 5;
-                                // top = top + 5;
-                            }
-                        }
+//                                 //replacing server call cause we have standard now
+//                                 //Meteor.call("incRecomend",cursorFollow.followid);  
+//                                 //Media.update({"_id":Session.get("currentBig")},{$inc:{"recommends":1}});
+//                                 if(groupType){
+//                                 }
+//                                 else{
+//                                     var tstmgs=i18n.__("youRecommendPic1")+cursorFollow.username +i18n.__("youRecommendPic2")
+//                                     toast(tstmgs);
+//                                 }
+//                                 //toast("You recommended this picture to " +cursorFollow.username +"<br>Will they tap the same spot?");                          
+//                                 var cursorFollow = Follows.findOne({"followid" : Session.get("clientid")})
+//                                 if(cursorFollow)
+//                                     Follows.update({"_id":cursorFollow._id},{$inc : {"hits":2}});
+//                                 // left = left + 5;
+//                                 // top = top + 5;
+//                             }
+//                         }
                         
-                    }
-                    else{
-                        //toast("Please Vote yourself");
-                    }
-                }                
-            Session.set("activeFollows",null);               
-        }
-    }
-    catch(error){
-        console.log(error);
-        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnBigFeed"});
-    }
-        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});     
-}
+//                     }
+//                     else{
+//                         //toast("Please Vote yourself");
+//                     }
+//                 }                
+//             Session.set("activeFollows",null);               
+//         }
+//     }
+//     catch(error){
+//         console.log(error);
+//         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnBigFeed"});
+//     }
+//         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});     
+// }
 function appendVotes(vote){
     $("#wrapperSec").append('<img class="voting dummyElement" style="left : ' +vote.left +'%;top:' +vote.top +'%;" myid="' +vote.followid +'" votingid="' +vote._id +'" src="' +vote.profile_picture +'">'); 
     setTimeout(removeDummy,300);
@@ -3312,27 +3312,27 @@ var defaultFeedArray =
 {likeid: "586163271886612245_3877984",low: "http://distilleryimage9.s3.amazonaws.com/007eebd84a1a11e381410e5cd106ae28_6.jpg"},
 {likeid: "586216653187884167_3877984",low: "http://distilleryimage11.s3.amazonaws.com/d1772b024a2811e38f3c0ab06fdbedbd_6.jpg"}
 ]
-function defaultfeeds(){
-    var starttimer = new Date().getTime();
-    var preload = null;
-    preload = get("preload");
-    if(!preload){
-        for(var i=0,il=defaultFeedArray.length;i<il;i++){
-            var insert = defaultFeedArray[i];
-            insert.date = new Date().getTime();
-            insert.display = "y";
-            insert.type = 1;
-            insert.checked = false;
-            insert.source = "preload";
-            insert.clientid = Session.get("clientid");
-            insert.checked = false;
-            Feed.insert(insert);
-        }
-        set("preload",true);
-    }
+// function defaultfeeds(){
+//     var starttimer = new Date().getTime();
+//     var preload = null;
+//     preload = get("preload");
+//     if(!preload){
+//         for(var i=0,il=defaultFeedArray.length;i<il;i++){
+//             var insert = defaultFeedArray[i];
+//             insert.date = new Date().getTime();
+//             insert.display = "y";
+//             insert.type = 1;
+//             insert.checked = false;
+//             insert.source = "preload";
+//             insert.clientid = Session.get("clientid");
+//             insert.checked = false;
+//             Feed.insert(insert);
+//         }
+//         set("preload",true);
+//     }
     
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"defaultfeeds","time":((new Date().getTime())-starttimer)});
-}
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"defaultfeeds","time":((new Date().getTime())-starttimer)});
+// }
 function logOutUser(){
     var starttimer = new Date().getTime();
     try{
@@ -5232,7 +5232,7 @@ function showKeywordPopup(){
         // $("#searchKeyword").attr("placeholder",i18n.__("enterkeyword"));
         if(Session.get("clientid")){
            $("#keywordPopup").show();
-          $("#keywordPopupBackground").show();
+          //$("#keywordPopupBackground").show();
           firstTimeConnectionFlag = false;
         }
     }
@@ -5267,22 +5267,22 @@ function searchHash(){
 //       //console.log(err);
 //       //console.log(data);      
 //   });
-//   $("#keywordPopup").hide(); 
+  $("#keywordPopup").hide(); 
 //   Session.get("searchKeyword",null);
   MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function onCLickHashGo(){
     $("#searchKeyword").attr("placeholder",i18n.__("enterkeyword"));
-    $("#keywordPopup").css("top","0%")
+    //$("#keywordPopup").css("top","0%")
     $("#keywordPopup").show(); 
-    $("#keywordPopupBackground").show(); 
-    $("#keywordPopup").animate({ "top": "43%" }, 700);
+    ///$("#keywordPopupBackground").show(); 
+    //$("#keywordPopup").animate({ "top": "43%" }, 700);
 }
 function onClickHashGoCancel(){
-    $("#keywordPopup").animate({ "top": "100%" }, 700,function(){
+    //$("#keywordPopup").animate({ "top": "100%" }, 700,function(){
       $("#keywordPopup").hide();
-      $("#keywordPopupBackground").hide();
-    });
+      //$("#keywordPopupBackground").hide();
+    // });
     Session.get("searchKeyword",null);
 }
 function onBigMenuClick(){
@@ -5341,19 +5341,19 @@ function autoSize(){
                 var height = $(one).width();      
                 $("#currentFollow").css({"height":height +"px","width":height +"px"});
             }
-            $("#section2").css({"display":"block"});
+            // $("#section2").css({"display":"block"});
         }
         else{
             $("#bodyWrapper").css({"left":"0px","margin-left": "0px","height":"100%","width":"100%"})
             $("#currentFollow").css({"height":"80px","width":"80px"});
-            $("#section2").css({"display":"none"});
+            // $("#section2").css({"display":"none"});
             $("#Main").css({"height":windowHeight,"width":windowWidth})
             adjustLeft = 0;
         }
         feedWidth = null;
         fitTextFunction();
-        if(Template.Section2)
-        Template.Section2.rendered();
+        // if(Template.Section2)
+        // Template.Section2.rendered();
         if(Template.Section3)
         Template.Section3.rendered();
         if(autoSizeTimeOut){
@@ -5416,7 +5416,7 @@ function bindEvents(){
         // $("#hash").hammer().on("tap",onCLickHashGo);
         $("#hashgosearch").hammer().on("tap",searchHash);
         $("#hashgocancel").hammer().on("tap",onClickHashGoCancel);
-        $("#keywordPopupBackground").hammer().on("tap",onClickHashGoCancel);
+        //$("#keywordPopupBackground").hammer().on("tap",onClickHashGoCancel);
         $("#loaderError").hammer().on("tap",function(){loginOnceReady(); hideLoader();});
         $("#instructionNext,#instructionPrev,#instructionDone").hammer().on("tap",onInstructionButtonClick);        
         $("#media").hammer().on("tap",onClickMedia);
@@ -5471,7 +5471,7 @@ function bindEvents(){
         // $("#chatboxclosebutton").hammer().on("tap",clickChatBoxCloseButton);
         // $("#chatsendbutton").hammer().on("tap",clickChatSendButton);
         FastClick.attach(document.body);
-        $("#addGroup").hammer().on("tap",addGroupButton);
+        // $("#addGroup").hammer().on("tap",addGroupButton);
         $("#atbutton").hammer().on("tap",onClickAtButton);
         $("#getEmailButton").hammer().on("tap",getEmailButton);
         $("#logininstagram").hammer().on("tap",onClicklogininstagram);
@@ -6772,27 +6772,27 @@ function openCloseSnapRight(){
 var followsFlag = false;
 function openCloseFollows(){
     if(followsFlag){
-        if(adjustLeft!=0){
-          $("#section2").transition({"left":"100%"});
-        }else{
-          $("#section2").transition({"left":"100%"},function(){$("#section2").hide();});
-        }
+        // if(adjustLeft!=0){
+        //   $("#section2").transition({"left":"100%"});
+        // }else{
+        //   $("#section2").transition({"left":"100%"},function(){$("#section2").hide();});
+        // }
         $("#currentFollowWrapper").transition({"right":"0px","width":"0%"});
         $("#currentFollow").transition({"right":"0px"});
         $("#openclosearrow").animate("class","left arrow icon");
     }
     else{
-        $("#section2").show();
-        $("#section2").transition({"left":"25%"});
+        // $("#section2").show();
+        // $("#section2").transition({"left":"25%"});
         $("#currentFollowWrapper").transition({"right":"75%","width":"25%"});
         $("#currentFollow").transition({"right":"75%"});
         $("#openclosearrow").animate("class","right arrow icon");
-        if(tutorialJSON.fifth && !tutorialJSON.sixth){
-            semanticpopup(82,36,"Users",i18n.__("urfriends"));
-            clearInterval(tapBigTutorialInterval);
-            tutorialJSON.sixth = true;
-            setTimeout(showLoginPopup,5000);
-        }
+        // if(tutorialJSON.fifth && !tutorialJSON.sixth){
+        //     semanticpopup(82,36,"Users",i18n.__("urfriends"));
+        //     clearInterval(tapBigTutorialInterval);
+        //     tutorialJSON.sixth = true;
+        //     setTimeout(showLoginPopup,5000);
+        // }
     }
     followsFlag = !followsFlag;
 }
@@ -6816,17 +6816,17 @@ function showLoginPopup(){
 // }
 /////////////////SNAPY//////////////
 ///////////////////////////////Group Div////////////////////////
-var groupflag = false;
-function onGroupButton(){
-    if(groupflag){
-        $("#groupDiv").animate({"right":"-9%"},"fast","easeOutBounce");
-        $("#groupButton").animate({"right":"89%"},"fast","easeOutBounce");
-    }else{
-        $("#groupDiv").animate({"right":"-100%"},"fast","easeOutBounce");
-        $("#groupButton").animate({"right":"0%"},"fast","easeOutBounce");
-    }
-    groupflag = !groupflag;
-}
+// var groupflag = false;
+// function onGroupButton(){
+//     if(groupflag){
+//         $("#groupDiv").animate({"right":"-9%"},"fast","easeOutBounce");
+//         $("#groupButton").animate({"right":"89%"},"fast","easeOutBounce");
+//     }else{
+//         $("#groupDiv").animate({"right":"-100%"},"fast","easeOutBounce");
+//         $("#groupButton").animate({"right":"0%"},"fast","easeOutBounce");
+//     }
+//     groupflag = !groupflag;
+// }
 
 
 

@@ -583,10 +583,13 @@ function onLoginWithTapmate(){
 function onSignUpWithTapmate(){
     var email = $("#seEmail").val();
     var pass = $("#sePass").val();
-    if(email && pass){
-        $("#seError").css("display","none");
-        Accounts.createUser({"email":email,"password":pass}, loginWithTapmateCallbackFunction);
-        TapmateUser = email;
+    if(email){
+        set("email",email);
+        set("clientid",email);
+        Session.set("clientid",email);
+        // $("#seError").css("display","none");
+        // Accounts.createUser({"email":email,"password":pass}, loginWithTapmateCallbackFunction);
+        // TapmateUser = email;
     }
     else{
         showLoginErrorMessage("onSignUpWithTapmate")
@@ -644,7 +647,7 @@ function documentReady(){
             setTimeout(location,120);
             setTimeout(defaultfeeds,150);
             setTimeout(showKeywordPopup,250);
-
+            suscribeMeteor();
             // snapy();  
             // autoLogin();
             // bindEvents();
@@ -1815,7 +1818,7 @@ Meteor.documentReady = documentReady;
     // } 
     Template.keyword.eachkeyword = function(){
         try{
-            return SponserKeyword.find({});            
+            return SponserKeyword.find({},{sort : {"hits": -1}});            
         }
         catch(error){
             console.log(error);
@@ -3849,12 +3852,12 @@ function autoLogin(){
             Session.set("username",window.localStorage.getItem("username"));
             Me.update({"_id":Session.get("clientid")},{$inc : {"alreadyloggedin":1,"yalreadyloggedin":1,"malreadyloggedin":1,"walreadyloggedin":1,"dalreadyloggedin":1}});
             firstTimeLoginFlag = true;
-            Meteor.call("firstTimeLogin",Session.get("clientid"),function(err,data){                
-                if(data){
-                    window.localStorage.setItem("profile_picture",data.profile_picture);
-                    profilePic = data.profile_picture;
-                }                
-            });
+            // Meteor.call("firstTimeLogin",Session.get("clientid"),function(err,data){                
+            //     if(data){
+            //         window.localStorage.setItem("profile_picture",data.profile_picture);
+            //         profilePic = data.profile_picture;
+            //     }                
+            // });
             //console.log(profilePic);
             checkFormAndTimer();
             restoreCollection();
@@ -5066,7 +5069,7 @@ function loginWithInstagramCallbackFunction(err){
                 }
                 preLoginAct();
                 showLoader("Login successful");   
-                Meteor.call("getInformation",pushId,function(error,data){
+                Meteor.cafll("getInformation",pushId,function(error,data){
                     var ClientId;
                     //console.log(error);
                     //console.log(data);
@@ -5107,7 +5110,7 @@ function loginWithInstagramCallbackFunction(err){
                                 }                                            
                             }
                     });                                
-                    Meteor.call("firstTimeLogin",Session.get("clientid")); 
+                    // Meteor.call("firstTimeLogin",Session.get("clientid")); 
                     Me.update({"_id":ClientId},{$inc : {"timesLoggedin" : 1}});             
                   }
                     //console.log(ClientId);

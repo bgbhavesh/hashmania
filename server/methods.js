@@ -213,10 +213,10 @@ language.html = [
                     }
                     else{
                         var followslink = "https://api.instagram.com/v1/users/" +ClientId +"/follows?access_token="+access;
-                        Meteor.setTimeout(function(){
-                            var giveMeJson = Meteor.http.get(followslink);
-                            App.followsParser(giveMeJson,ClientId);
-                        },100);
+                        // Meteor.setTimeout(function(){
+                        //     var giveMeJson = Meteor.http.get(followslink);
+                        //     App.followsParser(giveMeJson,ClientId);
+                        // },100);
                     }
 
                     if(!cursorMe){
@@ -653,28 +653,6 @@ language.html = [
             catch(error){
                 console.log(error);ErrorUpdate.insert({"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"methods.seachKeyword"})
             }
-        },
-        "findHashKeyword" : function(keyword){
-            
-            // try{
-                var cursorSponserKeyword = SponserKeyword.findOne({"keyword":keyword});
-                if(cursorSponserKeyword){
-                    SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});
-                }
-                else{
-                    SponserKeyword.insert({"keyword":keyword,"hits":1,"ranking":0});
-                }
-                console.log("seachKeyword start "+keyword)
-                var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
-                var searchurl = "https://api.instagram.com/v1/tags/" +keyword +"/media/recent?access_token="+access;              
-                data = Meteor.http.get(searchurl);
-                App.searchHashParser(data,keyword); 
-                console.log("seachKeyword end "+keyword)
-                return true;
-            // }
-            // catch(error){
-            //     console.log(error);ErrorUpdate.insert({"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"methods.seachKeyword"})
-            // }
         },
         "globalfeed" : function(id,access){
             console.log("globalfeed"+id)
@@ -1394,7 +1372,56 @@ language.html = [
             });
             // console.log(outDatedCollection)
             return outDatedCollection;
+        },
+
+        ////////////////////UserHashMania////////////////
+        
+        "findHashKeyword" : function(keyword){
+            
+            // try{
+                var cursorSponserKeyword = SponserKeyword.findOne({"keyword":keyword});
+                if(cursorSponserKeyword){
+                    SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});
+                }
+                else{
+                    SponserKeyword.insert({"keyword":keyword,"hits":1,"ranking":0});
+                }
+                console.log("seachKeyword start "+keyword)
+                var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
+                var searchurl = "https://api.instagram.com/v1/tags/" +keyword +"/media/recent?access_token="+access;              
+                data = Meteor.http.get(searchurl);
+                App.searchHashParser(data,keyword); 
+                console.log("seachKeyword end "+keyword)
+                return true;
+            // }
+            // catch(error){
+            //     console.log(error);ErrorUpdate.insert({"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"methods.seachKeyword"})
+            // }
+        },
+        "verifyHashEmail" : function(email){
+            
+            // try{
+                var cursorUserHashMania = UserHashMania.findOne({"_id":email});
+                var emailtoken = Random.id();
+                if(cursorUserHashMania){
+                    UserHashMania.update({"_id":email},{$set :{"_id":email,"email":email,"emailtoken":emailtoken}})
+                }
+                else{
+                    UserHashMania.insert({"_id":email,"email":email,"emailtoken":emailtoken})
+                }
+                Email.send({
+                            from: 'Tapmate <tapmate@youiest.com>',
+                            to:   email,            
+                            subject : "Welcome to HashMania " +username,
+                            text : "http://localhost:3000/verifyHashEmail/"+emailtoken
+                        });
+                return true;
+            // }
+            // catch(error){
+            //     console.log(error);ErrorUpdate.insert({"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"methods.seachKeyword"})
+            // }
         }
+        ////////////////////UserHashMania////////////////
     });
 
 

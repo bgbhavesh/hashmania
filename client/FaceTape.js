@@ -900,7 +900,18 @@ Meteor.documentReady = documentReady;
             
             $(".hashFeed").hammer().off("tap");  
             $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
-
+            $("#surveybig").hammer().off("tap");
+            $("#surveybig").hammer().on("tap",tapOnSurveyBig);
+    }
+    surveyToggleFlag = false;
+    function tapOnSurveyBig () {
+        if(surveyToggleFlag){
+            $("#surveybig").animate({"top":"10%"});
+        }
+        else{
+            $("#surveybig").animate({"top":"90%"});    
+        }
+        surveyToggleFlag = !surveyToggleFlag;
     }
 
     Template.srvyvotes.votes = function(){

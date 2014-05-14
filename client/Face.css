@@ -168,7 +168,11 @@ body{
 }
 #surveybig{
 	position: absolute;
-	margin-top: 10%;
+	height: 90%;
+	width: 100%;
+	z-index: 6;
+	background-color: blue;
+	top: 90%;
 }
 .menuarrow{
 	background-image: url(images/menuarrow.png);
@@ -1423,6 +1427,7 @@ body{
     position: absolute;
     left: 0px;
 }
+
 .bigFeed img{
 	height: 100%;
 	width: 100%;

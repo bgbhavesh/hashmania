@@ -614,25 +614,34 @@ function onLoginWithTapmate(){
         showLoginErrorMessage("onLoginWithTapmate")
     }
 }
-function onSignUpWithTapmate(){
-    var email = $("#seEmail").val();
-    var pass = $("#sePass").val();
-    if(email){
-        set("email",email);
-        set("clientid",email);
-        Session.set("clientid",email);
-        
-        // $("#seError").css("display","none");
-        // Accounts.createUser({"email":email,"password":pass}, loginWithTapmateCallbackFunction);
-        // TapmateUser = email;
-        Meteor.call("verifyHashEmail",email,function(){
-
-        });
-    }
-    else{
-        showLoginErrorMessage("onSignUpWithTapmate")
+function welcomeAlertPopup(){
+    var welcomeflag = get("welcomeAlert");
+    console.log(welcomeflag);
+    if(!welcomeflag){
+        $("#welcomePopUp").show();
+        $("#welcomePopUpBackground").show();
     }
 }
+function onSignUpWithTapmate(){
+      var email = $("#seEmail").val();
+      var pass = $("#sePass").val();
+      if(email){
+          set("email",email);
+          set("clientid",email);
+          Session.set("clientid",email);
+          welcomeAlertPopup();
+          set("welcomeAlert",true);
+          // $("#seError").css("display","none");
+          // Accounts.createUser({"email":email,"password":pass}, loginWithTapmateCallbackFunction);
+          // TapmateUser = email;
+          Meteor.call("verifyHashEmail",email,function(){
+          
+          });
+      }
+      else{
+          showLoginErrorMessage("onSignUpWithTapmate")
+      }
+  }
 // function convertEmail(email){
 //     email = email.toLowerCase();
 //     var finalEmail = "";
@@ -5307,8 +5316,12 @@ function searchHash(){
 //       //console.log(data);      
 //   });
   //$("#keywordPopup").hide(); 
-    $("#keywordPopup").animate({ "top": "43%" }, 700);
+    snapTopFlag = false;
+    //onclickopencloseSurvey();
 //   Session.get("searchKeyword",null);
+    // $("#surveybighandle").transition({"top":"15%"});
+    // $("#surveybig").transition({"top":"18%"});
+    //$("#updownarrow").animate("class","huge sort descending icon");
   MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function onCLickHashGo(){
@@ -5578,8 +5591,8 @@ function tapOnBodyWrapper(){
             ratingPopUp();
         }
         else if(tapCount==2){
-            $("#welcomePopUp").show();
-            $("#welcomePopUpBackground").show();
+            // $("#welcomePopUp").show();
+            // $("#welcomePopUpBackground").show();
             //$('#welcomePopUp').Popup();
         }
         else if(tapCount==10){

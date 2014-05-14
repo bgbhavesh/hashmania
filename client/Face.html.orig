@@ -53,8 +53,8 @@
 	<div id="welcomePopUpBackground"></div>
 	<div id="welcomePopUp" class="ui inverted segment"> <br>
 		<div id="pushtext">Welcome to Hash Mania!</div>
-		Facehash gets you on the map as an expert on a hash tag. Pick one and start tapping the images. 
-		The game is simple. Have fun!<br><br>
+		All you need to know to get started is this: tap the big image below! The first tap is your 
+		position and the following are guesses of others position. Have fun!<br><br>
 		<div id="hideWelcomePopUp" class="tiny circular ui button">ok</div><br><br>
 	</div>
 
@@ -166,9 +166,15 @@
 			
 	  </div> -->
 	  <div id="keywords">
+<<<<<<< HEAD
+			{{#each eachkeyword}}
+				<div class="eachkeyword {{color}}Keyword"> <u> #{{keyword}}</u>&nbsp;</div>
+			{{/each}}
+=======
 		{{#each eachkeyword}}
 			<div class="eachkeyword {{color}}Keyword"> <u> #{{keyword}}</u>&nbsp;</div>
 		{{/each}}		
+>>>>>>> 80386e2ee2aa7c2417f20f2de22a5acf52031dc9
 	</div>
   </div>
 </template>

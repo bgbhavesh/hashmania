@@ -1,3 +1,4 @@
+
 language = {};
 language.toast = {
     "gamestart"     :"Game starts..!",
@@ -1404,7 +1405,7 @@ language.html = [
         "verifyHashEmail" : function(email){
             
             // try{
-                console.log("verifyHashEmail")
+                console.log("verifyHashEmail " +email)
                 var cursorUserHashMania = UserHashMania.findOne({"_id":email});
                 var emailtoken = Random.id();
                 if(cursorUserHashMania){
@@ -1413,11 +1414,12 @@ language.html = [
                 else{
                     UserHashMania.insert({"_id":email,"email":email,"emailtoken":emailtoken,"verified":false})
                 }
+                console.log("http://localhost:3000/verifyHashEmail/"+emailtoken)
                 Email.send({
                             from: 'Tapmate <tapmate@youiest.com>',
                             to:   email,            
                             subject : "Welcome to HashMania " +email,
-                            text : "http://localhost:3000/verifyHashEmail/"+emailtoken
+                            text : ROOTURL +"/verifyHashEmail/"+emailtoken
                         });
                 return true;
             // }
@@ -1427,7 +1429,6 @@ language.html = [
         },
         "verifyHashEmailToken" : function(emailtoken,password){
             var cursorUserHashMania = UserHashMania.findOne({"emailtoken":emailtoken});
-            var emailtoken = Random.id();
             if(cursorUserHashMania){
                                                                                         // ,"emailtoken":"" can use for future
                 UserHashMania.update({"_id":cursorUserHashMania._id},{$set :{"verified":true,"password":password}});
@@ -1438,6 +1439,31 @@ language.html = [
                 return false;
             }
             return false;
+        },
+        "mergedMyFace" : function(emailtoken){
+            var cursorUserHashMania = UserHashMania.findOne({"emailtoken":emailtoken});
+            console.log(cursorUserHashMania);
+            if(cursorUserHashMania){
+                                                                                        // ,"emailtoken":"" can use for future
+                
+                if(Meteor.user()){
+                        if(Meteor.user().services.instagram){
+                            var insert = {}
+                            insert.instagramID = Meteor.user().services.instagram.id;
+                            insert.instagramUsername = Meteor.user().services.instagram.username;
+                            insert.instagramToken = Meteor.user().services.instagram.accessToken;
+                            insert.instagramFace = Meteor.user().profile.picture
+                            insert.instagramFullname = Meteor.user().profile.name;
+                            UserHashMania.update({"_id":cursorUserHashMania._id},{$set :insert});                            
+                        }
+
+                    }
+                return true;
+            }
+            else{
+                console.log("Sorry bad token");
+                return false;
+            }
         }
         ////////////////////UserHashMania////////////////
     });

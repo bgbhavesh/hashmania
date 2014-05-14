@@ -1437,6 +1437,40 @@ body{
 .littleBig{
 
 }
+
+#thankyouBackgroud{
+	background-color: black;
+	opacity: 0.7;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 15;
+	display: none;
+}
+#thankyou{
+	background-color: black;
+	opacity: 0.7;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: none;
+	z-index: 20;
+	left: 50%;
+	top: 50%;
+	margin-left: -40%;
+	width: 80%;
+	height: auto;
+	margin-top: -75px;
+	text-align: center;
+}
+.loginButton{
+	position: relative;
+
+}
+.hideWelcomePopUp{
+	left: 46%;
+	position: relative;
+}
 .likeActive{	
 	background-color:orange;
 }
@@ -1983,6 +2017,7 @@ textarea[name="header"]{
 	font-weight: bolder;
 	font-family: serif;
 	font-size: 15px;
+	text-align: center;
 }
 #guestLogin{
 	display: none;

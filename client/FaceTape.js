@@ -548,6 +548,8 @@ Template.loginWithInstagram.rendered = function(){
         $(".emailClass").hide();
         $(".passwordClass").show();
 
+        showSpecialPopup("thankyou");        
+
         $("#seSignup").hide();
         $("#seLogin").show();
         
@@ -563,6 +565,14 @@ Template.loginWithInstagram.rendered = function(){
     // $("#signupButton").hammer().on("tap",onLoginWithAppButton);
     // $("#signupWithAppButton").hammer().on("tap",onSignupWithAppButton);
     // $("#loginWithAppCancelButton").hammer().on("tap",hideLoginForm);
+}
+function showSpecialPopup(id){
+    $("#"+id).show();
+    $("#"+$("#"+id).attr("ref")).show();
+}
+function hideSpecialPopup(id){
+    $("#"+id).hide();
+    $("#"+$("#"+id).attr("ref")).hide();
 }
 var previousid = null;
 function preLoginAction(){
@@ -5038,12 +5048,22 @@ function onClickMedia(){
 }
 
 function loginWithInstagram(){
-    console.log("loginWithInstagram");
-    
+    $("#loginwithInsta,#loginButton").hide();
+    setTimeout(function(){$("#loginwithInsta,#loginButton").show();},3000);
     preLoginAction();
-    Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramCallbackFunction);
+    Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramHashManiaCallbackFunction);
 }
-                                                  
+function loginWithInstagramHashManiaCallbackFunction(err){
+    if(err){
+
+    }
+    else{
+        Meteor.call("mergedMyFace",emailAuthFlag,function(){
+            hideSpecialPopup("thankyou");
+            console.log("here too")
+        })
+    }
+}                                                 
 var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent); 
 var display = mobile ? 'touch' : 'popup';   
 function loginWithFacebook(){
@@ -5517,6 +5537,12 @@ function bindEvents(){
         $(".ui.heart.rating .icon").hammer().on("tap",setRattings);
         $("#bodyWrapper").hammer().on("tap",tapOnBodyWrapper);
         $(".appname").hammer().on("tap",onCLickHashGo);
+
+        // 
+            $("#loginButtonWithInstagram").hammer().off("tap",loginWithInstagram)
+            $("#loginButtonWithInstagram").hammer().on("tap",loginWithInstagram);
+
+        // 
         touchScroll("snapy");
             ///Last Event
             // if(!Session.get("phonegap"))
@@ -7119,6 +7145,7 @@ function bindTouchEvents(){
     // touchScroll("section2");
     // touchScroll("section3");
 }
+
 function clickOnLoginButton(){
     var starttimer = new Date().getTime();
     try{

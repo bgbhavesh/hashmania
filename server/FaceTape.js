@@ -509,6 +509,20 @@ function testingFunction(){
     // EmailCollection.remove({});
     // Tapmate.remove({})
 }
+
+// Development Settings
+
+DebugFace = null;
+if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
+    DebugFace = true;
+ROOTURL = ""
+if(DebugFace)
+    ROOTURL = "http://localhost:3000"
+else
+    ROOTURL = "http://hashrepublic.meteor.com"
+
+
+
 App.testingFunction = testingFunction;
 var ACCESSTOKEN = null;
 TOKEN = "491204471.f28d28f.66d2f419e7d64a4fbe81a7277aa70c78";

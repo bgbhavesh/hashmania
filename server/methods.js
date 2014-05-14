@@ -595,6 +595,7 @@ language.html = [
         "popular" : function(id,access){
             console.log(id)
             try{
+                return;
                  if(Meteor.user() != null || Meteor.user() != undefined){
                     var popularurl = "https://api.instagram.com/v1/media/popular";
                     if(Meteor.user().services.instagram){
@@ -604,7 +605,7 @@ language.html = [
 
                     var popularurl = "https://api.instagram.com/v1/media/popular?access_token="+access;
                     data = Meteor.http.get(popularurl); 
-                    likesPopularParser(data,id,access); 
+                    App.likesPopularParser(data,id,access); 
                     return true;
                 }
                 if(id && !access){
@@ -615,7 +616,7 @@ language.html = [
                     data = Meteor.http.get(popularurl);
                     console.log(dataid.id)
                     console.log(dataid.access)
-                    likesPopularParser(data,dataid.id,dataid.access);
+                    App.likesPopularParser(data,dataid.id,dataid.access);
                     return true;
                 }
             }
@@ -1386,6 +1387,8 @@ language.html = [
                 else{
                     SponserKeyword.insert({"keyword":keyword,"hits":1,"ranking":0});
                 }
+                if(HashKeyword.find({"keyword":keyword}).count()>10)
+                    return;
                 console.log("seachKeyword start "+keyword)
                 var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
                 var searchurl = "https://api.instagram.com/v1/tags/" +keyword +"/media/recent?access_token="+access;              
@@ -1443,167 +1446,3 @@ language.html = [
 
 /////Method ENDS///
 
-function likesPopularParser(myJson,ids,access){
-    console.log("pouplar start");
-    myJson = myJson.data;
-    var data = null;
-    if(myJson.meta.code == 200){
-        data = myJson.data;
-        for(var i=0,il=data.length;i<il;i++){
-            //data[i]            
-            var insert = {"type":"p","display":"y","userid": ids,"likeid":data[i].id ,"standard":data[i].images.standard_resolution.url,"thumb":data[i].images.thumbnail.url,"low":data[i].images.low_resolution.url, "counts":data[i].likes.count,"voting":0};
-            // cursor = Popular.findOne({"likeid":insert.likeid,"userid": ids});
-            if(false){
-                // var id = insert.likeid;
-                // insert._id = null;
-                // delete insert._id;
-                //Popular.update({"likeid":id,"userid": ids},{$set :insert});
-            }
-            else{                    
-                // Popular.insert(insert);
-
-
-                insert.clientid = ids;
-                insert.source = "popular";
-                insert.type = 8;
-                insert.checked = false;
-                Feed.insert(insert);
-                Meteor.call("media",insert.likeid,access);
-            }                           
-        }
-    }
-    else{
-
-    }
-    console.log("popular ended");
-} 
-// function globalFeedParser(ids,access){ 
-//         console.log("global feed parse start"+access+"/"+ids);
-//         if(!ids){
-//             console.log(error);
-//             ErrorUpdate.insert({"error": "no id","side":"server"});
-//             return;      
-//         }
-//         var counter = 0;
-//         var likeidArray = [];
-//         var cursorVotes = Votes.find({},{sort : {"date":-1},limit:200});
-//         // var cursorRecents = GlobalFeed.find({"globalid":ids});
-//         var followidArray = [];
-//         // cursorRecents.forEach(function(data){
-//         //     likeidArray[likeidArray.length] = data.likeid;
-//         // });
-//         cursorVotes.forEach(function(data){            
-//                 if(counter>10)
-//                     return;
-//             if(data.followid != ids){
-//                 for(var i=0,il=likeidArray.length;i<il;i++){
-//                     if(likeidArray[i] == data.likeid)
-//                         return;
-//                 }
-//                 for(var i=0,il=followidArray.length;i<il;i++){
-//                     if(followidArray[i] == data.followid)
-//                         return;
-//                 }
-//                 likeidArray[likeidArray.length] = data.likeid;
-//                 followidArray[followidArray.length] = data.followid
-//                 delete data._id;
-//                 data.globalid = ids;
-//                 data.type = "g";
-//                 data.display = "y";
-
-//                 // GlobalFeed.insert(data);
-
-//                 var insert = data;
-                
-//                 // Due to votes do not have the low attribute 
-//                 if(insert){
-//                     var cursorFeed = Feed.findOne({"likeid":data.likeid})
-//                     if(cursorFeed){
-//                         if(cursorFeed.low){
-//                             insert.low = cursorFeed.low;
-//                             insert.clientid = ids;
-//                             insert.source = "globalfeed";
-//                             insert.type = 4;
-//                             insert.checked = false;
-//                             console.log(insert);
-//                             Feed.insert(insert);
-//                             Meteor.call("media",data.likeid,access);
-//                             counter++;
-//                         }
-//                     }
-//                 }
-                
-                
-//             }
-//         });
-//         console.log("global feed parse ends");
-//         // checkMyDuplicateAlreadyVotedFeed(ids);
-//     }
-    function parseFeed(data,id,access){
-        console.log("parseFeed start");
-        // console.log(data.statusCode);
-        var nexturl = data.data.pagination.next_url;
-        Me.update({"_id":id},{$set:{"nexturl":nexturl}})
-                
-        if(data.statusCode == 200){
-            data = data.data.data;
-            for(var i=0,il=data.length;i<il;i++){
-                var temp = data[i];
-                var low = temp.images.low_resolution.url;
-                // console.log(temp);
-                var insert = {"display":"y","type":"f","globalid":id,"likeid":temp.id,"low":low}
-                // var cursorGlobalFeed = GlobalFeed.findOne({"likeid":insert.likeid,"globalid":id})
-                if(true){
-                    // GlobalFeed.insert(insert);
-
-                    insert.clientid = id;
-                    insert.source = "feed";
-                    insert.type = 7;
-                    insert.checked = false;
-                    Feed.insert(insert);
-                    Meteor.call("media",insert.likeid,access);
-                }
-                //Something more.
-            }
-            console.log("parseFeed end");
-            return data.length;
-        }
-        console.log("parseFeed end");
-    }
-        function searchParser(myJson,ids,access,tag){
-          console.log("search start");
-          myJson = myJson.data;
-          var data = null;
-          if(myJson.meta.code == 200){
-            data = myJson.data;
-              
-            for(var i=0,il=data.length;i<il;i++){
-              //data[i]            
-                var insert = {"type":"s","keyword":tag,"display":"y","userid": ids,"likeid":data[i].id ,"standard":data[i].images.standard_resolution.url,"thumb":data[i].images.thumbnail.url,"low":data[i].images.low_resolution.url, "counts":data[i].likes.count,"voting":0};
-              //   cursorSearch = Search.findOne({"likeid":insert.likeid,"userid": ids});
-              // if(!cursorSearch)
-              //     cursorSearch = Recents.findOne({"likeid":insert.likeid,"userid": ids});
-              if(false){
-                // var id = insert.likeid;
-                // insert._id = null;
-                // delete insert._id;
-                //Popular.update({"likeid":id,"userid": ids},{$set :insert});
-              }
-              else{                    
-                //old standard
-                // Search.insert(insert);
-
-                insert.clientid = ids;
-                insert.source = "search";
-                insert.type = 9;
-                insert.checked = false;
-                Feed.insert(insert); 
-                Meteor.call("media",insert.likeid,access);
-              }                           
-            }
-          }
-          else{
-            
-          }
-          console.log("search ended");
-        }

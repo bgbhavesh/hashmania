@@ -1,3 +1,4 @@
+/** @jsx React.DOM */
 /*
 YOUIEST LLC CONFIDENTIAL
 
@@ -310,12 +311,7 @@ function suscribeMeteor(ClientId){
 //     if(Session.get("chatid"))
 //     Meteor.subscribe("chat",Session.get("clientid"),Session.get("chatid"));   
 // })
-Deps.autorun(function(){
-    if(Session.get("keyword")){
-        Meteor.subscribe("hashkeyword",Session.get("keyword"));   
-        set("keyword",Session.get("keyword"))
-    }
-})
+
 //// All for the Admin but now no need of it //// 
 function suscribeAll(){
     return;
@@ -1942,6 +1938,8 @@ function StopSession(){
     UserSession.insert(SessionInsert);
 }
 function saveIndividual(name){
+    if(!window[name])
+        return;
   var starttimer = new Date().getTime();
     var cursor = window[name].find({});
     // window.localStorage.setItem("follow",);
@@ -5540,7 +5538,7 @@ function tapOnBodyWrapper(){
             //$('#welcomePopUp').Popup();
         }
         else if(tapCount==10){
-            showKeywordPopup();
+                showKeywordPopup();
         }
         tapCount++;
     }
@@ -5548,6 +5546,7 @@ function tapOnBodyWrapper(){
 function ratingPopUp(){
     var cursorMe = Me.findOne({"_id":Session.get("clientid")});
     // console.log("tapCount"+cursorMe.rating);
+    if(cursorMe)
     if(!cursorMe.rating){
         $("#RatingPopUp").css("top","0%")
         $("#RatingPopUp").show();
@@ -7128,3 +7127,48 @@ function clickOnLoginButton(){
     }  
         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"clickOnLoginButton","time":((new Date().getTime())-starttimer)});         
 }
+Meteor.startup(function () {
+    Deps.autorun(function(){
+        if(Session.get("keyword")){
+            Meteor.subscribe("hashkeyword",Session.get("keyword"));   
+            set("keyword",Session.get("keyword"))
+        }
+    })
+    SponserKeyword.find({}).observe({
+        "added" : function(first){
+            React.renderComponent(
+                ExampleApplication({elapsed: first}),
+                document.getElementById('keywords')
+            );
+        },
+        "changed" : function  (argument) {
+            React.renderComponent(
+                ExampleApplication({elapsed: first}),
+                document.getElementById('keywords')
+            );  
+        },
+        "removed" : function (first) {
+            React.renderComponent(
+                ExampleApplication({elapsed: first}),
+                document.getElementById('keywords')
+            );
+        }
+    });
+    var ExampleApplication = React.createClass({
+        render: function() {
+            var myCollection = [];
+            $.each(SponserKeyword._collection._docs._map, function(key, value){
+                myCollection.push(value);
+            });
+          var message =
+            '';
+            for(var i=0,il=myCollection.length;i<il;i++){
+                message += "#" +myCollection[i].keyword
+            }
+          return React.DOM.div(null, message);
+        }
+    });
+    // SponserKeyword._collection._docs._map
+    // <div class="eachkeyword {{color}}Keyword"> <u> #{{keyword}}</u>&nbsp;</div>
+
+})

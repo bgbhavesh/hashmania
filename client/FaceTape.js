@@ -5305,7 +5305,7 @@ function searchHash(){
 //       //console.log(data);      
 //   });
   //$("#keywordPopup").hide(); 
-    $("#keywordPopup").animate({ "top": "43%" }, 700);
+    //$("#keywordPopup").animate({ "top": "43%" }, 700);
 //   Session.get("searchKeyword",null);
   MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }

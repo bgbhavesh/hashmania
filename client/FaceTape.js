@@ -7136,38 +7136,38 @@ Meteor.startup(function () {
     })
     SponserKeyword.find({}).observe({
         "added" : function(first){
-            React.renderComponent(
-                ExampleApplication({elapsed: first}),
-                document.getElementById('keywords')
-            );
+            // React.renderComponent(
+            //     ExampleApplication({elapsed: first}),
+            //     document.getElementById('keywords')
+            // );
         },
         "changed" : function  (argument) {
-            React.renderComponent(
-                ExampleApplication({elapsed: first}),
-                document.getElementById('keywords')
-            );  
+            // React.renderComponent(
+            //     ExampleApplication({elapsed: first}),
+            //     document.getElementById('keywords')
+            // );  
         },
         "removed" : function (first) {
-            React.renderComponent(
-                ExampleApplication({elapsed: first}),
-                document.getElementById('keywords')
-            );
+            // React.renderComponent(
+            //     ExampleApplication({elapsed: first}),
+            //     document.getElementById('keywords')
+            // );
         }
     });
-    var ExampleApplication = React.createClass({
-        render: function() {
-            var myCollection = [];
-            $.each(SponserKeyword._collection._docs._map, function(key, value){
-                myCollection.push(value);
-            });
-          var message =
-            '';
-            for(var i=0,il=myCollection.length;i<il;i++){
-                message += "#" +myCollection[i].keyword
-            }
-          return React.DOM.div(null, message);
-        }
-    });
+    // var ExampleApplication = React.createClass({
+    //     render: function() {
+    //         var myCollection = [];
+    //         $.each(SponserKeyword._collection._docs._map, function(key, value){
+    //             myCollection.push(value);
+    //         });
+    //       var message =
+    //         '';
+    //         for(var i=0,il=myCollection.length;i<il;i++){
+    //             message += "#" +myCollection[i].keyword
+    //         }
+    //       return React.DOM.div(null, message);
+    //     }
+    // });
     // SponserKeyword._collection._docs._map
     // <div class="eachkeyword {{color}}Keyword"> <u> #{{keyword}}</u>&nbsp;</div>
 

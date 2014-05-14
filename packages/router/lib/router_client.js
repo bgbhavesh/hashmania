@@ -85,13 +85,8 @@
     }
     
     if (typeof Handlebars !== 'undefined') {
-      if (isBlaze()) {
-        UI.body[pathName] = _.bind(self[pathName], self);
-        UI.body[urlName] = _.bind(self[urlName], self);
-      } else {
-        Handlebars.registerHelper(pathName, _.bind(self[pathName], self));
-        Handlebars.registerHelper(urlName, _.bind(self[urlName], self));
-      }
+      Handlebars.registerHelper(pathName, _.bind(self[pathName], self));
+      Handlebars.registerHelper(urlName, _.bind(self[urlName], self));
     }
   }
   
@@ -183,10 +178,4 @@
   
   Meteor.Router = new Router();
   Meteor.startup(function() { page(); });
-
-  // returns true if current release of Meteor is released with new template
-  // rendering engine called "Blaze"
-  isBlaze = function() {
-  	return !!Package.ui	
-  }
 }());

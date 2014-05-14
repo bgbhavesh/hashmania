@@ -5273,20 +5273,21 @@ function searchHash(){
 //       //console.log(err);
 //       //console.log(data);      
 //   });
-  $("#keywordPopup").hide(); 
+  //$("#keywordPopup").hide(); 
+    $("#keywordPopup").animate({ "top": "43%" }, 700);
 //   Session.get("searchKeyword",null);
   MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function onCLickHashGo(){
     $("#searchKeyword").attr("placeholder",i18n.__("enterkeyword"));
     //$("#keywordPopup").css("top","0%")
-    $("#keywordPopup").show(); 
+    //$("#keywordPopup").show(); 
     ///$("#keywordPopupBackground").show(); 
     //$("#keywordPopup").animate({ "top": "43%" }, 700);
 }
 function onClickHashGoCancel(){
     //$("#keywordPopup").animate({ "top": "100%" }, 700,function(){
-      $("#keywordPopup").hide();
+      //$("#keywordPopup").hide();
       //$("#keywordPopupBackground").hide();
     // });
     Session.get("searchKeyword",null);
@@ -5433,6 +5434,11 @@ function bindEvents(){
         // $("#tutNext").hammer().on("tap",tutorialNextButton);
         // $("#tutPrev").hammer().on("tap",tutorialPreviousButton);
         // $("#tutDone").hammer().on("tap",tutorialDoneButton);
+
+
+        $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+
+
         $("#gamePromptOkButton").hammer().on("tap",function()
             {console.log("gamePromptOkButton");gamePrompt();});
         $("#hideWelcomePopUp").hammer().on("tap",hideWelcomePopUp);
@@ -5464,7 +5470,7 @@ function bindEvents(){
         // $("#startWalkthrough").hammer().on("tap",onStartWalkthrou );
         $("#pushNotification").hammer().on("tap",pushNotificationClick);
         $("#sendMail").hammer().on("tap",onsendMail);
-        $("#optimize").hammer().on("tap",onOptimize)
+        $("#optimize").hammer().on("tap",onOptimize);
         $("#videotutorial").hammer().on("tap",function()
             {openCloseSnapLeft();window.open("https://www.youtube.com/watch?v=Z24Uw2OHx6o", '_system');});
         //$(".language a").hammer().on("tap",onSetLang);
@@ -5538,7 +5544,7 @@ function tapOnBodyWrapper(){
             //$('#welcomePopUp').Popup();
         }
         else if(tapCount==10){
-                showKeywordPopup();
+                //showKeywordPopup();
         }
         tapCount++;
     }
@@ -6727,7 +6733,20 @@ function randomGame(){
  */
 
 /////////////////GAMESECTION//////////////
-
+var snapTopFlag = false;
+function onclickopencloseSurvey(){
+    if(snapTopFlag){        
+        $("#surveybighandle").transition({"top":"87%"});
+        $("#surveybig").transition({"top":"90%"});
+        $("#updownarrow").animate("class","huge sort ascending icon");
+    }
+    else{
+        $("#surveybighandle").transition({"top":"15%"});
+        $("#surveybig").transition({"top":"18%"});
+        $("#updownarrow").animate("class","huge sort descending icon");
+    }
+    snapTopFlag = !snapTopFlag;
+}
 
 
 /////////////////SNAPY//////////////

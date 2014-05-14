@@ -166,15 +166,13 @@
 			
 	  </div> -->
 	  <div id="keywords">
-		
+		{{#each eachkeyword}}
+			<div class="eachkeyword {{color}}Keyword"> <u> #{{keyword}}</u>&nbsp;</div>
+		{{/each}}		
 	</div>
   </div>
 </template>
-<!-- 
-{{#each eachkeyword}}
-				<div class="eachkeyword {{color}}Keyword"> <u> #{{keyword}}</u>&nbsp;</div>
-		{{/each}}
- -->
+
 <template name="loginWithInstagram">
 	
    	<div id="loginsignupform" class="ui form segment">

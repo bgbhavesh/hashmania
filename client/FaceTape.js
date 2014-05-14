@@ -910,8 +910,10 @@ Meteor.documentReady = documentReady;
             
             $(".hashFeed").hammer().off("tap");  
             $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
-            $("#surveybig").hammer().off("tap");
-            $("#surveybig").hammer().on("tap",tapOnSurveyBig);
+            // $("#surveybig").hammer().off("tap");
+            // $("#surveybig").hammer().on("tap",tapOnSurveyBig);
+            $("#surveybighandle").hammer().off("tap");
+            $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
     }
     surveyToggleFlag = false;
     function tapOnSurveyBig () {
@@ -5268,7 +5270,7 @@ function showKeywordPopup(){
         // if(!DebugFace)
         // $("#searchKeyword").attr("placeholder",i18n.__("enterkeyword"));
         if(Session.get("clientid")){
-           $("#keywordPopup").show();
+            $("#keywordPopup").show();
           //$("#keywordPopupBackground").show();
           firstTimeConnectionFlag = false;
         }
@@ -5467,7 +5469,7 @@ function bindEvents(){
         // $("#tutDone").hammer().on("tap",tutorialDoneButton);
 
 
-        $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+        
 
 
         $("#gamePromptOkButton").hammer().on("tap",function()
@@ -5544,11 +5546,11 @@ function bindEvents(){
         $("#bodyWrapper").hammer().on("tap",tapOnBodyWrapper);
         $(".appname").hammer().on("tap",onCLickHashGo);
 
-        // 
+        // HASH MANIA 
             $("#loginButtonWithInstagram").hammer().off("tap",loginWithInstagram)
             $("#loginButtonWithInstagram").hammer().on("tap",loginWithInstagram);
 
-        // 
+        //  HASH MANIA 
         touchScroll("snapy");
             ///Last Event
             // if(!Session.get("phonegap"))

@@ -181,6 +181,14 @@ body{
 	height: 100%;
 	width: 100%;
 	position: absolute;
+<<<<<<< HEAD
+	height: 90%;
+	width: 100%;
+	z-index: 6;
+	background-color: blue;
+	top: 90%;
+=======
+>>>>>>> 175bfa71b11c18e24ef19740e16f4a0596a3849f
 }
 .menuarrow{
 	background-image: url(images/menuarrow.png);

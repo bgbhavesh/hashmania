@@ -156,9 +156,9 @@
 			<i  id="hashgosearch" class="search icon"></i>
 			
 	    </div>	
-	    <div  id="hashgocancel" class="ui icon button">
+	   <!--  <div  id="hashgocancel" class="ui icon button">
 			<i class="remove circle icon"></i>
-	    </div> 
+	    </div>  -->
 	    <!-- <div id="hashgocancel" class="ui button"> </div> -->
 	  <!-- <div id="keywordButton">
 		  #<input id="searchKeyword" type="text">
@@ -333,7 +333,9 @@
 </template>
 
 <template name="hashmania">
-  <div id="surveybig" class="ui labeled vertical fluid  icon menu" style="overflow-y: scroll;height: 100%;width: 100%;margin-top:11%;position: absolute;">
+	<div id="surveybighandle"><i class="huge sort ascending icon" id="updownarrow"></i></div>
+  <div id="surveybig" class="ui labeled vertical fluid  icon menu" style="">
+
         {{#each eachBig}}
             <div class="hashFeed" likeid="{{likeid}}"> 
               {{#isolate}}   

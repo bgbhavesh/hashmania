@@ -517,9 +517,9 @@ if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
     DebugFace = true;
 ROOTURL = ""
 if(DebugFace)
-    ROOTURL = "http://localhost:3000"
+    ROOTURL = "http://localhost:3000";
 else
-    ROOTURL = "http://hashrepublic.meteor.com"
+    ROOTURL = "http://hashrepublic.meteor.com";
 
 
 

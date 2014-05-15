@@ -131,6 +131,9 @@ body{
 */	overflow-x: scroll;
 	position: relative;
 }
+.menu li{
+	text-align: left;
+	}
 .menu{
    width :100%;
    height : 5%;
@@ -145,7 +148,7 @@ body{
 	text-shadow: 0   1px   0   #111  ;
 	/*background-color : white;*/
 }
-.bigmenu,.help{
+.	,.help{
 	text-align: left;
 	background-image: url(images/plus.png);	
 	background-size: 20px 20px;
@@ -279,12 +282,12 @@ body{
     bottom: 0;
     opacity: 0.5;
 
-    background: -moz-linear-gradient(top,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); /* FF3.6+ */
-    background: -webkit-gradient(top,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); /* Opera11.10+ */
-    background: -ms-linear-gradient(top,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); /* IE10+ */
-    background: linear-gradient(top,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); /* W3C */
+    background: -moz-linear-gradient(top,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); 
+    background: -webkit-gradient(top,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); 
+    background: -webkit-linear-gradient(top,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%);  
+    background: -o-linear-gradient(top,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%);
+    background: -ms-linear-gradient(top,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%);
+    background: linear-gradient(top,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); 
 
 }
 
@@ -325,12 +328,12 @@ body{
     
     opacity: 0.5;
 
-    background: -moz-linear-gradient(right,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); /* FF3.6+ */
-    background: -webkit-gradient(right,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(right,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(right,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); /* Opera11.10+ */
-    background: -ms-linear-gradient(right,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); /* IE10+ */
-    background: linear-gradient(right,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); /* W3C */
+    background: -moz-linear-gradient(right,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); 
+    background: -webkit-gradient(right,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); 
+    background: -webkit-linear-gradient(right,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%);
+    background: -o-linear-gradient(right,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); 
+    background: -ms-linear-gradient(right,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); 
+    background: linear-gradient(right,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); 
 
 }
 #hprogressBar hr {
@@ -606,6 +609,7 @@ body{
 	z-index: 2;
 	position: absolute;
 	border-radius: 5px;
+<<<<<<< HEAD
 	left: 0.5%;
 }
 .column_right_grid span:hover{
@@ -632,6 +636,10 @@ body{
 }
 #searchkeyword{
 	background-color: #50597b;
+=======
+	left: 1%;
+	display: block;
+>>>>>>> e390e41e1f64dd17475fd9773e881c7e4a53e035
 }
 #keywordButton{
 	
@@ -1527,7 +1535,7 @@ body{
 .hashFeed{
     position: relative;
     height: 50%;
-    width: 100%;
+    width: 98%;
     z-index: 1;
     margin:2%;
     margin-top: 0%;

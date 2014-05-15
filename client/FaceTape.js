@@ -921,8 +921,8 @@ Meteor.documentReady = documentReady;
             $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
             // $("#surveybig").hammer().off("tap");
             // $("#surveybig").hammer().on("tap",tapOnSurveyBig);
-            $("#surveybighandle").hammer().off("tap");
-            $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+            // $("#surveybighandle").hammer().off("tap");
+            // $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
     }
     surveyToggleFlag = false;
     function tapOnSurveyBig () {
@@ -5321,7 +5321,7 @@ function searchHash(){
 //   Session.get("searchKeyword",null);
     // $("#surveybighandle").transition({"top":"15%"});
     // $("#surveybig").transition({"top":"18%"});
-    //$("#updownarrow").animate("class","huge sort descending icon");
+    // $("#updownarrow").animate("class","huge sort descending icon");
   MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function onCLickHashGo(){
@@ -5562,7 +5562,7 @@ function bindEvents(){
         // HASH MANIA 
             $("#loginButtonWithInstagram").hammer().off("tap",loginWithInstagram)
             $("#loginButtonWithInstagram").hammer().on("tap",loginWithInstagram);
-
+            $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
         //  HASH MANIA 
         touchScroll("snapy");
             ///Last Event
@@ -6788,14 +6788,19 @@ function randomGame(){
 var snapTopFlag = false;
 function onclickopencloseSurvey(){
     if(snapTopFlag){        
-        $("#surveybighandle").transition({"top":"87%"});
-        $("#surveybig").transition({"top":"90%"});
-        $("#updownarrow").animate("class","huge sort ascending icon");
+        $("#surveybighandle").transition({"top":"89%"});
+        $("#surveybig").transition({"top":"92%"});
+        document.getElementById('updownarrow').className = ' huge sort ascending icon';
+        //$("#updownarrow").animate("class","huge sort ascending icon");
+        //$("#surveybighandle").css({"z-index":"4"});
     }
     else{
-        $("#surveybighandle").transition({"top":"15%"});
+        $("#surveybighandle").transition({"top":"12%"});
         $("#surveybig").transition({"top":"18%"});
-        $("#updownarrow").animate("class","huge sort descending icon");
+        $('#updownarrow').addClass('huge sort descending icon');
+        document.getElementById('updownarrow').className = ' huge sort descending icon';
+        // $("#updownarrow").animate("class","huge sort descending icon");
+        //$("#surveybighandle").css({"z-index":"3"});
     }
     snapTopFlag = !snapTopFlag;
 }

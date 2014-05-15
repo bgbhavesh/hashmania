@@ -150,7 +150,9 @@
 
 <template name="keyword">
 	<div id="keywordPopupBackground"></div>
+
   <div id="keywordPopup" class="ui vertical menu">
+  		<div class="searchicon"> <b> #</b></div>
 		<div  id="keywordButton" class="ui icon input">
 			<input  id="searchKeyword" type="text" placeholder="search Instagram..">
 			<i  id="hashgosearch" class="search icon"></i>
@@ -247,6 +249,7 @@
   <div id="beforeLogin">
 	{{> header}}  
 	<div id="hashOverlay">
+	<div id="surveybighandle"><i id="updownarrow" class="huge sort ascending icon"></i></div>
 	{{> hashmania}}
 	</div>
   </div>
@@ -331,7 +334,7 @@
 </template>
 
 <template name="hashmania">
-	<div id="surveybighandle"><i class="huge sort ascending icon" id="updownarrow"></i></div>
+	
   <div id="surveybig" class="ui labeled vertical fluid  icon menu" style="">
 
         {{#each eachBig}}

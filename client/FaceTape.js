@@ -618,15 +618,7 @@ function onLoginWithTapmate(){
     var pass = $("#sePassThankyou").val();
     if(pass){
         $("#seError").css("display","none");
-        Meteor.call("verifyHashEmailToken",emailAuthFlag,pass,function(err,data){
-                if(data){                    
-                    alert("Close the browser and get back to the app");
-                    window.close();
-                }
-                else{
-                    alert("something's not right")
-                }
-            })
+        Meteor.call("verifyHashEmailToken",emailAuthFlag,pass,commonClose)
         Meteor.loginWithPassword(email, pass, loginWithTapmateCallbackFunction);
         TapmateUser = email;
     }
@@ -634,6 +626,15 @@ function onLoginWithTapmate(){
         showLoginErrorMessage("onLoginWithTapmate")
     }
 }
+function commonClose(err,data){
+                if(data){                    
+                    alert("Thanks! Now return to the app.");
+                    window.close();
+                }
+                else{
+                    alert("something's not right")
+                }
+            }
 function welcomeAlertPopup(){
     var welcomeflag = get("welcomeAlert");
     console.log(welcomeflag);
@@ -940,6 +941,7 @@ Meteor.documentReady = documentReady;
             
             $(".hashFeed").hammer().off("tap");  
             $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
+            onclickopencloseSurvey(true);
             // $("#surveybig").hammer().off("tap");
             // $("#surveybig").hammer().on("tap",tapOnSurveyBig);
             // $("#surveybighandle").hammer().off("tap");
@@ -5110,13 +5112,23 @@ function loginWithFacebook(){
     var loginUrl =                                                                       
         'https://www.facebook.com/dialog/oauth?client_id=' +Meteor.settings.public.fbid  +            
         '&redirect_uri=' + Meteor.settings.public.fbredirect +               
-        '&display=' + display + '&scope=' + "email,publish_actions" + '&state=' + Session.get("clientid");
+        '&display=' + display + '&scope=' + "email,publish_actions" + '&state=' + emailAuthFlag;
     var fbloginpage = window.open(loginUrl,"_blank");
     fbloginpage.addEventListener('loadstop', function(event) {   
         if(event.url.indexOf(Meteor.settings.public.fbredirect) == 0){
             fbloginpage.close();
         }
     });
+    var facebookIntervalID = setInterval(function(){
+            if(fbloginpage.closed || fbloginpage.closed === undefined){
+                $(".hideAfterComplete").html("Now");
+                clearInterval(facebookIntervalID);        
+            }
+    })
+
+    // {
+    //         $(".hideAfterComplete").html("Now");
+    //     }
     // Meteor.loginWithFacebook({requestPermissions:"basic",requestOfflineToken:true},loginWithFacebookCallbackFunction);
 }
 // https://www.facebook.com/dialog/oauth?client_id=679347035440335&redirect_uri=http://localhost:3000/facebook?close&display=popup&scope=email&state=GEm5wJLmwqoWdXa3z
@@ -5129,6 +5141,9 @@ function loginWithGoogle(){
 function loginWithGoogleCallbackFunction(err){
     console.log("loginWithGoogleCallbackFunction");
     console.log(err);
+    Meteor.call("mergedMyGoogleFace",emailAuthFlag,function(){
+            $(".hideAfterComplete").html("Now");
+        })
 }
 
 function loginWithFacebookCallbackFunction(err){
@@ -5326,6 +5341,8 @@ function searchHash(){
         }
     });
     $("#searchKeyword").val('');    
+    snapTopFlag = false;
+    onclickopencloseSurvey();
 //   var keyword = Session.get("searchKeyword");
 //   console.log(keyword);
 //   if(!keyword){
@@ -5584,27 +5601,34 @@ function bindEvents(){
         // HASH MANIA 
             $("#loginButtonWithInstagram").hammer().off("tap",loginWithInstagram)
             $("#loginButtonWithInstagram").hammer().on("tap",loginWithInstagram);
+            $("#loginButtonWithFacebook").hammer().off("tap",loginWithFacebook);
+            $("#loginButtonWithFacebook").hammer().on("tap",loginWithFacebook);
+            $("#loginButtonWithGooglePlus").hammer().off("tap",loginWithGoogle);
+            $("#loginButtonWithGooglePlus").hammer().on("tap",loginWithGoogle);
             $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
             $("#seEmail").keyup(function(event){
                 $(this).val(convertEmail($(this).val()));
                 if(event.keyCode == 13){
                     onSignUpWithTapmate();
                 }
-
             });
             $("#seEmailLogin").keyup(function(event){
                 $(this).val(convertEmail($(this).val()));
                 if(event.keyCode == 13){
                     $("#sePassLogin").focus()
                 }
-
             });
              $("#sePassLogin").keyup(function(event){
                 if(event.keyCode == 13){
                     onloginWithHashRepublic();
                 }
-
             });
+            $("#searchKeyword").keyup(function(event){
+                if(event.keyCode == 13){
+                    searchHash();
+                }
+            });
+
         //  HASH MANIA 
         touchScroll("snapy");
             ///Last Event
@@ -6828,7 +6852,7 @@ function randomGame(){
 
 /////////////////GAMESECTION//////////////
 var snapTopFlag = false;
-function onclickopencloseSurvey(){
+function onclickopencloseSurvey(resume){
     if(snapTopFlag){        
         $("#surveybighandle").transition({"top":"89%"});
         $("#surveybig").transition({"top":"92%"});
@@ -6844,6 +6868,7 @@ function onclickopencloseSurvey(){
         // $("#updownarrow").animate("class","huge sort descending icon");
         //$("#surveybighandle").css({"z-index":"3"});
     }
+    if(!resume)
     snapTopFlag = !snapTopFlag;
 }
 

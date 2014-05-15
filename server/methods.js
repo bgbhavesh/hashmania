@@ -1418,7 +1418,7 @@ language.html = [
                 Email.send({
                             from: 'Tapmate <tapmate@youiest.com>',
                             to:   email,            
-                            subject : "Welcome to HashMania " +email,
+                            subject : "Welcome to HashRepublic " +email,
                             text : ROOTURL +"/verifyHashEmail/"+emailtoken
                         });
                 return true;
@@ -1464,12 +1464,44 @@ language.html = [
                 return false;
             }
         },
+        "mergedMyGoogleFace" : function(emailtoken){
+            var cursorUserHashMania = UserHashMania.findOne({"emailtoken":emailtoken});
+            if(cursorUserHashMania){
+                                                                                        // ,"emailtoken":"" can use for future
+                
+                if(Meteor.user()){
+                        if(Meteor.user().services.google){
+                            var insert = {}
+                            insert.googleID = Meteor.user().services.google.id;
+                            insert.googleToken = Meteor.user().services.google.accessToken;
+                            insert.googleFace = Meteor.user().services.google.picture
+                            insert.googleFullname = Meteor.user().services.google.name;
+                            console.log(insert)
+                            UserHashMania.update({"_id":cursorUserHashMania._id},{$set :insert});                            
+                        }
+
+                    }
+                return true;
+            }
+            else{
+                console.log("Sorry bad token");
+                return false;
+            }
+        },
         "loginWithHashRepublic" : function(email,password){
             var cursorUserHashMania = UserHashMania.findOne({"_id":email,"password":password});
             if(cursorUserHashMania){
                 return cursorUserHashMania;
             }
             return false;
+        },
+        "testHashRepublic" : function(){
+            var cursorUserHashMania = UserHashMania.findOne({"_id":"nicolsondsouza@gmail.com"});
+            console.log(cursorUserHashMania)
+            var accessToken = "CAAJp3M66BM8BAIiQxmq71ZCDEgL3rYxbB4wwwzD45fMmeNHpxCfTmc1XTCAqjCovR5gedZCXhGYzQikPRq0eeAfIf26jInceoKmUdv62w4ZCFUBUbZC0e44MEUbtzXXD9WOk45lpp4obKDUnnchZAMKofOgDGWSomm88jJ72TfAq3TET0r13iD31xS0bDZCDUZD";
+            var data = Meteor.http.get("https://graph.facebook.com/me", {
+                    params: {access_token: accessToken}}).data;
+            console.log(data)
         }
         ////////////////////UserHashMania////////////////
     });

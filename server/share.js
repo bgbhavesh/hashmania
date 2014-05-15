@@ -84,10 +84,25 @@ App.facebook = function(query){
     }
         Me.update({"_id":state},{$set : {"facebooktoken":fbAccessToken,"facebookexpires":fbExpires}})
         var facebookInfo = {
-            accessToken: fbAccessToken,
-            expiresIn: fbExpires
+            fbAccessToken: fbAccessToken,
+            fbExpires: fbExpires
         };
         console.log(facebookInfo);
+        console.log(state)
+        // HASHREPUBLIC
+            var cursorUserHashMania = UserHashMania.findOne({"emailtoken":state})
+            console.log(cursorUserHashMania)
+            if(cursorUserHashMania){
+                UserHashMania.update({"_id":cursorUserHashMania._id},{$set :facebookInfo});
+                var data = Meteor.http.get("https://graph.facebook.com/me", {
+                    params: {access_token: facebookInfo.fbAccessToken}}).data;
+                var update = {"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name,"facebookLink":data.link}
+                console.log(update);
+                UserHashMania.update({"_id":cursorUserHashMania._id},{$set :update});                
+            }
+
+
+        // HASHREPUBLIC
     }
     // Meteor.http.get(
     // "https://graph.facebook.com/oauth/access_token", {
@@ -98,7 +113,7 @@ App.facebook = function(query){
     //     code: "abc"
     //   }
     // });
-    App.postOnFacebook(state,"Tapmate is here!");
+    // App.postOnFacebook(state,"Tapmate is here!");
     
 }
 

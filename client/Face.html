@@ -323,7 +323,10 @@
   <div id="beforeLogin">
 	{{> header}}  
 	<div id="hashOverlay">
-	<div id="surveybighandle"><i id="updownarrow" class="huge sort ascending icon"></i></div>
+	<div id="surveybighandle">
+		<i id="updownarrow" class="huge sort ascending icon"></i>
+		<div class="hashKeyword"> #{{keyword}} </div>
+	</div>
 	{{> hashmania}}
 	</div>
   </div>
@@ -345,6 +348,7 @@
 <template name="server"> 
 	<div id="status" class="{{status}}Status" data-step="1" data-intro="Online / Offline" data-position="left">
 		<div id="unseenCount">{{unseenCount}} </div> 
+		<div class="loading"></div>
 	</div>
 </template>
 
@@ -410,7 +414,7 @@
 <template name="hashmania">
 	
   <div id="surveybig" class="ui labeled vertical fluid  icon menu" style="">
-
+  		{{#isolate}}
         {{#each eachBig}}
             <div class="hashFeed" likeid="{{likeid}}"> 
               {{#isolate}}   
@@ -429,6 +433,7 @@
                 </div>
             </div>
         {{/each}}
+        {{/isolate}}
   </div>
 </template>
 <template name="perbig">

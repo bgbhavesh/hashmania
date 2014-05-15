@@ -933,6 +933,9 @@ Meteor.documentReady = documentReady;
     Template.hashmania.eachBig = function(){
         return HashKeyword.find({"keyword":Session.get("keyword")})
     }
+    Template.BeforeLogin.keyword = function(){
+        return Session.get("keyword");
+    }
     Template.hashmania.rendered = function(){
             if(firstTimeLoginFlag){
                 currentSurveyBig = $(".bigFeed:first");
@@ -941,11 +944,24 @@ Meteor.documentReady = documentReady;
             
             $(".hashFeed").hammer().off("tap");  
             $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
-            onclickopencloseSurvey(true);
+
+            onclickopencloseSurvey(null,true);
+            if(snapTopFlag){
+                $("#surveybighandle").css({"top":"89%"});
+                $("#surveybig").css({"top":"92%"});
+                document.getElementById('updownarrow').className = ' huge sort ascending icon';
+            }
+            else{
+                $("#surveybighandle").css({"top":"12%"});
+                $("#surveybig").css({"top":"18%"});
+                $('#updownarrow').addClass('huge sort descending icon');
+            }
+
+
             // $("#surveybig").hammer().off("tap");
             // $("#surveybig").hammer().on("tap",tapOnSurveyBig);
-            // $("#surveybighandle").hammer().off("tap");
-            // $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+            $("#surveybighandle").hammer().off("tap");
+            $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
     }
     surveyToggleFlag = false;
     function tapOnSurveyBig () {
@@ -5355,7 +5371,6 @@ function searchHash(){
 //       //console.log(data);      
 //   });
   //$("#keywordPopup").hide(); 
-    snapTopFlag = false;
     //onclickopencloseSurvey();
 //   Session.get("searchKeyword",null);
     // $("#surveybighandle").transition({"top":"15%"});
@@ -5605,7 +5620,7 @@ function bindEvents(){
             $("#loginButtonWithFacebook").hammer().on("tap",loginWithFacebook);
             $("#loginButtonWithGooglePlus").hammer().off("tap",loginWithGoogle);
             $("#loginButtonWithGooglePlus").hammer().on("tap",loginWithGoogle);
-            $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+            
             $("#seEmail").keyup(function(event){
                 $(this).val(convertEmail($(this).val()));
                 if(event.keyCode == 13){
@@ -5628,7 +5643,7 @@ function bindEvents(){
                     searchHash();
                 }
             });
-
+            $("#surveybig").scroll(onSurveyScroll)
         //  HASH MANIA 
         touchScroll("snapy");
             ///Last Event
@@ -5646,6 +5661,23 @@ function bindEvents(){
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "bindEvents"});
     }
     //MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+}
+var processingFlag = false;
+function onSurveyScroll(){
+    if(processingFlag)
+        return;
+    processingFlag = true;
+    var top = null,elementImg = null;
+    $(".hashFeed").each(function(index,element){
+        top = $(element).position().top
+        elementImg = $(element).children("img");
+        if(top <-2000 || top > 2000)
+            elementImg.hide();
+        else{
+            elementImg.show();
+        }
+    })
+    setTimeout(function(){processingFlag = false},5000);
 }
 function clickOnInvMail(){
     var emailurl = 'mailto:tapmate@tapmate.mailgun.org?subject=You have been invited to join tapmate&body=click here to download it <br>http://youtap.meteor.com/app/tapmateYouiestcom';
@@ -6852,7 +6884,7 @@ function randomGame(){
 
 /////////////////GAMESECTION//////////////
 var snapTopFlag = false;
-function onclickopencloseSurvey(resume){
+function onclickopencloseSurvey(first,resume){
     if(snapTopFlag){        
         $("#surveybighandle").transition({"top":"89%"});
         $("#surveybig").transition({"top":"92%"});
@@ -7274,7 +7306,10 @@ function clickOnLoginButton(){
 Meteor.startup(function () {
     Deps.autorun(function(){
         if(Session.get("keyword")){
-            Meteor.subscribe("hashkeyword",Session.get("keyword"));   
+            $(".loading").show();
+            Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){
+                $(".loading").hide();
+            });   
             set("keyword",Session.get("keyword"))
         }
     })

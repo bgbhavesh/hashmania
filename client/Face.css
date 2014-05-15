@@ -592,7 +592,7 @@ body{
 	position: relative;
 }
 .searchicon{
-	font-size: 54px;
+	font-size: 50px;
 	position: absolute;
 	left: 5%;
 	color: rgb(151, 151, 151);
@@ -639,24 +639,19 @@ body{
 	background-color: #50597b;
 }
 #keywordButton{
-	
     color:#FFF;
-   
+   	left: 5%;
     background:none;   
     outline:none;
     border:none;
-    
     width:75%;  
     -webkit-apperance:none;
     font-family: 'ambleregular';
 	height: 7%;
-	
 	padding: 1%;
 	margin: 1% auto;
-
 	border-radius: 10px;
 	box-shadow: 0 0px 0px rgba(0,0,0,.4) inset, 0 0px 0 rgba(255,255,255,.2);
-
 }
 #keywords{	
     overflow-x: hidden;

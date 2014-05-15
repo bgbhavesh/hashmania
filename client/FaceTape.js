@@ -6852,7 +6852,7 @@ function randomGame(){
 
 /////////////////GAMESECTION//////////////
 var snapTopFlag = false;
-function onclickopencloseSurvey(resume){
+function onclickopencloseSurvey(first,resume){
     if(snapTopFlag){        
         $("#surveybighandle").transition({"top":"89%"});
         $("#surveybig").transition({"top":"92%"});

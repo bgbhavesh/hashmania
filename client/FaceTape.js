@@ -602,9 +602,10 @@ function onLoginWithTapmate(){
         Meteor.call("verifyHashEmailToken",emailAuthFlag,pass,function(err,data){
                 if(data){                    
                     alert("Close the browser and get back to the app");
+                    window.close();
                 }
                 else{
-                    alert("something")
+                    alert("something's not right")
                 }
             })
         Meteor.loginWithPassword(email, pass, loginWithTapmateCallbackFunction);

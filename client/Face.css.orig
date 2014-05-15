@@ -500,6 +500,7 @@ body{
 	text-shadow: 0   1px   0   #111  ;
 	font-weight: normal;
 }
+
 #ContactUsPopUpBackground,#AboutUsPopUpBackground,#RatingPopUpBackground,#languageBackground,#keywordPopupBackground{
 	background-color: black;
 	opacity: 0.7;
@@ -650,6 +651,16 @@ body{
     -webkit-apperance:none;
     font-family: 'ambleregular';
 	height: 7%;
+<<<<<<< HEAD
+	width: 80%;
+	padding: 1%;
+	margin: 1% auto;
+	background: #444;
+	background: rgba(0,0,0,.2);
+	border-radius: 10px;
+	box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
+	left: 7%;
+=======
 	
 	padding: 1%;
 	margin: 1% auto;
@@ -657,6 +668,7 @@ body{
 	border-radius: 10px;
 	box-shadow: 0 0px 0px rgba(0,0,0,.4) inset, 0 0px 0 rgba(255,255,255,.2);
 
+>>>>>>> 453849eb88b1f07caf01cac617017d43adb9c97c
 }
 #keywords{	
     overflow-x: hidden;

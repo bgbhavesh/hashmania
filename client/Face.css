@@ -612,6 +612,7 @@ body{
 	position: absolute;
 	border-radius: 5px;
 	left: 0.5%;
+	display: block;
 }
 .column_right_grid span:hover{
  	

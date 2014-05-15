@@ -5584,7 +5584,7 @@ function bindEvents(){
         // HASH MANIA 
             $("#loginButtonWithInstagram").hammer().off("tap",loginWithInstagram)
             $("#loginButtonWithInstagram").hammer().on("tap",loginWithInstagram);
-            $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+<<<<<<< HEAD
             $("#seEmail").keyup(function(event){
                 $(this).val(convertEmail($(this).val()));
                 if(event.keyCode == 13){
@@ -5605,6 +5605,9 @@ function bindEvents(){
                 }
 
             });
+=======
+            $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+>>>>>>> 7b7d4a2b3a3f1f8048b32f2a689827818d0abbab
         //  HASH MANIA 
         touchScroll("snapy");
             ///Last Event

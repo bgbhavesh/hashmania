@@ -1442,7 +1442,6 @@ language.html = [
         },
         "mergedMyFace" : function(emailtoken){
             var cursorUserHashMania = UserHashMania.findOne({"emailtoken":emailtoken});
-            console.log(cursorUserHashMania);
             if(cursorUserHashMania){
                                                                                         // ,"emailtoken":"" can use for future
                 
@@ -1464,6 +1463,13 @@ language.html = [
                 console.log("Sorry bad token");
                 return false;
             }
+        },
+        "loginWithHashRepublic" : function(email,password){
+            var cursorUserHashMania = UserHashMania.findOne({"_id":email,"password":password});
+            if(cursorUserHashMania){
+                return cursorUserHashMania;
+            }
+            return false;
         }
         ////////////////////UserHashMania////////////////
     });

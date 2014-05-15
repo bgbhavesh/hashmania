@@ -538,11 +538,14 @@ Template.loginWithInstagram.rendered = function(){
     // $("#signupWithAppButton").hammer().off("tap",onLoginWithApp);
     // $("#signupWithAppButton").hammer().on("tap",onLoginWithApp);
 
-    $("#seLogin").hammer().off("tap",onLoginWithTapmate);
-    $("#seLogin").hammer().on("tap",onLoginWithTapmate);
+    $("#seLoginThankyou").hammer().off("tap",onLoginWithTapmate);
+    $("#seLoginThankyou").hammer().on("tap",onLoginWithTapmate);
 
     $("#seSignup").hammer().off("tap",onSignUpWithTapmate);
     $("#seSignup").hammer().on("tap",onSignUpWithTapmate);
+
+    $("#seLoginLogin").hammer().off("tap",onLoginWithHashRepublic);
+    $("#seLoginLogin").hammer().on("tap",onLoginWithHashRepublic);
 
     if(emailAuthFlag){
         $(".emailClass").hide();
@@ -565,6 +568,22 @@ Template.loginWithInstagram.rendered = function(){
     // $("#signupButton").hammer().on("tap",onLoginWithAppButton);
     // $("#signupWithAppButton").hammer().on("tap",onSignupWithAppButton);
     // $("#loginWithAppCancelButton").hammer().on("tap",hideLoginForm);
+}
+function onLoginWithHashRepublic(){
+    var email = $("#seEmailLogin").val();
+    var password = $("#sePassLogin").val();
+    Meteor.call("loginWithHashRepublic",email,password,function(err,data){
+        if(data){
+            set("email",email);
+            set("clientid",email);
+            Session.set("clientid",email);
+            set("welcomeAlert",true);
+            set("profile_picture",data.instagramFace)
+        }
+        else{
+
+        }
+    })
 }
 function showSpecialPopup(id){
     $("#"+id).show();
@@ -596,7 +615,7 @@ function postLoginAction(){
 var TapmateUser = null;
 function onLoginWithTapmate(){
     var email = $("#seEmail").val();
-    var pass = $("#sePass").val();
+    var pass = $("#sePassThankyou").val();
     if(pass){
         $("#seError").css("display","none");
         Meteor.call("verifyHashEmailToken",emailAuthFlag,pass,function(err,data){
@@ -626,7 +645,7 @@ function welcomeAlertPopup(){
 function onSignUpWithTapmate(){
       var email = $("#seEmail").val();
       var pass = $("#sePass").val();
-      if(email){
+      if(validateEmail(email)){
           set("email",email);
           set("clientid",email);
           Session.set("clientid",email);
@@ -640,20 +659,21 @@ function onSignUpWithTapmate(){
           });
       }
       else{
-          showLoginErrorMessage("onSignUpWithTapmate")
+          showLoginErrorMessage("not a valid email")
       }
   }
-// function convertEmail(email){
-//     email = email.toLowerCase();
-//     var finalEmail = "";
-//     var ch = null;
-//     for(var i=0,il=email.length;i<il;i++){
-//         ch = email.charAt(i);
-//         if(ch != " ")
-//         finalEmail+= ch
-//     }
-//     return finalEmail;
-// }
+function convertEmail(email){
+
+    email = email.toLowerCase();
+    var finalEmail = "";
+    var ch = null;
+    for(var i=0,il=email.length;i<il;i++){
+        ch = email.charAt(i);
+        if(ch != " ")
+        finalEmail+= ch
+    }
+    return finalEmail;
+}
 function showLoginErrorMessage(message){
     $("#errorMessage").html(message);
     $("#seError").css("display","block");
@@ -1889,11 +1909,12 @@ Meteor.documentReady = documentReady;
     }
     Template.keyword.rendered = function(){
         var keyword = $(".eachkeyword");
-        var startSize = 40;
+        var startSize = 45;
         for(var i=0,il=keyword.length;i<il;i++){
+            if(i%5 == 0 && startSize >10)
+                startSize -= 5;
             $(keyword[i]).css("font-size",startSize +"px");
-            if(startSize>10)
-            startSize -= 5;
+
         }
     }
     Template.server.status = function(){
@@ -5071,7 +5092,7 @@ function loginWithInstagramHashManiaCallbackFunction(err){
     }
     else{
         Meteor.call("mergedMyFace",emailAuthFlag,function(){
-            hideSpecialPopup("thankyou");
+            $(".hideAfterComplete").html("Now");
             console.log("here too")
         })
     }
@@ -5563,7 +5584,26 @@ function bindEvents(){
         // HASH MANIA 
             $("#loginButtonWithInstagram").hammer().off("tap",loginWithInstagram)
             $("#loginButtonWithInstagram").hammer().on("tap",loginWithInstagram);
+            $("#seEmail").keyup(function(event){
+                $(this).val(convertEmail($(this).val()));
+                if(event.keyCode == 13){
+                    onSignUpWithTapmate();
+                }
 
+            });
+            $("#seEmailLogin").keyup(function(event){
+                $(this).val(convertEmail($(this).val()));
+                if(event.keyCode == 13){
+                    $("#sePassLogin").focus()
+                }
+
+            });
+             $("#sePassLogin").keyup(function(event){
+                if(event.keyCode == 13){
+                    onloginWithHashRepublic();
+                }
+
+            });
         //  HASH MANIA 
         touchScroll("snapy");
             ///Last Event

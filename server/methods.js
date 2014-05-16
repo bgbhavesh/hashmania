@@ -1503,11 +1503,15 @@ language.html = [
                 
                 result[i] = {};
                 result[i].keyword = data;
-                var votes = []
+                var votes = [],comments = [];
                 Votes.find({"likeid":data.likeid}).forEach(function(data){
                     votes.push(data);
                 });
+                HashComment.find({"likeid":data.likeid}).forEach(function(data){
+                    comments.push(data);
+                });
                 result[i].votes = votes;
+                result[i].comments = comments;
                 i++;
             });
             return result;

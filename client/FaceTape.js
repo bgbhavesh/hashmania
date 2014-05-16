@@ -975,6 +975,8 @@ Meteor.documentReady = documentReady;
             $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
     }
     function renderResults(data){
+        if(!data)
+            return;
         $(".loading").show();
         //console.log(data)
         if($("#surveybig").length == 0){
@@ -988,18 +990,18 @@ Meteor.documentReady = documentReady;
             newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'">' 
                 +'<img src="' +currentData.keyword.standard +'">'
                 +'<div class="ui tertiary form segment">'
-                // +'<h4 class="ui header">Section One</h4>'
-                //     +'<h4 class="ui header">Section One</h4>'
-                //     +'<h4 class="ui header">Section One</h4>'
-
+                +'<div class="commentWrapper">';
+                    for(var k=0,kl=currentData.comments.length;k<kl;k++){
+                        newElement +='<h4 class="ui header">'+currentData.comments[k].value +'</h4>'                         
+                    }
+                newElement += '</div>'
                   +'<div class="field" likeid="' +currentData.keyword.likeid +'">'
-                    +'<div class="ui left labeled icon input">'
+                    +'<div class="ui right labeled icon input submitComment">'
                       +'<i class="comment icon"></i>'
                       +'<input id="entercomment" type="text" placeholder="comment">'
                     +'</div>'
-                    +'<div class="ui blue submit button" id="submitComment">Comment Submit</div>'
-                  +'</div>'
-                  
+                    //+'<div class="ui blue submit button submitComment" id="submitComment">Comment Submit</div>'
+                  +'</div>'                  
                 +'</div>'           
             +'</div>'
             var element = $("#surveybig").append(newElement); 
@@ -1007,10 +1009,14 @@ Meteor.documentReady = documentReady;
                 appendVotesManuallyHash(currentData.keyword.likeid,currentData.votes[j])
             }
         }
-        $(".hashFeed").hammer().off("tap");  
-        $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
-        $("#submitComment").hammer().off("tap");  
-        $("#submitComment").hammer().on("tap",tapOnSubmitComment);
+        $(".hashFeed img").hammer().off("tap");  
+        $(".hashFeed img").hammer().on("tap",tapOnBigFeedSurvey);
+        
+        $(".submitComment").hammer().off("tap");  
+        $(".submitComment").hammer().on("tap",tapOnSubmitComment);
+
+        $(".tertiary").hide();
+        
         $(".loading").hide();
     }
     function appendVotesManuallyHash(id,currentVote){
@@ -1057,16 +1063,26 @@ Meteor.documentReady = documentReady;
         var data = {};
         var date = new Date().getTime();
         var likeid = Session.get("currentBig");
-        var value= $("#entercomment").val();
+        var input = $(this).parent().find("input");
+        var value= input.val();
         console.log(likeid);
         console.log(value);
         data.likeid =likeid;
+        data.clientid = Session.get("clientid");
         data.value = value;
         data.date= date;
-        $(".field[likeid='" +likeid+"']").css("display","none");
-        // HashComment.insert(data)
+        Meteor.myElement = this;
+        // console.log($(this).sibling(".commentWrapper"))
+        $(this).parent()
+                .siblings(".commentWrapper")
+                .append('<h4 class="ui header">'+value +'</h4>');
+        // $(".field[likeid='" +likeid+"']").css("display","none");
+        HashComment.insert(data);
+        input.val("");
     }
     function tapOnBigFeedSurvey(event){
+        var parent = $(this).parent(".hashFeed");
+        parent.find(".tertiary").show();
         currentSurveyBig = $(this);
         var x = event.gesture.center.pageX;
         var y = event.gesture.center.pageY;
@@ -1075,7 +1091,7 @@ Meteor.documentReady = documentReady;
         // var w = $("#surveybig");
         
         // console.log(offset.top +" " +w.scrollTop() +" " +y)
-        var height = $(this).height();
+        var height = $(parent).height();
         var width = $("body").width();
         var bigheight = $(".quadrant").height();          
         var left = (x/width) * 100;
@@ -1087,7 +1103,7 @@ Meteor.documentReady = documentReady;
         left = Math.round(left) ;
         top = Math.round(top) ;
         
-        var likeid = $(this).attr("likeid")
+        var likeid = $(parent).attr("likeid")
         progress2(left, $('#hprogressBar'),top, $('#outer'),likeid);
         
         Session.set("currentBig",likeid)

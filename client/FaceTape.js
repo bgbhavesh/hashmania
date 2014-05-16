@@ -963,6 +963,35 @@ Meteor.documentReady = documentReady;
             $("#surveybighandle").hammer().off("tap");
             $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
     }
+    function renderResults(data){
+        console.log(data)
+        var newElement = null;
+        var currentData = null;
+        for(var i=0,il=data.length;i<il;i++){
+            currentData = data[i];
+            console.log(currentData.keyword)
+            newElement = '<div class="hashFeed" likeid="' +currentData.keyword.likeid +'">' 
+                +'<img src="' +currentData.keyword.standard +'">'            
+            +'</div>'
+            var element = $("#surveybig").append(newElement); 
+        }
+
+    }
+
+    /*
+
+    <div class="quadrant" id="{{likeid}}">
+        <div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>
+        <div id="inerhprogressBar">
+            <i class='big bullhorn icon' style="margin-left: 0px"></i>
+        </div>
+        <div id="outer" class="ui warning progress">
+            <div class="inner"  id="verticalprogress"></div> <hr style="height:100%;width:2px;margin-bottom:-8px;padding:0px;">
+        </div>
+
+        <div id="inner-inner"><i class='big thumbs up icon' style="margin-left: 0px;"></i></div>     
+    </div>
+    */
     surveyToggleFlag = false;
     function tapOnSurveyBig () {
         if(surveyToggleFlag){
@@ -5643,7 +5672,7 @@ function bindEvents(){
                     searchHash();
                 }
             });
-            $("#surveybig").scroll(onSurveyScroll)
+            $("#surveybig").on("scrollstop",onSurveyScroll)
         //  HASH MANIA 
         touchScroll("snapy");
             ///Last Event
@@ -5664,6 +5693,7 @@ function bindEvents(){
 }
 var processingFlag = false;
 function onSurveyScroll(){
+    console.log("onSurveyScroll")
     if(processingFlag)
         return;
     processingFlag = true;
@@ -5677,7 +5707,8 @@ function onSurveyScroll(){
             elementImg.show();
         }
     })
-    setTimeout(function(){processingFlag = false},5000);
+
+    setTimeout(function(){processingFlag = false},250);
 }
 function clickOnInvMail(){
     var emailurl = 'mailto:tapmate@tapmate.mailgun.org?subject=You have been invited to join tapmate&body=click here to download it <br>http://youtap.meteor.com/app/tapmateYouiestcom';
@@ -7307,9 +7338,13 @@ Meteor.startup(function () {
     Deps.autorun(function(){
         if(Session.get("keyword")){
             $(".loading").show();
-            Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){
-                $(".loading").hide();
-            });   
+            
+            // Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){
+            //     $(".loading").hide();
+            // });
+            Meteor.call("getResult",Session.get("keyword"),function(err,data){
+                renderResults(data);
+            })   
             set("keyword",Session.get("keyword"))
         }
     })

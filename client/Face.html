@@ -414,28 +414,33 @@
 <template name="hashmania">
 	
   <div id="surveybig" class="ui labeled vertical fluid  icon menu" style="">
-  		{{#isolate}}
-        {{#each eachBig}}
-            <div class="hashFeed" likeid="{{likeid}}"> 
-              {{#isolate}}   
-                <img src="{{standard}}">
-              {{/isolate}}
-                <div class="quadrant" id="{{likeid}}">
-                    <div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>
-                    <div id="inerhprogressBar">
-                        <i class='big bullhorn icon' style="margin-left: 0px"></i>
-                    </div>
-                    <div id="outer" class="ui warning progress">
-                        <div class="inner"  id="verticalprogress"></div> <hr style="height:100%;width:2px;margin-bottom:-8px;padding:0px;">
-                    </div>
-
-                    <div id="inner-inner"><i class='big thumbs up icon' style="margin-left: 0px;"></i></div>     
-                </div>
-            </div>
-        {{/each}}
-        {{/isolate}}
+  		
   </div>
 </template>
+<!-- 
+
+{{#isolate}}
+    {{#each eachBig}}
+        <div class="hashFeed" likeid="{{likeid}}"> 
+          {{#isolate}}   
+            <img src="{{standard}}">
+          {{/isolate}}
+            <div class="quadrant" id="{{likeid}}">
+                <div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>
+                <div id="inerhprogressBar">
+                    <i class='big bullhorn icon' style="margin-left: 0px"></i>
+                </div>
+                <div id="outer" class="ui warning progress">
+                    <div class="inner"  id="verticalprogress"></div> <hr style="height:100%;width:2px;margin-bottom:-8px;padding:0px;">
+                </div>
+
+                <div id="inner-inner"><i class='big thumbs up icon' style="margin-left: 0px;"></i></div>     
+            </div>
+        </div>
+    {{/each}}
+{{/isolate}}
+        
+ -->
 <template name="perbig">
 	<div class="bigFeed bigSecondFeed" likeid="{{likeid}}"> 
 	  {{#isolate}}   

@@ -1495,6 +1495,23 @@ language.html = [
             }
             return false;
         },
+        "getResult" : function(keyword){
+            console.log(keyword)
+            var result = [];
+            var i = result.length;
+            HashKeyword.find({"keyword":keyword}).forEach(function(data){
+                
+                result[i] = {};
+                result[i].keyword = data;
+                var votes = []
+                Votes.find({"likeid":data.likeid}).forEach(function(data){
+                    votes.push(data);
+                });
+                result[i].votes = votes;
+                i++;
+            });
+            return result;
+        },        
         "testHashRepublic" : function(){
             var cursorUserHashMania = UserHashMania.findOne({"_id":"nicolsondsouza@gmail.com"});
             console.log(cursorUserHashMania)

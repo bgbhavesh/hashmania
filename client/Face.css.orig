@@ -172,8 +172,12 @@ body{
 }
 #surveybighandle{
 	top: 89%;
+<<<<<<< HEAD
+	height: 20%;
+=======
 	overflow-y: scroll;
 	height: 13%;
+>>>>>>> 0884e7d5b650cdb52d88e86d6a0f9246215d1802
 	width: 100%;
 	position: absolute;
 	z-index: 4;
@@ -923,6 +927,7 @@ h6 {}
 	/*background: linear-gradient(to right,#50597b, #394264,#50597b, #394264 , #50597b);*/
 	
 }
+
 #recents1,#feedsProfile,#votesProfile{
 	width: 100%;
 	position: relative;

@@ -656,6 +656,7 @@ function onSignUpWithTapmate(){
           set("email",email);
           set("clientid",email);
           Session.set("clientid",email);
+          set("profile_picture","/images/face.jpg");
           welcomeAlertPopup();
           set("welcomeAlert",true);
           // $("#seError").css("display","none");
@@ -1069,7 +1070,8 @@ Meteor.documentReady = documentReady;
         else{
             votepic = get("profile_picture");
         }
-        
+        if(!votepic)
+            votepic = "/images/face.jpg"; 
         voteFlag = false;
         var date = new Date().getTime();
         // console.log(likeid +" " +Session.get("currentBig"));
@@ -1092,6 +1094,7 @@ Meteor.documentReady = documentReady;
         } 
         else{
                 currentMoveVote = Votes.insert(VotesInsert);
+                VotesInsert._id = currentMoveVote;
                 appendVotesManuallyHash(likeid,VotesInsert);
         }
         

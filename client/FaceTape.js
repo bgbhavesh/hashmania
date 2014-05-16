@@ -615,16 +615,22 @@ function postLoginAction(){
 var TapmateUser = null;
 function onLoginWithTapmate(){
     var email = $("#seEmail").val();
-    var pass = $("#sePassThankyou").val();
-    if(pass){
-        $("#seError").css("display","none");
-        Meteor.call("verifyHashEmailToken",emailAuthFlag,pass,commonClose)
-        Meteor.loginWithPassword(email, pass, loginWithTapmateCallbackFunction);
-        TapmateUser = email;
+    var pass1 = $("#sePassThankyou1").val();
+    var pass2 = $("#sePassThankyou2").val();
+    if(pass1==pass2){
+        if(pass1){
+            $("#passwordError").css("display","none");
+            Meteor.call("verifyHashEmailToken",emailAuthFlag,pass1,commonClose)
+            Meteor.loginWithPassword(email, pass1, loginWithTapmateCallbackFunction);
+            TapmateUser = email;
+        }
+        else{
+            showLoginErrorMessage("onLoginWithTapmate")
+        }
+    }else{
+        $("#passwordError").css("display","block");
     }
-    else{
-        showLoginErrorMessage("onLoginWithTapmate")
-    }
+    
 }
 function commonClose(err,data){
                 if(data){                    

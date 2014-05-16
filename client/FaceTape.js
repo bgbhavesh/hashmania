@@ -970,6 +970,9 @@ Meteor.documentReady = documentReady;
     function renderResults(data){
         $(".loading").show();
         console.log(data)
+        if($("#surveybig").length == 0){
+            setTimeout(function(){renderResults(data)},250);
+        }
         var newElement = null;
         var currentData = null;
         for(var i=0,il=data.length;i<il;i++){

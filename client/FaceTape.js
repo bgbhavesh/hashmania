@@ -974,20 +974,31 @@ Meteor.documentReady = documentReady;
             $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
     }
     function renderResults(data){
+        $(".loading").show();
         console.log(data)
         var newElement = null;
         var currentData = null;
         for(var i=0,il=data.length;i<il;i++){
             currentData = data[i];
             console.log(currentData.keyword)
-            newElement = '<div class="hashFeed" likeid="' +currentData.keyword.likeid +'">' 
+            newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'">' 
                 +'<img src="' +currentData.keyword.standard +'">'            
             +'</div>'
             var element = $("#surveybig").append(newElement); 
+            for(j=0,jl=currentData.votes.length;j<jl;j++){
+                appendVotesManuallyHash(currentData.keyword.likeid,currentData.votes[j])
+            }
         }
-
+        $(".hashFeed").hammer().off("tap");  
+        $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
+        $(".loading").hide();
     }
-
+    function appendVotesManuallyHash(id,currentVote){
+        var local = currentVote;
+        //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
+        // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
+        $("#"+id).append(getVoteHTML(local.left,local.top - 40,"%",local.profile_picture,local._id))
+    }
     /*
 
     <div class="quadrant" id="{{likeid}}">
@@ -1068,7 +1079,7 @@ Meteor.documentReady = documentReady;
              var voteloc =$(".voting[votingid='" +cursorBig._id +"']")
             if(voteloc.length==0){
                 Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
-                appendVotesManually(this);
+                // appendVotesManually(this);
             }
             else{
                 Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
@@ -1078,7 +1089,7 @@ Meteor.documentReady = documentReady;
         } 
         else{
                 currentMoveVote = Votes.insert(VotesInsert);
-                appendVotesManually(this,VotesInsert);
+                appendVotesManuallyHash(likeid,VotesInsert);
         }
         
         currentSurveyBig = currentSurveyBig.next(".bigFeed");

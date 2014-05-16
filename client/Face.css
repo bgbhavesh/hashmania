@@ -835,7 +835,7 @@ body{
 	z-index: 4;
 	display: none;
 }
-.passwordClass{
+.passwordClass,#passwordError{
     display: none;
 }
 #seLogin{
@@ -1594,7 +1594,7 @@ body{
 	display: none;
 	z-index: 70;
 	left: 50%;
-	top: 50%;
+	top: 40%;
 	margin-left: -40%;
 	width: 80%;
 	height: auto;

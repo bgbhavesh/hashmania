@@ -1416,7 +1416,7 @@ language.html = [
                 }
                 console.log("http://localhost:3000/verifyHashEmail/"+emailtoken)
                 Email.send({
-                            from: 'Tapmate <tapmate@youiest.com>',
+                            from: 'HashRepublic <tapmate@youiest.com>',
                             to:   email,            
                             subject : "Welcome to HashRepublic " +email,
                             text : ROOTURL +"/verifyHashEmail/"+emailtoken

@@ -181,8 +181,11 @@ body{
 	height: 79%;
 	width: 100%;
 	position: absolute;
+	border-top:red 1px solid;
+	border-radius: 0px;
+	background: url(../images/hash_pattern.png) #111;
 		/*background: linear-gradient(to right,#50597b, #394264, #394264 , #50597b);*/
-		background-color: #50597b;
+		/*background-color: #50597b;*/
 }
 .menuarrow{
 	background-image: url(images/menuarrow.png);
@@ -606,14 +609,56 @@ body{
 	position: absolute;
 	max-height: 50%;*/
 	top: 7%;
-	width: 99%;
+	width: 80%;
 	height: 100%;
 	z-index: 2;
 	position: absolute;
-	border-radius: 5px;
-	left: 0.5%;
+	border-radius: 0px;
+	left: 10%;
 	display: block;
+	background:url("images/patternX.png") #111;
 }
+#keywordPopup
+{
+  	position:relative;       
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+#keywordPopup:before, #keywordPopup:after
+{
+	content:"";
+    position:absolute; 
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:10px;
+    bottom:10px;
+    left:0;
+    right:0;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+} 
+#keywordPopup:after
+{
+	right:10px; 
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg); 
+       -moz-transform:skew(8deg) rotate(3deg);     
+        -ms-transform:skew(8deg) rotate(3deg);     
+         -o-transform:skew(8deg) rotate(3deg); 
+            transform:skew(8deg) rotate(3deg);
+}  
+
+/*Headers*/
+h1 , h1 a, h1 a:hover{ color:#FFF;	font-family: Arial; margin:10px;}
+article h1, article h1 a, article h1 a:hover, h2, h3, h4, h5, h6 { line-height: 1.1em; color:#444;font-family: 'PT Sans Narrow', Calibri, 'Myriad Pro', Tahoma, Arial; padding: 10px 0; margin:0;}
+article h1, article h1 a, h2 { font-size: 30px; letter-spacing: -1px;}
+h3 { font-size: 30px; }
+h4 { font-size: 22px;  font-weight: normal;  padding-bottom: 10px;}
+h5 { font-size: 14px;}
+h6 {}
 .column_right_grid span:hover{
  	
  }
@@ -651,7 +696,7 @@ body{
 	height: 7%;
 	padding: 1%;
 	margin: 1% auto;
-	border-radius: 10px;
+	border-radius: 0px;
 	box-shadow: 0 0px 0px rgba(0,0,0,.4) inset, 0 0px 0 rgba(255,255,255,.2);
 }
 #keywords{	
@@ -862,10 +907,12 @@ body{
 	height: 100%;
 	width: 100%;
 	position: relative;	
-	background-color: #1f253d;
+	background: url("images/grilled.jpg");
+	/*background-color: #1f253d;*/
 	/*background: linear-gradient(to right,#50597b, #394264,#50597b, #394264 , #50597b);*/
 	
 }
+
 #recents1,#feedsProfile,#votesProfile{
 	width: 100%;
 	position: relative;
@@ -1532,7 +1579,7 @@ body{
     position: relative;
     width: 98%;
     z-index: 1;
-    margin:2%;
+    margin:1%;
     margin-top: 0%;
     border-radius: 5px;
     /*background-color: #394264;*/
@@ -1540,7 +1587,7 @@ body{
 
 .hashFeed img{
    height: 100%;
-    width: 98%;
+    width: 100%;
     position: relative;
     left: 0px;
     border-radius: 5px;
@@ -1979,35 +2026,46 @@ textarea[name="header"]{
 	text-align: center;
     font-size: 30px;
     height: 7.5%;
-    width: 99%;
-    margin: 0.5%;
+    width: 100%;
+    margin: 0%;
     
-    margin-bottom: 1.5%;
+    
     position: absolute;
-    border-radius:5px 5px 5px 5px;
+    border-radius:0;
     z-index: 4;
-    
-background-color: #50597b;
+    border-bottom: 1px solid red;
+background: url(../images/patternX.png) #111;
+-webkit-box-shadow: 0 10px 6px -6px #777;
+	   -moz-box-shadow: 0 10px 6px -6px #777;
+	        box-shadow: 0 10px 10px -6px #777;
 }
 .three
 {
 	left: px;
-	background-color: rgba(6,54,95,.35);
+	color: #111;
+	
 -webkit-box-shadow: -1px 0 0 rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
 -moz-box-shadow: -1px 0 0 rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
 box-shadow: 1px 1px 1px rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
 width: 10%;
 height: 100%;
 top: 0%;
-
+margin-right: 0px;
 }
 .header div{
-	position : relative;
+	position : absolute;
 	float : left;
-	left: 25%;
-	color: white;
+	left: 30%;
+	color: #111;
 	font-family: serif;
 	top: 9%;
+}
+.appname{
+	background-image:url("images/hashrepublic.png");
+	background-size: 60% 100%;
+	background-repeat: no-repeat;
+	left: 20%;
+	width: 50%;
 }
 /*Admin Ends */
 #status{
@@ -2031,10 +2089,10 @@ top: 0%;
 #tapmateLogo{
 	background-image: url(images/logo.png);
 	position: absolute;
-	height: 50px;
-	width: 50px;
-	left: 10%;
-	top: 5%;
+	height: 100%;
+	width: 8%;
+	right:10%;
+	top: 0%;
 	background-size: 100% 100%;
 }
 /*Email Start/// */

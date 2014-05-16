@@ -706,7 +706,7 @@ function documentReady(){
             // $("body").on("touchmove",function(event){
             //     event.preventDefault();
             // });        
-            $("#loginScreen").show();
+            // $("#loginScreen").show();
             $("#Main").hide();
 
             // an attempt to prevent an error occuring on startup
@@ -4094,7 +4094,8 @@ function autoLogin(){
             //showLoader("Populating pictures");
         }
         else{
-            hideLoader();
+            $("#loginScreen").show();
+            // hideLoader();
             // GoodBye Guest ID
             // ClientId = "guest"+Random.id()
             // set("clientid",ClientId)
@@ -4994,7 +4995,7 @@ function validateEmail(email){
 
 function hideLoader(){
     var starttimer = new Date().getTime();
-    //console.log("hideLoader")
+    console.log("hideLoader")
     $("#loaderMessage").text("");
     $("#loader").hide();
     $("#loaderError").hide();
@@ -5006,6 +5007,7 @@ function preLoginAct(){
     var starttimer = new Date().getTime();
     $("#loginScreen").hide();
     $("#Main").show();
+    // hideLoader();
     // firstTimeLoader();
     fristTimeLoaderCount = 0;
     //firstTimeLoginInterval = setInterval(firstTimeLoader,12000);

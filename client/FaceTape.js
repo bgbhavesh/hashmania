@@ -255,7 +255,7 @@ UserSession =  new Meteor.Collection("usersession");
 MethodTimer = new Meteor.Collection("methodtimer");
 
 HashKeyword  = new Meteor.Collection("hashkeyword");
-
+HashComment  = new Meteor.Collection("hashcomment");
 
 // Feed =  new Meteor.SmartCollection("feed");
 // Likes = new Meteor.SmartCollection("likes");
@@ -975,7 +975,7 @@ Meteor.documentReady = documentReady;
     }
     function renderResults(data){
         $(".loading").show();
-        console.log(data)
+        //console.log(data)
         if($("#surveybig").length == 0){
             setTimeout(function(){renderResults(data)},250);
         }
@@ -983,9 +983,23 @@ Meteor.documentReady = documentReady;
         var currentData = null;
         for(var i=0,il=data.length;i<il;i++){
             currentData = data[i];
-            console.log(currentData.keyword)
+            //console.log(currentData.keyword)
             newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'">' 
-                +'<img src="' +currentData.keyword.standard +'">'            
+                +'<img src="' +currentData.keyword.standard +'">'
+                +'<div class="ui tertiary form segment">'
+                // +'<h4 class="ui header">Section One</h4>'
+                //     +'<h4 class="ui header">Section One</h4>'
+                //     +'<h4 class="ui header">Section One</h4>'
+
+                  +'<div class="field" likeid="' +currentData.keyword.likeid +'">'
+                    +'<div class="ui left labeled icon input">'
+                      +'<i class="comment icon"></i>'
+                      +'<input id="entercomment" type="text" placeholder="comment">'
+                    +'</div>'
+                    +'<div class="ui blue submit button" id="submitComment">Comment Submit</div>'
+                  +'</div>'
+                  
+                +'</div>'           
             +'</div>'
             var element = $("#surveybig").append(newElement); 
             for(j=0,jl=currentData.votes.length;j<jl;j++){
@@ -994,6 +1008,8 @@ Meteor.documentReady = documentReady;
         }
         $(".hashFeed").hammer().off("tap");  
         $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
+        $("#submitComment").hammer().off("tap");  
+        $("#submitComment").hammer().on("tap",tapOnSubmitComment);
         $(".loading").hide();
     }
     function appendVotesManuallyHash(id,currentVote){
@@ -1036,13 +1052,26 @@ Meteor.documentReady = documentReady;
                 ErrorUpdate.insert({"error":error,"date": new Date(),"side":"client","function" : "Template.srvyvotes.votes"});
             }
     }
+    function tapOnSubmitComment(event){
+        var data = {};
+        var date = new Date().getTime();
+        var likeid = Session.get("currentBig");
+        var value= $("#entercomment").val();
+        console.log(likeid);
+        console.log(value);
+        data.likeid =likeid;
+        data.value = value;
+        data.date= date;
+        $(".field[likeid='" +likeid+"']").css("display","none");
+        // HashComment.insert(data)
+    }
     function tapOnBigFeedSurvey(event){
         currentSurveyBig = $(this);
         var x = event.gesture.center.pageX;
         var y = event.gesture.center.pageY;
         // y = y - $(this)[0].offsetTop;
         var offset = $(event.currentTarget).offset();
-        var w = $("#surveybig");
+        // var w = $("#surveybig");
         
         // console.log(offset.top +" " +w.scrollTop() +" " +y)
         var height = $(this).height();
@@ -1079,7 +1108,7 @@ Meteor.documentReady = documentReady;
         var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
         var bigFeed = $(".voting")
         if(cursorBig){
-             var voteloc =$(".voting[votingid='" +cursorBig._id +"']")
+             var voteloc =$(".voting[votingid='" +cursorBig._id +"']");
             if(voteloc.length==0){
                 Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
                 // appendVotesManually(this);
@@ -1092,16 +1121,20 @@ Meteor.documentReady = documentReady;
         } 
         else{
                 currentMoveVote = Votes.insert(VotesInsert);
+                VotesInsert._id = currentMoveVote;
                 appendVotesManuallyHash(likeid,VotesInsert);
         }
         
         currentSurveyBig = currentSurveyBig.next(".bigFeed");
-        setTimeout(pageScroll,2000);
+        //setTimeout(pageScroll,2000);
+        //showvotes(likeid);
+        $("#"+likeid).children(".voting").show();
+        // showvotes(likeid);
     }
     var currentSurveyBig = null;
     var bigsurveyHeight1=0;
     function pageScroll() {
-        bigsurveyHeight = $(".quadrant").height();
+        bigsurveyHeight = $(".hashFeed").height();
         bigsurveyHeight1=bigsurveyHeight1+bigsurveyHeight;
         //console.log(currentSurveyBig.offset().top);
         //$("#div").stop().animate({"marginTop": ($(window).scrollTop()) + "px", "marginLeft":($(window).scrollLeft()) + "px"}, "slow" );
@@ -1110,6 +1143,19 @@ Meteor.documentReady = documentReady;
         //$("#surveybig").transition({ scrollTop: 200 }, 7000);
         //document.getElementById('surveybig').transition({ scrollTop: 0 }, "slow");
     }
+    // function showvotes(likeid){
+    //     var currentfeed = Votes.find({"likeid":likeid});
+    //     var activeLOPArray = []; 
+    //     currentfeed.forEach(function(data){   
+    //           activeLOPArray.push(data._id);                           
+    //     });
+    //     console.log(likeid);
+    //     console.log(activeLOPArray.length);
+    //     for(i=0,j=activeLOPArray.length;i<j;i++){
+    //         console.log(activeLOPArray[i]);
+    //         $(".voting[votingid='" +activeLOPArray[i]+"']").css("display","block")
+    //     }
+    // }
 
     function appendVotesManually(currentTarget,currentVote){
         var oldVotes = $(currentTarget).children(".voting");
@@ -5696,7 +5742,7 @@ function bindEvents(){
                     searchHash();
                 }
             });
-            $("#surveybig").on("scrollstop",onSurveyScroll)
+            // $("#surveybig").on("scrollstop",onSurveyScroll)
         //  HASH MANIA 
         touchScroll("snapy");
             ///Last Event

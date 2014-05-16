@@ -960,10 +960,10 @@ Meteor.documentReady = documentReady;
                 document.getElementById('updownarrow').className = ' huge sort ascending icon';
             }
             else{
-                $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
+                $("#surveybighandle").css({"top":"7.8%","background": "black","opacity": "0.5"});
                 $(".hashKeyword").css({"display":"block"});
                 $("#surveybig").css({"top":"18%"});
-                $('#updownarrow').css({"top": "56%"});
+                $('#updownarrow').css({"top": "25%"});
                 $('#updownarrow').addClass('huge sort descending icon');
             }
 
@@ -6950,11 +6950,12 @@ function onclickopencloseSurvey(first,resume){
         //$("#surveybighandle").css({"z-index":"4"});
     }
     else{
-        $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
+
+        $("#surveybighandle").css({"top":"7.8%","background": "black","opacity": "0.5"});
         $("#surveybig").transition({"top":"18%"});
         $(".hashKeyword").css({"display":"block"});
         $('#updownarrow').addClass('huge sort descending icon');
-        $('#updownarrow').css({"top": "56%"});
+        $('#updownarrow').css({"top": "18%"});
         document.getElementById('updownarrow').className = ' huge sort descending icon';
         // $("#updownarrow").animate("class","huge sort descending icon");
         //$("#surveybighandle").css({"z-index":"3"});

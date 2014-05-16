@@ -168,12 +168,12 @@ body{
 }
 #updownarrow{
 	position: absolute;
-	left: 36%;
+	left: 40%;
 }
 #surveybighandle{
 	top: 89%;
 	overflow-y: scroll;
-	height: 20%;
+	height: 13%;
 	width: 100%;
 	position: absolute;
 	z-index: 4;
@@ -1620,7 +1620,7 @@ h6 {}
 	color: white;
 	position: absolute;
 	top: 57%;
-	left: 34%;
+	right: 10%;
 	font-size: 30px;
 }
 #thankyouBackgroud{

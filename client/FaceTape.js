@@ -947,13 +947,17 @@ Meteor.documentReady = documentReady;
 
             onclickopencloseSurvey(null,true);
             if(snapTopFlag){
-                $("#surveybighandle").css({"top":"89%"});
+                $("#surveybighandle").css({"top":"89%","background": "black","opacity": "1.0"});
                 $("#surveybig").css({"top":"92%"});
+                $(".hashKeyword").css({"display":"none"});
+                $('#updownarrow').css({"top": "0%"});
                 document.getElementById('updownarrow').className = ' huge sort ascending icon';
             }
             else{
-                $("#surveybighandle").css({"top":"12%"});
+                $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
+                $(".hashKeyword").css({"display":"block"});
                 $("#surveybig").css({"top":"18%"});
+                $('#updownarrow').css({"top": "56%"});
                 $('#updownarrow').addClass('huge sort descending icon');
             }
 
@@ -6928,16 +6932,20 @@ function randomGame(){
 var snapTopFlag = false;
 function onclickopencloseSurvey(first,resume){
     if(snapTopFlag){        
-        $("#surveybighandle").transition({"top":"89%"});
+        $("#surveybighandle").css({"top":"89%","background": "transparent","opacity": "1.0"});
         $("#surveybig").transition({"top":"92%"});
+        $(".hashKeyword").css({"display":"none"});
+        $('#updownarrow').css({"top": "0%"});
         document.getElementById('updownarrow').className = ' huge sort ascending icon';
         //$("#updownarrow").animate("class","huge sort ascending icon");
         //$("#surveybighandle").css({"z-index":"4"});
     }
     else{
-        $("#surveybighandle").transition({"top":"12%"});
+        $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
         $("#surveybig").transition({"top":"18%"});
+        $(".hashKeyword").css({"display":"block"});
         $('#updownarrow').addClass('huge sort descending icon');
+        $('#updownarrow').css({"top": "56%"});
         document.getElementById('updownarrow').className = ' huge sort descending icon';
         // $("#updownarrow").animate("class","huge sort descending icon");
         //$("#surveybighandle").css({"z-index":"3"});

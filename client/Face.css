@@ -185,7 +185,7 @@ body{
 	height: 79%;
 	width: 100%;
 	position: absolute;
-	border-top:red 1px solid;
+	border-top:#11a8ab 1px solid;
 	border-radius: 0px;
 	background: url(../images/hash_pattern.png) #111;
 		/*background: linear-gradient(to right,#50597b, #394264, #394264 , #50597b);*/
@@ -683,7 +683,8 @@ h6 {}
     font-family: 'ambleregular';
 }
 #keywordButton:hover{
-	border:1px solid ;
+	border:0px solid ;
+	box-shadow: 0 0 10px 3px  #11a8ab;
 }
 #searchkeyword{
 	background-color: #50597b;
@@ -698,7 +699,7 @@ h6 {}
     -webkit-apperance:none;
     font-family: 'ambleregular';
 	height: 7%;
-	padding: 1%;
+	
 	margin: 1% auto;
 	border-radius: 0px;
 	box-shadow: 0 0px 0px rgba(0,0,0,.4) inset, 0 0px 0 rgba(255,255,255,.2);
@@ -719,6 +720,12 @@ h6 {}
 	cursor: pointer;
 	color: #11a8ab;
 	font-family: 'ambleregular';
+	background-color: #565656;
+  color: transparent;
+  text-shadow: 0px 1px 1px rgba(255,255,255,0.5);
+  -webkit-background-clip: text;
+     -moz-background-clip: text;
+          background-clip: text;
 }
 .redKeyword{
     background-color: red;
@@ -2019,7 +2026,7 @@ textarea[name="header"]{
 .header{
 	text-align: center;
 	font-size: 30px;
-	height:100%;
+	height:10%;
 	width:100%;
 	font-family: havletica,arial;
 }
@@ -2041,7 +2048,8 @@ textarea[name="header"]{
     position: absolute;
     border-radius:0;
     z-index: 4;
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid #11a8ab;
+    border-top: 1px solid #11a8ab;
 background: url(../images/patternX.png) #111;
 -webkit-box-shadow: 0 10px 6px -6px #777;
 	   -moz-box-shadow: 0 10px 6px -6px #777;
@@ -2073,6 +2081,7 @@ margin-right: 0px;
 	background-size: 60% 100%;
 	background-repeat: no-repeat;
 	left: 20%;
+	height: 85%;
 	width: 50%;
 }
 /*Admin Ends */
@@ -2102,6 +2111,11 @@ margin-right: 0px;
 	right:10%;
 	top: 0%;
 	background-size: 100% 100%;
+}
+
+#tapmateLogo:hover{
+
+box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 }
 /*Email Start/// */
 

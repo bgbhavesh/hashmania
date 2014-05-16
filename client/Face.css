@@ -684,7 +684,7 @@ h6 {}
 }
 #keywordButton:hover{
 	border:0px solid ;
-	box-shadow: 0 0 10px 3px  #11a8ab;
+	box-shadow: 0 0 5px 2px  #11a8ab;
 }
 #searchkeyword{
 	background-color: #50597b;
@@ -1626,8 +1626,8 @@ h6 {}
 	margin-left: 44%;*/
 	color: white;
 	position: absolute;
-	top: 57%;
-	right: 10%;
+	top: 40%;
+	right: 25%;
 	font-size: 30px;
 }
 #thankyouBackgroud{

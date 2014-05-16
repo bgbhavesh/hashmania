@@ -562,6 +562,7 @@ MethodTimer = new Meteor.Collection("methodtimer");
 ////////////// HASHMANIA COLLECTION ////////////////
 HashKeyword  = new Meteor.Collection("hashkeyword");
 UserHashMania =  new Meteor.Collection("hashmania");
+HashComment  = new Meteor.Collection("hashcomment");
 ////////////// HASHMANIA COLLECTION ////////////////
 
 var cursor = null;

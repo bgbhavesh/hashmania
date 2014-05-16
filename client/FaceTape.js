@@ -615,16 +615,22 @@ function postLoginAction(){
 var TapmateUser = null;
 function onLoginWithTapmate(){
     var email = $("#seEmail").val();
-    var pass = $("#sePassThankyou").val();
-    if(pass){
-        $("#seError").css("display","none");
-        Meteor.call("verifyHashEmailToken",emailAuthFlag,pass,commonClose)
-        Meteor.loginWithPassword(email, pass, loginWithTapmateCallbackFunction);
-        TapmateUser = email;
+    var pass1 = $("#sePassThankyou1").val();
+    var pass2 = $("#sePassThankyou2").val();
+    if(pass1==pass2){
+        if(pass1){
+            $("#passwordError").css("display","none");
+            Meteor.call("verifyHashEmailToken",emailAuthFlag,pass1,commonClose)
+            Meteor.loginWithPassword(email, pass1, loginWithTapmateCallbackFunction);
+            TapmateUser = email;
+        }
+        else{
+            showLoginErrorMessage("onLoginWithTapmate")
+        }
+    }else{
+        $("#passwordError").css("display","block");
     }
-    else{
-        showLoginErrorMessage("onLoginWithTapmate")
-    }
+    
 }
 function commonClose(err,data){
                 if(data){                    
@@ -947,13 +953,17 @@ Meteor.documentReady = documentReady;
 
             onclickopencloseSurvey(null,true);
             if(snapTopFlag){
-                $("#surveybighandle").css({"top":"89%"});
+                $("#surveybighandle").css({"top":"89%","background": "black","opacity": "1.0"});
                 $("#surveybig").css({"top":"92%"});
+                $(".hashKeyword").css({"display":"none"});
+                $('#updownarrow').css({"top": "0%"});
                 document.getElementById('updownarrow').className = ' huge sort ascending icon';
             }
             else{
-                $("#surveybighandle").css({"top":"12%"});
+                $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
+                $(".hashKeyword").css({"display":"block"});
                 $("#surveybig").css({"top":"18%"});
+                $('#updownarrow').css({"top": "56%"});
                 $('#updownarrow').addClass('huge sort descending icon');
             }
 
@@ -963,6 +973,49 @@ Meteor.documentReady = documentReady;
             $("#surveybighandle").hammer().off("tap");
             $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
     }
+    function renderResults(data){
+        $(".loading").show();
+        console.log(data)
+        if($("#surveybig").length == 0){
+            setTimeout(function(){renderResults(data)},250);
+        }
+        var newElement = null;
+        var currentData = null;
+        for(var i=0,il=data.length;i<il;i++){
+            currentData = data[i];
+            console.log(currentData.keyword)
+            newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'">' 
+                +'<img src="' +currentData.keyword.standard +'">'            
+            +'</div>'
+            var element = $("#surveybig").append(newElement); 
+            for(j=0,jl=currentData.votes.length;j<jl;j++){
+                appendVotesManuallyHash(currentData.keyword.likeid,currentData.votes[j])
+            }
+        }
+        $(".hashFeed").hammer().off("tap");  
+        $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
+        $(".loading").hide();
+    }
+    function appendVotesManuallyHash(id,currentVote){
+        var local = currentVote;
+        //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
+        // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
+        $("#"+id).append(getVoteHTML(local.left,local.top - 40,"%",local.profile_picture,local._id))
+    }
+    /*
+
+    <div class="quadrant" id="{{likeid}}">
+        <div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>
+        <div id="inerhprogressBar">
+            <i class='big bullhorn icon' style="margin-left: 0px"></i>
+        </div>
+        <div id="outer" class="ui warning progress">
+            <div class="inner"  id="verticalprogress"></div> <hr style="height:100%;width:2px;margin-bottom:-8px;padding:0px;">
+        </div>
+
+        <div id="inner-inner"><i class='big thumbs up icon' style="margin-left: 0px;"></i></div>     
+    </div>
+    */
     surveyToggleFlag = false;
     function tapOnSurveyBig () {
         if(surveyToggleFlag){
@@ -1029,7 +1082,7 @@ Meteor.documentReady = documentReady;
              var voteloc =$(".voting[votingid='" +cursorBig._id +"']")
             if(voteloc.length==0){
                 Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
-                appendVotesManually(this);
+                // appendVotesManually(this);
             }
             else{
                 Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
@@ -1039,7 +1092,7 @@ Meteor.documentReady = documentReady;
         } 
         else{
                 currentMoveVote = Votes.insert(VotesInsert);
-                appendVotesManually(this,VotesInsert);
+                appendVotesManuallyHash(likeid,VotesInsert);
         }
         
         currentSurveyBig = currentSurveyBig.next(".bigFeed");
@@ -5643,7 +5696,7 @@ function bindEvents(){
                     searchHash();
                 }
             });
-            $("#surveybig").scroll(onSurveyScroll)
+            $("#surveybig").on("scrollstop",onSurveyScroll)
         //  HASH MANIA 
         touchScroll("snapy");
             ///Last Event
@@ -5664,6 +5717,7 @@ function bindEvents(){
 }
 var processingFlag = false;
 function onSurveyScroll(){
+    console.log("onSurveyScroll")
     if(processingFlag)
         return;
     processingFlag = true;
@@ -5677,7 +5731,8 @@ function onSurveyScroll(){
             elementImg.show();
         }
     })
-    setTimeout(function(){processingFlag = false},5000);
+
+    setTimeout(function(){processingFlag = false},250);
 }
 function clickOnInvMail(){
     var emailurl = 'mailto:tapmate@tapmate.mailgun.org?subject=You have been invited to join tapmate&body=click here to download it <br>http://youtap.meteor.com/app/tapmateYouiestcom';
@@ -6886,16 +6941,20 @@ function randomGame(){
 var snapTopFlag = false;
 function onclickopencloseSurvey(first,resume){
     if(snapTopFlag){        
-        $("#surveybighandle").transition({"top":"89%"});
+        $("#surveybighandle").css({"top":"89%","background": "transparent","opacity": "1.0"});
         $("#surveybig").transition({"top":"92%"});
+        $(".hashKeyword").css({"display":"none"});
+        $('#updownarrow').css({"top": "0%"});
         document.getElementById('updownarrow').className = ' huge sort ascending icon';
         //$("#updownarrow").animate("class","huge sort ascending icon");
         //$("#surveybighandle").css({"z-index":"4"});
     }
     else{
-        $("#surveybighandle").transition({"top":"12%"});
+        $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
         $("#surveybig").transition({"top":"18%"});
+        $(".hashKeyword").css({"display":"block"});
         $('#updownarrow').addClass('huge sort descending icon');
+        $('#updownarrow').css({"top": "56%"});
         document.getElementById('updownarrow').className = ' huge sort descending icon';
         // $("#updownarrow").animate("class","huge sort descending icon");
         //$("#surveybighandle").css({"z-index":"3"});
@@ -7307,9 +7366,13 @@ Meteor.startup(function () {
     Deps.autorun(function(){
         if(Session.get("keyword")){
             $(".loading").show();
-            Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){
-                $(".loading").hide();
-            });   
+            
+            // Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){
+            //     $(".loading").hide();
+            // });
+            Meteor.call("getResult",Session.get("keyword"),function(err,data){
+                renderResults(data);
+            })   
             set("keyword",Session.get("keyword"))
         }
     })

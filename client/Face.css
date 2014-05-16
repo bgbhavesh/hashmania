@@ -998,6 +998,7 @@ body{
   position: absolute;
   z-index: 1;
   font-size: 12px;
+  top: 0px;
 }
 .gameQuadrant{
   width : 50%;
@@ -1529,7 +1530,6 @@ body{
 }
 .hashFeed{
     position: relative;
-    height: 50%;
     width: 98%;
     z-index: 1;
     margin:2%;
@@ -1537,16 +1537,11 @@ body{
     border-radius: 5px;
     /*background-color: #394264;*/
 }
-.hashFeed{
-    position: relative;
-    height: 50%;
-    width: 100%;
-    z-index: 1;
-}
+
 .hashFeed img{
    height: 100%;
     width: 98%;
-    position: absolute;
+    position: relative;
     left: 0px;
     border-radius: 5px;
 }

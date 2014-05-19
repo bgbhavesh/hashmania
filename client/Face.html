@@ -200,10 +200,11 @@
 	<div class="item">
 	  <div id="tapmate"><b>Tapmate</b></div>
 	  <div class="menu">
-		  <a id="contactUsButton" class="item"> <i class="phone icon"></i> Contact Us </a>
-		  <a id="aboutUsButton" class="item"><i class="font icon"></i> About </a>
-		  <a id="feedbackButton" class="item"><i class="edit icon"></i> Feedback </a>
-		  <a id="videotutorial" class="item"><i class="video icon"> </i> Video tutorial</a>
+			<a id="FAQButton" class="item"><i class="question icon"></i> FAQ </a>
+			<a id="contactUsButton" class="item"> <i class="phone icon"></i> Contact Us </a>
+			<a id="aboutUsButton" class="item"><i class="font icon"></i> About </a>
+			<a id="feedbackButton" class="item"><i class="edit icon"></i> Feedback </a>
+			<a id="videotutorial" class="item"><i class="video icon"> </i> Video tutorial</a>
 	  </div>
 	</div>
 
@@ -355,7 +356,7 @@
 	   <div class="appname"> . </div>
 	
 	</div>
-	<div id="tapmateLogo"> </div> 
+	
 	
   </div> 
   <div id="toastArea">  </div> 
@@ -363,8 +364,8 @@
 
 <template name="server"> 
 	<div id="status" class="{{status}}Status" data-step="1" data-intro="Online / Offline" data-position="left">
-		<div id="unseenCount">{{unseenCount}} </div> 
-		<div class="loading"></div>
+		<div id="tapmateLogo" class="{{status}}Status"> </div> 
+	</div>
 	</div>
 </template>
 

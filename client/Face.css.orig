@@ -1634,10 +1634,14 @@ h6 {}
 	margin-left: 44%;*/
 	color: white;
 	position: absolute;
-	bottom: 10%;
+<<<<<<< HEAD
+	top: 40%;
 	left: 55%;
+=======
+	top: 75%;
+	right: 25%;
+>>>>>>> 444b47dbb48417a821104021118a2d3827f4df59
 	font-size: 30px;
-
 }
 #thankyouBackgroud{
 	background-color: black;
@@ -2034,28 +2038,10 @@ textarea[name="header"]{
 }
 mark{
 	background-color: #11a8ab;
-	color: #dbedfe;
-	background-image: -webkit-linear-gradient(bottom, #c7defe, #e7f1fe);
-	border: 1px solid rgba(0, 0, 0, .18);
-	border-bottom-color: rgba(0, 0, 0, .29);
-	-webkit-border-radius: 14px 14px 0 14px;
-	-webkit-box-shadow: 0 1px 0 #dce0e6;
-	color: #3e454c;
-	line-height: 1.28;
-	margin-right: 5%;
-	min-height: 14px;
-	padding: 0.5%;
-	position: relative;
-	text-align: left;
-	text-shadow: rgba(255, 255, 255, .5) 0 1px 0;
-	white-space: pre-wrap;
-	word-wrap: break-word;
-
-direction: ltr;
-
+	color: #FFFFFF;
 }
 .header{
-	text-align: right;
+	text-align: center;
 	font-size: 30px;
 	height:10%;
 	width:100%;
@@ -2099,7 +2085,6 @@ box-shadow: 1px 1px 1px rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),ins
 width: 10%;
 height: 100%;
 top: 0%;
-
 }
 
 .header div{

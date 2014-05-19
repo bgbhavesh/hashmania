@@ -937,9 +937,9 @@ Meteor.documentReady = documentReady;
 
    /////////////////////////// // Survey starts
 
-    Template.hashmania.eachBig = function(){
-        return HashKeyword.find({"keyword":Session.get("keyword")})
-    }
+    // Template.hashmania.eachBig = function(){
+    //     return HashKeyword.find({"keyword":Session.get("keyword")})
+    // }
     Template.BeforeLogin.keyword = function(){
         return Session.get("keyword");
     }
@@ -949,24 +949,24 @@ Meteor.documentReady = documentReady;
                 firstTimeLoginFlag = false;
             }
             
-            $(".hashFeed").hammer().off("tap");  
-            $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
+            // $(".hashFeed").hammer().off("tap");  
+            // $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
 
-            onclickopencloseSurvey(null,true);
-            if(snapTopFlag){
-                $("#surveybighandle").css({"top":"89%","background": "black","opacity": "1.0"});
-                $("#surveybig").css({"top":"92%"});
-                $(".hashKeyword").css({"display":"none"});
-                $('#updownarrow').css({"top": "0%"});
-                document.getElementById('updownarrow').className = ' huge sort ascending icon';
-            }
-            else{
-                $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
-                $(".hashKeyword").css({"display":"block"});
-                $("#surveybig").css({"top":"18%"});
-                $('#updownarrow').css({"top": "56%"});
-                $('#updownarrow').addClass('huge sort descending icon');
-            }
+            // onclickopencloseSurvey(null,true);
+            // if(snapTopFlag){
+            //     $("#surveybighandle").css({"top":"89%","background": "black","opacity": "1.0"});
+            //     $("#surveybig").css({"top":"92%"});
+            //     $(".hashKeyword").css({"display":"none"});
+            //     $('#updownarrow').css({"top": "0%"});
+            //     document.getElementById('updownarrow').className = ' huge sort ascending icon';
+            // }
+            // else{
+            //     $("#surveybighandle").css({"top":"7.8%","background": "black","opacity": "0.5"});
+            //     $(".hashKeyword").css({"display":"block"});
+            //     $("#surveybig").css({"top":"18%"});
+            //     $('#updownarrow').css({"top": "25%"});
+            //     $('#updownarrow').addClass('huge sort descending icon');
+            // }
 
 
             // $("#surveybig").hammer().off("tap");
@@ -1017,8 +1017,10 @@ Meteor.documentReady = documentReady;
                 
                 appendVotesManuallyHash(currentData.keyword.likeid,currentData.votes[j])
             }
+            $("#"+currentData.keyword.likeid).children(".tertiary").hide();
             if(showFlag){
                 $("#"+currentData.keyword.likeid).children(".voting").show()
+                $("#"+currentData.keyword.likeid).children(".tertiary").show();
             }
         }
 
@@ -1028,7 +1030,7 @@ Meteor.documentReady = documentReady;
         $(".submitComment").hammer().off("tap");  
         $(".submitComment").hammer().on("tap",tapOnSubmitComment);
 
-        $(".tertiary").hide();
+        // $(".tertiary").hide();
         
         $(".loading").hide();
     }
@@ -7032,8 +7034,8 @@ function onclickopencloseSurvey(){
     else{
         closeSurvey()        
     }
-    if(!resume)
-    snapTopFlag = !snapTopFlag;
+    // if(!resume)
+    // snapTopFlag = !snapTopFlag;
 }
 
 function openSurvey(){

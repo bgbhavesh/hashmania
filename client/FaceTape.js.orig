@@ -937,9 +937,9 @@ Meteor.documentReady = documentReady;
 
    /////////////////////////// // Survey starts
 
-    Template.hashmania.eachBig = function(){
-        return HashKeyword.find({"keyword":Session.get("keyword")})
-    }
+    // Template.hashmania.eachBig = function(){
+    //     return HashKeyword.find({"keyword":Session.get("keyword")})
+    // }
     Template.BeforeLogin.keyword = function(){
         return Session.get("keyword");
     }
@@ -949,6 +949,7 @@ Meteor.documentReady = documentReady;
                 firstTimeLoginFlag = false;
             }
             
+<<<<<<< HEAD
             $(".hashFeed").hammer().off("tap");  
             $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
 
@@ -967,6 +968,26 @@ Meteor.documentReady = documentReady;
                 $('#updownarrow').css({"top": "56%"});
                 $('#updownarrow').addClass('huge sort descending icon');
             }
+=======
+            // $(".hashFeed").hammer().off("tap");  
+            // $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
+
+            // onclickopencloseSurvey(null,true);
+            // if(snapTopFlag){
+            //     $("#surveybighandle").css({"top":"89%","background": "black","opacity": "1.0"});
+            //     $("#surveybig").css({"top":"92%"});
+            //     $(".hashKeyword").css({"display":"none"});
+            //     $('#updownarrow').css({"top": "0%"});
+            //     document.getElementById('updownarrow').className = ' huge sort ascending icon';
+            // }
+            // else{
+            //     $("#surveybighandle").css({"top":"7.8%","background": "black","opacity": "0.5"});
+            //     $(".hashKeyword").css({"display":"block"});
+            //     $("#surveybig").css({"top":"18%"});
+            //     $('#updownarrow').css({"top": "25%"});
+            //     $('#updownarrow').addClass('huge sort descending icon');
+            // }
+>>>>>>> 3635a6cd55f49b7f85a216663feac6130d34413d
 
 
             // $("#surveybig").hammer().off("tap");
@@ -1017,8 +1038,10 @@ Meteor.documentReady = documentReady;
                 
                 appendVotesManuallyHash(currentData.keyword.likeid,currentData.votes[j])
             }
+            $("#"+currentData.keyword.likeid).children(".tertiary").hide();
             if(showFlag){
                 $("#"+currentData.keyword.likeid).children(".voting").show()
+                $("#"+currentData.keyword.likeid).children(".tertiary").show();
             }
         }
 
@@ -1028,7 +1051,7 @@ Meteor.documentReady = documentReady;
         $(".submitComment").hammer().off("tap");  
         $(".submitComment").hammer().on("tap",tapOnSubmitComment);
 
-        $(".tertiary").hide();
+        // $(".tertiary").hide();
         
         $(".loading").hide();
     }
@@ -7023,29 +7046,6 @@ function randomGame(){
  */
 
 /////////////////GAMESECTION//////////////
-<<<<<<< HEAD
-var snapTopFlag = false;
-function onclickopencloseSurvey(first,resume){
-    if(snapTopFlag){        
-        $("#surveybighandle").css({"top":"89%","background": "black","opacity": "0.5"});
-        $("#surveybig").css({"top":"92%"});
-        $(".hashKeyword").css({"display":"none"});
-        $('#updownarrow').css({"top": "0%"});
-        document.getElementById('updownarrow').className = ' huge sort ascending icon';
-        //$("#updownarrow").animate("class","huge sort ascending icon");
-        //$("#surveybighandle").css({"z-index":"4"});
-    }
-    else{
-
-        $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
-        $(".hashKeyword").css({"display":"block"});
-        $("#surveybig").css({"top":"18%"});
-        $('#updownarrow').css({"top": "56%"});
-        $('#updownarrow').addClass('huge sort descending icon');
-document.getElementById('updownarrow').className = ' huge sort descending icon';
-        // $("#updownarrow").animate("class","huge sort descending icon");
-        //$("#surveybighandle").css({"z-index":"3"});
-=======
 var snapTopFlag = true;
 function onclickopencloseSurvey(){
     console.log(snapTopFlag)
@@ -7054,10 +7054,9 @@ function onclickopencloseSurvey(){
     }
     else{
         closeSurvey()        
->>>>>>> 628ea7e0cc016636395233a961f64d8ce858defa
     }
-    if(!resume)
-    snapTopFlag = !snapTopFlag;
+    // if(!resume)
+    // snapTopFlag = !snapTopFlag;
 }
 
 function openSurvey(){

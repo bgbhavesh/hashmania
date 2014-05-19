@@ -992,7 +992,7 @@ Meteor.documentReady = documentReady;
                 +'<div class="ui tertiary form segment">'
                 +'<div class="commentWrapper">';
                     for(var k=0,kl=currentData.comments.length;k<kl;k++){
-                        newElement +='<h4 class="ui header">'+currentData.comments[k].value +'</h4>'                         
+                        newElement +='<h4 class=""><mark>'+currentData.comments[k].value +'</mark></h4>'                         
                     }
                 newElement += '</div>'
                   +'<div class="field" likeid="' +currentData.keyword.likeid +'">'

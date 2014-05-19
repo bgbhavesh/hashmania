@@ -1427,6 +1427,15 @@ language.html = [
             //     console.log(error);ErrorUpdate.insert({"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"methods.seachKeyword"})
             // }
         },
+        "getLoginStatus" : function(email){
+            var cursorUserHashMania = UserHashMania.findOne({"_id":email});
+            if(cursorUserHashMania){
+                return true;
+            }
+            else{
+                return false;
+            }
+        },
         "verifyHashEmailToken" : function(emailtoken,password){
             var cursorUserHashMania = UserHashMania.findOne({"emailtoken":emailtoken});
             if(cursorUserHashMania){

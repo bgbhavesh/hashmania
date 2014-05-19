@@ -5547,12 +5547,12 @@ function checkdevice(){
 var autoSizeTimeOut = null;
 var adjustLeft = 0;
 function autoSize(){
-        return
+        // return
         // inconsistent right now
         console.log("autoSize");
         var windowHeight = $(window).height();
         var windowWidth = $(window).width();
-        $("#Main").css({"height":windowHeight,"width":windowWidth});
+        $("body").css({"height":windowHeight,"width":windowWidth});
         return;
         var adjustedWidth = 0;
             adjustedWidth = (windowHeight / 4 ) * 3 ;
@@ -5724,7 +5724,7 @@ function bindEvents(){
         $(window).bind('beforeunload',function(){
             saveCollection();
         });
-        $(window).resize(autoSize);
+        // $(window).resize(autoSize);
         //$("#pushimagePopUp").hammer().on("tap",OnClickPushImage);
         $("#snapButtonWrapper").hammer().off("tap",openCloseSnapLeft)
         $("#snapButtonWrapper").hammer().on("tap",openCloseSnapLeft);

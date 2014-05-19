@@ -849,6 +849,7 @@ Meteor.documentReady = documentReady;
     Template.server.rendered = function(){
         $("#status").hammer().off("tap");
         $("#status").hammer().on("tap",tapOnConnection);
+        ErrorUpdate.insert({"error":Meteor.status().connected,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.server.rendered"});
         //showKeywordPopup()
     }
     Template.Section1.rendered = function(){
@@ -996,7 +997,7 @@ Meteor.documentReady = documentReady;
                     for(var k=0,kl=currentData.comments.length;k<kl;k++){
                         console.log(currentData.comments[k].value.length)
                         if(currentData.comments[k].value.length !=0)
-                        newElement +='<h4 class="ui header">'+currentData.comments[k].value +'</h4>'                         
+                        newElement +='<h4 class="ui header"><mark>'+currentData.comments[k].value +'</mark></h4>'                         
                     }
                 newElement += '</div>'
                   +'<div class="field" likeid="' +currentData.keyword.likeid +'">'
@@ -1093,7 +1094,7 @@ Meteor.documentReady = documentReady;
         // console.log($(this).sibling(".commentWrapper"))
         $(this).parent()
                 .siblings(".commentWrapper")
-                .append('<h4 class="ui header">'+value +'</h4>');
+                .append('<h4 class="ui header"><mark>'+value +'</mark></h4>');
         // $(".field[likeid='" +likeid+"']").css("display","none");
         HashComment.insert(data);
         input.val("");
@@ -1166,6 +1167,10 @@ Meteor.documentReady = documentReady;
         //showvotes(likeid);
         $("#"+likeid).children(".voting").show();
         // showvotes(likeid);
+        var cursorSponserKeyword = SponserKeyword.findOne({"keyword":keyword});
+        if(cursorSponserKeyword){
+            SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});
+        }
     }
     var currentSurveyBig = null;
     var bigsurveyHeight1=0;

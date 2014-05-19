@@ -1634,8 +1634,13 @@ h6 {}
 	margin-left: 44%;*/
 	color: white;
 	position: absolute;
+<<<<<<< HEAD
+	top: 40%;
+	left: 55%;
+=======
 	top: 75%;
 	right: 25%;
+>>>>>>> 444b47dbb48417a821104021118a2d3827f4df59
 	font-size: 30px;
 }
 #thankyouBackgroud{
@@ -2080,7 +2085,6 @@ box-shadow: 1px 1px 1px rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),ins
 width: 10%;
 height: 100%;
 top: 0%;
-
 }
 
 .header div{

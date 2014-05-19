@@ -937,9 +937,9 @@ Meteor.documentReady = documentReady;
 
    /////////////////////////// // Survey starts
 
-    Template.hashmania.eachBig = function(){
-        return HashKeyword.find({"keyword":Session.get("keyword")})
-    }
+    // Template.hashmania.eachBig = function(){
+    //     return HashKeyword.find({"keyword":Session.get("keyword")})
+    // }
     Template.BeforeLogin.keyword = function(){
         return Session.get("keyword");
     }
@@ -949,24 +949,24 @@ Meteor.documentReady = documentReady;
                 firstTimeLoginFlag = false;
             }
             
-            $(".hashFeed").hammer().off("tap");  
-            $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
+            // $(".hashFeed").hammer().off("tap");  
+            // $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
 
-            onclickopencloseSurvey(null,true);
-            if(snapTopFlag){
-                $("#surveybighandle").css({"top":"89%","background": "black","opacity": "1.0"});
-                $("#surveybig").css({"top":"92%"});
-                $(".hashKeyword").css({"display":"none"});
-                $('#updownarrow').css({"top": "0%"});
-                document.getElementById('updownarrow').className = ' huge sort ascending icon';
-            }
-            else{
-                $("#surveybighandle").css({"top":"7.8%","background": "black","opacity": "0.5"});
-                $(".hashKeyword").css({"display":"block"});
-                $("#surveybig").css({"top":"18%"});
-                $('#updownarrow').css({"top": "25%"});
-                $('#updownarrow').addClass('huge sort descending icon');
-            }
+            // onclickopencloseSurvey(null,true);
+            // if(snapTopFlag){
+            //     $("#surveybighandle").css({"top":"89%","background": "black","opacity": "1.0"});
+            //     $("#surveybig").css({"top":"92%"});
+            //     $(".hashKeyword").css({"display":"none"});
+            //     $('#updownarrow').css({"top": "0%"});
+            //     document.getElementById('updownarrow').className = ' huge sort ascending icon';
+            // }
+            // else{
+            //     $("#surveybighandle").css({"top":"7.8%","background": "black","opacity": "0.5"});
+            //     $(".hashKeyword").css({"display":"block"});
+            //     $("#surveybig").css({"top":"18%"});
+            //     $('#updownarrow').css({"top": "25%"});
+            //     $('#updownarrow').addClass('huge sort descending icon');
+            // }
 
 
             // $("#surveybig").hammer().off("tap");
@@ -1017,8 +1017,10 @@ Meteor.documentReady = documentReady;
                 
                 appendVotesManuallyHash(currentData.keyword.likeid,currentData.votes[j])
             }
+            $("#"+currentData.keyword.likeid).children(".tertiary").hide();
             if(showFlag){
                 $("#"+currentData.keyword.likeid).children(".voting").show()
+                $("#"+currentData.keyword.likeid).children(".tertiary").show();
             }
         }
 
@@ -1028,7 +1030,7 @@ Meteor.documentReady = documentReady;
         $(".submitComment").hammer().off("tap");  
         $(".submitComment").hammer().on("tap",tapOnSubmitComment);
 
-        $(".tertiary").hide();
+        // $(".tertiary").hide();
         
         $(".loading").hide();
     }
@@ -4873,6 +4875,10 @@ function onClickAboutUsButton(){
     $("#AboutUsPopUp").animate({ "top": "50%" }, 700);
     $("#AboutUsPopUpBackground").show(); 
 }
+function onClickFAQButton(){
+    var emailurl = 'http://hashrepublic.meteor.com/FAQ';
+    window.open(emailurl, '_system');
+}
 var languageArray = [
                         ["ar","Arabic"],
                         ["ch","Chinese"],
@@ -5754,7 +5760,7 @@ function bindEvents(){
             $("#loginButtonWithFacebook").hammer().on("tap",loginWithFacebook);
             $("#loginButtonWithGooglePlus").hammer().off("tap",loginWithGoogle);
             $("#loginButtonWithGooglePlus").hammer().on("tap",loginWithGoogle);
-            
+            $("#FAQButton").hammer().on("tap",onClickFAQButton);
             $("#seEmail").keyup(function(event){
                 $(this).val(convertEmail($(this).val()));
                 if(event.keyCode == 13){
@@ -7028,7 +7034,8 @@ function onclickopencloseSurvey(){
     else{
         closeSurvey()        
     }
-    //snapTopFlag = !snapTopFlag;
+    // if(!resume)
+    // snapTopFlag = !snapTopFlag;
 }
 
 function openSurvey(){
@@ -7042,11 +7049,11 @@ function openSurvey(){
     snapTopFlag = false;
 }
 function closeSurvey(){
-    $("#surveybighandle").css({"top":"7.8%","background": "black","opacity": "0.5"});
+    $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
     $("#surveybig").transition({"top":"18%"});
     $(".hashKeyword").css({"display":"block"});
     $('#updownarrow').addClass('huge sort descending icon');
-    $('#updownarrow').css({"top": "18%"});
+    $('#updownarrow').css({"top": "56%"});
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});

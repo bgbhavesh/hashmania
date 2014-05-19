@@ -423,7 +423,10 @@ Meteor.Router.add('/instance', 'GET', function() {
     }  
     // App.testingText = this;
 });
-
+Meteor.Router.add('/faq', 'GET', function() {
+    console.log("faq");
+    return Handlebars.templates['faq']({});
+});
 
 App.parseSubject = parseSubject;
 function getIP(object){

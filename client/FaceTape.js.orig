@@ -952,7 +952,6 @@ Meteor.documentReady = documentReady;
             $(".hashFeed").hammer().off("tap");  
             $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
 
-            onclickopencloseSurvey(null,true);
             if(snapTopFlag){
                 $("#surveybighandle").css({"top":"89%","background": "black","opacity": "1.0"});
                 $("#surveybig").css({"top":"92%"});
@@ -994,9 +993,13 @@ Meteor.documentReady = documentReady;
                 +'<div class="ui tertiary form segment">'
                 +'<div class="commentWrapper">';
                     for(var k=0,kl=currentData.comments.length;k<kl;k++){
+<<<<<<< HEAD
+                        newElement +='<h4 class=""><mark>'+currentData.comments[k].value +'</mark></h4>'                         
+=======
                         console.log(currentData.comments[k].value.length)
                         if(currentData.comments[k].value.length !=0)
                         newElement +='<h4 class="ui header">'+currentData.comments[k].value +'</h4>'                         
+>>>>>>> 05f1cdd16d26b0683e6b5ecb6b5caf84ff55280f
                     }
                 newElement += '</div>'
                   +'<div class="field" likeid="' +currentData.keyword.likeid +'">'
@@ -7028,8 +7031,6 @@ function onclickopencloseSurvey(){
     else{
         closeSurvey()        
     }
-    if(!resume)
-    snapTopFlag = !snapTopFlag;
 }
 
 function openSurvey(){

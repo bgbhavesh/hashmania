@@ -7049,11 +7049,11 @@ function openSurvey(){
     snapTopFlag = false;
 }
 function closeSurvey(){
-    $("#surveybighandle").css({"top":"7.8%","background": "black","opacity": "0.5"});
+    $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
     $("#surveybig").transition({"top":"18%"});
     $(".hashKeyword").css({"display":"block"});
     $('#updownarrow').addClass('huge sort descending icon');
-    $('#updownarrow').css({"top": "18%"});
+    $('#updownarrow').css({"top": "56%"});
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});

@@ -178,6 +178,7 @@ body{
 	position: absolute;
 	z-index: 4;
 	text-align: center;
+	background: transparent;
 }
 #surveybig{
 	top: 92%;

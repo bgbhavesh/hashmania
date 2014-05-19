@@ -7028,8 +7028,7 @@ function onclickopencloseSurvey(){
     else{
         closeSurvey()        
     }
-    if(!resume)
-    snapTopFlag = !snapTopFlag;
+    //snapTopFlag = !snapTopFlag;
 }
 
 function openSurvey(){

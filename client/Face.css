@@ -1634,9 +1634,10 @@ h6 {}
 	margin-left: 44%;*/
 	color: white;
 	position: absolute;
-	top: 75%;
-	right: 25%;
+	bottom: 10%;
+	left: 55%;
 	font-size: 30px;
+
 }
 #thankyouBackgroud{
 	background-color: black;
@@ -2033,10 +2034,28 @@ textarea[name="header"]{
 }
 mark{
 	background-color: #11a8ab;
-	color: #FFFFFF;
+	color: #dbedfe;
+	background-image: -webkit-linear-gradient(bottom, #c7defe, #e7f1fe);
+	border: 1px solid rgba(0, 0, 0, .18);
+	border-bottom-color: rgba(0, 0, 0, .29);
+	-webkit-border-radius: 14px 14px 0 14px;
+	-webkit-box-shadow: 0 1px 0 #dce0e6;
+	color: #3e454c;
+	line-height: 1.28;
+	margin-right: 5%;
+	min-height: 14px;
+	padding: 0.5%;
+	position: relative;
+	text-align: left;
+	text-shadow: rgba(255, 255, 255, .5) 0 1px 0;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+
+direction: ltr;
+
 }
 .header{
-	text-align: center;
+	text-align: right;
 	font-size: 30px;
 	height:10%;
 	width:100%;

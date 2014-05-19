@@ -996,7 +996,7 @@ Meteor.documentReady = documentReady;
                     for(var k=0,kl=currentData.comments.length;k<kl;k++){
                         console.log(currentData.comments[k].value.length)
                         if(currentData.comments[k].value.length !=0)
-                        newElement +='<h4 class="ui header">'+currentData.comments[k].value +'</h4>'                         
+                        newElement +='<h4 class="ui header"><mark>'+currentData.comments[k].value +'</mark></h4>'                         
                     }
                 newElement += '</div>'
                   +'<div class="field" likeid="' +currentData.keyword.likeid +'">'

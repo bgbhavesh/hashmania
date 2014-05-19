@@ -952,7 +952,6 @@ Meteor.documentReady = documentReady;
             $(".hashFeed").hammer().off("tap");  
             $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
 
-            onclickopencloseSurvey(null,true);
             if(snapTopFlag){
                 $("#surveybighandle").css({"top":"89%","background": "black","opacity": "1.0"});
                 $("#surveybig").css({"top":"92%"});
@@ -978,13 +977,15 @@ Meteor.documentReady = documentReady;
         if(!data)
             return;
         $(".loading").show();
-        //console.log(data)
-        if($("#surveybig").length == 0){
+        if($("#surveybig").length == 0 && Session.get("clientid") == null){
             setTimeout(function(){renderResults(data)},250);
+            return;
         }
         var newElement = null;
         var currentData = null;
+        var showFlag = false;
         for(var i=0,il=data.length;i<il;i++){
+            showFlag = false;
             currentData = data[i];
             //console.log(currentData.keyword)
             newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'">' 
@@ -992,6 +993,8 @@ Meteor.documentReady = documentReady;
                 +'<div class="ui tertiary form segment">'
                 +'<div class="commentWrapper">';
                     for(var k=0,kl=currentData.comments.length;k<kl;k++){
+                        console.log(currentData.comments[k].value.length)
+                        if(currentData.comments[k].value.length !=0)
                         newElement +='<h4 class="ui header">'+currentData.comments[k].value +'</h4>'                         
                     }
                 newElement += '</div>'
@@ -1006,9 +1009,18 @@ Meteor.documentReady = documentReady;
             +'</div>'
             var element = $("#surveybig").append(newElement); 
             for(j=0,jl=currentData.votes.length;j<jl;j++){
+                // console.log(currentData.votes[j].followid +" " +Session.get("clientid") +" " +(currentData.votes[j].followid == Session.get("clientid")))
+                if(currentData.votes[j].followid == Session.get("clientid")){
+                    showFlag = true;
+                }
+                
                 appendVotesManuallyHash(currentData.keyword.likeid,currentData.votes[j])
             }
+            if(showFlag){
+                $("#"+currentData.keyword.likeid).children(".voting").show()
+            }
         }
+
         $(".hashFeed img").hammer().off("tap");  
         $(".hashFeed img").hammer().on("tap",tapOnBigFeedSurvey);
         
@@ -1065,6 +1077,9 @@ Meteor.documentReady = documentReady;
         var likeid = Session.get("currentBig");
         var input = $(this).parent().find("input");
         var value= input.val();
+        if(!value)
+            return;
+        console.log(value)
         console.log(likeid);
         console.log(value);
         data.likeid =likeid;
@@ -5476,8 +5491,7 @@ function searchHash(){
         }
     });
     $("#searchKeyword").val('');    
-    snapTopFlag = false;
-    onclickopencloseSurvey();
+    openSurvey();
 //   var keyword = Session.get("searchKeyword");
 //   console.log(keyword);
 //   if(!keyword){
@@ -7004,33 +7018,38 @@ function randomGame(){
  */
 
 /////////////////GAMESECTION//////////////
-var snapTopFlag = false;
-function onclickopencloseSurvey(first,resume){
-    if(snapTopFlag){        
-        $("#surveybighandle").css({"top":"89%","background": "transparent","opacity": "1.0"});
-        $("#surveybig").transition({"top":"92%"});
-        $(".hashKeyword").css({"display":"none"});
-        $('#updownarrow').css({"top": "0%"});
-        document.getElementById('updownarrow').className = ' huge sort ascending icon';
-        //$("#updownarrow").animate("class","huge sort ascending icon");
-        //$("#surveybighandle").css({"z-index":"4"});
+var snapTopFlag = true;
+function onclickopencloseSurvey(){
+    console.log(snapTopFlag)
+    if(snapTopFlag){ 
+        openSurvey();
     }
     else{
-
-        $("#surveybighandle").css({"top":"7.8%","background": "black","opacity": "0.5"});
-        $("#surveybig").transition({"top":"18%"});
-        $(".hashKeyword").css({"display":"block"});
-        $('#updownarrow').addClass('huge sort descending icon');
-        $('#updownarrow').css({"top": "18%"});
-        document.getElementById('updownarrow').className = ' huge sort descending icon';
-        // $("#updownarrow").animate("class","huge sort descending icon");
-        //$("#surveybighandle").css({"z-index":"3"});
+        closeSurvey()        
     }
-    if(!resume)
-    snapTopFlag = !snapTopFlag;
 }
 
-
+function openSurvey(){
+    $("#surveybighandle").css({"top":"89%","background": "transparent","opacity": "1.0"});
+    $("#surveybig").transition({"top":"92%"});
+    $(".hashKeyword").css({"display":"none"});
+    $('#updownarrow').css({"top": "0%"});
+    document.getElementById('updownarrow').className = ' huge sort ascending icon';
+    //$("#updownarrow").animate("class","huge sort ascending icon");
+    //$("#surveybighandle").css({"z-index":"4"});
+    snapTopFlag = false;
+}
+function closeSurvey(){
+    $("#surveybighandle").css({"top":"7.8%","background": "black","opacity": "0.5"});
+    $("#surveybig").transition({"top":"18%"});
+    $(".hashKeyword").css({"display":"block"});
+    $('#updownarrow').addClass('huge sort descending icon');
+    $('#updownarrow').css({"top": "18%"});
+    document.getElementById('updownarrow').className = ' huge sort descending icon';
+    // $("#updownarrow").animate("class","huge sort descending icon");
+    //$("#surveybighandle").css({"z-index":"3"});
+    snapTopFlag = true;
+}
 /////////////////SNAPY//////////////
 var snapLeftFlag = false;
 function snapy(){

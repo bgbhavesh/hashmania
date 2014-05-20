@@ -3492,12 +3492,14 @@ function fitTextFunction(parent,child,fontSize){
         var childWidth = $(child).innerWidth()+2;
         //console.log(childHeight +" " +childWidth +" " +fontSize);
         if(childWidth < parentWidth && childHeight < parentHeight){
-          fitTextFunction(parent,child,++fontSize); 
+            fitTextFunction(parent,child,++fontSize); 
         }
         else{
-          fontSize -= 5;
-          $(child).css({"font-size": fontSize +"px"});
-          $("#tapmateLogo").css({"height" : childHeight,"width":childHeight});
+            fontSize -= 5;
+            $(child).css({"font-size": fontSize +"px"});
+            $("#tapmateLogo").css({"height" : childHeight,"width":childHeight});
+            $(".appname").html("");
+            $(".three").html("");
         }
         //$(".header div").fitText();
     }
@@ -7050,7 +7052,7 @@ function randomGame(){
 /////////////////GAMESECTION//////////////
 var snapTopFlag = true;
 function onclickopencloseSurvey(){
-    console.log(snapTopFlag)
+    // console.log(snapTopFlag)
     if(snapTopFlag){ 
         openSurvey();
     }

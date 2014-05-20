@@ -1418,7 +1418,7 @@ language.html = [
                     UserHashMania.update({"_id":cursorUserHashMania._id},{$set :{"email":email,"emailtoken":emailtoken}})
                 }
                 else{
-                    UserHashMania.insert({"_id":email,"email":email,"emailtoken":emailtoken,"verified":false})
+                    UserHashMania.insert({"_id":email,"email":email,"emailtoken":emailtoken,"verified":false,"score":0,"heatScore":0,})
                 }
                 console.log("http://localhost:3000/verifyHashEmail/"+emailtoken)
                 Email.send({

@@ -7058,7 +7058,7 @@ function closeSurvey(){
     $("#surveybig").transition({"top":"18%"});
     $(".hashKeyword").css({"display":"block"});
     $('#updownarrow').addClass('huge sort descending icon');
-    $('#updownarrow').css({"top": "40%"});
+    $('#updownarrow').css({"top": "56%"});
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});

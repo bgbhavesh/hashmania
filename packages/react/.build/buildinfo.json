@@ -1,0 +1,49 @@
+{
+  "builtBy": "meteor/10",
+  "sliceDependencies": {
+    "browser.json": {
+      "files": {
+        "/home/hasten/meteor/hashrep/packages/react/package.js": "9b270ac6f9537f547b9cef0294ed86cdf88a22b3",
+        "/home/hasten/meteor/hashrep/packages/react/lib/react-with-addons-0.8.0.js": "24631e98bb2505128bec2945bbedbdc406e5f881",
+        "/home/hasten/meteor/hashrep/packages/react/react.js": "8d247c7f6addad8e713c0fa1a72b4fc4b6a5d643",
+        "/home/hasten/meteor/hashrep/packages/react/plugin/compile-jsx.js": "1af7dc4ed56b6aa399f8260ceb62d41219ffb1f5"
+      },
+      "directories": []
+    },
+    "os.json": {
+      "files": {
+        "/home/hasten/meteor/hashrep/packages/react/package.js": "9b270ac6f9537f547b9cef0294ed86cdf88a22b3",
+        "/home/hasten/meteor/hashrep/packages/react/lib/require-react.js": "ce663125feb9fd1c3e6b28606d9ce9543c223583",
+        "/home/hasten/meteor/hashrep/packages/react/react.js": "8d247c7f6addad8e713c0fa1a72b4fc4b6a5d643",
+        "/home/hasten/meteor/hashrep/packages/react/plugin/compile-jsx.js": "1af7dc4ed56b6aa399f8260ceb62d41219ffb1f5"
+      },
+      "directories": []
+    },
+    "tests.browser.json": {
+      "files": {
+        "/home/hasten/meteor/hashrep/packages/react/package.js": "9b270ac6f9537f547b9cef0294ed86cdf88a22b3",
+        "/home/hasten/meteor/hashrep/packages/react/plugin/compile-jsx.js": "1af7dc4ed56b6aa399f8260ceb62d41219ffb1f5"
+      },
+      "directories": []
+    },
+    "tests.os.json": {
+      "files": {
+        "/home/hasten/meteor/hashrep/packages/react/package.js": "9b270ac6f9537f547b9cef0294ed86cdf88a22b3",
+        "/home/hasten/meteor/hashrep/packages/react/plugin/compile-jsx.js": "1af7dc4ed56b6aa399f8260ceb62d41219ffb1f5"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/home/hasten/meteor/hashrep/packages/react/package.js": "9b270ac6f9537f547b9cef0294ed86cdf88a22b3",
+      "/home/hasten/meteor/hashrep/packages/react/plugin/compile-jsx.js": "1af7dc4ed56b6aa399f8260ceb62d41219ffb1f5"
+    },
+    "directories": []
+  },
+  "pluginProviderPackages": {
+    "react": "/home/hasten/meteor/hashrep/packages/react",
+    "meteor": "/home/hasten/.meteor/packages/meteor/8d218f7023"
+  },
+  "source": "/home/hasten/meteor/hashrep/packages/react"
+}

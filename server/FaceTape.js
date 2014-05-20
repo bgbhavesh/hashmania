@@ -753,23 +753,48 @@ function checkSecondVote(first){
         console.log("removed vote");
         return;
     }
-    var cursorGroupVoteRecommend = GroupVoteRecommend.findOne({"clientid":first.followid,"likeid":first.likeid});
-    if(cursorGroupVoteRecommend){
-        var eachFollow = cursorGroupVoteRecommend.follows;
-        for(var i=0,il=eachFollow.length;i<il;i++){
-            var cursorMe = Me.findOne({"_id":eachFollow[i]});
-            if(cursorMe){
-                for(var j=0,jl=eachFollow.length;j<jl;j++){
-                    var senderMessage = cursorMe.username +" also voted on group pic.";
-                    TapmateNotification.insert({"senderid":eachFollow[j],"message":senderMessage,"notify":false});
-                }
-                // console.log(cursorMe._id +" also voted this pic");
-            }
-        }
-    }
+
+    // Tapmate concept
+    // var cursorGroupVoteRecommend = GroupVoteRecommend.findOne({"clientid":first.followid,"likeid":first.likeid});
+    // if(cursorGroupVoteRecommend){
+    //     var eachFollow = cursorGroupVoteRecommend.follows;
+    //     for(var i=0,il=eachFollow.length;i<il;i++){
+    //         var cursorMe = Me.findOne({"_id":eachFollow[i]});
+    //         if(cursorMe){
+    //             for(var j=0,jl=eachFollow.length;j<jl;j++){
+    //                 var senderMessage = cursorMe.username +" also voted on group pic.";
+    //                 TapmateNotification.insert({"senderid":eachFollow[j],"message":senderMessage,"notify":false});
+    //             }
+    //             // console.log(cursorMe._id +" also voted this pic");
+    //         }
+    //     }
+    // }
+
     Votes.update({"_id":first._id},{$set : {"checked":true}});
-    updateVoteDependencies(first);
-    reminderOtherUserAboutNewVote(first);
+    // Tapmate concept
+    // updateVoteDependencies(first);
+    // reminderOtherUserAboutNewVote(first);
+    giveScore(first);
+}
+function giveScore(vote){
+    var cursorVotes = Votes.find({"likeid":vote.likeid});
+    var count = cursorVotes.count();
+    var globalDistance = 0;
+    var finalDistance = 0;
+    cursorVotes.forEach(function(data){
+        if(data._id != vote._id){
+            var distance = Math.sqrt(((data.left-vote.left) * (data.left-vote.left)) + ((data.top-vote.top) * (data.top-vote.top)));; 
+            //console.log(distance);  
+            distance = Math.round(distance);
+            distance = 50 - distance;
+            // console.log(distance);
+            globalDistance += distance;
+            // console.log(globalDistance);
+        }
+    });
+    finalDistance = globalDistance/count;
+    // console.log(finalDistance);
+    UserHashMania.update({"_id":vote.clientid},{$inc :{"score":finalDistance,"heatScore":finalDistance}})
 }
 function reminderOtherUserAboutNewVote(first){
     if(isNaN(first.followid))

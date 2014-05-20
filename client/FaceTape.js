@@ -1056,6 +1056,7 @@ Meteor.documentReady = documentReady;
     function restoreData(json){
         json = EJSON.parse(json);
         renderResults(json);
+    }
     function tapOnloadMoreImg(){
         $("#loadMoreImg").css("display","none");
         renderResults(moreRenderResults);
@@ -7517,10 +7518,19 @@ Meteor.startup(function () {
             //     firstTimeLoginFlag = false;
             // }
             // else{
-                Meteor.call("getResult",Session.get("keyword"),function(err,data){
-                    renderResults(data);
-                })   
-                set("keyword",Session.get("keyword"))
+            Meteor.call("getResult",Session.get("keyword"),function(err,data){
+            console.log(data.length);
+            if(data.length>10){
+                    for(var i=0,il=9;i<il;i++){
+                        newRenderResults.push(data[i]);
+                    }
+                    for(var i=10,il=data.length;i<il;i++){
+                        moreRenderResults.push(data[i]);
+                    }
+                }
+            renderResults(newRenderResults);
+            })   
+            set("keyword",Session.get("keyword"))
             // }
             
         }

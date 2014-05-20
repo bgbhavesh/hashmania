@@ -1043,8 +1043,16 @@ Meteor.documentReady = documentReady;
         $(".submitComment").hammer().on("tap",tapOnSubmitComment);
 
         // $(".tertiary").hide();
-        
+        cacheData(data);
         $(".loading").hide();
+    }
+    function cacheData(data){
+        data = EJSON.stringify(data);
+        set("search",data);
+    }
+    function restoreData(json){
+        json = EJSON.parse(json);
+        renderResults(json);
     }
     function appendVotesManuallyHash(id,currentVote){
         var local = currentVote;
@@ -2203,6 +2211,7 @@ function restoreCollection(){
     restoreIndividual("Feed");
     restoreIndividual("SponserKeyword");
     restoreIndividual("FollowsGroup");
+    restoreData(window.localStorage.getItem("search"));
     // setTimeout(restoreOutstanding,5*60000);
     //console.log(new Date().getTime() - startTime +" ms time taken");
     //MethodTimer.insert({"clientid":Session.get("clientid"),"name":"restoreCollection","time":(new Date().getTime())-starttimer});
@@ -7490,10 +7499,16 @@ Meteor.startup(function () {
             // Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){
             //     $(".loading").hide();
             // });
-            Meteor.call("getResult",Session.get("keyword"),function(err,data){
-                renderResults(data);
-            })   
-            set("keyword",Session.get("keyword"))
+            // if(firstTimeLoginFlag){
+            //     firstTimeLoginFlag = false;
+            // }
+            // else{
+                Meteor.call("getResult",Session.get("keyword"),function(err,data){
+                    renderResults(data);
+                })   
+                set("keyword",Session.get("keyword"))
+            // }
+            
         }
     })
     SponserKeyword.find({}).observe({

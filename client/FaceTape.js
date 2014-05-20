@@ -1067,7 +1067,7 @@ Meteor.documentReady = documentReady;
         var local = currentVote;
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
-        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.clientid))
+        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid))
     }
     function getVoteHTMLHash(left,top,size,pics,id,clientid){
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
@@ -1174,16 +1174,15 @@ Meteor.documentReady = documentReady;
         // console.log(likeid +" " +Session.get("currentBig"));
         top+=40;
         $("#"+likeid).children(".voting").show();
-        var currentvotes = $("#"+likeid).children(".clientid");
-        //console.log(currentvotes.length);
+        var currentvotes = $("#"+likeid).children(".voting");
+        // console.log(currentvotes.length);
         for(var i=0,il=currentvotes.length;i<il;i++){
-            // console.log("currentvotes");
-            var votedtwice = $(currentvotes[i]).attr("votingid");
-            var existvotes = Votes.findOne({"_id":votedtwice});
-            console.log(existvotes)
-            if(!existvotes){
-                console.log("already exist")
-            }
+            var cursorvotenow = $(currentvotes[i]).attr("clientid");
+            if(cursorvotenow==Session.get("clientid")){
+                // console.log("exist")
+                return;
+
+            }            
         }
         var VotesInsert = {"checked":false,"place":"","profile_picture":votepic, "followid": Session.get("clientid"),"likeid":likeid ,"left": left,"top": top,"date" : date};
         // currentSurveyBig.append(getVoteHTML(VotesInsert.left,VotesInsert.top,"%"))
@@ -1206,7 +1205,9 @@ Meteor.documentReady = documentReady;
                 VotesInsert._id = currentMoveVote;
                 appendVotesManuallyHash(likeid,VotesInsert);
         }
-        
+        // if(!existvotes){
+            //     console.log("already exist")
+            // }
         currentSurveyBig = currentSurveyBig.next(".bigFeed");
         //setTimeout(pageScroll,2000);
         //showvotes(likeid);

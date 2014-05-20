@@ -357,6 +357,8 @@ if(typeof GroundDB == "function"){
    // GroundDB.now();
 }
 // variable
+var newRenderResults = [];
+var moreRenderResults = [];
 var cursor = null;
 var likeTimeOutId = null,followTimeOutId = null,commentTimeOutId=null;
 var Child = null;
@@ -700,7 +702,7 @@ function loginWithTapmateCallbackFunction(err){
 }
 
 function documentReady(){
-
+          
             // autoLogin();
             // iphone 3gs unable to scroll issue
             // $("body").on("touchmove",function(event){
@@ -982,6 +984,7 @@ Meteor.documentReady = documentReady;
             setTimeout(function(){renderResults(data)},250);
             return;
         }
+        var button = null;
         var newElement = null;
         var currentData = null;
         var showFlag = false;
@@ -1023,6 +1026,9 @@ Meteor.documentReady = documentReady;
                 $("#"+currentData.keyword.likeid).children(".tertiary").show();
             }
         }
+        $(".loadmore").remove();
+        button ='<a class="ui purple button loadmore" id="loadMoreImg">Purple Button</a>'
+        var element = $("#surveybig").append(button);
 
         $(".hashFeed img").hammer().off("tap");  
         $(".hashFeed img").hammer().on("tap",tapOnBigFeedSurvey);
@@ -1030,9 +1036,18 @@ Meteor.documentReady = documentReady;
         $(".submitComment").hammer().off("tap");  
         $(".submitComment").hammer().on("tap",tapOnSubmitComment);
 
+        $("#loadMoreImg").hammer().off("tap");  
+        $("#loadMoreImg").hammer().on("tap",tapOnloadMoreImg);
+
         // $(".tertiary").hide();
         
         $(".loading").hide();
+    }
+    function tapOnloadMoreImg(){
+        $("#loadMoreImg").css("display","none");
+        renderResults(moreRenderResults);
+        moreRenderResults = null;
+        
     }
     function appendVotesManuallyHash(id,currentVote){
         var local = currentVote;
@@ -4876,8 +4891,12 @@ function onClickAboutUsButton(){
     $("#AboutUsPopUpBackground").show(); 
 }
 function onClickFAQButton(){
-    var emailurl = 'http://hashrepublic.meteor.com/FAQ';
-    window.open(emailurl, '_system');
+    if("portrait"==Session.get("orientation")){
+        var emailurl = 'http://hashrepublic.meteor.com/FAQ';
+        window.open(emailurl, '_system');
+    }else{
+        $("#hashFaqForm").css({"display":"block"})
+    }
 }
 var languageArray = [
                         ["ar","Arabic"],
@@ -5574,14 +5593,15 @@ function autoSize(){
         var windowHeight = $(window).height();
         var windowWidth = $(window).width();
         $("body").css({"height":windowHeight,"width":windowWidth});
-        return;
+        // return;
         var adjustedWidth = 0;
             adjustedWidth = (windowHeight / 4 ) * 3 ;
         if(windowWidth > adjustedWidth){
-            
+            Session.set("orientation","landscape");
             adjustLeft = (adjustedWidth/2);
             $("#bodyWrapper").width(adjustedWidth);
-            $("#bodyWrapper").css({"left":"50%","margin-left": -adjustLeft +"px"})
+            $("#bodyWrapper").css({"left":"50%","margin-left": -adjustLeft +"px"});
+            $("#hashFaqForm").css({"margin-left": adjustLeft +"px"});
             feedWidth = null;
             var one = $(".extrabutton")[0];
             if(one){
@@ -5591,6 +5611,7 @@ function autoSize(){
             // $("#section2").css({"display":"block"});
         }
         else{
+            Session.set("orientation","portrait");
             $("#bodyWrapper").css({"left":"0px","margin-left": "0px","height":"100%","width":"100%"})
             $("#currentFollow").css({"height":"80px","width":"80px"});
             // $("#section2").css({"display":"none"});
@@ -7466,7 +7487,17 @@ Meteor.startup(function () {
             //     $(".loading").hide();
             // });
             Meteor.call("getResult",Session.get("keyword"),function(err,data){
-                renderResults(data);
+                console.log(data.length);
+                if(data.length>10){
+                    for(var i=0,il=9;i<il;i++){
+                        newRenderResults.push(data[i]);
+                    }
+                    for(var i=10,il=data.length;i<il;i++){
+                        moreRenderResults.push(data[i]);
+                    }
+                }
+                
+                renderResults(newRenderResults);
             })   
             set("keyword",Session.get("keyword"))
         }

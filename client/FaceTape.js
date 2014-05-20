@@ -39,7 +39,8 @@ if(window["App"] === undefined)
     }                                                                             
     if (popupClosed) {                                                            
       clearInterval(checkPopupOpen);                                              
-      callback();                                                                 
+      loginOnceStateReady(null,callback)
+      //callback();                                                                 
     }                                                                             
   }, 100);                                                                        
 };                                                                                
@@ -207,9 +208,11 @@ Router.map(function () {
 function set(key,value){
     return window.localStorage.setItem(key,value);
 }
+window.set = set;
 function get(key){
     return window.localStorage.getItem(key);
 }
+window.get = get;
 function bug() {
   for (var i = 0; i < arguments.length; i++) {
     console.log(arguments[i]);
@@ -580,7 +583,9 @@ function onLoginWithHashRepublic(){
             set("clientid",email);
             Session.set("clientid",email);
             set("welcomeAlert",true);
-            set("profile_picture",data.instagramFace)
+            set("profile_picture",data.instagramFace);
+            set("password",password)
+
         }
         else{
 
@@ -702,7 +707,7 @@ function loginWithTapmateCallbackFunction(err){
 }
 
 function documentReady(){
-          
+
             // autoLogin();
             // iphone 3gs unable to scroll issue
             // $("body").on("touchmove",function(event){
@@ -851,6 +856,7 @@ Meteor.documentReady = documentReady;
     Template.server.rendered = function(){
         $("#status").hammer().off("tap");
         $("#status").hammer().on("tap",tapOnConnection);
+        ErrorUpdate.insert({"error":Meteor.status().connected,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.server.rendered"});
         //showKeywordPopup()
     }
     Template.Section1.rendered = function(){
@@ -997,9 +1003,9 @@ Meteor.documentReady = documentReady;
                 +'<div class="ui tertiary form segment">'
                 +'<div class="commentWrapper">';
                     for(var k=0,kl=currentData.comments.length;k<kl;k++){
-                        console.log(currentData.comments[k].value.length)
+                        // console.log(currentData.comments[k].value.length)
                         if(currentData.comments[k].value.length !=0)
-                        newElement +='<h4 class="ui header">'+currentData.comments[k].value +'</h4>'                         
+                        newElement +='<h4 class="ui header"><mark>'+currentData.comments[k].value +'</mark></h4>'                         
                     }
                 newElement += '</div>'
                   +'<div class="field" likeid="' +currentData.keyword.likeid +'">'
@@ -1040,9 +1046,16 @@ Meteor.documentReady = documentReady;
         $("#loadMoreImg").hammer().on("tap",tapOnloadMoreImg);
 
         // $(".tertiary").hide();
-        
+        cacheData(data);
         $(".loading").hide();
     }
+    function cacheData(data){
+        data = EJSON.stringify(data);
+        set("search",data);
+    }
+    function restoreData(json){
+        json = EJSON.parse(json);
+        renderResults(json);
     function tapOnloadMoreImg(){
         $("#loadMoreImg").css("display","none");
         renderResults(moreRenderResults);
@@ -1108,7 +1121,7 @@ Meteor.documentReady = documentReady;
         // console.log($(this).sibling(".commentWrapper"))
         $(this).parent()
                 .siblings(".commentWrapper")
-                .append('<h4 class="ui header">'+value +'</h4>');
+                .append('<h4 class="ui header"><mark>'+value +'</mark></h4>');
         // $(".field[likeid='" +likeid+"']").css("display","none");
         HashComment.insert(data);
         input.val("");
@@ -1181,6 +1194,10 @@ Meteor.documentReady = documentReady;
         //showvotes(likeid);
         $("#"+likeid).children(".voting").show();
         // showvotes(likeid);
+        var cursorSponserKeyword = SponserKeyword.findOne({"keyword":Session.get("keyword")});
+        if(cursorSponserKeyword){
+            SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});
+        }
     }
     var currentSurveyBig = null;
     var bigsurveyHeight1=0;
@@ -2202,6 +2219,7 @@ function restoreCollection(){
     restoreIndividual("Feed");
     restoreIndividual("SponserKeyword");
     restoreIndividual("FollowsGroup");
+    restoreData(window.localStorage.getItem("search"));
     // setTimeout(restoreOutstanding,5*60000);
     //console.log(new Date().getTime() - startTime +" ms time taken");
     //MethodTimer.insert({"clientid":Session.get("clientid"),"name":"restoreCollection","time":(new Date().getTime())-starttimer});
@@ -3491,12 +3509,14 @@ function fitTextFunction(parent,child,fontSize){
         var childWidth = $(child).innerWidth()+2;
         //console.log(childHeight +" " +childWidth +" " +fontSize);
         if(childWidth < parentWidth && childHeight < parentHeight){
-          fitTextFunction(parent,child,++fontSize); 
+            fitTextFunction(parent,child,++fontSize); 
         }
         else{
-          fontSize -= 5;
-          $(child).css({"font-size": fontSize +"px"});
-          $("#tapmateLogo").css({"height" : childHeight,"width":childHeight});
+            fontSize -= 5;
+            $(child).css({"font-size": fontSize +"px"});
+            $("#tapmateLogo").css({"height" : childHeight,"width":childHeight});
+            $(".appname").html("");
+            $(".three").html("");
         }
         //$(".header div").fitText();
     }
@@ -4088,19 +4108,25 @@ function findVoted(){
 function autoLogin(){
     try{
         ClientId = window.localStorage.getItem("clientid");
-        if(ClientId == "491204471" && !DebugFace){
-            window.localStorage.clear();
-            ClientId = null;
-            return ;
-        }
-        if(isNaN(ClientId)){
-            Session.set("clientid",ClientId);
-            suscribeMeteor(ClientId);
-            Session.set("username",ClientId);
-            profilePic = ".images/face.jpg";
-            Meteor.call("guestFirstTimeLogin",ClientId,function(){
-                console.log("finish");
-            });
+        // if(ClientId == "491204471" && !DebugFace){
+        //     window.localStorage.clear();
+        //     ClientId = null;
+        //     return ;
+        // }
+       if(isNaN(ClientId)){
+            if(get("password")){
+                toast("Please login with password.");
+                Session.set("clientid",ClientId);
+                suscribeMeteor(ClientId);
+                Session.set("username",ClientId);
+                profilePic = ".images/face.jpg";
+                Meteor.call("getLoginStatus",ClientId,function(err,data){
+                    
+                });
+            }
+            else{
+                $("#loginScreen").show();
+            }
             // Tapmate user conditions
             return ;
         }
@@ -5426,6 +5452,7 @@ function loginWithInstagramCallbackFunction(err){
 function loginOnceStateReady(state,callback){
     var starttimer = new Date().getTime();
     try{
+        state = get("state");
         Accounts.callLoginMethod({
             methodArguments: [{oauth: {state: state}}],
             userCallback: callback && function (err) {
@@ -7048,7 +7075,7 @@ function randomGame(){
 /////////////////GAMESECTION//////////////
 var snapTopFlag = true;
 function onclickopencloseSurvey(){
-    console.log(snapTopFlag)
+    // console.log(snapTopFlag)
     if(snapTopFlag){ 
         openSurvey();
     }
@@ -7486,20 +7513,16 @@ Meteor.startup(function () {
             // Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){
             //     $(".loading").hide();
             // });
-            Meteor.call("getResult",Session.get("keyword"),function(err,data){
-                console.log(data.length);
-                if(data.length>10){
-                    for(var i=0,il=9;i<il;i++){
-                        newRenderResults.push(data[i]);
-                    }
-                    for(var i=10,il=data.length;i<il;i++){
-                        moreRenderResults.push(data[i]);
-                    }
-                }
-                
-                renderResults(newRenderResults);
-            })   
-            set("keyword",Session.get("keyword"))
+            // if(firstTimeLoginFlag){
+            //     firstTimeLoginFlag = false;
+            // }
+            // else{
+                Meteor.call("getResult",Session.get("keyword"),function(err,data){
+                    renderResults(data);
+                })   
+                set("keyword",Session.get("keyword"))
+            // }
+            
         }
     })
     SponserKeyword.find({}).observe({

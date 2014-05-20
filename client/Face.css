@@ -140,17 +140,18 @@ body{
 	position: relative;
 }
 .menu{
-   width :100%;
-   height : 5%;
-   z-index: 3;   
-   text-align: center;   
+   	width :100%;
+   	height : 5%;
+   	z-index: 3;   
+   	text-align: center;   
    /*border-bottom: 1px solid grey;*/
-   color :  #FFFFFF;
-   padding-bottom: 6px;
+   	color :  #FFFFFF;
+   	padding-bottom: 6px;
 	padding-top: 8px;
-  	background: white {a-bup-background-color}*/;
+  	/*background: white ;{a-bup-background-color};*/
 	font-weight: inherit;
 	text-shadow: 0   1px   0   #111  ;
+	text-align: left;
 	/*background-color : white;*/
 }
 .bigmenu,.help{
@@ -194,11 +195,11 @@ body{
 	height: 79%;
 	width: 100%;
 	position: absolute;
-	border-top:#11a8ab 1px solid;
+	/*border-top:#11a8ab 1px solid;*/
 	border-radius: 0px;
 	/*background: url(../images/hash_pattern.png) #111;*/
-		/*background: linear-gradient(to right,#50597b, #394264, #394264 , #50597b);*/
-		background-color: #50597b;
+	/*background: linear-gradient(to right,#50597b, #394264, #394264 , #50597b);*/
+	background-color: #50597b;
 }
 .menuarrow{
 	background-image: url(images/menuarrow.png);
@@ -622,12 +623,12 @@ body{
 	position: absolute;
 	max-height: 50%;*/
 	top: 7%;
-	width: 90%;
+	width: 98%;
 	height: 100%;
 	z-index: 2;
 	position: absolute;
 	border-radius: 0px;
-	left: 5%;
+	left: 1%;
 	display: block;
 	/*background:url("images/patternX.png") #111;*/
 	background-color: #50597b;
@@ -685,6 +686,7 @@ h6 {}
 #hashgosearch{
 	vertical-align:middle;
 	margin-bottom:4px;
+	color: #1f253d;
 }
 .column_right_grid input[type="text"],.column_right_grid input[type="password"]{
 	padding:8px;
@@ -702,11 +704,15 @@ h6 {}
 	border:0px solid ;
 	box-shadow: 0 0 0px 0px  #11a8ab;
 }
-#searchkeyword{
+#searchKeyword{
 	background-color: #50597b;
+	border-top:0; 
+	border-right:0; 
+	border-left:0; 
+	color:#fff;
 }
 #keywordButton{
-    color:#FFF;
+    
    	left: 5%;
     background:none;   
     outline:none;
@@ -723,8 +729,9 @@ h6 {}
 #keywords{	
     overflow-x: hidden;
 	overflow-y: scroll;
-	font-size: 20px;
+	font-size: 10px;
 	color: #7C7C7C;
+	margin-top: 2%;
     margin-left: 19px;
 	position: relative;
 	bottom: 0;
@@ -735,16 +742,16 @@ h6 {}
 	float: left;
 	cursor: pointer;
 	color: #11a8ab;
-	font-family: 'ambleregular';
+	/*font-family: 'ambleregular';*/
 	background-color: #565656;
-  color: transparent;
+  /*color: transparent;
   text-shadow: 0px 1px 1px rgba(255,255,255,0.5);
-  -webkit-background-clip: text;
+ */ -webkit-background-clip: text;
      -moz-background-clip: text;
           background-clip: text;
 }
 .redKeyword{
-    background-color: red;
+    background-color: #11a8ab;
 }
 #ContactUsPopUp{
 	left: 50%;
@@ -1642,9 +1649,10 @@ h6 {}
 	margin-left: 44%;*/
 	color: white;
 	position: absolute;
-	top: 75%;
-	right: 25%;
+	bottom: 10%;
+	left: 55%;
 	font-size: 30px;
+
 }
 #thankyouBackgroud{
 	background-color: black;
@@ -2041,17 +2049,36 @@ textarea[name="header"]{
 }
 mark{
 	background-color: #11a8ab;
-	color: #FFFFFF;
+	color: #dbedfe;
+	background-image: -webkit-linear-gradient(bottom, #c7defe, #e7f1fe);
+	border: 1px solid rgba(0, 0, 0, .18);
+	border-bottom-color: rgba(0, 0, 0, .29);
+	-webkit-border-radius: 14px 14px 0 14px;
+	-webkit-box-shadow: 0 1px 0 #dce0e6;
+	color: #3e454c;
+	line-height: 1.28;
+	margin-right: 5%;
+	min-height: 14px;
+	padding: 0.5%;
+	position: relative;
+	text-align: left;
+	text-shadow: rgba(255, 255, 255, .5) 0 1px 0;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+
+direction: ltr;
+
 }
 .header{
-	text-align: center;
+	text-align: right;
 	font-size: 30px;
 	height:10%;
 	width:100%;
 	font-family: havletica,arial;
 }
 .commentWrapper{
-	margin: 0%;
+	padding: 0.3%;
+	margin: 0;
 }
 #toastArea{
 	text-align: center;
@@ -2062,83 +2089,90 @@ mark{
 }
 #headerSection{
 	text-align: center;
-    font-size: 30px;
+    font-size: 0px;
     height: 7.5%;
     width: 100%;
     margin: 0%;
     
-    color: #50597b;
+    color: #000;
     position: absolute;
     border-radius:0;
     z-index: 4;
-    border-bottom: 1px solid #11a8ab;
-    border-top: 1px solid #11a8ab;
+    /*border-bottom: 1px solid #11a8ab;
+    border-top: 1px solid #11a8ab;*/
 	background-color: #394264;
 	-webkit-box-shadow: 0 10px 6px -6px #111;
 	   -moz-box-shadow: 0 10px 6px -6px #111;
 	        box-shadow: 0 10px 10px -6px #111;
+
 }
 .three
 {
-	left: 0px;
-	
-	
+	left: px;
+	background-color: rgba(6,54,95,.35);
 -webkit-box-shadow: -1px 0 0 rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
 -moz-box-shadow: -1px 0 0 rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
 box-shadow: 1px 1px 1px rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
 width: 10%;
 height: 100%;
 top: 0%;
-margin-right: 0px;
+
 }
 
 .header div{
 	position : absolute;
 	float : left;
-	left: 30%;
-	color: #111;
-	font-family: serif;
+	color: #50597b	;
 	top: 9%;
 }
 .appname{
 	background-image:url("images/hashrepublic.png");
 	background-size: 60% 100%;
 	background-repeat: no-repeat;
-	left: 20%;
+	left: 35%;
 	height: 85%;
 	width: 50%;
 }
 /*Admin Ends */
 #status{
-	position: relative;
-	height: 20px;
-	width: 20px;
+	position: absolute;
 	float: right;
-	right: 5px;
-	top: 5px;
+	right: 2px;
+	top: 0px;
+	height: 90%;
+	width: 10%;
+	/*background-size: 100% 100%;*/
+   	border-bottom: 5px;
+   	margin-left: 1%
+   	-webkit-box-shadow: -1px 0 0 rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
+-moz-box-shadow: -1px 0 0 rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
+box-shadow: 0px 1px 1px 1px rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
 
-	border-radius: 50%;
-    -moz-border-radius: 50%;
-	-webkit-border-radius: 50%;
+top: 0%;
+right: 1%;
 }
 .trueStatus{
-	background-color: green;	
+	border-bottom:3px solid #5FC486;   	
+}
+.trueStatus{
+	border-left:0px solid black;   	
+	background-color: rgba(6,54,95,.35);
 }
 .falseStatus{
-	background-color: red;	
+	border-bottom:3px solid #FD3047;	
 }
 #tapmateLogo{
 	background-image: url(images/logo.png);
 	position: absolute;
 	height: 100%;
-	width: 8%;
-	right:10%;
-	top: 0%;
+	width: 100%;
+	right:1%;
+	top: 1%;
 	background-size: 100% 100%;
+	padding:1%;
 }
 
 #tapmateLogo:hover{
-
 box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 }
 /*Email Start/// */

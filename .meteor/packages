@@ -33,5 +33,4 @@ accounts-twitter
 accounts-google
 router
 iron-router
-react
 handlebars-server

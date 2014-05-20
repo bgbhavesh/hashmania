@@ -1388,14 +1388,20 @@ language.html = [
                 else{
                     SponserKeyword.insert({"keyword":keyword,"hits":1,"ranking":0});
                 }
-                if(HashKeyword.find({"keyword":keyword}).count()>10)
-                    return;
+                // if(HashKeyword.find({"keyword":keyword}).count()>10)
+                //     return;
                 console.log("seachKeyword start "+keyword)
                 var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
-                var searchurl = "https://api.instagram.com/v1/tags/" +keyword +"/media/recent?access_token="+access;              
+                var searchurl = "https://api.instagram.com/v1/tags/" +keyword +"/media/recent?access_token="+access;
+                // if(cursorSponserKeyword.next_url)              
+                //     searchurl = cursorSponserKeyword.next_url;
+
                 data = Meteor.http.get(searchurl);
+                // console.log(data.data.pagination.next_url);
+                
                 App.searchHashParser(data,keyword); 
-                console.log("seachKeyword end "+keyword)
+                console.log("seachKeyword end "+keyword);
+                SponserKeyword.update({"_id":cursorSponserKeyword._id},{$set : {"next_url":data.data.pagination.next_url}});
                 return true;
             // }
             // catch(error){

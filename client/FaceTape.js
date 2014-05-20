@@ -24,25 +24,25 @@ if(window["App"] === undefined)
 
 // Oauth package
  Package.oauth.Oauth.showPopup =  function (url, callback, dimensions) {                          
-  var popup = openCenteredPopup(                                                  
-    url,                                                                          
-    (dimensions && dimensions.width) || 650,                                      
-    (dimensions && dimensions.height) || 331,null,callback                                      
-  );                                                                              
-  if(!Session.get("phonegap"))                                                    
-  var checkPopupOpen = setInterval(function() {                                   
-    try {  
-        // console.log("my show popup interval")                                                                       
-      var popupClosed = popup.closed || popup.closed === undefined;               
-    } catch (e) {                                                                 
-      return;                                                                     
-    }                                                                             
-    if (popupClosed) {                                                            
-      clearInterval(checkPopupOpen);                                              
-      loginOnceStateReady(null,callback)
-      //callback();                                                                 
-    }                                                                             
-  }, 100);                                                                        
+    var popup = openCenteredPopup(                                                  
+            url,                                                                          
+            (dimensions && dimensions.width) || 650,                                      
+            (dimensions && dimensions.height) || 331,null,callback                                      
+            );                                                                              
+        if(!Session.get("phonegap"))                                                    
+            var checkPopupOpen = setInterval(function() {                                   
+        try {  
+            // console.log("my show popup interval")                                                                       
+            var popupClosed = popup.closed || popup.closed === undefined;               
+        } catch (e) {                                                                 
+            return;                                                                     
+        }                                                                             
+        if (popupClosed) {                                                            
+            clearInterval(checkPopupOpen);                                              
+            loginOnceStateReady(null,callback)
+            //callback();                                                                 
+        }                                                                             
+    }, 100);                                                                        
 };                                                                                
                                                                                   
                                                                                   
@@ -77,10 +77,10 @@ var openCenteredPopup = function(url, width, height,state,callback) {
     else{  
         newwindow = window.open(url, '_black', features);
     }
-  window["mystate"] = state;
-  window["mycallback"] = callback;
-  window['closewindow'] = newwindow;
-  window['closewindow'].addEventListener('loadstop', function(event) {   
+    window["mystate"] = state;
+    window["mycallback"] = callback;
+    window['closewindow'] = newwindow;
+    window['closewindow'].addEventListener('loadstop', function(event) {   
     if(event.url.indexOf(Meteor.settings.public.redirectClose) == 0){
        window["itriggered"] = true;  
        window['closewindow'].close();
@@ -1067,7 +1067,12 @@ Meteor.documentReady = documentReady;
         var local = currentVote;
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
-        $("#"+id).append(getVoteHTML(local.left,local.top - 40,"%",local.profile_picture,local._id))
+        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.clientid))
+    }
+    function getVoteHTMLHash(left,top,size,pics,id,clientid){
+        return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                 +' <img src="' +pics +'">  '        
+                + '</div>'
     }
     /*
 

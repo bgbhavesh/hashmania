@@ -307,7 +307,6 @@ HashComment  = new Meteor.Collection("hashcomment");
 Meteor.suscribeMeteor = suscribeMeteor;
 
 function suscribeMeteor(ClientId){
-    Meteor.subscribe("keyword");
 }
 ////chat feature/////////
 // Deps.autorun(function(){
@@ -1033,7 +1032,7 @@ Meteor.documentReady = documentReady;
         
         // $(".tertiary").hide();
         cacheData(data);
-        $(".loading").hide();
+        $("#semanticLoader").hide();
     }
     function cacheData(data){
         data = EJSON.stringify(data);
@@ -5559,13 +5558,13 @@ function searchHash(){
         return;
     }
     toast("Searching keyword " +searchKeyword +".")
-    // Meteor.call("findHashKeyword",searchKeyword,function(err,data){
-    //     // console.log(err);
-    //     // console.log(data);
-    //     if(!err){
-    //         toast("Searching keyword " +searchKeyword +" complete.")
-    //     }
-    // });
+    Meteor.call("findHashKeyword",searchKeyword,function(err,data){
+        // console.log(err);
+        // console.log(data);
+        if(!err){
+            toast("Searching keyword " +searchKeyword +" complete.")
+        }
+    });
     $("#searchKeyword").val('');    
     openSurvey();
 //   var keyword = Session.get("searchKeyword");
@@ -7532,8 +7531,9 @@ Meteor.startup(function () {
     Deps.autorun(function(){
         var keyword = Session.get("keyword");
         if(keyword){
-            $(".loading").show();
-            $(".hashKeyword").html("#"+keyword)
+            $("#semanticLoader").show();
+            $(".hashKeyword").html("#"+keyword);
+            $("#surveybig").html("");
             // Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){
             //     $(".loading").hide();
             // });
@@ -7542,7 +7542,7 @@ Meteor.startup(function () {
             // }
             // else{
             Meteor.call("getResult",keyword,function(err,data){
-                $("#surveybig").html("");
+                
                 if(data.length>10){
                     newRenderResults = [];
                     moreRenderResults = [];

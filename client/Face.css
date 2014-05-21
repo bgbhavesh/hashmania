@@ -1636,6 +1636,18 @@ h6 {}
 .littleBig{
 
 }
+.myloader{
+	background-image: url(images/loader.gif);
+
+	background-size: 100% 100%;
+	left: 45%;
+	line-height: 16px;
+	min-width: 32px;
+	padding-top: 48px;
+	position: absolute;
+	text-align: center;
+	top: 45%;
+}
 .loading{
 	background-image: url(images/loader.gif);
 	position: absolute;

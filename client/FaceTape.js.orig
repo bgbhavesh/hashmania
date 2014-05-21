@@ -1167,7 +1167,7 @@ Meteor.documentReady = documentReady;
             if(cursorvotenow==Session.get("clientid")){
                 // console.log("exist")
                 $("#"+likeid).children(".voting").show();
-                // return;
+                return;
 
             }            
         }
@@ -1176,16 +1176,16 @@ Meteor.documentReady = documentReady;
         var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
         var bigFeed = $(".voting")
         if(cursorBig){
-             var voteloc =$(".voting[votingid='" +cursorBig._id +"']");
-            if(voteloc.length==0){
-                Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
-                // appendVotesManually(this);
-            }
-            else{
-                Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
-                voteloc.css({"left":left+"%","top":VotesInsert.top-40+"%"})
-            }
-            var place = App.checkQuadrant(left,top);
+            //  var voteloc =$(".voting[votingid='" +cursorBig._id +"']");
+            // if(voteloc.length==0){
+            //     Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
+            //     // appendVotesManually(this);
+            // }
+            // else{
+            //     Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
+            //     voteloc.css({"left":left+"%","top":VotesInsert.top-40+"%"})
+            // }
+            // var place = App.checkQuadrant(left,top);
         } 
         else{
                 currentMoveVote = Votes.insert(VotesInsert);
@@ -1199,7 +1199,6 @@ Meteor.documentReady = documentReady;
         //setTimeout(pageScroll,2000);
         //showvotes(likeid);
         // showvotes(likeid);
-        $("#"+likeid).children(".voting").show();
         var cursorSponserKeyword = SponserKeyword.findOne({"keyword":Session.get("keyword")});
         if(cursorSponserKeyword){
             SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});
@@ -2116,7 +2115,6 @@ Meteor.documentReady = documentReady;
                 Session.set("keyword",tempKeyword)
                 closeSurvey();
                 Meteor.call("findHashKeyword",tempKeyword,function(err,data){
-                            
                 });
                 // $("#keywordPopup").hide();
             }
@@ -5553,23 +5551,22 @@ function showKeywordPopup(){
 function searchHash(){
     var starttimer = new Date().getTime();
   var searchKeyword = $("#searchKeyword").val();
-  Session.set("keyword",searchKeyword)
+    Session.set("keyword",searchKeyword)
     if(!searchKeyword){
         toast(i18n.__("enterKeyword"));
         //toast("Please enter some keywords.")
         return;
     }
     toast("Searching keyword " +searchKeyword +".")
-    Meteor.call("findHashKeyword",searchKeyword,function(err,data){
-        // console.log(err);
-        // console.log(data);
-        if(!err){
-            toast("Searching keyword " +searchKeyword +" complete.")
-        }
-    });
+    // Meteor.call("findHashKeyword",searchKeyword,function(err,data){
+    //     // console.log(err);
+    //     // console.log(data);
+    //     if(!err){
+    //         toast("Searching keyword " +searchKeyword +" complete.")
+    //     }
+    // });
     $("#searchKeyword").val('');    
-    // openSurvey();
-    closeSurvey();
+    openSurvey();
 //   var keyword = Session.get("searchKeyword");
 //   console.log(keyword);
 //   if(!keyword){
@@ -7544,10 +7541,16 @@ Meteor.startup(function () {
             // }
             // else{
             Meteor.call("getResult",keyword,function(err,data){
+<<<<<<< HEAD
+            console.log("data"+data.length);
+            $("#surveybig").empty();
+            if(data.length>10){
+=======
                 $("#surveybig").html("");
                 if(data.length>10){
                     newRenderResults = [];
                     moreRenderResults = [];
+>>>>>>> 22b5243f5d512d0b14cfc54eae5edf67a790145c
                     for(var i=0,il=9;i<il;i++){
                         newRenderResults.push(data[i]);
                     }

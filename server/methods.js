@@ -1426,7 +1426,7 @@ language.html = [
                             from: 'HashRepublic <tapmate@youiest.com>',
                             to:   email,            
                             subject : "Welcome to HashRepublic " +email,
-                            text : ROOTURL +"/verifyHashEmail/"+emailtoken
+                            text : "Please secure your account here: "+ROOTURL +"/verifyHashEmail/"+emailtoken
                         });
                 return true;
             // }

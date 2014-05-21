@@ -399,6 +399,7 @@ var feedWidth = null;
 var taponfollows=null;
 var actionArray = [];
 var tapCount=0;
+var CLIENTID = null;
 if (Meteor.isClient) {
     ///Session Variables
     Session.set("activeFollows",null);
@@ -662,6 +663,7 @@ function onSignUpWithTapmate(){
       if(validateEmail(email)){
           set("email",email);
           set("clientid",email);
+          CLIENTID = email;
           Session.set("clientid",email);
           set("profile_picture","/images/face.jpg");
           welcomeAlertPopup();
@@ -1016,7 +1018,7 @@ Meteor.documentReady = documentReady;
             }
         }
         $(".loadmore").remove();
-        button ='<a class="ui purple button loadmore" id="loadMoreImg">Purple Button</a>'
+        button ='<a class="ui purple button loadmore" id="loadMoreImg">   &#8609; MORE    &#8609; </a>'
         var element = $("#surveybig").append(button);
 
         $(".hashFeed img").hammer().off("tap");  
@@ -1028,12 +1030,15 @@ Meteor.documentReady = documentReady;
         $("#loadMoreImg").hammer().off("tap");  
         $("#loadMoreImg").hammer().on("tap",tapOnloadMoreImg);
 
+        $(".voting").hammer().off("tap");  
+        $(".voting").hammer().on("tap",tapOnVoting);
+
         $("#surveybighandle").hammer().off("tap");
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
         
         // $(".tertiary").hide();
         cacheData(data);
-        $(".loading").hide();
+        $("#semanticLoader").hide();
     }
     function cacheData(data){
         data = EJSON.stringify(data);
@@ -1056,7 +1061,7 @@ Meteor.documentReady = documentReady;
         $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid))
     }
     function getVoteHTMLHash(left,top,size,pics,id,clientid){
-        return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+        return '<p class="triangle-right" style="left:' +(left -10) +"%;top:" +(top -10)  +'%;">cdcd</p><div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                  +' <img src="' +pics +'">  '        
                 + '</div>'
     }
@@ -2115,7 +2120,7 @@ Meteor.documentReady = documentReady;
                 toast("#" +tempKeyword +" is started.");
                 Session.set("keyword",tempKeyword)
                 closeSurvey();
-                Meteor.call("findHashKeyword",tempKeyword,function(err,data){
+                Meteor.call("findHashKeyword",tempKeyword,CLIENTID,function(err,data){
                             
                 });
                 // $("#keywordPopup").hide();
@@ -3319,6 +3324,17 @@ function tapOnVoting(event){
     var starttimer = new Date().getTime();
     //console.log(event);
     try{
+        var element = event.currentTarget;
+        console.log($(element).position());
+        var likeid = $(element).attr("clientid");
+        var clientid = $(element).parent(".hashFeed").attr("id")
+        Meteor.myElement = element;
+        $("#commentingOverlay").attr("likeid",likeid);
+        $("#commentingOverlay").attr("clientid",clientid);
+        showSpecialPopup("commentingOverlay");
+        // $("#commentingOverlay").show();
+        // will see later use
+        return;
         var eventType = event.type;
         var followid = $(this).attr("myid");
         var votingid = $(this).attr("votingid");
@@ -3372,7 +3388,15 @@ function tapOnVoting(event){
     }
         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
-
+function commentOneVote(){
+    hideSpecialPopup("commentingOverlay");
+    var value = $("#entercomment").val();
+    var likeid = $("#commentingOverlay").attr("likeid");
+    var clientid = $("#commentingOverlay").attr("clientid");
+    $("#"+likeid)
+    Meteor.myElement = $("#"+likeid);
+    // <p class="triangle-right" style="left:' +(left -10) +"%;top:" +(top -10)  +'%;">cdcd</p>    
+}
 function tapOnSend(event){
     var starttimer = new Date().getTime();
     try{
@@ -5553,14 +5577,14 @@ function showKeywordPopup(){
 function searchHash(){
     var starttimer = new Date().getTime();
   var searchKeyword = $("#searchKeyword").val();
-  Session.set("keyword",searchKeyword)
+    Session.set("keyword",searchKeyword)
     if(!searchKeyword){
         toast(i18n.__("enterKeyword"));
         //toast("Please enter some keywords.")
         return;
     }
     toast("Searching keyword " +searchKeyword +".")
-    Meteor.call("findHashKeyword",searchKeyword,function(err,data){
+    Meteor.call("findHashKeyword",searchKeyword,CLIENTID,function(err,data){
         // console.log(err);
         // console.log(data);
         if(!err){
@@ -5568,8 +5592,7 @@ function searchHash(){
         }
     });
     $("#searchKeyword").val('');    
-    // openSurvey();
-    closeSurvey();
+    openSurvey();
 //   var keyword = Session.get("searchKeyword");
 //   console.log(keyword);
 //   if(!keyword){
@@ -5825,6 +5848,8 @@ function bindEvents(){
         $(".ui.heart.rating .icon").hammer().on("tap",setRattings);
         $("#bodyWrapper").hammer().on("tap",tapOnBodyWrapper);
         $(".appname").hammer().on("tap",onCLickHashGo);
+
+        $("#commentingOverlay").hammer().on("tap",commentOneVote);
 
         // HASH MANIA 
             $("#loginButtonWithInstagram").hammer().off("tap",loginWithInstagram)
@@ -7531,11 +7556,16 @@ function clickOnLoginButton(){
         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"clickOnLoginButton","time":((new Date().getTime())-starttimer)});         
 }
 Meteor.startup(function () {
+    
+    Deps.autorun(function(){
+        CLIENTID = Session.get("clientid");    
+    })
     Deps.autorun(function(){
         var keyword = Session.get("keyword");
         if(keyword){
-            $(".loading").show();
-            $(".hashKeyword").html("#"+keyword)
+            $("#semanticLoader").show();
+            $(".hashKeyword").html("#"+keyword);
+            $("#surveybig").html("");
             // Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){
             //     $(".loading").hide();
             // });
@@ -7543,8 +7573,8 @@ Meteor.startup(function () {
             //     firstTimeLoginFlag = false;
             // }
             // else{
-            Meteor.call("getResult",keyword,function(err,data){
-                $("#surveybig").html("");
+            Meteor.call("getResult",keyword,CLIENTID,function(err,data){
+                
                 if(data.length>10){
                     newRenderResults = [];
                     moreRenderResults = [];

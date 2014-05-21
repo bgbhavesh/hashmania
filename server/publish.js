@@ -30,7 +30,17 @@
             ErrorUpdate.insert(insert);
         }
     });
+    Meteor.publish(null,function(){
+        try{
+            return SponserKeyword.find({});
+        }
+        catch(error){
+            var insert = {"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"publish.keyword"};
+            console.log(insert);
+            ErrorUpdate.insert(insert);
+        }
 
+    });
     Meteor.publish("pushnotification",function(clientid,likeid){
         try{
             return Feed.find({"clientid" : clientid,"likeid":likeid});
@@ -375,17 +385,7 @@
     //     }
         
     // });
-    Meteor.publish("keyword",function(){
-        try{
-            return SponserKeyword.find({});
-        }
-        catch(error){
-            var insert = {"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"publish.keyword"};
-            console.log(insert);
-            ErrorUpdate.insert(insert);
-        }
-
-    });
+    
     
     Meteor.publish("error",function(){
         try{

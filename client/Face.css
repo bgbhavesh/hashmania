@@ -1357,10 +1357,8 @@ h6 {}
 }
 
 .active{
-	border-radius: 30%;
-	-moz-border-radius: 30%;
- 	  -webkit-border-radius: 30%;
- 	background-color:orange; 
+	
+ 	background-color:transparent; 
 }
 
 .activeGroup{
@@ -1636,6 +1634,18 @@ h6 {}
 .littleBig{
 
 }
+.myloader{
+	background-image: url(images/loader.gif);
+
+	background-size: 100% 100%;
+	left: 45%;
+	line-height: 16px;
+	min-width: 32px;
+	padding-top: 48px;
+	position: absolute;
+	text-align: center;
+	top: 45%;
+}
 .loading{
 	background-image: url(images/loader.gif);
 	position: absolute;
@@ -1753,6 +1763,47 @@ h6 {}
 #comment{
   position : absolute;
   display : none;  
+}
+#commentingOverlay{
+	display: none;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: 10;
+	top: 0%;
+	left: 0%;
+}
+#commentingCommentOverlay{
+	display: none;
+	position: absolute;
+	z-index: 15;
+	top: 0%;
+	left: 0%;
+}
+
+.triangle-right:after {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: 50px;
+    border-width: 20px 0px 0px 20px;
+    border-style: solid;
+    border-color: rgb(7, 86, 152) transparent;
+    display: block;
+    width: 0px;
+}
+.triangle-right {
+	font-size: 15px;
+    position: absolute;
+    width: 50%;
+    padding: 15px;
+    margin: 1em 0px 3em;
+    color: rgb(255, 255, 255);
+    background: linear-gradient(rgb(46, 136, 196), rgb(7, 86, 152)) repeat scroll 0% 0% transparent;
+    border-radius: 10px;
+}
+p {
+    margin: 1em 0px;
 }
 
 #overlay{
@@ -2080,6 +2131,7 @@ direction: ltr;
 	padding: 0.3%;
 	margin: 0;
 }
+
 #toastArea{
 	text-align: center;
 	font-size: 20px;

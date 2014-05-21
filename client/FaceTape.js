@@ -1017,7 +1017,7 @@ Meteor.documentReady = documentReady;
             }
         }
         $(".loadmore").remove();
-        button ='<a class="ui purple button loadmore" id="loadMoreImg">Purple Button</a>'
+        button ='<a class="ui purple button loadmore" id="loadMoreImg">   &#8609; MORE    &#8609; </a>'
         var element = $("#surveybig").append(button);
 
         $(".hashFeed img").hammer().off("tap");  

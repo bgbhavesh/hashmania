@@ -1357,10 +1357,8 @@ h6 {}
 }
 
 .active{
-	border-radius: 30%;
-	-moz-border-radius: 30%;
- 	  -webkit-border-radius: 30%;
- 	background-color:orange; 
+	
+ 	background-color:transparent; 
 }
 
 .activeGroup{

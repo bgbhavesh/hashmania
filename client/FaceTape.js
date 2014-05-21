@@ -2115,7 +2115,6 @@ Meteor.documentReady = documentReady;
                 Session.set("keyword",tempKeyword)
                 closeSurvey();
                 Meteor.call("findHashKeyword",tempKeyword,function(err,data){
-                            
                 });
                 // $("#keywordPopup").hide();
             }
@@ -7542,7 +7541,8 @@ Meteor.startup(function () {
             // }
             // else{
             Meteor.call("getResult",keyword,function(err,data){
-            console.log(data.length);
+            console.log("data"+data.length);
+            $("#surveybig").empty();
             if(data.length>10){
                     for(var i=0,il=9;i<il;i++){
                         newRenderResults.push(data[i]);

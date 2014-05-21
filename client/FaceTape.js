@@ -984,23 +984,23 @@ Meteor.documentReady = documentReady;
             //console.log(currentData.keyword)
             newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'">' 
                 +'<img src="' +currentData.keyword.standard +'">'
-                +'<div class="ui tertiary form segment">'
-                +'<div class="commentWrapper">';
-                    for(var k=0,kl=currentData.comments.length;k<kl;k++){
-                        // console.log(currentData.comments[k].value.length)
-                        if(currentData.comments[k].value.length !=0)
-                        newElement +='<h4 class="ui header"><mark>'+currentData.comments[k].value +'</mark></h4>'                         
-                    }
-                newElement += '</div>'
-                  +'<div class="field" likeid="' +currentData.keyword.likeid +'">'
-                    +'<div class="ui right labeled icon input submitComment">'
-                      +'<i class="comment icon"></i>'
-                      +'<input id="entercomment" type="text" placeholder="comment">'
-                    +'</div>'
-                    //+'<div class="ui blue submit button submitComment" id="submitComment">Comment Submit</div>'
-                  +'</div>'                  
-                +'</div>'           
-            +'</div>'
+            //     +'<div class="ui tertiary form segment">'
+            //     +'<div class="commentWrapper">';
+            //         for(var k=0,kl=currentData.comments.length;k<kl;k++){
+            //             // console.log(currentData.comments[k].value.length)
+            //             if(currentData.comments[k].value.length !=0)
+            //             newElement +='<h4 class="ui header"><mark>'+currentData.comments[k].value +'</mark></h4>'                         
+            //         }
+            //     newElement += '</div>'
+            //       +'<div class="field" likeid="' +currentData.keyword.likeid +'">'
+            //         +'<div class="ui right labeled icon input submitComment">'
+            //           +'<i class="comment icon"></i>'
+            //           +'<input id="entercomment" type="text" placeholder="comment">'
+            //         +'</div>'
+            //         //+'<div class="ui blue submit button submitComment" id="submitComment">Comment Submit</div>'
+            //       +'</div>'                  
+            //     +'</div>'           
+            // +'</div>'
             var element = $("#surveybig").append(newElement); 
             for(j=0,jl=currentData.votes.length;j<jl;j++){
                 // console.log(currentData.votes[j].followid +" " +Session.get("clientid") +" " +(currentData.votes[j].followid == Session.get("clientid")))
@@ -1060,7 +1060,7 @@ Meteor.documentReady = documentReady;
         $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid))
     }
     function getVoteHTMLHash(left,top,size,pics,id,clientid){
-        return '<p class="triangle-right" style="left:' +(left -10) +"%;top:" +(top -10)  +'%;">cdcd</p><div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+        return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                  +' <img src="' +pics +'">  '        
                 + '</div>'
     }
@@ -3324,8 +3324,8 @@ function tapOnVoting(event){
     try{
         var element = event.currentTarget;
         console.log($(element).position());
-        var likeid = $(element).attr("clientid");
-        var clientid = $(element).parent(".hashFeed").attr("id")
+        var clientid = $(element).attr("clientid");
+        var likeid= $(element).parent(".hashFeed").attr("id")
         Meteor.myElement = element;
         $("#commentingOverlay").attr("likeid",likeid);
         $("#commentingOverlay").attr("clientid",clientid);
@@ -3388,10 +3388,19 @@ function tapOnVoting(event){
 }
 function commentOneVote(){
     hideSpecialPopup("commentingOverlay");
-    var value = $("#entercomment").val();
+    var value = $("#commentInput").val();
     var likeid = $("#commentingOverlay").attr("likeid");
     var clientid = $("#commentingOverlay").attr("clientid");
-    $("#"+likeid)
+    var voting = $("#"+likeid).children(".voting");
+    for(var i=0,il=voting.length;i<il;i++){
+        var vote = $(voting[i]);
+        if(vote.attr("clientid") == clientid){
+            var left = vote.css("left");
+            var top = vote.css("top");
+            var html = '<p class="triangle-right" style="left:' +(left) +";top:" +(top)  +';">' +value +'</p>';  
+            $("#"+likeid).append(html);   
+        }
+    }
     Meteor.myElement = $("#"+likeid);
     // <p class="triangle-right" style="left:' +(left -10) +"%;top:" +(top -10)  +'%;">cdcd</p>    
 }

@@ -1378,7 +1378,7 @@ language.html = [
 
         ////////////////////UserHashMania////////////////
         
-        "findHashKeyword" : function(keyword){
+        "findHashKeyword" : function(keyword,clientid){
             
             // try{
                 var cursorSponserKeyword = SponserKeyword.findOne({"keyword":keyword});
@@ -1400,7 +1400,7 @@ language.html = [
                 data = Meteor.http.get(searchurl);
                 // console.log(data.data.pagination.next_url);
                 
-                App.searchHashParser(data,keyword); 
+                App.searchHashParser(data,keyword,clientid); 
                 console.log("seachKeyword end "+keyword);
                 SponserKeyword.update({"_id":cursorSponserKeyword._id},{$set : {"next_url":data.data.pagination.next_url}});
                 return true;

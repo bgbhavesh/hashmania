@@ -1209,7 +1209,7 @@ App.isAdmin = isAdmin;
           console.log("search ended");
         }
         App.searchParser = searchParser;
-    function searchHashParser(myJson,tag){
+    function searchHashParser(myJson,tag,clientid){
           console.log("search start");
           myJson = myJson.data;
           var data = null;
@@ -1219,11 +1219,11 @@ App.isAdmin = isAdmin;
               
             for(var i=0,il=data.length;i<il;i++){
               //data[i]            
-                var insert = {"type":"s","keyword":tag,"display":"y","likeid":data[i].id ,"standard":data[i].images.standard_resolution.url,"thumb":data[i].images.thumbnail.url,"low":data[i].images.low_resolution.url, "counts":data[i].likes.count,"voting":0};
+                var insert = {"type":"s","keyword":tag,"display":"y","clientid":clientid,"likeid":data[i].id ,"standard":data[i].images.standard_resolution.url,"thumb":data[i].images.thumbnail.url,"low":data[i].images.low_resolution.url, "counts":data[i].likes.count,"voting":0};
               //   cursorSearch = Search.findOne({"likeid":insert.likeid,"userid": ids});
               // if(!cursorSearch)
               //     cursorSearch = Recents.findOne({"likeid":insert.likeid,"userid": ids});
-              cursorHash = HashKeyword.findOne({"keyword":tag,"likeid":data[i].id});
+              cursorHash = HashKeyword.findOne({"keyword":tag,"likeid":data[i].id,"clientid":clientid});
               if(cursorHash){
                 // var id = insert.likeid;
                 // insert._id = null;

@@ -5552,20 +5552,20 @@ function showKeywordPopup(){
 function searchHash(){
     var starttimer = new Date().getTime();
   var searchKeyword = $("#searchKeyword").val();
-  Session.set("keyword",searchKeyword)
+    Session.set("keyword",searchKeyword)
     if(!searchKeyword){
         toast(i18n.__("enterKeyword"));
         //toast("Please enter some keywords.")
         return;
     }
     toast("Searching keyword " +searchKeyword +".")
-    Meteor.call("findHashKeyword",searchKeyword,function(err,data){
-        // console.log(err);
-        // console.log(data);
-        if(!err){
-            toast("Searching keyword " +searchKeyword +" complete.")
-        }
-    });
+    // Meteor.call("findHashKeyword",searchKeyword,function(err,data){
+    //     // console.log(err);
+    //     // console.log(data);
+    //     if(!err){
+    //         toast("Searching keyword " +searchKeyword +" complete.")
+    //     }
+    // });
     $("#searchKeyword").val('');    
     openSurvey();
 //   var keyword = Session.get("searchKeyword");
@@ -7542,8 +7542,10 @@ Meteor.startup(function () {
             // }
             // else{
             Meteor.call("getResult",keyword,function(err,data){
-            console.log(data.length);
-            if(data.length>10){
+                $("#surveybig").html("");
+                if(data.length>10){
+                    newRenderResults = [];
+                    moreRenderResults = [];
                     for(var i=0,il=9;i<il;i++){
                         newRenderResults.push(data[i]);
                     }

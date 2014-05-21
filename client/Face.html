@@ -28,9 +28,15 @@
 </body>
 <template name="body">
 <div id="bodyWrapper">
-	{{> bodystatic}}
-	{{> main}}  
-	{{> keyword}}
+	{{#isolate}}
+		{{> bodystatic}}
+	{{/isolate}}
+	{{#isolate}}
+		{{> main}}  
+	{{/isolate}}
+	{{#isolate}}
+		{{> keyword}}
+	{{/isolate}}
  </div>
  <iframe id="hashFaqForm" src="https://docs.google.com/forms/d/1oIoqFrz1F55Nc4i_v4IgSxmWbf9wLPTQGJrC3DyA-L8/viewform">
     </iframe>

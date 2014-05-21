@@ -1511,7 +1511,7 @@ language.html = [
             }
             return false;
         },
-        "getResult" : function(keyword){
+        "getResult" : function(keyword,clientid){
             console.log(keyword)
             var result = [];
             var i = result.length;

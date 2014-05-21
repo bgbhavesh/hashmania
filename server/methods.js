@@ -1386,7 +1386,8 @@ language.html = [
                     SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});
                 }
                 else{
-                    SponserKeyword.insert({"keyword":keyword,"hits":1,"ranking":0});
+                    cursorSponserKeyword = {};
+                    cursorSponserKeyword._id = SponserKeyword.insert({"keyword":keyword,"hits":1,"ranking":0});
                 }
                 // if(HashKeyword.find({"keyword":keyword}).count()>10)
                 //     return;

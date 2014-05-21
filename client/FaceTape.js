@@ -1175,13 +1175,14 @@ Meteor.documentReady = documentReady;
         var date = new Date().getTime();
         // console.log(likeid +" " +Session.get("currentBig"));
         top+=40;
-        $("#"+likeid).children(".voting").show();
+        
         var currentvotes = $("#"+likeid).children(".voting");
         // console.log(currentvotes.length);
         for(var i=0,il=currentvotes.length;i<il;i++){
             var cursorvotenow = $(currentvotes[i]).attr("clientid");
             if(cursorvotenow==Session.get("clientid")){
                 // console.log("exist")
+                $("#"+likeid).children(".voting").show();
                 return;
 
             }            

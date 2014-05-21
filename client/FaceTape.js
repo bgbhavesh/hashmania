@@ -1181,16 +1181,16 @@ Meteor.documentReady = documentReady;
         var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
         var bigFeed = $(".voting")
         if(cursorBig){
-             var voteloc =$(".voting[votingid='" +cursorBig._id +"']");
-            if(voteloc.length==0){
-                Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
-                // appendVotesManually(this);
-            }
-            else{
-                Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
-                voteloc.css({"left":left+"%","top":VotesInsert.top-40+"%"})
-            }
-            var place = App.checkQuadrant(left,top);
+            //  var voteloc =$(".voting[votingid='" +cursorBig._id +"']");
+            // if(voteloc.length==0){
+            //     Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
+            //     // appendVotesManually(this);
+            // }
+            // else{
+            //     Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
+            //     voteloc.css({"left":left+"%","top":VotesInsert.top-40+"%"})
+            // }
+            // var place = App.checkQuadrant(left,top);
         } 
         else{
                 currentMoveVote = Votes.insert(VotesInsert);

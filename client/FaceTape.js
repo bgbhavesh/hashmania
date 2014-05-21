@@ -979,8 +979,7 @@ Meteor.documentReady = documentReady;
 
             // $("#surveybig").hammer().off("tap");
             // $("#surveybig").hammer().on("tap",tapOnSurveyBig);
-            $("#surveybighandle").hammer().off("tap");
-            $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+            
     }
     function renderResults(data){
         if(!data)
@@ -1045,6 +1044,9 @@ Meteor.documentReady = documentReady;
         $("#loadMoreImg").hammer().off("tap");  
         $("#loadMoreImg").hammer().on("tap",tapOnloadMoreImg);
 
+        $("#surveybighandle").hammer().off("tap");
+        $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+        
         // $(".tertiary").hide();
         cacheData(data);
         $(".loading").hide();

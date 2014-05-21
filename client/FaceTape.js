@@ -822,23 +822,7 @@ Meteor.documentReady = documentReady;
     //         $(event.currentTarget).attr("src","images/face.jpg");            
     //     }
     // })
-    Template.keyword.events({
-        "click .eachkeyword" : function(event){
-            try{
-                var tempKeyword = this.keyword;
-                toast("#" +tempKeyword +" is started.");
-                Session.set("keyword",tempKeyword)
-                Meteor.call("findHashKeyword",tempKeyword,function(err,data){
-                        
-                });
-                // $("#keywordPopup").hide();
-            }
-            catch(error){
-                console.log(error);
-                ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "click .eachkeyword"});
-            }
-        }
-    })
+
     
     // Template.groupvote.rendered = function(){
         
@@ -2123,6 +2107,24 @@ Meteor.documentReady = documentReady;
 
         }
     }
+    Template.keyword.events({
+        "click .eachkeyword" : function(event){
+            try{
+                var tempKeyword = this.keyword;
+                toast("#" +tempKeyword +" is started.");
+                Session.set("keyword",tempKeyword)
+                closeSurvey();
+                Meteor.call("findHashKeyword",tempKeyword,function(err,data){
+                            
+                });
+                // $("#keywordPopup").hide();
+            }
+            catch(error){
+                console.log(error);
+                ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "click .eachkeyword"});
+            }
+        }
+    })
     Template.server.status = function(){
         return Meteor.status().connected;
     }
@@ -7528,9 +7530,10 @@ function clickOnLoginButton(){
 }
 Meteor.startup(function () {
     Deps.autorun(function(){
-        if(Session.get("keyword")){
+        var keyword = Session.get("keyword");
+        if(keyword){
             $(".loading").show();
-            
+            $(".hashKeyword").html("#"+keyword)
             // Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){
             //     $(".loading").hide();
             // });
@@ -7538,7 +7541,7 @@ Meteor.startup(function () {
             //     firstTimeLoginFlag = false;
             // }
             // else{
-            Meteor.call("getResult",Session.get("keyword"),function(err,data){
+            Meteor.call("getResult",keyword,function(err,data){
             console.log(data.length);
             if(data.length>10){
                     for(var i=0,il=9;i<il;i++){
@@ -7550,9 +7553,12 @@ Meteor.startup(function () {
                 }
             renderResults(newRenderResults);
             })   
-            set("keyword",Session.get("keyword"))
+            set("keyword",keyword)
             // }
             
+        }
+        else{
+            $(".hashKeyword").html("");
         }
     })
     SponserKeyword.find({}).observe({

@@ -1175,32 +1175,44 @@ Meteor.documentReady = documentReady;
         var date = new Date().getTime();
         // console.log(likeid +" " +Session.get("currentBig"));
         top+=40;
+        $("#"+likeid).children(".voting").show();
+        var currentvotes = $("#"+likeid).children(".voting");
+        // console.log(currentvotes.length);
+        for(var i=0,il=currentvotes.length;i<il;i++){
+            var cursorvotenow = $(currentvotes[i]).attr("clientid");
+            if(cursorvotenow==Session.get("clientid")){
+                // console.log("exist")
+                return;
+
+            }            
+        }
         var VotesInsert = {"checked":false,"place":"","profile_picture":votepic, "followid": Session.get("clientid"),"likeid":likeid ,"left": left,"top": top,"date" : date};
         // currentSurveyBig.append(getVoteHTML(VotesInsert.left,VotesInsert.top,"%"))
         var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
         var bigFeed = $(".voting")
         if(cursorBig){
-             var voteloc =$(".voting[votingid='" +cursorBig._id +"']");
-            if(voteloc.length==0){
-                Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
-                // appendVotesManually(this);
-            }
-            else{
-                Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
-                voteloc.css({"left":left+"%","top":VotesInsert.top-40+"%"})
-            }
-            var place = App.checkQuadrant(left,top);
+            //  var voteloc =$(".voting[votingid='" +cursorBig._id +"']");
+            // if(voteloc.length==0){
+            //     Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
+            //     // appendVotesManually(this);
+            // }
+            // else{
+            //     Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
+            //     voteloc.css({"left":left+"%","top":VotesInsert.top-40+"%"})
+            // }
+            // var place = App.checkQuadrant(left,top);
         } 
         else{
                 currentMoveVote = Votes.insert(VotesInsert);
                 VotesInsert._id = currentMoveVote;
                 appendVotesManuallyHash(likeid,VotesInsert);
         }
-        
+        // if(!existvotes){
+            //     console.log("already exist")
+            // }
         currentSurveyBig = currentSurveyBig.next(".bigFeed");
         //setTimeout(pageScroll,2000);
         //showvotes(likeid);
-        $("#"+likeid).children(".voting").show();
         // showvotes(likeid);
         var cursorSponserKeyword = SponserKeyword.findOne({"keyword":Session.get("keyword")});
         if(cursorSponserKeyword){

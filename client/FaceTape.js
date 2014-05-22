@@ -1232,7 +1232,7 @@ Meteor.documentReady = documentReady;
         //setTimeout(pageScroll,2000);
         //showvotes(likeid);
         // showvotes(likeid);
-        $("#"+likeid).children(".voting").show();
+        $("#"+likeid).children(".voting").show().hammer().off("tap").hammer().on("tap",tapOnVoting);
         var cursorSponserKeyword = SponserKeyword.findOne({"keyword":Session.get("keyword")});
         if(cursorSponserKeyword){
             SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});

@@ -259,7 +259,7 @@ MethodTimer = new Meteor.Collection("methodtimer");
 
 HashKeyword  = new Meteor.Collection("hashkeyword");
 HashComment  = new Meteor.Collection("hashcomment");
-
+UserHashMania =  new Meteor.Collection("hashmania");
 // Feed =  new Meteor.SmartCollection("feed");
 // Likes = new Meteor.SmartCollection("likes");
 // Follows = new Meteor.SmartCollection("follows");
@@ -1062,15 +1062,16 @@ Meteor.documentReady = documentReady;
         var local = currentVote;
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
-        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid))
+        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment))
     }
-    function getVoteHTMLHash(left,top,size,pics,id,clientid){
+    function getVoteHTMLHash(left,top,size,pics,id,clientid,comment){
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                 +' <img src="' +pics +'">  '        
+                 +' <img src="' +pics +'">  '  
+                 +'<p class="triangle-right" style="top: -155%; left: -175%;">' +comment +'</p>'      
                 + '</div>'
     }
     function onScore(score){
-        UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
+        // UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
     }
     /*
 
@@ -1114,9 +1115,9 @@ Meteor.documentReady = documentReady;
         var value= input.val();
         if(!value)
             return;
-        console.log(value)
-        console.log(likeid);
-        console.log(value);
+        // console.log(value)
+        // console.log(likeid);
+        // console.log(value);
         data.likeid =likeid;
         data.clientid = Session.get("clientid");
         data.value = value;
@@ -3409,20 +3410,19 @@ function commentOneVote(){
     // var voting = $("#"+likeid).children(".voting");
     var p = $(currentCommenting).find("p");
     var div = currentCommenting;
-    var votingid = $(div).attr("votingid")
-    console.log(v);
-    var cursorBig = Votes.findOne({"_id":votingid});
+    var votingid = $(div).attr("votingid");
+    console.log(votingid);
     if(p.length>0){
       var html = '<p class="triangle-right" style="top: -155%; left: -175%;">' +value +'</p>';
       $(p).text(value); 
-      if(cursorBig){
-        Votes.update({"_id":cursorBig._id},{$set :{"comment":value}});
+      if(votingid){
+        Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
     }else{
       var html = '<p class="triangle-right" style="top: -155%; left: -175%;">' +value +'</p>'; 
       div.insertAdjacentHTML( 'beforeend', html );
-      if(cursorBig){
-        Votes.update({"_id":cursorBig._id},{$set :{"comment":value}});
+      if(votingid){
+        Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
 
     }

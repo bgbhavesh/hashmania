@@ -1519,7 +1519,7 @@ language.html = [
             var alreadyResult = [],ar=0,firstResult = [],fr=0;
             HashKeyword.find({"keyword":keyword}).forEach(function(data){
                 deckFlag = false;
-                result[i] = {};
+                
                 
                 var votes = [],comments = [];
                 Votes.find({"likeid":data.likeid}).forEach(function(data){
@@ -1530,21 +1530,47 @@ language.html = [
                 HashComment.find({"likeid":data.likeid}).forEach(function(data){
                     comments.push(data);
                 });
-                // if(deckFlag){
-                //     alreadyResult[ar] = {};
-                //     alreadyResult[ar].votes = votes;
-                //     alreadyResult[ar].comments = comments;
-                // }
-                // else{
-
-                // }
-                // old way
-                result[i].keyword = data;
+                if(deckFlag){
+                    alreadyResult[ar] = {};
+                    alreadyResult[ar].keyword = data
+                    alreadyResult[ar].votes = votes;
+                    alreadyResult[ar].comments = comments;
+                    ar++;
+                }
+                else{
+                    firstResult[fr] = {};
+                    firstResult[fr].keyword = data
+                    firstResult[fr].votes = votes;
+                    firstResult[fr].comments = comments;
+                    fr++;
+                }
                 
-                result[i].votes = votes;
-                result[i].comments = comments;
-                i++;
             });
+            // old way
+            // console.log(alreadyResult);
+            // console.log(firstResult);
+            var j=0,k=0;
+            for(var i=0,il=alreadyResult.length;i<alreadyResult.length && i<firstResult.length;i++){
+                if(i%2){
+                    result.push(alreadyResult[j++]);
+                }
+                else{
+                    result.push(firstResult[k++]);
+                }
+            }
+            for(var jl=alreadyResult.length;j<jl;j++){
+                result.push(alreadyResult[j++]);
+            }
+            for(var kl=firstResult.length;k<kl;k++){
+                result.push(firstResult[k++]);
+            }
+                // result[i] = {};
+                // result[i].keyword = data;
+                
+                // result[i].votes = votes;
+                // result[i].comments = comments;
+                // i++;
+            // console.log(result);
             return result;
         },        
         "testHashRepublic" : function(){

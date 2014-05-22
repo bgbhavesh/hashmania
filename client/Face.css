@@ -1780,7 +1780,7 @@ h6 {}
 	top: 0%;
 	left: 0%;
 }
-
+/*
 .triangle-right:after {
     content: "";
     position: absolute;
@@ -1791,7 +1791,7 @@ h6 {}
     border-color: rgb(7, 86, 152) transparent;
     display: block;
     width: 0px;
-}
+}*/
 .triangle-right {
 	font-size: 15px;
     position: absolute;

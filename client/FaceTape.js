@@ -1028,6 +1028,10 @@ Meteor.documentReady = documentReady;
 
         $(".hashFeed img").hammer().off("tap");  
         $(".hashFeed img").hammer().on("tap",tapOnBigFeedSurvey);
+
+        $(".hashFeed img").hammer().off("hold",holdOnBigFeedSurvey);
+        $(".hashFeed img").hammer().on("hold",holdOnBigFeedSurvey);
+
         
         $(".submitComment").hammer().off("tap");  
         $(".submitComment").hammer().on("tap",tapOnSubmitComment);
@@ -1150,6 +1154,7 @@ Meteor.documentReady = documentReady;
         input.val("");
         onScore(10);
     }
+    
     function tapOnBigFeedSurvey(event){
         var parent = $(this).parent(".hashFeed");
         parent.find(".tertiary").show();
@@ -6051,47 +6056,14 @@ function onShare(share){
        window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com'); 
     // }    
 }
-function clickOneSharePic(share){
-    var myShareImage=$(".bigFeed img").attr("src");
-    var myCurrentImage = null;
+function holdOnBigFeedSurvey(share){
+    var myShareImage=$("div img").attr("src");
     if(Session.get("phonegap")){
-      var cursorMedia = Media.findOne({"_id":Session.get("currentBig")});
-        if(cursorMedia){
-            if(cursorMedia.std)
-                myCurrentImage = cursorMedia.std;         
-        }
-        
-        if(!myCurrentImage)
-            myCurrentImage = myShareImage;
-
-        window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", myCurrentImage, 'http://tapmate.youiest.com'); 
+        window.plugins.socialsharing.share("Hash Republic" , "Check this out Hash Republic is out! It's cool!", myShareImage, 'http://hashrepublic.youiest.com'); 
     }
     else{
-        var cursorMedia = Media.findOne({"_id":Session.get("currentBig")});
-        if(cursorMedia){
-            if(cursorMedia.link)
-                window.open(cursorMedia.link,"_system");            
-        }
-
-    }
-    // var share = $(this).attr("share");
-    // var myShareImage=$(".bigFeed img").attr("src");
-    // console.log(myShareImage)
-    // if(share == "facebook"){
-    //     window.plugins.socialsharing.shareViaFacebook("Tapmate" , myShareImage, 'http://tapmate.youiest.com', function() {}, function(errormsg){});
-    // }
-    // else if(share == "twitter"){
-    //     window.plugins.socialsharing.shareViaTwitter("Tapmate" , "Check this out Tapmate is out! It's cool!", myShareImage, 'http://tapmate.youiest.com');
-    // }
-    // else if(share == "whatsapp"){
-    //     window.plugins.socialsharing.shareViaWhatsApp("Tapmate" , myShareImage, 'http://tapmate.youiest.com', function() {}, function(errormsg){}) ;
-    // }
-    // else if(share == "sms"){
-    //     window.plugins.socialsharing.shareViaSMS("Tapmate, Check this out Tapmate is out! It's cool!", null /* see the note below */, function(msg) {}, function(msg) {});
-    // }
-    // else{
-       // window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", myShareImage, 'http://tapmate.youiest.com'); 
-    // }    
+        toast("This feature is not available for web browser.");
+      }    
 }
 /////////////////// SHARE //////////////////
 

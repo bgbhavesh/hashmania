@@ -1074,6 +1074,8 @@ Meteor.documentReady = documentReady;
                  +'<p class="triangle-right" style="top: -155%; left: -175%;opacity: 0.7;">' +comment +'</p>'      
                 + '</div>'
     }
+<<<<<<< HEAD
+=======
     function appendOnlyVotesManuallyHash(id,currentVote){
         var local = currentVote;
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
@@ -1088,6 +1090,7 @@ Meteor.documentReady = documentReady;
                  +' <img src="' +pics +'">  '
                 + '</div>'
     }
+>>>>>>> ea1b7a500fbdb87d6d8111eeb67d311261a1ef15
     function onScore(score){
         UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
     }
@@ -1223,7 +1226,11 @@ Meteor.documentReady = documentReady;
         // else{
                 currentMoveVote = Votes.insert(VotesInsert);
                 VotesInsert._id = currentMoveVote;
+<<<<<<< HEAD
+                appendVotesManuallyHash(likeid,VotesInsert);
+=======
                 appendOnlyVotesManuallyHash(likeid,VotesInsert);
+>>>>>>> ea1b7a500fbdb87d6d8111eeb67d311261a1ef15
         // }
         // if(!existvotes){
             //     console.log("already exist")

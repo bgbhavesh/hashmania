@@ -1187,6 +1187,7 @@ Meteor.documentReady = documentReady;
         var place = App.checkQuadrant(left,top);
         var VotesInsert = {"checked":false,"place":place,"profile_picture":votepic, "followid": Session.get("clientid"),"likeid":likeid ,"left": left,"top": top,"date" : date,"comment": ""};
         // currentSurveyBig.append(getVoteHTML(VotesInsert.left,VotesInsert.top,"%"))
+<<<<<<< HEAD
         // var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
         // var bigFeed = $(".voting")
         // if(cursorBig){
@@ -1202,6 +1203,23 @@ Meteor.documentReady = documentReady;
         //     
         // } 
         // else{
+=======
+        var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
+        var bigFeed = $(".voting")
+        if(cursorBig){
+            //  var voteloc =$(".voting[votingid='" +cursorBig._id +"']");
+            // if(voteloc.length==0){
+            //     Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
+            //     // appendVotesManually(this);
+            // }
+            // else{
+            //     Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
+            //     voteloc.css({"left":left+"%","top":VotesInsert.top-40+"%"})
+            // }
+            // var place = App.checkQuadrant(left,top);
+        } 
+        else{
+>>>>>>> 55b9f9108e640dcd9ffd5b261490b3e6591c951f
                 currentMoveVote = Votes.insert(VotesInsert);
                 VotesInsert._id = currentMoveVote;
                 appendVotesManuallyHash(likeid,VotesInsert);

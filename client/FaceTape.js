@@ -1069,6 +1069,9 @@ Meteor.documentReady = documentReady;
                  +' <img src="' +pics +'">  '        
                 + '</div>'
     }
+    function onScore(score){
+        UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
+    }
     /*
 
     <div class="quadrant" id="{{likeid}}">
@@ -1126,6 +1129,7 @@ Meteor.documentReady = documentReady;
         // $(".field[likeid='" +likeid+"']").css("display","none");
         HashComment.insert(data);
         input.val("");
+        onScore(10);
     }
     function tapOnBigFeedSurvey(event){
         var parent = $(this).parent(".hashFeed");
@@ -1180,27 +1184,28 @@ Meteor.documentReady = documentReady;
 
             }            
         }
-        var VotesInsert = {"checked":false,"place":"","profile_picture":votepic, "followid": Session.get("clientid"),"likeid":likeid ,"left": left,"top": top,"date" : date};
+        var place = App.checkQuadrant(left,top);
+        var VotesInsert = {"checked":false,"place":place,"profile_picture":votepic, "followid": Session.get("clientid"),"likeid":likeid ,"left": left,"top": top,"date" : date,"comment": ""};
         // currentSurveyBig.append(getVoteHTML(VotesInsert.left,VotesInsert.top,"%"))
-        var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
-        var bigFeed = $(".voting")
-        if(cursorBig){
-             var voteloc =$(".voting[votingid='" +cursorBig._id +"']");
-            if(voteloc.length==0){
-                Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
-                // appendVotesManually(this);
-            }
-            else{
-                Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
-                voteloc.css({"left":left+"%","top":VotesInsert.top-40+"%"})
-            }
-            var place = App.checkQuadrant(left,top);
-        } 
-        else{
+        // var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
+        // var bigFeed = $(".voting")
+        // if(cursorBig){
+        //      var voteloc =$(".voting[votingid='" +cursorBig._id +"']");
+        //     if(voteloc.length==0){
+        //         Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
+        //         // appendVotesManually(this);
+        //     }
+        //     else{
+        //         Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
+        //         voteloc.css({"left":left+"%","top":VotesInsert.top-40+"%"})
+        //     }
+        //     
+        // } 
+        // else{
                 currentMoveVote = Votes.insert(VotesInsert);
                 VotesInsert._id = currentMoveVote;
                 appendVotesManuallyHash(likeid,VotesInsert);
-        }
+        // }
         // if(!existvotes){
             //     console.log("already exist")
             // }
@@ -1213,6 +1218,7 @@ Meteor.documentReady = documentReady;
         if(cursorSponserKeyword){
             SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});
         }
+        onScore(10);
     }
     var currentSurveyBig = null;
     var bigsurveyHeight1=0;
@@ -3336,6 +3342,7 @@ function tapOnVoting(event){
         $("#commentingOverlay").attr("likeid",likeid);
         $("#commentingOverlay").attr("clientid",clientid);
         showSpecialPopup("commentingOverlay");
+
         // $("#commentingOverlay").show();
         // will see later use
         return;
@@ -5388,7 +5395,7 @@ function loginWithFacebook(){
                 clearInterval(facebookIntervalID);        
             }
     })
-
+    onScore(10);
     // {
     //         $(".hideAfterComplete").html("Now");
     //     }

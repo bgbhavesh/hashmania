@@ -1218,12 +1218,13 @@ App.isAdmin = isAdmin;
             data = myJson.data;
               
             for(var i=0,il=data.length;i<il;i++){
-              //data[i]            
-                var insert = {"type":"s","keyword":tag,"display":"y","clientid":clientid,"likeid":data[i].id ,"standard":data[i].images.standard_resolution.url,"thumb":data[i].images.thumbnail.url,"low":data[i].images.low_resolution.url, "counts":data[i].likes.count,"voting":0};
+              //data[i]            //,"clientid":clientid
+                var insert = {"type":"s","keyword":tag,"display":"y","likeid":data[i].id ,"standard":data[i].images.standard_resolution.url,"thumb":data[i].images.thumbnail.url,"low":data[i].images.low_resolution.url, "counts":data[i].likes.count,"voting":0};
               //   cursorSearch = Search.findOne({"likeid":insert.likeid,"userid": ids});
               // if(!cursorSearch)
               //     cursorSearch = Recents.findOne({"likeid":insert.likeid,"userid": ids});
-              cursorHash = HashKeyword.findOne({"keyword":tag,"likeid":data[i].id,"clientid":clientid});
+              //,"clientid":clientid
+              cursorHash = HashKeyword.findOne({"keyword":tag,"likeid":data[i].id});
               if(cursorHash){
                 // var id = insert.likeid;
                 // insert._id = null;

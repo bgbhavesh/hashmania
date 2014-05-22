@@ -1,0 +1,29 @@
+{
+  "format": "unipackage-slice-pre1",
+  "noExports": true,
+  "packageVariables": [],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "roles"
+    },
+    {
+      "package": "accounts-password"
+    },
+    {
+      "package": "tinytest"
+    }
+  ],
+  "resources": [
+    {
+      "type": "prelink",
+      "file": "tests.browser/packages/rolestests.js",
+      "length": 9692,
+      "offset": 0,
+      "servePath": "/packages/roles:tests.js",
+      "sourceMap": "tests.browser/packages/rolestests.js.map"
+    }
+  ]
+}

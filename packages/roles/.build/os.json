@@ -1,0 +1,33 @@
+{
+  "format": "unipackage-slice-pre1",
+  "packageVariables": [
+    {
+      "name": "Roles",
+      "export": true
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "underscore"
+    },
+    {
+      "package": "handlebars"
+    },
+    {
+      "package": "accounts-base"
+    }
+  ],
+  "resources": [
+    {
+      "type": "prelink",
+      "file": "os/packages/roles.js",
+      "length": 79441,
+      "offset": 0,
+      "servePath": "/packages/roles.js",
+      "sourceMap": "os/packages/roles.js.map"
+    }
+  ]
+}

@@ -1396,7 +1396,7 @@ language.html = [
                 var searchurl = "https://api.instagram.com/v1/tags/" +keyword +"/media/recent?access_token="+access;
                 // if(cursorSponserKeyword.next_url)              
                 //     searchurl = cursorSponserKeyword.next_url;
-
+                this.unblock();
                 data = Meteor.http.get(searchurl);
                 // console.log(data.data.pagination.next_url);
                 
@@ -1515,17 +1515,32 @@ language.html = [
             console.log(keyword)
             var result = [];
             var i = result.length;
+            var deckFlag = false;
+            var alreadyResult = [],ar=0,firstResult = [],fr=0;
             HashKeyword.find({"keyword":keyword}).forEach(function(data){
-                
+                deckFlag = false;
                 result[i] = {};
-                result[i].keyword = data;
+                
                 var votes = [],comments = [];
                 Votes.find({"likeid":data.likeid}).forEach(function(data){
+                    if(data.followid == clientid)
+                        deckFlag = true;
                     votes.push(data);
                 });
                 HashComment.find({"likeid":data.likeid}).forEach(function(data){
                     comments.push(data);
                 });
+                // if(deckFlag){
+                //     alreadyResult[ar] = {};
+                //     alreadyResult[ar].votes = votes;
+                //     alreadyResult[ar].comments = comments;
+                // }
+                // else{
+
+                // }
+                // old way
+                result[i].keyword = data;
+                
                 result[i].votes = votes;
                 result[i].comments = comments;
                 i++;

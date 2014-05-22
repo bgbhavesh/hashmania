@@ -259,6 +259,7 @@ MethodTimer = new Meteor.Collection("methodtimer");
 
 HashKeyword  = new Meteor.Collection("hashkeyword");
 HashComment  = new Meteor.Collection("hashcomment");
+UserHashMania =  new Meteor.Collection("hashmania");
 
 // Feed =  new Meteor.SmartCollection("feed");
 // Likes = new Meteor.SmartCollection("likes");
@@ -1062,11 +1063,12 @@ Meteor.documentReady = documentReady;
         var local = currentVote;
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
-        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid))
+        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.message))
     }
-    function getVoteHTMLHash(left,top,size,pics,id,clientid){
+    function getVoteHTMLHash(left,top,size,pics,id,clientid,message){
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                 +' <img src="' +pics +'">  '        
+                 +' <img src="' +pics +'">  '   
+                 +'<p>'+message +'</p>'     
                 + '</div>'
     }
     function onScore(score){

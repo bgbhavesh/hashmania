@@ -156,7 +156,7 @@ body{
 }
 .bigmenu,.help{
 	text-align: left;
-	background-image: url(images/plus.png);	
+	background-image: url(/images/plus.png);	
 	background-size: 20px 20px;
 	background-repeat: no-repeat;
 	padding-left: 10%;
@@ -202,7 +202,7 @@ body{
 	background-color: #50597b;
 }
 .menuarrow{
-	background-image: url(images/menuarrow.png);
+	background-image: url(/images/menuarrow.png);
 	height: 32px;
 	width: 32px;
 	position: absolute;
@@ -767,7 +767,7 @@ h6 {}
 	width: 50px;
 	position: absolute;
 	display: none;
-	background-image: url("images/taping.png");
+	background-image: url(/images/taping.png);
 	background-size: 100% 100%;
 	z-index: 5;
 }
@@ -999,7 +999,7 @@ h6 {}
 	height: 16px;
 	padding-right: 20px;
 	border-left-width: 5px;
-	background-image: url(images/feedicon.png);
+	background-image: url(/images/feedicon.png);
     position: absolute;
     left : 0%;
     bottom : 0%;
@@ -1137,10 +1137,10 @@ h6 {}
 }
 #hidecheckmark{
 	display: none;
-	background-image: url(images/check.png);
+	background-image: url(/images/check.png);
 }
 #showcheckmark{
-	background-image: url(images/plusgroup.png);
+	background-image: url(/images/plusgroup.png);
 }
 
 #showcheckmark,#hidecheckmark{
@@ -1635,7 +1635,7 @@ h6 {}
 
 }
 .myloader{
-	background-image: url(images/loader.gif);
+	background-image: url(/images/loader.gif);
 
 	background-size: 100% 100%;
 	left: 45%;
@@ -1647,7 +1647,7 @@ h6 {}
 	top: 45%;
 }
 .loading{
-	background-image: url(images/loader.gif);
+	background-image: url(/images/loader.gif);
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -1739,10 +1739,10 @@ h6 {}
 
 }
 #likeButton{
-  background-image: url("images/heart.png");
+  background-image: url(/images/heart.png);
 }
 #followButton{
-	background-image: url("images/F.png");
+	background-image: url(/images/F.png);
 	z-index:7;
 }
 
@@ -1834,7 +1834,7 @@ textarea[name="header"]{
 	position: absolute;
 	top: 20%;
 	position: absolute;
-	background-image: url("images/face.jpg");
+	background-image: url(/images/face.jpg);
 	background-size: 100% 100%;
 }
 #creatorProfile{
@@ -2178,7 +2178,7 @@ top: 0%;
 	top: 9%;
 }
 .appname{
-	background-image:url("images/hashrepublic.png");
+	background-image:url(/images/hashrepublic.png);
 	background-size: 60% 100%;
 	background-repeat: no-repeat;
 	left: 35%;
@@ -2214,7 +2214,7 @@ right: 1%;
 	border-bottom:3px solid #FD3047;	
 }
 #tapmateLogo{
-	background-image: url(images/logo.png);
+	background-image: url(/images/logo.png);
 	position: absolute;
 	height: 100%;
 	width: 100%;

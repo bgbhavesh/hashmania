@@ -28,15 +28,15 @@
 </body>
 <template name="body">
 <div id="bodyWrapper">
-	{{#isolate}}
+	
 		{{> bodystatic}}
-	{{/isolate}}
-	{{#isolate}}
+	
+	
 		{{> main}}  
-	{{/isolate}}
-	{{#isolate}}
+	
+	
 		{{> keyword}}
-	{{/isolate}}
+	
  </div>
  <iframe id="hashFaqForm" src="https://docs.google.com/forms/d/1oIoqFrz1F55Nc4i_v4IgSxmWbf9wLPTQGJrC3DyA-L8/viewform">
     </iframe>
@@ -365,8 +365,8 @@
 	
 </template>
 <!-- {{> hashmania}}
-{{#isolate}} 
-		{{/isolate}}
+ 
+		
  -->
 <template name="header">
   <div id="headerSection"> 
@@ -396,23 +396,23 @@
 			<div class="ui icon button">
 				<i class="left arrow icon" id="openclosearrow"></i>
 			</div> 
-			{{#isolate}} 
+			 
 				<img class="currentFollowimg" src="{{currentFollow.profile_picture}}">
-			{{/isolate}}
+			
 		</div>
   <div id="section2" data-step="2" data-intro="Users of Tapmate." class="ui inverted segment">
   		<div id="keyboardButton" class="ui button tiny">{{alpahbet}}</div>
     <!-- <div id="groupButton" class="button"><i class="hide icon"></i></div> -->
     <!-- <div id="openUser" class="button"><i class="hide icon"></i></div> -->
   <div class="followSection">
-    {{#isolate}}    
+        
     {{#each follows}}
       <div class="followsIcons {{activity}}" myid="{{followid}}" name="{{username}}" type="me" hits="{{hits}}">  
         <img src="{{profile_picture}}">
         <div class="{{status}}users usersstatus"> </div>        
       </div>
     {{/each}}
-    {{/isolate}}
+    
     <div class="ui inverted divider" style="top: -4%; position: relative;"></div>
   </div>
   
@@ -429,9 +429,9 @@
   <div id="section2Label" ><i style="font-size:2em;" class="user icon"></i></div>
   
   <div id="groupDiv">
-    {{#isolate}}
+    
       {{> grouptemplate}}
-    {{/isolate}}
+    
   </div>
   </div>
   
@@ -456,12 +456,12 @@
 </template>
 <!-- 
 
-{{#isolate}}
+
     {{#each eachBig}}
         <div class="hashFeed" likeid="{{likeid}}"> 
-          {{#isolate}}   
+             
             <img src="{{standard}}">
-          {{/isolate}}
+          
             <div class="quadrant" id="{{likeid}}">
                 <div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>
                 <div id="inerhprogressBar">
@@ -475,14 +475,14 @@
             </div>
         </div>
     {{/each}}
-{{/isolate}}
+
         
  -->
 <template name="perbig">
 	<div class="bigFeed bigSecondFeed" likeid="{{likeid}}"> 
-	  {{#isolate}}   
+	     
 		<img src="{{low}}">
-	  {{/isolate}}
+	  
 		<div class="quadrant" id="{{likeid}}">
 			<div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>
 			<div id="inerhprogressBar">

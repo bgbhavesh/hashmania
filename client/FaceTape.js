@@ -39,7 +39,7 @@ if(window["App"] === undefined)
         }                                                                             
         if (popupClosed) {                                                            
             clearInterval(checkPopupOpen);                                              
-            loginOnceStateReady(null,callback)
+            loginOnceStateReady(null,callback);
             //callback();                                                                 
         }                                                                             
     }, 100);                                                                        
@@ -86,7 +86,7 @@ var openCenteredPopup = function(url, width, height,state,callback) {
        window['closewindow'].close();
        window['closewindow'] = null;
        // alert("loadstop")
-       callback();
+       loginOnceStateReady(null,callback);
        // window["mytryLoginAfterPopupClosed"](window["mystate"],window["mycallback"]);           
      }
  });
@@ -95,13 +95,13 @@ var openCenteredPopup = function(url, width, height,state,callback) {
        window['closewindow'].close();
        window['closewindow'] = null;
        // alert("loaderror")
-       callback();
+       loginOnceStateReady(null,callback);
   });
  window['closewindow'].addEventListener('exit', function(event) {
      // window["mytryLoginAfterPopupClosed"](window["mystate"],window["mycallback"]);
      // alert("exit")
      window['closewindow'] = null;
-     callback();
+     loginOnceStateReady(null,callback);
      window["itriggered"] = false;
  });
   if (newwindow.focus)                                                            
@@ -748,7 +748,7 @@ function documentReady(){
             // location();
 
             //$("#nextInstruction").hammer().on("tap",nextInstruction);
-
+            $("#semanticLoader").hide();
         // onStartWalkthrou();
 }
 // https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.ted.com%2Ftalks%2Fbill_and_melinda_gates_why_giving_away_our_wealth_has_been_the_most_satisfying_thing_we_ve_done

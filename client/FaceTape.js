@@ -2152,11 +2152,12 @@ Meteor.documentReady = documentReady;
             try{
                 var tempKeyword = this.keyword;
                 toast("#" +tempKeyword +" is started.");
-                Session.set("keyword",tempKeyword)
-                closeSurvey();
+                
                 Meteor.call("findHashKeyword",tempKeyword,CLIENTID,function(err,data){
-                            
+                               
                 });
+                Session.set("keyword",tempKeyword);
+                closeSurvey();
                 // $("#keywordPopup").hide();
             }
             catch(error){
@@ -7596,6 +7597,7 @@ Meteor.startup(function () {
     })
     Deps.autorun(function(){
         var keyword = Session.get("keyword");
+        console.log(keyword);
         if(keyword){
             $("#semanticLoader").show();
             $(".hashKeyword").html("#"+keyword);
@@ -7608,18 +7610,17 @@ Meteor.startup(function () {
             // }
             // else{
             Meteor.call("getResult",keyword,CLIENTID,function(err,data){
-                
+                newRenderResults = [];
+                moreRenderResults = [];
+                for(var i=0,il=9;i<il;i++){
+                    newRenderResults.push(data[i]);
+                }
                 if(data.length>10){
-                    newRenderResults = [];
-                    moreRenderResults = [];
-                    for(var i=0,il=9;i<il;i++){
-                        newRenderResults.push(data[i]);
-                    }
                     for(var i=10,il=data.length;i<il;i++){
                         moreRenderResults.push(data[i]);
                     }
                 }
-            renderResults(newRenderResults);
+                renderResults(newRenderResults);
             })   
             set("keyword",keyword)
             // }

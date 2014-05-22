@@ -632,7 +632,8 @@ Meteor.startup(function () {
             Votes.find({"likeid":undefined}).forEach(function(data){console.log(data);Votes.remove({"_id":data._id})})
         // FollowsGroup.remove({});
         // EmailCollection.remove({});
-
+        // SponserKeyword.remove({});
+        // HashKeyword.remove({})
         // FollowsGroup.find().forEach(function(data){console.log(data)});
         // var cursorUsers = Meteor.users.find({});
         // cursorUsers.forEach(function(data){
@@ -1210,7 +1211,6 @@ App.isAdmin = isAdmin;
         }
         App.searchParser = searchParser;
     function searchHashParser(myJson,tag,clientid){
-          console.log("search start");
           myJson = myJson.data;
           var data = null;
           var cursorHash = null;
@@ -1247,7 +1247,6 @@ App.isAdmin = isAdmin;
           else{
             
           }
-          console.log("search ended");
         }
         App.searchHashParser = searchHashParser;
     function recentMediaParser(myJson,ids,access,tag){

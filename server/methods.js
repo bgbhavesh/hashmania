@@ -1381,33 +1381,103 @@ language.html = [
         "findHashKeyword" : function(keyword,clientid){
             
             // try{
-                var cursorSponserKeyword = SponserKeyword.findOne({"keyword":keyword});
+                console.log("findHashKeyword start "+keyword +" for client " +clientid)
+
+                var cursorSponserKeyword = SponserKeyword.findOne({"keyword":keyword,"clientid":clientid});
                 if(cursorSponserKeyword){
                     SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});
                 }
                 else{
                     cursorSponserKeyword = {};
-                    cursorSponserKeyword._id = SponserKeyword.insert({"keyword":keyword,"hits":1,"ranking":0});
+                    cursorSponserKeyword._id = SponserKeyword.insert({"keyword":keyword,"clientid":clientid,"hits":1,"ranking":0});
                 }
-                // if(HashKeyword.find({"keyword":keyword}).count()>10)
-                //     return;
-                console.log("seachKeyword start "+keyword)
+                if(HashKeyword.find({"keyword":keyword}).count()>10){
+                    this.unblock();
+                    console.log("unblock");
+                }
+                
                 var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
                 var searchurl = "https://api.instagram.com/v1/tags/" +keyword +"/media/recent?access_token="+access;
                 // if(cursorSponserKeyword.next_url)              
                 //     searchurl = cursorSponserKeyword.next_url;
-                this.unblock();
+
+                
                 data = Meteor.http.get(searchurl);
                 // console.log(data.data.pagination.next_url);
                 
                 App.searchHashParser(data,keyword,clientid); 
-                console.log("seachKeyword end "+keyword);
+                
                 SponserKeyword.update({"_id":cursorSponserKeyword._id},{$set : {"next_url":data.data.pagination.next_url}});
+
+                console.log("findHashKeyword end "+keyword +" for client " +clientid);
                 return true;
             // }
             // catch(error){
             //     console.log(error);ErrorUpdate.insert({"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"methods.seachKeyword"})
             // }
+        },
+        "getResult" : function(keyword,clientid){
+            console.log("getResult started " +keyword +" for client " +clientid);
+            var result = [];
+            var i = result.length;
+            var deckFlag = false;
+            var alreadyResult = [],ar=0,firstResult = [],fr=0;
+            HashKeyword.find({"keyword":keyword}).forEach(function(data){
+                deckFlag = false;
+                
+                
+                var votes = [],comments = [];
+                Votes.find({"likeid":data.likeid}).forEach(function(data){
+                    if(data.followid == clientid)
+                        deckFlag = true;
+                    votes.push(data);
+                });
+                HashComment.find({"likeid":data.likeid}).forEach(function(data){
+                    comments.push(data);
+                });
+                if(deckFlag){
+                    alreadyResult[ar] = {};
+                    alreadyResult[ar].keyword = data
+                    alreadyResult[ar].votes = votes;
+                    alreadyResult[ar].comments = comments;
+                    ar++;
+                }
+                else{
+                    firstResult[fr] = {};
+                    firstResult[fr].keyword = data
+                    firstResult[fr].votes = votes;
+                    firstResult[fr].comments = comments;
+                    fr++;
+                }
+                
+            });
+            // old way
+            // console.log(alreadyResult);
+            // console.log(firstResult);
+            var j=0,k=0;
+            for(var i=0,il=alreadyResult.length;i<alreadyResult.length && i<firstResult.length;i++){
+                if(i%2){
+                    result.push(alreadyResult[j++]);
+                }
+                else{
+                    result.push(firstResult[k++]);
+                }
+            }
+            for(var jl=alreadyResult.length;j<jl;j++){
+                result.push(alreadyResult[j++]);
+            }
+            for(var kl=firstResult.length;k<kl;k++){
+                result.push(firstResult[k++]);
+            }
+                // result[i] = {};
+                // result[i].keyword = data;
+                
+                // result[i].votes = votes;
+                // result[i].comments = comments;
+                // i++;
+            // console.log(result);
+            console.log("getResult ended " +keyword +" for client " +clientid +" " +result.length);
+            return result;
         },
         "verifyHashEmail" : function(email){
             
@@ -1510,68 +1580,6 @@ language.html = [
                 return cursorUserHashMania;
             }
             return false;
-        },
-        "getResult" : function(keyword,clientid){
-            console.log(keyword)
-            var result = [];
-            var i = result.length;
-            var deckFlag = false;
-            var alreadyResult = [],ar=0,firstResult = [],fr=0;
-            HashKeyword.find({"keyword":keyword}).forEach(function(data){
-                deckFlag = false;
-                
-                
-                var votes = [],comments = [];
-                Votes.find({"likeid":data.likeid}).forEach(function(data){
-                    if(data.followid == clientid)
-                        deckFlag = true;
-                    votes.push(data);
-                });
-                HashComment.find({"likeid":data.likeid}).forEach(function(data){
-                    comments.push(data);
-                });
-                if(deckFlag){
-                    alreadyResult[ar] = {};
-                    alreadyResult[ar].keyword = data
-                    alreadyResult[ar].votes = votes;
-                    alreadyResult[ar].comments = comments;
-                    ar++;
-                }
-                else{
-                    firstResult[fr] = {};
-                    firstResult[fr].keyword = data
-                    firstResult[fr].votes = votes;
-                    firstResult[fr].comments = comments;
-                    fr++;
-                }
-                
-            });
-            // old way
-            // console.log(alreadyResult);
-            // console.log(firstResult);
-            var j=0,k=0;
-            for(var i=0,il=alreadyResult.length;i<alreadyResult.length && i<firstResult.length;i++){
-                if(i%2){
-                    result.push(alreadyResult[j++]);
-                }
-                else{
-                    result.push(firstResult[k++]);
-                }
-            }
-            for(var jl=alreadyResult.length;j<jl;j++){
-                result.push(alreadyResult[j++]);
-            }
-            for(var kl=firstResult.length;k<kl;k++){
-                result.push(firstResult[k++]);
-            }
-                // result[i] = {};
-                // result[i].keyword = data;
-                
-                // result[i].votes = votes;
-                // result[i].comments = comments;
-                // i++;
-            // console.log(result);
-            return result;
         },        
         "testHashRepublic" : function(){
             var cursorUserHashMania = UserHashMania.findOne({"_id":"nicolsondsouza@gmail.com"});

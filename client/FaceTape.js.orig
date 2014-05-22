@@ -259,7 +259,11 @@ MethodTimer = new Meteor.Collection("methodtimer");
 
 HashKeyword  = new Meteor.Collection("hashkeyword");
 HashComment  = new Meteor.Collection("hashcomment");
+UserHashMania =  new Meteor.Collection("hashmania");
+<<<<<<< HEAD
+=======
 
+>>>>>>> 8cad46ec9c5aa640c8ee762f778b165e140a74e9
 // Feed =  new Meteor.SmartCollection("feed");
 // Likes = new Meteor.SmartCollection("likes");
 // Follows = new Meteor.SmartCollection("follows");
@@ -1062,15 +1066,25 @@ Meteor.documentReady = documentReady;
         var local = currentVote;
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
-        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid))
+<<<<<<< HEAD
+        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment))
     }
-    function getVoteHTMLHash(left,top,size,pics,id,clientid){
+    function getVoteHTMLHash(left,top,size,pics,id,clientid,comment){
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                 +' <img src="' +pics +'">  '        
+                 +' <img src="' +pics +'">  '  
+                 +'<p class="triangle-right" style="top: -155%; left: -175%;">' +comment +'</p>'      
+=======
+        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.message))
+    }
+    function getVoteHTMLHash(left,top,size,pics,id,clientid,message){
+        return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                 +' <img src="' +pics +'">  '   
+                 +'<p>'+message +'</p>'     
+>>>>>>> 8cad46ec9c5aa640c8ee762f778b165e140a74e9
                 + '</div>'
     }
     function onScore(score){
-        UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
+        // UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
     }
     /*
 
@@ -1114,9 +1128,9 @@ Meteor.documentReady = documentReady;
         var value= input.val();
         if(!value)
             return;
-        console.log(value)
-        console.log(likeid);
-        console.log(value);
+        // console.log(value)
+        // console.log(likeid);
+        // console.log(value);
         data.likeid =likeid;
         data.clientid = Session.get("clientid");
         data.value = value;
@@ -1187,7 +1201,6 @@ Meteor.documentReady = documentReady;
         var place = App.checkQuadrant(left,top);
         var VotesInsert = {"checked":false,"place":place,"profile_picture":votepic, "followid": Session.get("clientid"),"likeid":likeid ,"left": left,"top": top,"date" : date,"comment": ""};
         // currentSurveyBig.append(getVoteHTML(VotesInsert.left,VotesInsert.top,"%"))
-<<<<<<< HEAD
         // var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
         // var bigFeed = $(".voting")
         // if(cursorBig){
@@ -1203,23 +1216,6 @@ Meteor.documentReady = documentReady;
         //     
         // } 
         // else{
-=======
-        var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
-        var bigFeed = $(".voting")
-        if(cursorBig){
-            //  var voteloc =$(".voting[votingid='" +cursorBig._id +"']");
-            // if(voteloc.length==0){
-            //     Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
-            //     // appendVotesManually(this);
-            // }
-            // else{
-            //     Votes.update({"_id":cursorBig._id},{$set :{"left":VotesInsert.left,"top":VotesInsert.top,"date":VotesInsert.date}});
-            //     voteloc.css({"left":left+"%","top":VotesInsert.top-40+"%"})
-            // }
-            // var place = App.checkQuadrant(left,top);
-        } 
-        else{
->>>>>>> 55b9f9108e640dcd9ffd5b261490b3e6591c951f
                 currentMoveVote = Votes.insert(VotesInsert);
                 VotesInsert._id = currentMoveVote;
                 appendVotesManuallyHash(likeid,VotesInsert);
@@ -3423,21 +3419,29 @@ function commentOneVote(){
     hideSpecialPopup("commentingOverlay");
     var value = $("#commentInput").val();
     var likeid = $("#commentingOverlay").attr("likeid");
-    var clientid = $("#commentingOverlay").attr("clientid");
-    var voting = $("#"+likeid).children(".voting");
-    // console.log(currentCommenting)
-    // console.log($(currentCommenting).attr("votingid"))
-    var html = '<p class="triangle-right" style="top: -155%; left: -175%;">' +value +'</p>'; 
+    // var clientid = $("#commentingOverlay").attr("clientid");
+    // var voting = $("#"+likeid).children(".voting");
+    var p = $(currentCommenting).find("p");
     var div = currentCommenting;
-    div.insertAdjacentHTML( 'beforeend', html );
+    var votingid = $(div).attr("votingid");
+    console.log(votingid);
+    if(p.length>0){
+      var html = '<p class="triangle-right" style="top: -155%; left: -175%;">' +value +'</p>';
+      $(p).text(value); 
+      if(votingid){
+        Votes.update({"_id":votingid},{$set :{"comment":value}});
+      }
+    }else{
+      var html = '<p class="triangle-right" style="top: -155%; left: -175%;">' +value +'</p>'; 
+      div.insertAdjacentHTML( 'beforeend', html );
+      if(votingid){
+        Votes.update({"_id":votingid},{$set :{"comment":value}});
+      }
+
+    }
     // 
     // $("currentCommenting").append(html)
 
-    // var div = document.createElement("div");
-    // var parent = currentCommenting;
-    // parent.insertBefore(div, this);
-    // div.appendChild(this);
-    // return;
     // for(var i=0,il=voting.length;i<il;i++){
     //     var vote = $(voting[i]);
     //     if(vote.attr("clientid") == clientid){

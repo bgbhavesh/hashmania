@@ -260,6 +260,7 @@ MethodTimer = new Meteor.Collection("methodtimer");
 HashKeyword  = new Meteor.Collection("hashkeyword");
 HashComment  = new Meteor.Collection("hashcomment");
 UserHashMania =  new Meteor.Collection("hashmania");
+
 // Feed =  new Meteor.SmartCollection("feed");
 // Likes = new Meteor.SmartCollection("likes");
 // Follows = new Meteor.SmartCollection("follows");
@@ -1071,7 +1072,7 @@ Meteor.documentReady = documentReady;
                 + '</div>'
     }
     function onScore(score){
-        // UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
+        UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
     }
     /*
 

@@ -3398,21 +3398,30 @@ function commentOneVote(){
     hideSpecialPopup("commentingOverlay");
     var value = $("#commentInput").val();
     var likeid = $("#commentingOverlay").attr("likeid");
-    var clientid = $("#commentingOverlay").attr("clientid");
-    var voting = $("#"+likeid).children(".voting");
-    // console.log(currentCommenting)
-    // console.log($(currentCommenting).attr("votingid"))
-    var html = '<p class="triangle-right" style="top: -155%; left: -175%;">' +value +'</p>'; 
+    // var clientid = $("#commentingOverlay").attr("clientid");
+    // var voting = $("#"+likeid).children(".voting");
+    var p = $(currentCommenting).find("p");
     var div = currentCommenting;
-    div.insertAdjacentHTML( 'beforeend', html );
+    var votingid = $(div).attr("votingid")
+    console.log(v);
+    var cursorBig = Votes.findOne({"_id":votingid});
+    if(p.length>0){
+      var html = '<p class="triangle-right" style="top: -155%; left: -175%;">' +value +'</p>';
+      $(p).text(value); 
+      if(cursorBig){
+        Votes.update({"_id":cursorBig._id},{$set :{"comment":value}});
+      }
+    }else{
+      var html = '<p class="triangle-right" style="top: -155%; left: -175%;">' +value +'</p>'; 
+      div.insertAdjacentHTML( 'beforeend', html );
+      if(cursorBig){
+        Votes.update({"_id":cursorBig._id},{$set :{"comment":value}});
+      }
+
+    }
     // 
     // $("currentCommenting").append(html)
 
-    // var div = document.createElement("div");
-    // var parent = currentCommenting;
-    // parent.insertBefore(div, this);
-    // div.appendChild(this);
-    // return;
     // for(var i=0,il=voting.length;i<il;i++){
     //     var vote = $(voting[i]);
     //     if(vote.attr("clientid") == clientid){

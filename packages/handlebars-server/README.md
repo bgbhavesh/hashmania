@@ -16,8 +16,11 @@ side rendering support.
 ## Usage
 
 Any files with a .handlebars extension will be available as functions under the
-`Handlebars.templates` namespace. The handlebars files should just be regular
-html. Don't use any of the regular Meteor template syntax.
+`Handlebars.templates` namespace. 
+
+The templates need to be accesible to the server (i.e. put them inside your /server directory).
+
+The handlebars files should just be regular html. Don't wrap them in Meteor template tag.
 
 Example:
 
@@ -31,3 +34,7 @@ hello, {{name}}
 Handlebars.templates['my-template']({name: 'Chris'});
 // > hello, Chris
 ```
+
+## Helpers
+
+You can define helpers on the server via `OriginalHandlebars.registerHelper` method.

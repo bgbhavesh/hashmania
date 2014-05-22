@@ -21,6 +21,7 @@ Instagram.requestCredential = function (options, callback) {
 
     var state = Meteor.uuid();
     // XXX need to support configuring access_type and scope
+    window.localStorage.setItem("state",state)
     var url = Meteor.absoluteUrl('_oauth/instagram?close=close', {replaceLocalhost: true});        
         url = "http://youtap.meteor.com/_oauth/instagram?close=close"
         var loginUrl = null;

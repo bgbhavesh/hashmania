@@ -260,10 +260,7 @@ MethodTimer = new Meteor.Collection("methodtimer");
 HashKeyword  = new Meteor.Collection("hashkeyword");
 HashComment  = new Meteor.Collection("hashcomment");
 UserHashMania =  new Meteor.Collection("hashmania");
-<<<<<<< HEAD
-=======
 
->>>>>>> 8cad46ec9c5aa640c8ee762f778b165e140a74e9
 // Feed =  new Meteor.SmartCollection("feed");
 // Likes = new Meteor.SmartCollection("likes");
 // Follows = new Meteor.SmartCollection("follows");
@@ -1066,25 +1063,36 @@ Meteor.documentReady = documentReady;
         var local = currentVote;
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
-<<<<<<< HEAD
         $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment))
     }
     function getVoteHTMLHash(left,top,size,pics,id,clientid,comment){
+        if(!comment)
+          comment = "Enter Comment"
+        
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                  +' <img src="' +pics +'">  '  
-                 +'<p class="triangle-right" style="top: -155%; left: -175%;">' +comment +'</p>'      
-=======
-        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.message))
-    }
-    function getVoteHTMLHash(left,top,size,pics,id,clientid,message){
-        return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                 +' <img src="' +pics +'">  '   
-                 +'<p>'+message +'</p>'     
->>>>>>> 8cad46ec9c5aa640c8ee762f778b165e140a74e9
+                 +'<p class="triangle-right" style="top: -155%; left: -175%;opacity: 0.7;">' +comment +'</p>'      
                 + '</div>'
     }
+<<<<<<< HEAD
+=======
+    function appendOnlyVotesManuallyHash(id,currentVote){
+        var local = currentVote;
+        //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
+        // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
+        $("#"+id).append(getOnlyVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment))
+    }
+    function getOnlyVoteHTMLHash(left,top,size,pics,id,clientid,comment){
+        if(!comment)
+          comment = "Enter Comment"
+        
+        return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                 +' <img src="' +pics +'">  '
+                + '</div>'
+    }
+>>>>>>> ea1b7a500fbdb87d6d8111eeb67d311261a1ef15
     function onScore(score){
-        // UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
+        UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
     }
     /*
 
@@ -1218,7 +1226,11 @@ Meteor.documentReady = documentReady;
         // else{
                 currentMoveVote = Votes.insert(VotesInsert);
                 VotesInsert._id = currentMoveVote;
+<<<<<<< HEAD
                 appendVotesManuallyHash(likeid,VotesInsert);
+=======
+                appendOnlyVotesManuallyHash(likeid,VotesInsert);
+>>>>>>> ea1b7a500fbdb87d6d8111eeb67d311261a1ef15
         // }
         // if(!existvotes){
             //     console.log("already exist")
@@ -3426,7 +3438,7 @@ function commentOneVote(){
     var votingid = $(div).attr("votingid");
     console.log(votingid);
     if(p.length>0){
-      var html = '<p class="triangle-right" style="top: -155%; left: -175%;">' +value +'</p>';
+      var html = '<p class="triangle-right" style="top: -155%; left: -175%;opacity: 0.7;">' +value +'</p>';
       $(p).text(value); 
       if(votingid){
         Votes.update({"_id":votingid},{$set :{"comment":value}});

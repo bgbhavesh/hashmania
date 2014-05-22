@@ -594,10 +594,12 @@ function onLoginWithHashRepublic(){
     })
 }
 function showSpecialPopup(id){
+    console.log("show " +id)
     $("#"+id).show();
     $("#"+$("#"+id).attr("ref")).show();
 }
 function hideSpecialPopup(id){
+    console.log("hide " +id)
     $("#"+id).hide();
     $("#"+$("#"+id).attr("ref")).hide();
 }
@@ -968,8 +970,10 @@ Meteor.documentReady = documentReady;
             
     }
     function renderResults(data){
-        if(!data)
+        if(!data){
+            $("#semanticLoader").hide();
             return;
+        }
         $(".loading").show();
         if($("#surveybig").length == 0 && Session.get("clientid") == null){
             setTimeout(function(){renderResults(data)},250);

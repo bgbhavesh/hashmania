@@ -3320,11 +3320,13 @@ function holdOnVoting(event){
     }
         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
+var currentCommenting = null;
 function tapOnVoting(event){
     var starttimer = new Date().getTime();
     //console.log(event);
     try{
         var element = event.currentTarget;
+        currentCommenting = element;
         console.log($(element).position());
         var clientid = $(element).attr("clientid");
         var likeid= $(element).parent(".hashFeed").attr("id")
@@ -3394,15 +3396,28 @@ function commentOneVote(){
     var likeid = $("#commentingOverlay").attr("likeid");
     var clientid = $("#commentingOverlay").attr("clientid");
     var voting = $("#"+likeid).children(".voting");
-    for(var i=0,il=voting.length;i<il;i++){
-        var vote = $(voting[i]);
-        if(vote.attr("clientid") == clientid){
-            var left = vote.css("left");
-            var top = vote.css("top");
-            var html = '<p class="triangle-right" style="left:' +(left) +";top:" +(top)  +';">' +value +'</p>';  
-            $("#"+likeid).append(html);   
-        }
-    }
+    // console.log(currentCommenting)
+    // console.log($(currentCommenting).attr("votingid"))
+    var html = '<p class="triangle-right" style="top: -155%; left: -175%;">' +value +'</p>'; 
+    var div = currentCommenting;
+    div.insertAdjacentHTML( 'beforeend', html );
+    // 
+    // $("currentCommenting").append(html)
+
+    // var div = document.createElement("div");
+    // var parent = currentCommenting;
+    // parent.insertBefore(div, this);
+    // div.appendChild(this);
+    // return;
+    // for(var i=0,il=voting.length;i<il;i++){
+    //     var vote = $(voting[i]);
+    //     if(vote.attr("clientid") == clientid){
+    //         var left = vote.css("left");
+    //         var top = vote.css("top");
+    //         var html = '<p class="triangle-right" style="left:' +(left) +";top:" +(top)  +';">' +value +'</p>';  
+    //         $("#"+likeid).append(html);   
+    //     }
+    // }
     Meteor.myElement = $("#"+likeid);
     // <p class="triangle-right" style="left:' +(left -10) +"%;top:" +(top -10)  +'%;">cdcd</p>    
 }

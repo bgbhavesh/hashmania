@@ -1028,6 +1028,10 @@ Meteor.documentReady = documentReady;
 
         $(".hashFeed img").hammer().off("tap");  
         $(".hashFeed img").hammer().on("tap",tapOnBigFeedSurvey);
+
+        $(".hashFeed img").hammer().off("hold",holdOnBigFeedSurvey);
+        $(".hashFeed img").hammer().on("hold",holdOnBigFeedSurvey);
+
         
         $(".submitComment").hammer().off("tap");  
         $(".submitComment").hammer().on("tap",tapOnSubmitComment);
@@ -1149,6 +1153,25 @@ Meteor.documentReady = documentReady;
         HashComment.insert(data);
         input.val("");
         onScore(10);
+    }
+    function holdOnBigFeedSurvey(share){
+    // var myShareImage=$(".bigFeed img").attr("src");
+    // var myCurrentImage = null;
+    // if(Session.get("phonegap")){
+    //   var cursorMedia = Media.findOne({"_id":Session.get("currentBig")});
+    //     if(cursorMedia){
+    //         if(cursorMedia.std)
+    //             myCurrentImage = cursorMedia.std;         
+    //     }
+        
+    //     if(!myCurrentImage)
+    //         myCurrentImage = myShareImage;
+
+    //     window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", myCurrentImage, 'http://tapmate.youiest.com'); 
+    // }
+    // else{
+    //     toast("This feature is not available for web browser.");
+    //   }    
     }
     function tapOnBigFeedSurvey(event){
         var parent = $(this).parent(".hashFeed");

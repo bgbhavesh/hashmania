@@ -1389,7 +1389,7 @@ language.html = [
                 }
                 else{
                     cursorSponserKeyword = {};
-                    cursorSponserKeyword._id = SponserKeyword.insert({"keyword":keyword,"clientid":clientid,"hits":1,"ranking":0});
+                    cursorSponserKeyword._id = SponserKeyword.insert({"keyword":keyword,"hits":1,"ranking":0});
                 }
                 if(HashKeyword.find({"keyword":keyword}).count()>10){
                     this.unblock();
@@ -1398,8 +1398,8 @@ language.html = [
                 
                 var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
                 var searchurl = "https://api.instagram.com/v1/tags/" +keyword +"/media/recent?access_token="+access;
-                // if(cursorSponserKeyword.next_url)              
-                //     searchurl = cursorSponserKeyword.next_url;
+                if(cursorSponserKeyword.next_url)              
+                    searchurl = cursorSponserKeyword.next_url;
 
                 
                 data = Meteor.http.get(searchurl);

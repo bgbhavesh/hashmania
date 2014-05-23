@@ -1085,14 +1085,13 @@ Meteor.documentReady = documentReady;
         $("#"+id).append(getOnlyVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment))
     }
     function getOnlyVoteHTMLHash(left,top,size,pics,id,clientid,comment){
-      
         
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                  +' <img src="' +pics +'">  '
                 + '</div>'
     }
     function onScore(score){
-        //console.log("score " +score);
+        console.log("score " +score);
         UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
     }
     /*
@@ -1559,14 +1558,6 @@ Meteor.documentReady = documentReady;
     //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.rendered"});
     //     }
     // }
-
-    
-
-
-
-      
-    
-
     // Template.grouptemplate.group = function(){
     //     return FollowsGroup.find({"clientid":Session.get("clientid")});
     // }
@@ -3456,6 +3447,10 @@ function commentOneVote(){
       }
 
     }
+<<<<<<< HEAD
+    //bang
+    // 
+=======
     var stringArray = value.split(" ");
     var selectitem = null;
     var str = "#";
@@ -3480,6 +3475,7 @@ function commentOneVote(){
         }
     }
     
+>>>>>>> d606d3177a25d684e080cbc698621b823e9f435c
     // $("currentCommenting").append(html)
 
     // for(var i=0,il=voting.length;i<il;i++){

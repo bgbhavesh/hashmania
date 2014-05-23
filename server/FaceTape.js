@@ -614,8 +614,13 @@ function testNewUser(){
     Meteor.users.remove({"services.instagram.id":"491204471"});
 }
 App.testNewUser = testNewUser;
+var sponserKeywordArray = [];
 if (Meteor.isServer) {
 Meteor.startup(function () {
+        SponserKeyword.find({},{sort : {"hits": -1}}).forEach(function(data){
+            sponserKeywordArray.push(data.keyword)
+        });
+        // console.log(sponserKeywordArray)
         // console.log(querystring);
         if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
             DebugFace = true;
@@ -628,8 +633,11 @@ Meteor.startup(function () {
         // Me.remove({});
         // Follows.remove({});
         testingFunction();
-        if(!DebugFace)
-            Votes.find({"likeid":undefined}).forEach(function(data){console.log(data);Votes.remove({"_id":data._id})})
+        if(!DebugFace){
+            Votes.find({"likeid":undefined}).forEach(function(data){console.log(data);Votes.remove({"_id":data._id})});
+            checkNewImages();
+        }
+        checkNewImages();
         // FollowsGroup.remove({});
         // EmailCollection.remove({});
         // SponserKeyword.remove({});
@@ -797,6 +805,7 @@ function giveScore(vote){
     // console.log(finalDistance);
     UserHashMania.update({"_id":vote.clientid},{$inc :{"score":finalDistance,"heatScore":finalDistance}})
 }
+// UserHashMania
 function reminderOtherUserAboutNewVote(first){
     if(isNaN(first.followid))
         return;
@@ -2405,12 +2414,163 @@ SponserKeyword.find({}).observe({
         blinkForSecond(first,second,third);
     }
 });
+UserHashMania.find({}).observe({
+    "changed" : function(first,second,third){
+        console.log(first)
+        console.log(second)
+        checkForPushHash(first,second);
+    }
+});
 
+function checkForPushHash(old,news){
+    if(old.heatScore != news.heatScore){
+        // this means that score has been updated.
+        if(old.pushid)
+            pushToUserHashRepublic(old.pushid,news.pushmessage,news.pushtype)
+    }
+}
 function blinkForSecond(old,news){
     if(old.hits != news.hits){
         SponserKeyword.update({"_id":old._id},{$set : {"color":"red"}});
         Meteor.setTimeout(function(){
             SponserKeyword.update({"_id":old._id},{$set : {"color":"normal"}});
-        },5000)        
+        },5000);
+        checkForRank();
     }
+}
+function checkForRank(){
+    var currentKeywordArray = [];
+    var winnerLooser = []
+    SponserKeyword.find({},{sort : {"hits": -1}}).forEach(function(data){
+        currentKeywordArray.push(data.keyword)
+    });
+    for(var i=0,il=sponserKeywordArray.length;i<il;i++){
+        if(sponserKeywordArray[i] != currentKeywordArray[i]){
+            console.log(sponserKeywordArray[i]);
+            winnerLooser.push(sponserKeywordArray[i]);
+        }
+    }
+    console.log(winnerLooser.length)
+    if(winnerLooser.length >1){
+        var cursorSponserKeyword = null;
+        var cursorUserHashMania = null;
+        var message = "";
+        // winner push
+        cursorSponserKeyword = SponserKeyword.findOne({"keyword":winnerLooser[1]}); 
+        if(cursorSponserKeyword){
+            cursorUserHashMania = UserHashMania.findOne({"_id":cursorSponserKeyword.clientid});
+            if(cursorUserHashMania){
+                message = "You gained rank from " +winnerLooser[0];
+                console.log(message);
+                if(cursorUserHashMania.pushid){
+                    pushToUserHashRepublic(cursorUserHashMania.pushid,message,cursorUserHashMania.pushtype)
+                }
+            }
+            
+            
+
+        }
+        // looser push
+        for(var j=1,jl=winnerLooser.length;j<jl;j++){
+            cursorSponserKeyword = SponserKeyword.findOne({"keyword":winnerLooser[j]}); 
+            if(cursorSponserKeyword){
+                cursorUserHashMania = UserHashMania.findOne({"_id":cursorSponserKeyword.clientid});
+                if(cursorUserHashMania){
+                    message = "You lost rank from " +winnerLooser[winnerLooser.length-1];
+                    console.log(message);
+                    if(cursorUserHashMania.pushid){
+                        pushToUserHashRepublic(cursorUserHashMania.pushid,message,cursorUserHashMania.pushtype)
+                    }
+                }
+                
+                
+
+            }
+        }
+        
+
+    }
+}
+function checkNewImages(){
+    // console.log("checkNewImages every hour");
+    Meteor.setInterval(function(){
+        for(var i=0,il=sponserKeywordArray.length;i<il;i++){
+            keyword = sponserKeywordArray[i];
+            var cursorSponserKeyword = SponserKeyword.findOne({"keyword":keyword});
+            var data = null;
+            var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
+            var searchurl = "https://api.instagram.com/v1/tags/" +keyword +"/media/recent?access_token="+access;
+            if(cursorSponserKeyword.next_url)              
+                    searchurl = cursorSponserKeyword.next_url;
+            data = Meteor.http.get(searchurl);
+            
+            App.searchHashParser(data,keyword); 
+            
+            SponserKeyword.update({"_id":cursorSponserKeyword._id},{$set : {"next_url":data.data.pagination.next_url}});            
+        }
+
+    },3600000);    
+}
+
+function pushToUserHashRepublic(registrationid,mymessage,type){
+    // I have noticed that android registration id has dash "-" and iphone doesn't hence this is good for now    
+    // if(registrationid.match("-")){
+    //     type = "android";
+    // }
+    // else{
+    //     type = "iphone";
+    // }
+    // console.log(mymessage);
+    // console.log(type);
+    if(type == "iphone"){
+        console.log("iphone")
+        var myDevice = new Meteor.iphoneapn.Device(registrationid);
+
+        var note = new Meteor.iphoneapn.Notification();
+        note.badge = 1;
+        note.alert = { "body" : mymessage, "action-loc-key" : "Play" , "launch-image" : "mysplash.png"};
+        note.payload = {'messageFrom': 'Tapmate'};
+
+        note.device = myDevice;
+
+
+        iphoneConnection.sendNotification(note); 
+    }
+    else{
+        console.log("android")
+    // }
+    // if(type == "android"){
+        //console.log(registrationid);
+        // registrationid = "APA91bFcYZH3rdV25Gtbp0AOIFkjlmx5AVUv7-SDpoLaEwMvt4GlxY5nqZTZgfcLEGt-jnWg_5Q5FoMnnxkmGntRyTKDS0-2I71oV8MKKWpZAAovORi1THRcXbE3iKenzGoqyxa4Vq39j1kfJVNeH9Ryvgio9fTSzxJ9zsZ_J5a6h_dC5OgWbtw"
+        var registerid = [];
+        registerid.push(registrationid);
+       
+        //console.log(Meteor.pushMessage);
+        Meteor.pushMessage;
+        var message = new Meteor.pushGCM.Message();
+        // Message creation
+        message.addData('title','Youiest Tapmate');
+        //message.addData('message',mymessage);
+        message.addData('msgcnt','1');
+        // message.addData('mydata','nicolson');
+        if(mymessage)
+        message.addData('message',mymessage);
+        // if(low)
+        // message.addData('low',low);
+        // if(likeid)
+        // message.addData('likeid',likeid);
+        message.collapseKey = 'demo';
+        message.delayWhileIdle = true;
+        message.timeToLive = 30000;
+        // Message creation ends
+        
+        notificationCount++;
+
+        Meteor.pushSender.sendNoRetry(message, registerid, function (result,another) {
+            console.log("push result is " +result);
+            console.log("push another is " +another);
+            testResult = another;
+        }); 
+    }
+    
 }

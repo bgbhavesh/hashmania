@@ -637,7 +637,6 @@ Meteor.startup(function () {
             Votes.find({"likeid":undefined}).forEach(function(data){console.log(data);Votes.remove({"_id":data._id})});
             checkNewImages();
         }
-        checkNewImages();
         // FollowsGroup.remove({});
         // EmailCollection.remove({});
         // SponserKeyword.remove({});
@@ -2416,8 +2415,6 @@ SponserKeyword.find({}).observe({
 });
 UserHashMania.find({}).observe({
     "changed" : function(first,second,third){
-        console.log(first)
-        console.log(second)
         checkForPushHash(first,second);
     }
 });
@@ -2482,9 +2479,6 @@ function checkForRank(){
                         pushToUserHashRepublic(cursorUserHashMania.pushid,message,cursorUserHashMania.pushtype)
                     }
                 }
-                
-                
-
             }
         }
         

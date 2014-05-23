@@ -1389,7 +1389,7 @@ language.html = [
                 }
                 else{
                     cursorSponserKeyword = {};
-                    cursorSponserKeyword._id = SponserKeyword.insert({"keyword":keyword,"clientid":clientid,"hits":1,"ranking":0});
+                    cursorSponserKeyword._id = SponserKeyword.insert({"keyword":keyword,"hits":1,"ranking":0});
                 }
                 if(HashKeyword.find({"keyword":keyword}).count()>10){
                     this.unblock();

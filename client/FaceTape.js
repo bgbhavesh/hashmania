@@ -3430,6 +3430,7 @@ function commentOneVote(){
     hideSpecialPopup("commentingOverlay");
     var value = $("#commentInput").val();
     var likeid = $("#commentingOverlay").attr("likeid");
+    var CLIENTID = Session.get("clientid");
     // var clientid = $("#commentingOverlay").attr("clientid");
     // var voting = $("#"+likeid).children(".voting");
     var p = $(currentCommenting).find("p");
@@ -3450,7 +3451,30 @@ function commentOneVote(){
       }
 
     }
-    // 
+    var stringArray = value.split(" ");
+    var selectitem = null;
+    var str = "#";
+    for(var i=0,il=stringArray.length;i<il;i++){
+        selectitem = stringArray[i];
+        if(selectitem.length >= str.length && selectitem.substring(0, str.length) == str){
+          var keyword = selectitem.slice(1);
+          Meteor.call("findHashKeyword",keyword,CLIENTID,function(err,data){
+              console.log("err");
+              console.log(err);
+              console.log("data");
+              console.log(data);
+              console.log(data._id);
+              // if(err)                
+              
+          });
+          var commentcurssor = SponserKeyword.findOne({"keyword":keyword})
+          if(commentcurssor){
+            console.log("you got 25 points");
+            onScore(25);
+          }
+        }
+    }
+    
     // $("currentCommenting").append(html)
 
     // for(var i=0,il=voting.length;i<il;i++){

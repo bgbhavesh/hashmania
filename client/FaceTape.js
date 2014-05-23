@@ -3437,6 +3437,8 @@ function commentOneVote(){
     var div = currentCommenting;
     var votingid = $(div).attr("votingid");
     console.log(votingid);
+    if(!value)
+      return;
     if(p.length>0){
       var html = '<p class="triangle-right" style="top: -155%; left: -175%;opacity: 0.7;">' +value +'</p>';
       $(p).text(value); 

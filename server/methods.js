@@ -1383,7 +1383,7 @@ language.html = [
             // try{
                 console.log("findHashKeyword start "+keyword +" for client " +clientid)
 
-                var cursorSponserKeyword = SponserKeyword.findOne({"keyword":keyword,"clientid":clientid});
+                var cursorSponserKeyword = SponserKeyword.findOne({"keyword":keyword});
                 if(cursorSponserKeyword){
                     SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});
                 }

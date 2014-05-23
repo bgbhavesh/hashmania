@@ -797,6 +797,7 @@ function giveScore(vote){
     // console.log(finalDistance);
     UserHashMania.update({"_id":vote.clientid},{$inc :{"score":finalDistance,"heatScore":finalDistance}})
 }
+// UserHashMania
 function reminderOtherUserAboutNewVote(first){
     if(isNaN(first.followid))
         return;
@@ -2405,12 +2406,83 @@ SponserKeyword.find({}).observe({
         blinkForSecond(first,second,third);
     }
 });
+UserHashMania.find({}).observe({
+    "changed" : function(first,second,third){
+        checkForPushHash(first,second);
+    }
+});
 
+function checkForPushHash(old,news){
+    if(old.heatscore != news.heatscore){
+        // this means that score has been updated.
+        pushToUserHashRepublic(old.pushid,news.pushmessage,news.pushtype)
+    }
+}
 function blinkForSecond(old,news){
     if(old.hits != news.hits){
         SponserKeyword.update({"_id":old._id},{$set : {"color":"red"}});
         Meteor.setTimeout(function(){
             SponserKeyword.update({"_id":old._id},{$set : {"color":"normal"}});
-        },5000)        
+        },5000)
     }
+}
+function pushToUserHashRepublic(registrationid,mymessage,type){
+    // I have noticed that android registration id has dash "-" and iphone doesn't hence this is good for now    
+    // if(registrationid.match("-")){
+    //     type = "android";
+    // }
+    // else{
+    //     type = "iphone";
+    // }
+    if(type == "iphone"){
+        console.log("iphone")
+        var myDevice = new Meteor.iphoneapn.Device(registrationid);
+
+        var note = new Meteor.iphoneapn.Notification();
+        note.badge = 1;
+        note.alert = { "body" : mymessage, "action-loc-key" : "Play" , "launch-image" : "mysplash.png"};
+        note.payload = {'messageFrom': 'Tapmate'};
+
+        note.device = myDevice;
+
+
+        iphoneConnection.sendNotification(note); 
+    }
+    else{
+        console.log("android")
+    // }
+    // if(type == "android"){
+        //console.log(registrationid);
+        // registrationid = "APA91bFcYZH3rdV25Gtbp0AOIFkjlmx5AVUv7-SDpoLaEwMvt4GlxY5nqZTZgfcLEGt-jnWg_5Q5FoMnnxkmGntRyTKDS0-2I71oV8MKKWpZAAovORi1THRcXbE3iKenzGoqyxa4Vq39j1kfJVNeH9Ryvgio9fTSzxJ9zsZ_J5a6h_dC5OgWbtw"
+        var registerid = [];
+        registerid.push(registrationid);
+       
+        //console.log(Meteor.pushMessage);
+        Meteor.pushMessage;
+        var message = new Meteor.pushGCM.Message();
+        // Message creation
+        message.addData('title','Youiest Tapmate');
+        //message.addData('message',mymessage);
+        message.addData('msgcnt','1');
+        // message.addData('mydata','nicolson');
+        if(mymessage)
+        message.addData('message',mymessage);
+        if(low)
+        message.addData('low',low);
+        if(likeid)
+        message.addData('likeid',likeid);
+        message.collapseKey = 'demo';
+        message.delayWhileIdle = true;
+        message.timeToLive = 30000;
+        // Message creation ends
+        
+        notificationCount++;
+
+        Meteor.pushSender.sendNoRetry(message, registerid, function (result,another) {
+            console.log("push result is " +result);
+            console.log("push another is " +another);
+            testResult = another;
+        }); 
+    }
+    
 }

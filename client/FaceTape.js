@@ -6808,15 +6808,23 @@ function gotPushId(regid){
   }
   if(regid == "OK")
     return;
-  Meteor.call("registrationid",regid,type,Session.get("clientid"),function(err,data){                        
-      if(data){
-          toast("Success");
-          window.localStorage.setItem("pushid",regid);
-      }
-      else{
-          toast("failure");
-      }
-  });
+    // as per hashrepublic it's simple now just update it
+    if(!Session.get("clientid")){
+        setTimeout(function(){
+            gotPushId(regid);
+        },1000);
+        return;
+    }
+    UserHashMania.update({"_id":Session.get("clientid")},{$set :{"pushid":regid,"pushtype":type}});
+  // Meteor.call("registrationid",regid,type,Session.get("clientid"),function(err,data){                        
+  //     if(data){
+  //         toast("Success");
+  //         window.localStorage.setItem("pushid",regid);
+  //     }
+  //     else{
+  //         toast("failure");
+  //     }
+  // });
   
 }
 //// PUSH NOTIFICATION /////

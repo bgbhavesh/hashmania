@@ -1093,6 +1093,7 @@ Meteor.documentReady = documentReady;
                 + '</div>'
     }
     function onScore(score){
+        console.log("score " +score);
         UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
     }
     /*
@@ -2138,6 +2139,7 @@ Meteor.documentReady = documentReady;
         }
     }
     Template.keyword.rendered = function(){
+        console.log("Template.keyword.rendered");
         var keyword = $(".eachkeyword");
         var startSize = 45;
         for(var i=0,il=keyword.length;i<il;i++){

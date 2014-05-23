@@ -1070,13 +1070,17 @@ Meteor.documentReady = documentReady;
         $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment))
     }
     function getVoteHTMLHash(left,top,size,pics,id,clientid,comment){
-        if(!comment)
-          comment = "Enter Comment"
-        
-        return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                 +' <img src="' +pics +'">  '  
-                 +'<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.5;">' +comment +'</p>'      
-                + '</div>'
+      if(!comment){
+            return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                  +'<img src="' +pics +'">'
+                  + '</div>'
+          }else{
+
+            return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                  +'<img src="' +pics +'">  '  
+                  +'<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.5;">' +comment +'</p>'      
+                  +'</div>'
+          }
     }
     function appendOnlyVotesManuallyHash(id,currentVote){
         var local = currentVote;
@@ -1085,8 +1089,6 @@ Meteor.documentReady = documentReady;
         $("#"+id).append(getOnlyVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment))
     }
     function getOnlyVoteHTMLHash(left,top,size,pics,id,clientid,comment){
-      
-        
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                  +' <img src="' +pics +'">  '
                 + '</div>'

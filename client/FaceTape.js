@@ -1075,7 +1075,7 @@ Meteor.documentReady = documentReady;
         
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                  +' <img src="' +pics +'">  '  
-                 +'<p class="triangle-right" style="top: -155%; left: -175%;opacity: 0.7;">' +comment +'</p>'      
+                 +'<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.5;">' +comment +'</p>'      
                 + '</div>'
     }
     function appendOnlyVotesManuallyHash(id,currentVote){
@@ -1085,8 +1085,6 @@ Meteor.documentReady = documentReady;
         $("#"+id).append(getOnlyVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment))
     }
     function getOnlyVoteHTMLHash(left,top,size,pics,id,clientid,comment){
-        if(!comment)
-          comment = "Enter Comment"
         
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                  +' <img src="' +pics +'">  '
@@ -1559,14 +1557,6 @@ Meteor.documentReady = documentReady;
     //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.chatting.rendered"});
     //     }
     // }
-
-    
-
-
-
-      
-    
-
     // Template.grouptemplate.group = function(){
     //     return FollowsGroup.find({"clientid":Session.get("clientid")});
     // }
@@ -3365,9 +3355,13 @@ function tapOnVoting(event){
         console.log($(element).position());
         var clientid = $(element).attr("clientid");
         var likeid= $(element).parent(".hashFeed").attr("id")
+        // var imgsrc = $("voting").find('img').attr("src");
+        
         Meteor.myElement = element;
         $("#commentingOverlay").attr("likeid",likeid);
         $("#commentingOverlay").attr("clientid",clientid);
+
+        $('.imageComment img').attr('src',get("profile_picture"));
         showSpecialPopup("commentingOverlay");
 
         // $("#commentingOverlay").show();
@@ -3437,19 +3431,20 @@ function commentOneVote(){
     var votingid = $(div).attr("votingid");
     console.log(votingid);
     if(p.length>0){
-      var html = '<p class="triangle-right" style="top: -155%; left: -175%;opacity: 0.7;">' +value +'</p>';
+      var html = '<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.7;">' +value +'</p>';
       $(p).text(value); 
       if(votingid){
         Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
     }else{
-      var html = '<p class="triangle-right" style="top: -155%; left: -175%;">' +value +'</p>'; 
+      var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>'; 
       div.insertAdjacentHTML( 'beforeend', html );
       if(votingid){
         Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
 
     }
+    //bang
     // 
     // $("currentCommenting").append(html)
 

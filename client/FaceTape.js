@@ -47,22 +47,22 @@ if(window["App"] === undefined)
                                                                                   
                                                                                   
 var openCenteredPopup = function(url, width, height,state,callback) {
-  state = callback;             
-  var screenX = typeof window.screenX !== 'undefined'                             
-        ? window.screenX : window.screenLeft;                                     
-  var screenY = typeof window.screenY !== 'undefined'                             
-        ? window.screenY : window.screenTop;                                      
-  var outerWidth = typeof window.outerWidth !== 'undefined'                       
-        ? window.outerWidth : document.body.clientWidth;                          
-  var outerHeight = typeof window.outerHeight !== 'undefined'                     
-        ? window.outerHeight : (document.body.clientHeight - 22);                 
-  var left = screenX + (outerWidth - width) / 2;                                  
-  var top = screenY + (outerHeight - height) / 2;                                 
-  var features = ('width=' + width + ',height=' + height +                        
-                  ',left=' + left + ',top=' + top + ',scrollbars=yes');           
-  // console.log(callback)                                                                               
-  var newwindow = null;   
-  if(window['closewindow'])
+    state = callback;             
+    var screenX = typeof window.screenX !== 'undefined'                             
+    ? window.screenX : window.screenLeft;                                     
+    var screenY = typeof window.screenY !== 'undefined'                             
+    ? window.screenY : window.screenTop;                                      
+    var outerWidth = typeof window.outerWidth !== 'undefined'                       
+    ? window.outerWidth : document.body.clientWidth;                          
+    var outerHeight = typeof window.outerHeight !== 'undefined'                     
+    ? window.outerHeight : (document.body.clientHeight - 22);                 
+    var left = screenX + (outerWidth - width) / 2;                                  
+    var top = screenY + (outerHeight - height) / 2;                                 
+    var features = ('width=' + width + ',height=' + height +                        
+    ',left=' + left + ',top=' + top + ',scrollbars=yes');           
+    // console.log(callback)                                                                               
+    var newwindow = null;   
+    if(window['closewindow'])
     window['closewindow'].close();                         
     if(Session.get("phonegap")){ 
         url = encodeURI(url);
@@ -82,39 +82,39 @@ var openCenteredPopup = function(url, width, height,state,callback) {
     window['closewindow'] = newwindow;
     window['closewindow'].addEventListener('loadstop', function(event) {   
     if(event.url.indexOf(Meteor.settings.public.redirectClose) == 0){
-       window["itriggered"] = true;  
-       window['closewindow'].close();
-       window['closewindow'] = null;
-       // alert("loadstop")
-       loginOnceStateReady(null,callback);
-       // window["mytryLoginAfterPopupClosed"](window["mystate"],window["mycallback"]);           
+        window["itriggered"] = true;  
+        window['closewindow'].close();
+        window['closewindow'] = null;
+        // alert("loadstop")
+        loginOnceStateReady(null,callback);
+        // window["mytryLoginAfterPopupClosed"](window["mystate"],window["mycallback"]);           
      }
- });
-  window['closewindow'].addEventListener('loaderror', function(event) {             
-       window["itriggered"] = true;  
-       window['closewindow'].close();
-       window['closewindow'] = null;
-       // alert("loaderror")
-       loginOnceStateReady(null,callback);
-  });
- window['closewindow'].addEventListener('exit', function(event) {
-     // window["mytryLoginAfterPopupClosed"](window["mystate"],window["mycallback"]);
-     // alert("exit")
-     window['closewindow'] = null;
-     loginOnceStateReady(null,callback);
-     window["itriggered"] = false;
- });
-  if (newwindow.focus)                                                            
+    });
+    window['closewindow'].addEventListener('loaderror', function(event) {             
+        window["itriggered"] = true;  
+        window['closewindow'].close();
+        window['closewindow'] = null;
+        // alert("loaderror")
+        loginOnceStateReady(null,callback);
+    });
+    window['closewindow'].addEventListener('exit', function(event) {
+        // window["mytryLoginAfterPopupClosed"](window["mystate"],window["mycallback"]);
+        // alert("exit")
+        window['closewindow'] = null;
+        loginOnceStateReady(null,callback);
+        window["itriggered"] = false;
+    });
+    if (newwindow.focus)                                                            
     newwindow.focus();                                                            
-  return newwindow;                                                               
+    return newwindow;                                                               
 };                                                                                
 
 Package.oauth.Oauth.initiateLogin = function (credentialToken, url, callback, dimensions) {     
-  Package.oauth.Oauth.showPopup(                                                                
+    Package.oauth.Oauth.showPopup(                                                                
     url,                                                                          
     _.bind(callback, null, credentialToken),                                      
     dimensions                                                                    
-  );                                                                              
+    );                                                                              
 }; 
 // Oauth ends
 
@@ -125,13 +125,13 @@ var providers = [];
 function modifyReload(){
     var reloading = false;                                                                       // 117
 Package.reload.Reload._reload = function () {                                                               // 118
-  if (reloading)                                                                             // 119
-    return;                                                                                  // 120
-  reloading = true;                                                                          // 121
+    if (reloading)                                                                             // 119
+        return;                                                                                  // 120
+    reloading = true;                                                                          // 121
                                                                                              // 122
-  var tryReload = function () {};                                                                                     // 155
+    var tryReload = function () {};                                                                                     // 155
                                                                                              // 156
-  tryReload();                                                                               // 157
+    tryReload();                                                                               // 157
 };
 }
 // Reload ends
@@ -214,9 +214,9 @@ function get(key){
 }
 window.get = get;
 function bug() {
-  for (var i = 0; i < arguments.length; i++) {
-    console.log(arguments[i]);
-  }
+    for (var i = 0; i < arguments.length; i++) {
+        console.log(arguments[i]);
+    }
 }
 App.bug = bug;
 //// routers 
@@ -401,6 +401,7 @@ var taponfollows=null;
 var actionArray = [];
 var tapCount=0;
 var CLIENTID = null;
+var preload = {};
 if (Meteor.isClient) {
     ///Session Variables
     Session.set("activeFollows",null);
@@ -971,6 +972,7 @@ Meteor.documentReady = documentReady;
             
     }
     function renderResults(data){
+
         if(!data){
             $("#semanticLoader").hide();
             return;
@@ -980,6 +982,8 @@ Meteor.documentReady = documentReady;
             setTimeout(function(){renderResults(data)},250);
             return;
         }
+        cacheData(data);
+        data = divOldNew(data);
         var button = null;
         var newElement = null;
         var currentData = null;
@@ -1046,16 +1050,19 @@ Meteor.documentReady = documentReady;
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
         
         // $(".tertiary").hide();
-        cacheData(data);
+        
         $("#semanticLoader").hide();
     }
     function cacheData(data){
-        data = EJSON.stringify(data);
+        preload[Session.get("keyword")] = data;
+        data = EJSON.stringify(preload);
         set("search",data);
     }
-    function restoreData(json){
-        json = EJSON.parse(json);
-        renderResults(json);
+    function restoreData(){
+        var json = get("search");
+        preload = EJSON.parse(json);
+        console.log(preload);
+        // renderResults(preload);
     }
     function tapOnloadMoreImg(){
         $("#loadMoreImg").css("display","none");
@@ -2223,10 +2230,10 @@ function saveCollection(){
     if(!database)
         database = {};
     var startTime = new Date().getTime();
-    saveIndividual("Follows");
-    saveIndividual("Feed");
+    // saveIndividual("Follows");
+    // saveIndividual("Feed");
     saveIndividual("SponserKeyword");
-    saveIndividual("FollowsGroup");
+    // saveIndividual("FollowsGroup");
     StopSession();
     // saveOutstanding();  
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"saveCollection","time":((new Date().getTime())-starttimer)});
@@ -2282,11 +2289,11 @@ function restoreCollection(){
     database = window.localStorage.getItem("database");
     database = EJSON.parse(database);
     
-    restoreIndividual("Follows");
-    restoreIndividual("Feed");
+    // restoreIndividual("Follows");
+    // restoreIndividual("Feed");
     restoreIndividual("SponserKeyword");
-    restoreIndividual("FollowsGroup");
-    restoreData(window.localStorage.getItem("search"));
+    // restoreIndividual("FollowsGroup");
+    restoreData();
     // setTimeout(restoreOutstanding,5*60000);
     //console.log(new Date().getTime() - startTime +" ms time taken");
     //MethodTimer.insert({"clientid":Session.get("clientid"),"name":"restoreCollection","time":(new Date().getTime())-starttimer});
@@ -4264,7 +4271,7 @@ function autoLogin(){
         // }
        if(isNaN(ClientId)){
             if(get("password")){
-                toast("Please login with password.");
+                console.log("Logged in with password.");
                 Session.set("clientid",ClientId);
                 suscribeMeteor(ClientId);
                 Session.set("username",ClientId);
@@ -4272,8 +4279,10 @@ function autoLogin(){
                 Meteor.call("getLoginStatus",ClientId,function(err,data){
                     
                 });
+                restoreCollection();
             }
             else{
+                console.log("No password found.");
                 $("#loginScreen").show();
             }
             // Tapmate user conditions
@@ -7631,6 +7640,20 @@ function clickOnLoginButton(){
     }  
         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"clickOnLoginButton","time":((new Date().getTime())-starttimer)});         
 }
+function divOldNew(data){
+    newRenderResults = [];
+    moreRenderResults = [];
+    for(var i=0,il=9;i<il;i++){
+        newRenderResults.push(data[i]);
+    }
+    if(data.length>10){
+        for(var i=10,il=data.length;i<il;i++){
+            moreRenderResults.push(data[i]);
+        }
+    }
+    return newRenderResults;
+    // renderResults(newRenderResults);
+}
 Meteor.startup(function () {
     
     Deps.autorun(function(){
@@ -7650,19 +7673,15 @@ Meteor.startup(function () {
             //     firstTimeLoginFlag = false;
             // }
             // else{
-            Meteor.call("getResult",keyword,CLIENTID,function(err,data){
-                newRenderResults = [];
-                moreRenderResults = [];
-                for(var i=0,il=9;i<il;i++){
-                    newRenderResults.push(data[i]);
-                }
-                if(data.length>10){
-                    for(var i=10,il=data.length;i<il;i++){
-                        moreRenderResults.push(data[i]);
-                    }
-                }
-                renderResults(newRenderResults);
-            })   
+            if(preload[keyword]){
+                renderResults(preload[keyword])
+            }
+            else{
+                Meteor.call("getResult",keyword,CLIENTID,function(err,data){
+                    renderResults(data);
+                })   
+            }
+            
             set("keyword",keyword)
             // }
             

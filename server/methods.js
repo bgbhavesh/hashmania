@@ -350,6 +350,14 @@ language.html = [
                 access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
                   //"491204471.0300035.27ba894777cb45ea80cdba4499dbb5f4";
                 id = ids;
+                var cursorUserHashMania = UserHashMania.findOne({"_id":clientid});
+
+                // as per hashrepublic
+                if(cursorUserHashMania){
+                    if(cursorUserHashMania.instagramToken)
+                        access = cursorUserHashMania.instagramToken;
+                }
+                // instagramToken
                 if(Meteor.user().services.instagram){              
                     access = Meteor.user().services.instagram.accessToken;
                 }else{

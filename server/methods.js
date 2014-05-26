@@ -1399,15 +1399,16 @@ language.html = [
                     cursorSponserKeyword = {};
                     cursorSponserKeyword._id = SponserKeyword.insert({"keyword":keyword,"hits":1,"ranking":0});
                 }
+                this.unblock();
                 if(HashKeyword.find({"keyword":keyword}).count()>10){
-                    this.unblock();
+                    
                     console.log("unblock");
                 }
                 
                 
                 // console.log(data.data.pagination.next_url);
                 
-                App.searchHashParser(data,keyword,clientid); 
+                App.searchHashParser(null,keyword,clientid); 
                 
                 
 
@@ -1424,7 +1425,77 @@ language.html = [
             var i = result.length;
             var deckFlag = false;
             var alreadyResult = [],ar=0,firstResult = [],fr=0;
-            HashKeyword.find({"keyword":keyword}).forEach(function(data){
+            var count = HashKeyword.find({"keyword":keyword}).count();
+            console.log(count)
+            if(count < 10)
+                App.searchHashParserUrgent(null,keyword,clientid); 
+            HashKeyword.find({"keyword":keyword},{limit:50}).forEach(function(data){
+                deckFlag = false;
+                
+                
+                var votes = [],comments = [];
+                Votes.find({"likeid":data.likeid}).forEach(function(data){
+                    if(data.followid == clientid)
+                        deckFlag = true;
+                    votes.push(data);
+                });
+                HashComment.find({"likeid":data.likeid}).forEach(function(data){
+                    comments.push(data);
+                });
+                if(deckFlag){
+                    alreadyResult[ar] = {};
+                    alreadyResult[ar].keyword = data
+                    alreadyResult[ar].votes = votes;
+                    alreadyResult[ar].comments = comments;
+                    ar++;
+                }
+                else{
+                    firstResult[fr] = {};
+                    firstResult[fr].keyword = data
+                    firstResult[fr].votes = votes;
+                    firstResult[fr].comments = comments;
+                    fr++;
+                }
+                
+            });
+            // old way
+            // console.log(alreadyResult);
+            // console.log(firstResult);
+            var j=0,k=0;
+            for(var i=0,il=alreadyResult.length;i<alreadyResult.length && i<firstResult.length;i++){
+                if(i%2){
+                    result.push(alreadyResult[j++]);
+                }
+                else{
+                    result.push(firstResult[k++]);
+                }
+            }
+            for(var jl=alreadyResult.length;j<jl;j++){
+                result.push(alreadyResult[j++]);
+            }
+            for(var kl=firstResult.length;k<kl;k++){
+                result.push(firstResult[k++]);
+            }
+                // result[i] = {};
+                // result[i].keyword = data;
+                
+                // result[i].votes = votes;
+                // result[i].comments = comments;
+                // i++;
+            // console.log(result);
+            console.log("getResult ended " +keyword +" for client " +clientid +" " +result.length);
+            return result;
+        },
+        "getMoreResult" : function(keyword,clientid,limit){
+            console.log("getResult started " +keyword +" for client " +clientid);
+            var result = [];
+            var i = result.length;
+            var deckFlag = false;
+            var alreadyResult = [],ar=0,firstResult = [],fr=0;
+            var count = HashKeyword.find({"keyword":keyword}).count();
+
+
+            HashKeyword.find({"keyword":keyword},{limit:50}).forEach(function(data){
                 deckFlag = false;
                 
                 

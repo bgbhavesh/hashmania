@@ -1220,14 +1220,20 @@ App.isAdmin = isAdmin;
         App.searchParser = searchParser;
     function searchHashParser(myJson,tag,clientid){
             var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
+            var insertCount = 0;
+            
+            // console.log(DebugFace)
             for(;;){
-                var searchurl = "https://api.instagram.com/v1/tags/" +keyword +"/media/recent?access_token="+access;
+                insertCount = 0;
+                var searchurl = "https://api.instagram.com/v1/tags/" +tag +"/media/recent?access_token="+access;
+                    var cursorSponserKeyword = SponserKeyword.findOne({"keyword":tag});
+                    if(cursorSponserKeyword)
                     if(cursorSponserKeyword.next_url)              
                         searchurl = cursorSponserKeyword.next_url;
 
-                        
+                    console.log(searchurl)   
                     myJson = Meteor.http.get(searchurl);
-                    SponserKeyword.update({"_id":cursorSponserKeyword._id},{$set : {"next_url":data.data.pagination.next_url}});
+                    SponserKeyword.update({"_id":cursorSponserKeyword._id},{$set : {"next_url":myJson.data.pagination.next_url}});
 
 
                 myJson = myJson.data;
@@ -1259,6 +1265,7 @@ App.isAdmin = isAdmin;
                         //insert.type = 9;
                         //insert.checked = false;
                         HashKeyword.insert(insert); 
+                        insertCount++;
                         // Meteor.call("media",insert.likeid,access);
                       }                           
                     }
@@ -1266,10 +1273,75 @@ App.isAdmin = isAdmin;
                 else{
 
                 }  
+                console.log(insertCount)
+                if(insertCount == 0)
+                    break;
+                if(DebugFace)
+                    break;
             }
             
         }
         App.searchHashParser = searchHashParser;
+        function searchHashParserUrgent(myJson,tag,clientid){
+            var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
+            var insertCount = 0;
+            for(var i=0;i<1;i++){
+                insertCount = 0;
+                var searchurl = "https://api.instagram.com/v1/tags/" +tag +"/media/recent?access_token="+access;
+                    var cursorSponserKeyword = SponserKeyword.findOne({"keyword":tag});
+                    if(cursorSponserKeyword)
+                    if(cursorSponserKeyword.next_url)              
+                        searchurl = cursorSponserKeyword.next_url;
+
+                    console.log(searchurl)   
+                    myJson = Meteor.http.get(searchurl);
+                    SponserKeyword.update({"_id":cursorSponserKeyword._id},{$set : {"next_url":myJson.data.pagination.next_url}});
+
+
+                myJson = myJson.data;
+                var data = null;
+                var cursorHash = null;
+                if(myJson.meta.code == 200){
+                    data = myJson.data;
+                      
+                    for(var i=0,il=data.length;i<il;i++){
+                      //data[i]            //,"clientid":clientid
+                        var insert = {"type":"s","keyword":tag,"display":"y","likeid":data[i].id ,"standard":data[i].images.standard_resolution.url,"thumb":data[i].images.thumbnail.url,"low":data[i].images.low_resolution.url, "counts":data[i].likes.count,"voting":0};
+                      //   cursorSearch = Search.findOne({"likeid":insert.likeid,"userid": ids});
+                      // if(!cursorSearch)
+                      //     cursorSearch = Recents.findOne({"likeid":insert.likeid,"userid": ids});
+                      //,"clientid":clientid
+                      cursorHash = HashKeyword.findOne({"keyword":tag,"likeid":data[i].id});
+                      if(cursorHash){
+                        // var id = insert.likeid;
+                        // insert._id = null;
+                        // delete insert._id;
+                        //Popular.update({"likeid":id,"userid": ids},{$set :insert});
+                      }
+                      else{                    
+                        //old standard
+                        // Search.insert(insert);
+
+                        //insert.clientid = ids;
+                        //insert.source = "search";
+                        //insert.type = 9;
+                        //insert.checked = false;
+                        HashKeyword.insert(insert); 
+                        insertCount++;
+                        // Meteor.call("media",insert.likeid,access);
+                      }                           
+                    }
+                }
+                else{
+
+                }  
+                console.log(insertCount)
+                if(insertCount == 0)
+                    break;
+            }
+            
+        }
+        App.searchHashParserUrgent = searchHashParserUrgent;
     function recentMediaParser(myJson,ids,access,tag){
         console.log("recent media start");
         myJson = myJson.data;
@@ -2494,8 +2566,6 @@ function checkForRank(){
                 }
             }
         }
-        
-
     }
 }
 function checkNewImages(){

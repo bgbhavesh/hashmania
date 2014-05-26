@@ -344,18 +344,25 @@ language.html = [
                 ErrorUpdate.insert({"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"methods.firstTimeLogin"});
             }
         },
-        "LikeOnMedia" : function(mediaid,ids){
+        "LikeOnMedia" : function(mediaid,clientid){
             try{
                 var access = null, id=null;
                 access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
                   //"491204471.0300035.27ba894777cb45ea80cdba4499dbb5f4";
-                id = ids;
-                var cursorUserHashMania = UserHashMania.findOne({"_id":clientid});
-
+                id = clientid;
+                console.log("mediaid");
+                console.log(mediaid);
+                console.log("clientid");
+                console.log(clientid);
+                var cursorUserHashMania = UserHashMania.findOne({"_id":id});
                 // as per hashrepublic
+                console.log("cursorUserHashMania");
+                console.log(cursorUserHashMania);
                 if(cursorUserHashMania){
                     if(cursorUserHashMania.instagramToken)
                         access = cursorUserHashMania.instagramToken;
+                        console.log("access");
+                        console.log(access);
                 }
                 // instagramToken
                 if(Meteor.user().services.instagram){              
@@ -364,6 +371,8 @@ language.html = [
 
                 }
                 var url = "https://api.instagram.com/v1/media/" +mediaid +"/likes?access_token="+access;
+                console.log("url");
+                console.log(url);
                 var result = Meteor.http.post(url,{"params":{"ACCESS_TOKEN":access,"media-id":mediaid}}); //"data":{"ACCESS_TOKEN":access},   
                 if(result && result.statusCode == 200)
                     return true;

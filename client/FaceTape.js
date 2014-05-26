@@ -1033,6 +1033,9 @@ Meteor.documentReady = documentReady;
         $(".hashFeed img").hammer().off("tap");  
         $(".hashFeed img").hammer().on("tap",tapOnBigFeedSurvey);
 
+        $(".hashFeed img").hammer().off("doubletap");  
+        $(".hashFeed img").hammer().on("doubletap",likeOnInstagram);
+
         $(".hashFeed img").hammer().off("hold",holdOnBigFeedSurvey);
         $(".hashFeed img").hammer().on("hold",holdOnBigFeedSurvey);
 
@@ -1163,7 +1166,6 @@ Meteor.documentReady = documentReady;
         input.val("");
         onScore(10);
     }
-    
     function tapOnBigFeedSurvey(event){
         var parent = $(this).parent(".hashFeed");
         parent.find(".tertiary").show();
@@ -3814,13 +3816,14 @@ function likeOnInstagram(){
     var starttimer = new Date().getTime();
     try{
         var currentBig = Session.get("currentBig");
+        var clientid = Session.get("clientid");
         var cursorMedia = Media.findOne({"_id":currentBig});
         if(cursorMedia){
             toast(i18n.__("likedata")+" "+cursorMedia.username+"  <i class='checkmark icon'></i>");
         }
         //toast(i18n.__("like"));
         //toast("Like <i class='cloud upload icon'></i>");
-        Meteor.call("LikeOnMedia",currentBig,function(err,data){
+        Meteor.call("LikeOnMedia",currentBig,clientid,function(err,data){
         //console.log(err);        
             if(err)
                 toast(i18n.__("likeerror"));
@@ -5792,6 +5795,9 @@ function autoSize(){
             if(one){
                 var height = $(one).width();      
                 $("#currentFollow").css({"height":height +"px","width":height +"px"});
+            }
+            if(!Session.get("phonegap")){
+                $("#hashFaqForm").css({"display":"block"})
             }
             // $("#section2").css({"display":"block"});
         }

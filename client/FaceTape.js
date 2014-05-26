@@ -401,7 +401,8 @@ var taponfollows=null;
 var actionArray = [];
 var tapCount=0;
 var CLIENTID = null;
-var preload = {};
+preload = {};
+
 if (Meteor.isClient) {
     ///Session Variables
     Session.set("activeFollows",null);
@@ -971,7 +972,7 @@ Meteor.documentReady = documentReady;
             // $("#surveybig").hammer().on("tap",tapOnSurveyBig);
             
     }
-    function renderResults(data){
+    function renderResults(data,loadMoreFlag){
 
         if(!data){
             $("#semanticLoader").hide();
@@ -982,8 +983,11 @@ Meteor.documentReady = documentReady;
             setTimeout(function(){renderResults(data)},250);
             return;
         }
-        cacheData(data);
-        data = divOldNew(data);
+        if(!loadMoreFlag){
+            cacheData(data);
+            data = divOldNew(data);            
+        }
+
         var button = null;
         var newElement = null;
         var currentData = null;
@@ -992,6 +996,10 @@ Meteor.documentReady = documentReady;
             showFlag = false;
             currentData = data[i];
             //console.log(currentData.keyword)
+            if(!currentData)
+                continue;
+            if(!currentData.keyword)
+                continue;
             newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'">' 
                 +'<img src="' +currentData.keyword.standard +'">'
             //     +'<div class="ui tertiary form segment">'
@@ -1058,19 +1066,45 @@ Meteor.documentReady = documentReady;
     }
     function cacheData(data){
         preload[Session.get("keyword")] = data;
+        console.log("caching");
+        console.log(preload);
         data = EJSON.stringify(preload);
         set("search",data);
     }
     function restoreData(){
         var json = get("search");
         preload = EJSON.parse(json);
+        console.log("restoring");
         console.log(preload);
         // renderResults(preload);
     }
     function tapOnloadMoreImg(){
         $("#loadMoreImg").css("display","none");
-        renderResults(moreRenderResults);
-        moreRenderResults = null;
+
+        var loadMore = [];
+        // console.log(moreRenderResults.length);
+        var limit = $(".hashFeed").length;
+        if(moreRenderResults == 0){
+            Meteor.call("getMoreResult",Session.get("keyword"),CLIENTID,limit,function(err,data){
+                moreRenderResults = data;
+                tapOnloadMoreImg();
+            });
+        }
+        else{
+            for(var i=0,il=moreRenderResults.length;i<10;i++){
+            loadMore.push(moreRenderResults[i]);
+            }
+            var tempLoad = [];
+            for(var j=10,jl=moreRenderResults.length;j<jl;j++){
+                tempLoad.push(moreRenderResults[j]);
+            }
+            moreRenderResults = tempLoad;
+            renderResults(loadMore,true);
+        }
+        
+        
+        // console.log(moreRenderResults.length);
+        
         
     }
     function appendVotesManuallyHash(id,currentVote){
@@ -7679,13 +7713,19 @@ Meteor.startup(function () {
             //     firstTimeLoginFlag = false;
             // }
             // else{
-            if(preload[keyword]){
-                renderResults(preload[keyword])
+                console.log(preload)
+            if(get("search")){
+                restoreData();
+            }
+            if(preload[keyword] && preload[keyword].length != 0){
+                renderResults(preload[keyword]);
+                console.log("preloading");
             }
             else{
+                console.log("serverloading");
                 Meteor.call("getResult",keyword,CLIENTID,function(err,data){
                     renderResults(data);
-                })   
+                });
             }
             
             set("keyword",keyword)

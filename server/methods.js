@@ -1404,18 +1404,12 @@ language.html = [
                     console.log("unblock");
                 }
                 
-                var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
-                var searchurl = "https://api.instagram.com/v1/tags/" +keyword +"/media/recent?access_token="+access;
-                if(cursorSponserKeyword.next_url)              
-                    searchurl = cursorSponserKeyword.next_url;
-
                 
-                data = Meteor.http.get(searchurl);
                 // console.log(data.data.pagination.next_url);
                 
                 App.searchHashParser(data,keyword,clientid); 
                 
-                SponserKeyword.update({"_id":cursorSponserKeyword._id},{$set : {"next_url":data.data.pagination.next_url}});
+                
 
                 console.log("findHashKeyword end "+keyword +" for client " +clientid);
                 return true;

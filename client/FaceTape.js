@@ -402,6 +402,7 @@ var actionArray = [];
 var tapCount=0;
 var CLIENTID = null;
 var preload = {};
+Meteor.preload = preload;
 if (Meteor.isClient) {
     ///Session Variables
     Session.set("activeFollows",null);
@@ -971,7 +972,7 @@ Meteor.documentReady = documentReady;
             // $("#surveybig").hammer().on("tap",tapOnSurveyBig);
             
     }
-    function renderResults(data){
+    function renderResults(data,loadMoreFlag){
 
         if(!data){
             $("#semanticLoader").hide();
@@ -982,8 +983,11 @@ Meteor.documentReady = documentReady;
             setTimeout(function(){renderResults(data)},250);
             return;
         }
-        cacheData(data);
-        data = divOldNew(data);
+        if(!loadMoreFlag){
+            cacheData(data);
+            data = divOldNew(data);            
+        }
+
         var button = null;
         var newElement = null;
         var currentData = null;
@@ -1055,18 +1059,21 @@ Meteor.documentReady = documentReady;
     }
     function cacheData(data){
         preload[Session.get("keyword")] = data;
+        console.log("caching");
+        console.log(preload);
         data = EJSON.stringify(preload);
         set("search",data);
     }
     function restoreData(){
         var json = get("search");
         preload = EJSON.parse(json);
+        console.log("restoring");
         console.log(preload);
         // renderResults(preload);
     }
     function tapOnloadMoreImg(){
         $("#loadMoreImg").css("display","none");
-        renderResults(moreRenderResults);
+        renderResults(moreRenderResults,true);
         moreRenderResults = null;
         
     }
@@ -7673,13 +7680,19 @@ Meteor.startup(function () {
             //     firstTimeLoginFlag = false;
             // }
             // else{
+                console.log(preload)
+            if(get("search")){
+                restoreData();
+            }
             if(preload[keyword]){
-                renderResults(preload[keyword])
+                renderResults(preload[keyword]);
+                console.log("preloading");
             }
             else{
+                console.log("serverloading");
                 Meteor.call("getResult",keyword,CLIENTID,function(err,data){
                     renderResults(data);
-                })   
+                });
             }
             
             set("keyword",keyword)

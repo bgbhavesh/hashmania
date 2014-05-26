@@ -413,8 +413,7 @@ if (Meteor.isClient) {
     Session.set("searchByFollow","0-50");
     Session.set("searchKeyword",null);
     Session.set("userid",null);
-    Session.set("group",null)
-    Session.set("keyword",get("keyword"));
+    Session.set("group",null)    
     var activeFollowsElement = null;
     Session.set("limit",8);
     var isActiveArray = [];
@@ -739,6 +738,8 @@ function documentReady(){
             // setTimeout(defaultfeeds,150);
             setTimeout(showKeywordPopup,250);
             suscribeMeteor();
+            restoreData();
+            Session.set("keyword",get("keyword"));
             // snapy();  
             // autoLogin();
             // bindEvents();
@@ -973,7 +974,7 @@ Meteor.documentReady = documentReady;
             
     }
     function renderResults(data,loadMoreFlag){
-
+        console.log(loadMoreFlag)
         if(!data){
             $("#semanticLoader").hide();
             return;
@@ -984,10 +985,13 @@ Meteor.documentReady = documentReady;
             return;
         }
         if(!loadMoreFlag){
+            $("#surveybig").html("");
             cacheData(data);
-            data = divOldNew(data);            
+            data = divOldNew(data);
         }
-
+        else{
+            
+        }
         var button = null;
         var newElement = null;
         var currentData = null;
@@ -2183,15 +2187,15 @@ Meteor.documentReady = documentReady;
         }
     }
     Template.keyword.rendered = function(){
-        console.log("Template.keyword.rendered");
-        var keyword = $(".eachkeyword");
-        var startSize = 45;
-        for(var i=0,il=keyword.length;i<il;i++){
-            if(i%5 == 0 && startSize >10)
-                startSize -= 5;
-            $(keyword[i]).css("font-size",startSize +"px");
+        // console.log("Template.keyword.rendered");
+        // var keyword = $(".eachkeyword");
+        // var startSize = 45;
+        // for(var i=0,il=keyword.length;i<il;i++){
+        //     if(i%5 == 0 && startSize >10)
+        //         startSize -= 5;
+        //     $(keyword[i]).css("font-size",startSize +"px");
 
-        }
+        // }
     }
     Template.keyword.events({
         "click .eachkeyword" : function(event){
@@ -7709,7 +7713,6 @@ Meteor.startup(function () {
         if(keyword){
             $("#semanticLoader").show();
             $(".hashKeyword").html("#"+keyword);
-            $("#surveybig").html("");
             // Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){
             //     $(".loading").hide();
             // });
@@ -7717,10 +7720,10 @@ Meteor.startup(function () {
             //     firstTimeLoginFlag = false;
             // }
             // else{
-                console.log(preload)
-            if(get("search")){
-                restoreData();
-            }
+            // console.log(preload)
+            // if(get("search")){
+            //     restoreData();
+            // }
             if(preload[keyword] && preload[keyword].length != 0){
                 renderResults(preload[keyword]);
                 console.log("preloading");

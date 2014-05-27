@@ -984,11 +984,27 @@ Meteor.documentReady = documentReady;
             // $("#surveybig").hammer().on("tap",tapOnSurveyBig);
             
     }
+<<<<<<< HEAD
 //     var newLoad = [];
 // var prevLoad = [];
 // var curLoad = [];
 // var pageCount = -1;
 // var DataBase = [];
+
+    function initDataBase(key){
+        if(DataBase[key])
+            return false;
+        DataBase[key] = {};
+        DataBase[key].newLoad = [];
+        DataBase[key].curLoad = [];
+        DataBase[key].prevLoad = [];
+        DataBase[key].pageCount = 0;
+        return true;
+    }
+    function saveCurrentToPrevious(){
+        // var key = Session.get("keyword");
+        // DataBase[key].prevLoad = DataBase[key].curLoad;
+=======
     function checkscroll()
     {
         // console.log("go to top");
@@ -1007,20 +1023,7 @@ Meteor.documentReady = documentReady;
          //            return false;
          //        });
           }); 
-    }
-    function initDataBase(key){
-        if(DataBase[key])
-            return false;
-        DataBase[key] = {};
-        DataBase[key].newLoad = [];
-        DataBase[key].curLoad = [];
-        DataBase[key].prevLoad = [];
-        DataBase[key].pageCount = 0;
-        return true;
-    }
-    function saveCurrentToPrevious(){
-        // var key = Session.get("keyword");
-        // DataBase[key].prevLoad = DataBase[key].curLoad;
+>>>>>>> 7e670f3f088fdfe9e76d0242897bea366c2c551b
     }
     function renderResults(data,loadMoreFlag){
         console.log(loadMoreFlag)
@@ -3482,7 +3485,7 @@ function holdOnVoting(event){
 var currentCommenting = null;
 function tapOnVoting(event,myElement){
     var starttimer = new Date().getTime();
-    //console.log(event);
+    console.log(event);
     try{
         var element = null;
         if(myElement)

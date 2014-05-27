@@ -973,6 +973,25 @@ Meteor.documentReady = documentReady;
             // $("#surveybig").hammer().on("tap",tapOnSurveyBig);
             
     }
+    function checkscroll()
+    {
+        // console.log("go to top");
+        $("#back-top").hide();
+
+         if ($("#surveybig").scrollTop() > 300) {
+                        $('#back-top').fadeIn();
+                    } else {
+                        $('#back-top').fadeOut();
+                    }
+            
+                $('#back-top').click(function () {
+                    $('#surveybig').animate({
+                        scrollTop: 0
+                    }, 100);
+         //            return false;
+         //        });
+          }); 
+    }
     function renderResults(data,loadMoreFlag){
         console.log(loadMoreFlag)
         if(!data){
@@ -981,7 +1000,7 @@ Meteor.documentReady = documentReady;
         }
         $(".loading").show();
         if($("#surveybig").length == 0 && Session.get("clientid") == null){
-            setTimeout(function(){renderResults(data)},250);
+            setTimeout(function(){renderResults(data)}, 0);
             return;
         }
         if(!loadMoreFlag){
@@ -996,6 +1015,9 @@ Meteor.documentReady = documentReady;
         var newElement = null;
         var currentData = null;
         var showFlag = false;
+        upp ='<div id="back-top"></div>'                  // go to upp
+        var element = $("#surveybig").append(upp);
+       
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
             currentData = data[i];
@@ -1041,7 +1063,7 @@ Meteor.documentReady = documentReady;
         $(".loadmore").remove();
         button ='<a class="ui purple button loadmore" id="loadMoreImg">   &#8609; MORE    &#8609; </a>'
         var element = $("#surveybig").append(button);
-
+        
         $(".hashFeed img").hammer().off("tap");  
         $(".hashFeed img").hammer().on("tap",tapOnBigFeedSurvey);
 
@@ -3420,6 +3442,7 @@ function tapOnVoting(event){
         Meteor.myElement = element;
         $("#commentingOverlay").attr("likeid",likeid);
         $("#commentingOverlay").attr("clientid",clientid);
+        // $("textarea").attr("value","");
 
         $('.imageComment img').attr('src',get("profile_picture"));
         showSpecialPopup("commentingOverlay");
@@ -3496,20 +3519,20 @@ function commentOneVote(){
     if(!value)
       return;
     if(p.length>0){
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.7;">' +value +'</p>';
+      var html = '<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.5;">' +value +'</p>';
       $(currImg).css({"border-style":"inset"});
       $(p).text(value); 
       if(votingid){
         Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
     }else{
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>'; 
+      var html = '<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.5;">' +value +'</p>'; 
       div.insertAdjacentHTML( 'beforeend', html );
       $(currImg).css({"border-style":"inset"});
       if(votingid){
         Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
-
+      $("#commentInput").val(null);
     }
     var stringArray = value.split(" ");
     var selectitem = null;
@@ -6008,6 +6031,7 @@ function bindEvents(){
         $(".appname").hammer().on("tap",onCLickHashGo);
 
         $("#commentingOverlay").hammer().on("tap",commentOneVote);
+        $("#cross").hammer().on("tap",commentOneVote);
 
         // HASH MANIA 
             $("#loginButtonWithInstagram").hammer().off("tap",loginWithInstagram)
@@ -6040,7 +6064,8 @@ function bindEvents(){
                 }
             });
             // $("#surveybig").on("scrollstop",onSurveyScroll)
-        //  HASH MANIA 
+        //  HASH MANIA  checkscroll
+        $("#surveybig").on("scrollstop",checkscroll)
         touchScroll("snapy");
             ///Last Event
             // if(!Session.get("phonegap"))
@@ -7293,7 +7318,7 @@ function closeSurvey(){
 /////////////////SNAPY//////////////
 var snapLeftFlag = false;
 function snapy(){
-  $("#snapButton").hammer().on("tap",openCloseSnapLeft)
+  $("#snapButton").hammer().on("tap",openCloseSnapLeft);
 }
 function openCloseSnapLeft(){
     if(snapLeftFlag){        

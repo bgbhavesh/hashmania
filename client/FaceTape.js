@@ -1224,7 +1224,7 @@ Meteor.documentReady = documentReady;
         top = Math.round(top) ;
         
         var likeid = $(parent).attr("likeid")
-        progress2(left, $('#hprogressBar'),top, $('#outer'),likeid);
+        // progress2(left, $('#hprogressBar'),top, $('#outer'),likeid);
         
         Session.set("currentBig",likeid)
         var clientid = Session.get("clientid");
@@ -1243,7 +1243,22 @@ Meteor.documentReady = documentReady;
         top+=40;
         
         var currentvotes = $("#"+likeid).children(".voting");
-        // console.log(currentvotes.length);
+        for(var i=0,il=currentvotes.length;i<il;i++){
+            var cursorvotenow = $(currentvotes[i]).attr("clientid");
+            if(cursorvotenow==Session.get("clientid")){
+                // console.log($(currentvotes[i]).find("p"));
+                var noComment = $(currentvotes[i]).find("p");
+                // console.log(noComment);
+                if(noComment.length==0){
+                    tapOnVoting(null,currentvotes[i]);
+                    // showSpecialPopup("commentingOverlay");
+                    // currentCommenting
+                    return;
+                }
+                // return;
+
+            }            
+        }
         for(var i=0,il=currentvotes.length;i<il;i++){
             var cursorvotenow = $(currentvotes[i]).attr("clientid");
             if(cursorvotenow==Session.get("clientid")){
@@ -1251,7 +1266,7 @@ Meteor.documentReady = documentReady;
                 $("#"+likeid).children(".voting").show();
                 // return;
 
-            }            
+            }
         }
         var place = App.checkQuadrant(left,top);
         var VotesInsert = {"checked":false,"place":place,"profile_picture":votepic, "followid": Session.get("clientid"),"likeid":likeid ,"left": left,"top": top,"date" : date,"comment": ""};
@@ -1273,6 +1288,7 @@ Meteor.documentReady = documentReady;
         // else{
                 currentMoveVote = Votes.insert(VotesInsert);
                 VotesInsert._id = currentMoveVote;
+                console.log(VotesInsert._id)
                 appendOnlyVotesManuallyHash(likeid,VotesInsert);
         // }
         // if(!existvotes){
@@ -3402,21 +3418,30 @@ function holdOnVoting(event){
         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 var currentCommenting = null;
-function tapOnVoting(event){
+function tapOnVoting(event,myElement){
     var starttimer = new Date().getTime();
-    //console.log(event);
+    console.log(event);
     try{
-        var element = event.currentTarget;
+        var element = null;
+        if(myElement)
+            element = myElement;
+        else
+            element = event.currentTarget;
         currentCommenting = element;
-        console.log($(element).position());
+        // console.log($(element).position());
         var clientid = $(element).attr("clientid");
         var likeid= $(element).parent(".hashFeed").attr("id")
         // var imgsrc = $("voting").find('img').attr("src");
-        
         Meteor.myElement = element;
         $("#commentingOverlay").attr("likeid",likeid);
         $("#commentingOverlay").attr("clientid",clientid);
-
+        var p = $(currentCommenting).find("p").text();
+        console.log(p);
+        if(p){
+            $("#commentInput").val(p);
+        }else{
+            $("#commentInput").val("");
+        }
         $('.imageComment img').attr('src',get("profile_picture"));
         showSpecialPopup("commentingOverlay");
         $(currentCommenting).css({"display":"none"});
@@ -3488,7 +3513,7 @@ function commentOneVote(){
     var div = currentCommenting;
     var votingid = $(div).attr("votingid");
     $(currentCommenting).css({"display":"block"});
-    console.log(votingid);
+    console.log(currentCommenting);
     if(!value)
       return;
     if(p.length>0){
@@ -5821,13 +5846,17 @@ function autoSize(){
         $("body").css({"height":windowHeight,"width":windowWidth});
         // return;
         var adjustedWidth = 0;
-            adjustedWidth = (windowHeight / 4 ) * 3 ;
+            adjustedWidth = (windowHeight / 4 ) * 2 ;
         if(windowWidth > adjustedWidth){
             Session.set("orientation","landscape");
+            // adjustLeft = (adjustedWidth/2);
+            // $("#bodyWrapper").width(adjustedWidth);
             adjustLeft = (adjustedWidth/2);
             $("#bodyWrapper").width(adjustedWidth);
-            $("#bodyWrapper").css({"left":"50%","margin-left": -adjustLeft +"px"});
-            $("#hashFaqForm").css({"margin-left": adjustLeft +"px"});
+            //$("#bodyWrapper").css({"left":"50%","margin-left": -adjustLeft +"px"});
+            // $("#hashFaqForm").css({"margin-left": adjustLeft +"px"});
+            $("#hashFaqForm").width(adjustedWidth);
+            $("#hashFaqForm").css({"margin-left": adjustedWidth +"px"});
             feedWidth = null;
             var one = $(".extrabutton")[0];
             if(one){

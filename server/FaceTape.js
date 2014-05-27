@@ -425,7 +425,8 @@ Meteor.Router.add('/instance', 'GET', function() {
 });
 Meteor.Router.add('/faq', 'GET', function() {
     console.log("faq");
-    return Handlebars.templates['faq']({});
+    // return Handlebars.templates['faq']({});
+    return faqdata;
 });
 
 App.parseSubject = parseSubject;
@@ -567,7 +568,7 @@ HashKeyword  = new Meteor.Collection("hashkeyword");
 UserHashMania =  new Meteor.Collection("hashmania");
 HashComment  = new Meteor.Collection("hashcomment");
 ////////////// HASHMANIA COLLECTION ////////////////
-
+var faqdata = null;
 var cursor = null;
 var countDownDays = 0;
 var countDownHours = 0;
@@ -706,6 +707,9 @@ Meteor.startup(function () {
 
     // HASTEN SMTP ADDRESS
     process.env.MAIL_URL = 'smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587';
+    var faqUrl= 'https://docs.google.com/forms/d/1oIoqFrz1F55Nc4i_v4IgSxmWbf9wLPTQGJrC3DyA-L8/viewform';
+    faqdata = Meteor.http.get(faqUrl).content;
+    // console.log(faqdata)
 });
 App.testNewUser = testNewUser;
 //////// Observers starts //////

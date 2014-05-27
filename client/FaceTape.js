@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 /*
 YOUIEST LLC CONFIDENTIAL
 
@@ -309,6 +308,7 @@ Meteor.suscribeMeteor = suscribeMeteor;
 
 function suscribeMeteor(ClientId){
     Meteor.subscribe("keyword");
+    Meteor.subscribe("leadersboard");
 }
 ////chat feature/////////
 // Deps.autorun(function(){
@@ -401,7 +401,14 @@ var taponfollows=null;
 var actionArray = [];
 var tapCount=0;
 var CLIENTID = null;
+
 preload = {};
+
+// new architec
+var newLoad = [];
+var prevLoad = [];
+var curLoad = [];
+var pageCount = -1;
 
 if (Meteor.isClient) {
     ///Session Variables
@@ -469,6 +476,7 @@ Meteor.startup(function () {
                     $("#currentFollow").show();
                     //if(App.setAdminParameters())
                       //App.setAdminParameters();
+
                     fitTextFunction();
                 }
                 else{
@@ -940,6 +948,9 @@ Meteor.documentReady = documentReady;
     // Template.hashmania.eachBig = function(){
     //     return HashKeyword.find({"keyword":Session.get("keyword")})
     // }
+    Template.leadersboard.eachlead = function(){
+        return UserHashMania.find({},{sort : {"heatScore": -1},limit:4})
+    }
     Template.BeforeLogin.keyword = function(){
         return Session.get("keyword");
     }
@@ -973,6 +984,26 @@ Meteor.documentReady = documentReady;
             // $("#surveybig").hammer().on("tap",tapOnSurveyBig);
             
     }
+//     var newLoad = [];
+// var prevLoad = [];
+// var curLoad = [];
+// var pageCount = -1;
+// var DataBase = [];
+
+    function initDataBase(key){
+        if(DataBase[key])
+            return false;
+        DataBase[key] = {};
+        DataBase[key].newLoad = [];
+        DataBase[key].curLoad = [];
+        DataBase[key].prevLoad = [];
+        DataBase[key].pageCount = 0;
+        return true;
+    }
+    function saveCurrentToPrevious(){
+        // var key = Session.get("keyword");
+        // DataBase[key].prevLoad = DataBase[key].curLoad;
+    }
     function renderResults(data,loadMoreFlag){
         console.log(loadMoreFlag)
         if(!data){
@@ -987,7 +1018,11 @@ Meteor.documentReady = documentReady;
         if(!loadMoreFlag){
             $("#surveybig").html("");
             cacheData(data);
+            
+            // prevLoad = curLoad;
+            // curLoad = data;
             data = divOldNew(data);
+
         }
         else{
             
@@ -1083,16 +1118,17 @@ Meteor.documentReady = documentReady;
         // renderResults(preload);
     }
     function tapOnloadMoreImg(){
+        console.log("tapOnloadMoreImg")
         $("#loadMoreImg").css("display","none");
 
         var loadMore = [];
         // console.log(moreRenderResults.length);
         var limit = $(".hashFeed").length;
         if(moreRenderResults == 0){
-            Meteor.call("getMoreResult",Session.get("keyword"),CLIENTID,limit,function(err,data){
-                moreRenderResults = data;
-                tapOnloadMoreImg();
-            });
+            // Meteor.call("getMoreResult",Session.get("keyword"),CLIENTID,limit,function(err,data){
+            //     moreRenderResults = data;
+            //     tapOnloadMoreImg();
+            // });
         }
         else{
             for(var i=0,il=moreRenderResults.length;i<10;i++){
@@ -2206,6 +2242,7 @@ Meteor.documentReady = documentReady;
                 Meteor.call("findHashKeyword",tempKeyword,CLIENTID,function(err,data){
                                
                 });
+                saveCurrentToPrevious();
                 Session.set("keyword",tempKeyword);
                 closeSurvey();
                 // $("#keywordPopup").hide();
@@ -7274,6 +7311,7 @@ function openSurvey(){
     $("#surveybig").transition({"top":"92%"});
     $(".hashKeyword").css({"display":"none"});
     $('#updownarrow').css({"top": "0%"});
+    $(".leaderSection").hide();
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
     //$("#updownarrow").animate("class","huge sort ascending icon");
     //$("#surveybighandle").css({"z-index":"4"});
@@ -7285,6 +7323,7 @@ function closeSurvey(){
     $(".hashKeyword").css({"display":"block"});
     $('#updownarrow').addClass('huge sort descending icon');
     $('#updownarrow').css({"top": "56%"});
+    $(".leaderSection").show();
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});
@@ -7730,7 +7769,7 @@ Meteor.startup(function () {
             }
             else{
                 console.log("serverloading");
-                Meteor.call("getResult",keyword,CLIENTID,function(err,data){
+                Meteor.call("getResult",keyword,CLIENTID,++pageCount,function(err,data){
                     renderResults(data);
                 });
             }

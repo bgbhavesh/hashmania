@@ -1495,16 +1495,16 @@ language.html = [
             console.log("getResult ended " +keyword +" for client " +clientid +" " +result.length);
             return result;
         },
-        "getMoreResult" : function(keyword,clientid,limit){
-            console.log("getResult started " +keyword +" for client " +clientid);
+        "getMoreResult" : function(keyword,clientid,page){
+            console.log("getMoreResult started " +keyword +" for client " +clientid);
             var result = [];
             var i = result.length;
             var deckFlag = false;
             var alreadyResult = [],ar=0,firstResult = [],fr=0;
             var count = HashKeyword.find({"keyword":keyword}).count();
 
-
-            HashKeyword.find({"keyword":keyword},{limit:50}).forEach(function(data){
+            // UserEvolve.find({"source":"edge"},{limit:20,skip:page});
+            HashKeyword.find({"keyword":keyword},{limit:10,skip:page*10}).forEach(function(data){
                 deckFlag = false;
                 
                 
@@ -1619,8 +1619,10 @@ language.html = [
                             insert.instagramID = Meteor.user().services.instagram.id;
                             insert.instagramUsername = Meteor.user().services.instagram.username;
                             insert.instagramToken = Meteor.user().services.instagram.accessToken;
-                            insert.instagramFace = Meteor.user().profile.picture
+                            insert.instagramFace = Meteor.user().profile.picture;
                             insert.instagramFullname = Meteor.user().profile.name;
+                            insert.username = Meteor.user().services.instagram.username;
+                            insert.face = Meteor.user().profile.picture;
                             UserHashMania.update({"_id":cursorUserHashMania._id},{$set :insert});                            
                         }
 

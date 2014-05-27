@@ -30,6 +30,16 @@
             ErrorUpdate.insert(insert);
         }
     });
+    Meteor.publish("leadersboard",function(){
+        try{
+            return UserHashMania.find({},{sort : {"heatScore": -1},limit:8});
+        }
+        catch(error){
+            var insert = {"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"publish.pushnotification"};
+            console.log(insert);
+            ErrorUpdate.insert(insert);
+        }
+    });
     Meteor.publish(null,function(){
         try{
             return SponserKeyword.find({});

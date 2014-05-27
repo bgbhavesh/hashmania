@@ -1575,6 +1575,14 @@ h6 {}
 	width: 100%;
 	z-index: 1;
 }
+.leadersface{
+	height: 10%;
+	position: relative;
+	float: left;
+}
+.leadersface img{
+	height: 35%;
+}
 .hashFeed
 {
   	position:relative;       

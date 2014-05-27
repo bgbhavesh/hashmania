@@ -32,8 +32,8 @@
 		{{> main}}
 		{{> keyword}}
  </div>
- <iframe id="hashFaqForm" src="https://docs.google.com/forms/d/1oIoqFrz1F55Nc4i_v4IgSxmWbf9wLPTQGJrC3DyA-L8/viewform">
-    </iframe>
+<iframe id="hashFaqForm" src="https://docs.google.com/forms/d/1oIoqFrz1F55Nc4i_v4IgSxmWbf9wLPTQGJrC3DyA-L8/viewform">
+</iframe>
 </template>
 
 <template name="bodystatic">
@@ -311,7 +311,13 @@
 	{{/each}}   
   </div>
 </template>
-
+<template name="leadersboard">
+	{{#each eachlead}}
+		<div class="leadersface">  
+			<img src="{{face}}"/>
+		</div>
+	{{/each}} 
+</template>
 <template name="profilemenu">
 	{{#each user}}
 	<div><b>Profile</b></div>
@@ -336,6 +342,9 @@
 	<div id="surveybighandle">
 		<i id="updownarrow" class="huge sort ascending icon"></i>
 			<div class="hashKeyword">  </div>
+			<div class="leaderSection">
+	  			{{> leadersboard}}
+	  		</div>
 	</div>
 	<div id="surveybig" class="ui labeled vertical fluid  icon menu" style="">
   		

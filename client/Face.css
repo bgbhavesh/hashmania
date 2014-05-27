@@ -1634,6 +1634,9 @@ h6 {}
 .littleBig{
 
 }
+#semanticLoader{
+	height: 10%;
+}
 .myloader{
 	background-image: url(/images/loader.gif);
 
@@ -1644,7 +1647,6 @@ h6 {}
 	padding-top: 48px;
 	position: absolute;
 	text-align: center;
-	top: 45%;
 }
 .loading{
 	background-image: url(/images/loader.gif);

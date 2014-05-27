@@ -618,8 +618,16 @@ App.testNewUser = testNewUser;
 var sponserKeywordArray = [];
 if (Meteor.isServer) {
 Meteor.startup(function () {
+
+
+        var startSize = 40,startCount =0;
         SponserKeyword.find({},{sort : {"hits": -1}}).forEach(function(data){
-            sponserKeywordArray.push(data.keyword)
+            sponserKeywordArray.push(data.keyword);
+            SponserKeyword.update({"_id":data._id},{$set : {"size":startSize}});
+            if(startCount%5 == 0 && startSize >10)
+                startSize -= 5;
+
+            startCount++
         });
         // console.log(sponserKeywordArray)
         // console.log(querystring);
@@ -638,6 +646,8 @@ Meteor.startup(function () {
             Votes.find({"likeid":undefined}).forEach(function(data){console.log(data);Votes.remove({"_id":data._id})});
             checkNewImages();
         }
+
+        
         // FollowsGroup.remove({});
         // EmailCollection.remove({});
         // SponserKeyword.remove({});

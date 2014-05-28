@@ -951,6 +951,14 @@ Meteor.documentReady = documentReady;
     Template.leadersboard.eachlead = function(){
         return UserHashMania.find({},{sort : {"heatScore": -1},limit:4})
     }
+    Template.leadersboard.events({
+        "click .leadersface" : function(event){
+            if(this.instagramUsername)
+            window.open("http://instagram.com/"+this.instagramUsername,"_system");
+            else
+                toast("Not a instagram user.");
+        }
+    });
     Template.BeforeLogin.keyword = function(){
         return Session.get("keyword");
     }
@@ -1060,7 +1068,7 @@ Meteor.documentReady = documentReady;
                 continue;
             if(!currentData.keyword)
                 continue;
-            newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'">' 
+            newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"likeid="' +currentData.keyword.link +'">' 
                 +'<img src="' +currentData.keyword.standard +'">'
             //     +'<div class="ui tertiary form segment">'
             //     +'<div class="commentWrapper">';
@@ -1107,6 +1115,7 @@ Meteor.documentReady = documentReady;
         $(".hashFeed img").hammer().off("hold",holdOnBigFeedSurvey);
         $(".hashFeed img").hammer().on("hold",holdOnBigFeedSurvey);
 
+        $(".hashFeed img").error(onImageError)
         
         $(".submitComment").hammer().off("tap");  
         $(".submitComment").hammer().on("tap",tapOnSubmitComment);
@@ -1123,6 +1132,14 @@ Meteor.documentReady = documentReady;
         // $(".tertiary").hide();
         
         $("#semanticLoader").hide();
+    }
+    function onImageError(event){
+        console.log(event)
+        Meteor.myElement = event.currentTarget;
+        var element = $(event.currentTarget).parent(".hashFeed");
+        var likeid = element.attr("likeid");
+        element.remove();
+        Meteor.call("checkImageError",likeid,function(err,data){})
     }
     function cacheData(data){
         preload[Session.get("keyword")] = data;
@@ -7805,6 +7822,7 @@ Meteor.startup(function () {
         if(keyword){
             $("#semanticLoader").show();
             $(".hashKeyword").html("#"+keyword);
+            $("#surveybig").html("");
             // Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){
             //     $(".loading").hide();
             // });

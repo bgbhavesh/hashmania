@@ -1441,30 +1441,33 @@ language.html = [
             HashKeyword.find({"keyword":keyword},{limit:50}).forEach(function(data){
                 deckFlag = false;
                 
+                // marked as dead image
+                if(!data.remove){
+                   var votes = [],comments = [];
+                    Votes.find({"likeid":data.likeid}).forEach(function(data){
+                        if(data.followid == clientid)
+                            deckFlag = true;
+                        votes.push(data);
+                    });
+                    HashComment.find({"likeid":data.likeid}).forEach(function(data){
+                        comments.push(data);
+                    });
+                    if(deckFlag){
+                        alreadyResult[ar] = {};
+                        alreadyResult[ar].keyword = data
+                        alreadyResult[ar].votes = votes;
+                        alreadyResult[ar].comments = comments;
+                        ar++;
+                    }
+                    else{
+                        firstResult[fr] = {};
+                        firstResult[fr].keyword = data
+                        firstResult[fr].votes = votes;
+                        firstResult[fr].comments = comments;
+                        fr++;
+                    } 
+                }
                 
-                var votes = [],comments = [];
-                Votes.find({"likeid":data.likeid}).forEach(function(data){
-                    if(data.followid == clientid)
-                        deckFlag = true;
-                    votes.push(data);
-                });
-                HashComment.find({"likeid":data.likeid}).forEach(function(data){
-                    comments.push(data);
-                });
-                if(deckFlag){
-                    alreadyResult[ar] = {};
-                    alreadyResult[ar].keyword = data
-                    alreadyResult[ar].votes = votes;
-                    alreadyResult[ar].comments = comments;
-                    ar++;
-                }
-                else{
-                    firstResult[fr] = {};
-                    firstResult[fr].keyword = data
-                    firstResult[fr].votes = votes;
-                    firstResult[fr].comments = comments;
-                    fr++;
-                }
                 
             });
             // old way
@@ -1646,6 +1649,8 @@ language.html = [
                             insert.googleToken = Meteor.user().services.google.accessToken;
                             insert.googleFace = Meteor.user().services.google.picture
                             insert.googleFullname = Meteor.user().services.google.name;
+                            insert.username = Meteor.user().services.google.name;
+                            insert.face = Meteor.user().services.google.picture
                             console.log(insert)
                             UserHashMania.update({"_id":cursorUserHashMania._id},{$set :insert});                            
                         }
@@ -1666,12 +1671,25 @@ language.html = [
             return false;
         },        
         "testHashRepublic" : function(){
-            var cursorUserHashMania = UserHashMania.findOne({"_id":"nicolsondsouza@gmail.com"});
-            console.log(cursorUserHashMania)
-            var accessToken = "CAAJp3M66BM8BAIiQxmq71ZCDEgL3rYxbB4wwwzD45fMmeNHpxCfTmc1XTCAqjCovR5gedZCXhGYzQikPRq0eeAfIf26jInceoKmUdv62w4ZCFUBUbZC0e44MEUbtzXXD9WOk45lpp4obKDUnnchZAMKofOgDGWSomm88jJ72TfAq3TET0r13iD31xS0bDZCDUZD";
-            var data = Meteor.http.get("https://graph.facebook.com/me", {
-                    params: {access_token: accessToken}}).data;
-            console.log(data)
+            UserHashMania.find({}).forEach(function(data){
+                 UserHashMania.update({"_id":data._id},{$set :{"face":data.instagramFace,"username":data.instagramUsername}});    
+            });
+        },        
+        "checkImageError" : function(likeid){
+            try{
+                var cursorHashKeyword = HashKeyword.findOne({"likeid":likeid}); 
+                
+                var result = Meteor.http.get(cursorHashKeyword.standard);
+                return false;
+            }
+            catch(error){
+                console.log("Image Error");
+                HashKeyword.find({"likeid":likeid}).forEach(function(data){
+                    HashKeyword.update({"_id":data._id},{$set : {"remove":true}})
+                });
+                
+                return true;
+            }
         }
         ////////////////////UserHashMania////////////////
     });

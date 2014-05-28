@@ -327,22 +327,13 @@
   </div>
 </template>
 <template name="leadersboard">
-	<!-- {{#each eachlead}} -->
+	{{#each eachlead}}
 		<div class="leadersface">  
-			<img src="./images/face1.png"/>
-		</div>
-		<div class="leadersface">  
-			<img width="23%" src="http:​/​/​images.ak.instagram.com/​profiles/​profile_1314594135_75sq_1399439905.jpg"/>
-		</div>
-		<div class="leadersface">  
-			<img width="23%" src="http:​/​/​images.ak.instagram.com/​profiles/​profile_1314594135_75sq_1399439905.jpg"/>
-		</div>
-		<div class="leadersface">  
-			<img width="23%" src="http://images.ak.instagram.com/profiles/profile_1314594135_75sq_1399439905.jpg"/>
+			<img src={{face}}/>
 		</div>
 		
 		
-	<!-- {{/each}}  -->
+	{{/each}} 
 </template>
 <template name="profilemenu">
 	{{#each user}}

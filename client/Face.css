@@ -1818,6 +1818,8 @@ h6 {}
 	margin-left: 5%;
 	opacity: 0.8;
 	background-color: #394264;
+	height: 60%;
+	overflow-y: scroll;
 }
 /*
 .triangle-right:after {

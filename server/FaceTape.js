@@ -101,7 +101,38 @@ from Youiest LLC.
 //       query.ordered, oldResults, query.results, query);                                               // 886
 //   }                                                                                                   // 887
 // };
-
+var faqsPush = [
+    "Did you know you get ranked in every hash tag (or hash state!) that you vote in?",
+    "Did you know you climb higher in the ranks for accurately guessing the crowds 'share' average on an image?",
+    "You can gain ranks by inviting likeminded friends to hashstates (tags). They probably like to 'share' the same things and you are also rise in rank when they join.",
+    "Did you know each hashstate has a governor, a deputy, a secretary? Get into the top 10 for a chance to hold office in that.",
+    "Did you know the hashrepublic elects a president each sunday? That's right the citizen with the most points across all tags on sunday at midnight EST is elected President!",
+    "Did you know that 'tagging' images on instagram raises your rank in a hashstate? Just type the #hashtag into a comment and our app will find it. And of course you get points for tagging and even more when people vote it up in the hashstate.",
+    "Tell users when they download that instrcutions come in the form of push notifications. But also have a section in the meny where you can scroll through these tip of the day type messages."
+    ];
+var faqsPushCount =0;
+function pushUserEveryDay(){
+    var message = "";
+    UserHashMania.find({}).forEach(function(data){
+        if(faqsPush.length<faqsPushCount)
+            faqsPushCount = 0;
+        message = faqsPush[faqsPushCount++];
+        console.log("Pushing message " +message)
+        if(data.pushid){
+            pushToUserHashRepublic(data.pushid,message,data.pushtype);    
+        }
+            
+    });
+}
+function pushTOAllUserHashRepublic(message){
+    UserHashMania.find({}).forEach(function(data){
+        console.log("Pushing all " +message)
+        if(data.pushid){
+            pushToUserHashRepublic(data.pushid,message,data.pushtype);    
+        }   
+    });
+}
+var pushUserEveryDayWrapper = null;
 Meteor.myRedirect = function(res, query){
     // var state = query.state;
     // var url = state.split("-URL-")[1];
@@ -585,6 +616,16 @@ var Fiber = Npm.require('fibers');
 App.YouestUsername="";
 var routeMessage = ["first message","second message","a"];
 var routeCounter = 0;
+
+
+// wrapper function init for node scheduler
+var maileverysundayWrapper = null,
+maileverysaturdayWrapper = null,
+maileverydayWrapper = null,
+maileveryweekWrapper = null,
+maileverymonthWrapper = null,
+maileveryyearWrapper = null;
+
 // Meteor.Router.add({
 //   '/client/:id': function(clientid){
 //       console.log(clientid);
@@ -618,17 +659,9 @@ App.testNewUser = testNewUser;
 var sponserKeywordArray = [];
 if (Meteor.isServer) {
 Meteor.startup(function () {
-
-
+        pushUserEveryDayWrapper =  Meteor.bindEnvironment(function(){pushUserEveryDay();});
         var startSize = 40,startCount =0;
-        SponserKeyword.find({},{sort : {"hits": -1}}).forEach(function(data){
-            sponserKeywordArray.push(data.keyword);
-            SponserKeyword.update({"_id":data._id},{$set : {"size":startSize}});
-            if(startCount%5 == 0 && startSize >10)
-                startSize -= 5;
-
-            startCount++
-        });
+        
         // console.log(sponserKeywordArray)
         // console.log(querystring);
         if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
@@ -645,6 +678,16 @@ Meteor.startup(function () {
         if(!DebugFace){
             Votes.find({"likeid":undefined}).forEach(function(data){console.log(data);Votes.remove({"_id":data._id})});
             checkNewImages();
+
+            // font-size on startup.
+            SponserKeyword.find({},{sort : {"hits": -1}}).forEach(function(data){
+                sponserKeywordArray.push(data.keyword);
+                SponserKeyword.update({"_id":data._id},{$set : {"size":startSize}});
+                if(startCount%5 == 0 && startSize >10)
+                    startSize -= 5;
+
+                startCount++
+            });
         }
 
         
@@ -1290,8 +1333,12 @@ App.isAdmin = isAdmin;
 
                 }  
                 console.log(insertCount)
-                if(insertCount == 0)
+                if(insertCount == 0){
                     break;
+                }
+                else{
+                    pushTOAllUserHashRepublic(insertCount +" new pics on "+tag);
+                }
                 if(DebugFace)
                     break;
             }
@@ -1482,6 +1529,70 @@ App.isAdmin = isAdmin;
 
     //     });
     // }
+
+    // declaring wrapper init class
+    maileverysaturdayWrapper = Meteor.bindEnvironment(function(){
+            App.subjectEmail = "Tapmate heat results are ending in 24 hrs!";
+            contestEndFlag = false;
+            batchEmail();
+    });
+    maileverydayWrapper = Meteor.bindEnvironment(function(){
+                console.log("day reset")
+                App.subjectEmail = "Daily Updates";
+                Fiber(function () {
+                Meteor.setTimeout(scheduleFixing,300);
+                }).run();
+    });
+    maileveryweekWrapper = Meteor.bindEnvironment(function(){
+                Fiber(function () {
+                    var cursorMe = Me.find({});
+                    cursorMe.forEach(function(data){
+                    Me.update({"_id":data._id},{$set:{"walreadyloggedin":0,"wautologin":0,"wvotes":0,"wrecomending":0,"wfollownew":0,"wswipeleft":0,"wswiperight":0}});
+                    });
+
+                    // plus all
+                    cursorMe.forEach(function(data){
+                        Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"dswipeleftswipeleft":0,"dswiperight":0}});
+                    });
+                }). run();
+    });
+    maileverymonthWrapper = Meteor.bindEnvironment(function(){
+            Fiber(function () {
+                var cursorMe = Me.find({});
+                cursorMe.forEach(function(data){
+                Me.update({"_id":data._id},{$set:{"malreadyloggedin":0,"mautologinautologin":0,"mvotes":0,"mrecomendingrecomending":0,"mfollownewfollownew":0,"mswipeleftswipeleft":0,"mswiperight":0}});
+                });
+
+                // plus all
+                cursorMe.forEach(function(data){
+                    Me.update({"_id":data._id},{$set:{"walreadyloggedin":0,"wautologin":0,"wvotes":0,"wrecomending":0,"wfollownew":0,"wswipeleft":0,"wswiperight":0}});
+                });
+                cursorMe.forEach(function(data){
+                    Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"dswipeleftswipeleft":0,"dswiperight":0}});
+                });
+            }). run();
+    });
+    maileveryyearWrapper = Meteor.bindEnvironment(function(){
+            Fiber(function () {
+                var cursorMe = Me.find({});
+                cursorMe.forEach(function(data){
+                Me.update({"_id":data._id},{$set:{"yalreadyloggedin":0,"yautologin":0,"yvotes":0,"yrecomending":0,"yfollownew":0,"yswipeleft":0,"yswiperight":0}});
+                });
+
+                // plus all
+                cursorMe.forEach(function(data){
+                    Me.update({"_id":data._id},{$set:{"malreadyloggedin":0,"mautologinautologin":0,"mvotes":0,"mrecomendingrecomending":0,"mfollownewfollownew":0,"mswipeleftswipeleft":0,"mswiperight":0}});
+                });
+                cursorMe.forEach(function(data){
+                    Me.update({"_id":data._id},{$set:{"walreadyloggedin":0,"wautologin":0,"wvotes":0,"wrecomending":0,"wfollownew":0,"wswipeleft":0,"wswiperight":0}});
+                });
+                cursorMe.forEach(function(data){
+                    Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"dswipeleftswipeleft":0,"dswiperight":0}});
+                });
+            }). run();
+    });
+    // declaring wrapper init class
+
     function maileveryhour(){
         var rule = new schedule.RecurrenceRule();
         rule.minute = 1;
@@ -1494,24 +1605,22 @@ App.isAdmin = isAdmin;
         rule.dayOfWeek = 0;
         rule.hour = 0;
         rule.minute = 0;
-        var j = schedule.scheduleJob(rule, function(){
-                App.subjectEmail = "Tapmate heat results are in!  ending 3pm GMT";
-                contestEndFlag = true;
-                batchEmail();
-        });
+        var j = schedule.scheduleJob(rule,maileverysundayWrapper);
     }
+    maileverysundayWrapper = Meteor.bindEnvironment(function(){
+        App.subjectEmail = "Tapmate heat results are in!  ending 3pm GMT";
+        contestEndFlag = true;
+        batchEmail();
+    });
     function maileverysaturday(){
         var rule = new schedule.RecurrenceRule();
         //rule.dayOfWeek = [0, new schedule.Range(4, 6)];
         rule.dayOfWeek = 6;
         rule.hour = 0;
         rule.minute = 0;
-        var j = schedule.scheduleJob(rule, function(){
-                App.subjectEmail = "Tapmate heat results are ending in 24 hrs!";
-                contestEndFlag = false;
-                batchEmail();
-        });
+        var j = schedule.scheduleJob(rule,maileverysaturdayWrapper);
     }
+    
     function maileveryday(){
         console.log("maileveryday")
         var rule = new schedule.RecurrenceRule();
@@ -1519,14 +1628,10 @@ App.isAdmin = isAdmin;
         rule.hour = 1;
         rule.minute = 15;
         rule.second = 0;
-        var j = schedule.scheduleJob(rule, function(){
-                console.log("day reset")
-                App.subjectEmail = "Daily Updates";
-                Fiber(function () {
-                Meteor.setTimeout(scheduleFixing,300);
-                }).run();
-        });
+        var j = schedule.scheduleJob(rule,maileverydayWrapper);
+        var k = schedule.scheduleJob(rule,pushUserEveryDayWrapper);
     }
+    
     function scheduleFixing(){
         App.sentmailtome();
         var cursorMe = Me.find({});
@@ -1539,69 +1644,25 @@ App.isAdmin = isAdmin;
         rule.dayOfWeek = 1;
         rule.hour = 1;
         rule.minute = 30;
-        var j = schedule.scheduleJob(rule, function(){
-                Fiber(function () {
-                    var cursorMe = Me.find({});
-                    cursorMe.forEach(function(data){
-                    Me.update({"_id":data._id},{$set:{"walreadyloggedin":0,"wautologin":0,"wvotes":0,"wrecomending":0,"wfollownew":0,"wswipeleft":0,"wswiperight":0}});
-                    });
-
-                    // plus all
-                    cursorMe.forEach(function(data){
-                        Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"dswipeleftswipeleft":0,"dswiperight":0}});
-                    });
-                }). run();
-        });
+        var j = schedule.scheduleJob(rule,maileveryweekWrapper);
     }
+    
     function maileverymonth(){
         var rule = new schedule.RecurrenceRule();
         rule.month=[0, new schedule.Range(1, 11)];
         rule.hour = 2;
         rule.minute = 0;
-        var j = schedule.scheduleJob(rule, function(){
-                Fiber(function () {
-                    var cursorMe = Me.find({});
-                    cursorMe.forEach(function(data){
-                    Me.update({"_id":data._id},{$set:{"malreadyloggedin":0,"mautologinautologin":0,"mvotes":0,"mrecomendingrecomending":0,"mfollownewfollownew":0,"mswipeleftswipeleft":0,"mswiperight":0}});
-                    });
-
-                    // plus all
-                    cursorMe.forEach(function(data){
-                        Me.update({"_id":data._id},{$set:{"walreadyloggedin":0,"wautologin":0,"wvotes":0,"wrecomending":0,"wfollownew":0,"wswipeleft":0,"wswiperight":0}});
-                    });
-                    cursorMe.forEach(function(data){
-                        Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"dswipeleftswipeleft":0,"dswiperight":0}});
-                    });
-                }). run();
-        });
+        var j = schedule.scheduleJob(rule,maileverymonthWrapper);
     }
+    
     function maileveryyear(){
         var rule = new schedule.RecurrenceRule();
         rule.month=0;
         rule.hour = 2;
         rule.minute = 0;
-        var j = schedule.scheduleJob(rule, function(){
-            
-                Fiber(function () {
-                    var cursorMe = Me.find({});
-                    cursorMe.forEach(function(data){
-                    Me.update({"_id":data._id},{$set:{"yalreadyloggedin":0,"yautologin":0,"yvotes":0,"yrecomending":0,"yfollownew":0,"yswipeleft":0,"yswiperight":0}});
-                    });
-
-                    // plus all
-                    cursorMe.forEach(function(data){
-                        Me.update({"_id":data._id},{$set:{"malreadyloggedin":0,"mautologinautologin":0,"mvotes":0,"mrecomendingrecomending":0,"mfollownewfollownew":0,"mswipeleftswipeleft":0,"mswiperight":0}});
-                    });
-                    cursorMe.forEach(function(data){
-                        Me.update({"_id":data._id},{$set:{"walreadyloggedin":0,"wautologin":0,"wvotes":0,"wrecomending":0,"wfollownew":0,"wswipeleft":0,"wswiperight":0}});
-                    });
-                    cursorMe.forEach(function(data){
-                        Me.update({"_id":data._id},{$set:{"dalreadyloggedin":0,"dautologin":0,"dvotes":0,"drecomending":0,"dfollownew":0,"dswipeleftswipeleft":0,"dswiperight":0}});
-                    });
-                }). run();
-        });
+        var j = schedule.scheduleJob(rule,maileveryyearWrapper);
     }
-
+    
     // function calcTime() {
     //     var d = new Date();
     //     yearCurrent = d.getUTCFullYear();

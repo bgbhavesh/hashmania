@@ -142,11 +142,26 @@
 	</div>
 
   <div id="snapy" class="ui large vertical inverted labeled icon sidebar menu active">
+
+	 <div class="item">
+	  <div id="LeaderBoard"><b>Leaders</b></div>
+	  <div id="section1" class="menu">
+		<div class="leaderSection">
+			{{> leadersboard}}
+		</div>
+	  </div>
+	</div>
+<!-- <div class="leaderSection">
+	  			{{> leadersboard}}
+	  		</div> -->
+
+
+<!-- 
 	  <div id="showpicsmenu1">
 	<div class="item" id="menuresents">
 	  <b id="Recentslabel"> Preview </b>
 	  {{> Section1}}
-	</div></div>
+	</div></div> -->
 	<div id="gamemenu">
 	<div class="item" >
 		{{> profilemenu}}
@@ -312,11 +327,22 @@
   </div>
 </template>
 <template name="leadersboard">
-	{{#each eachlead}}
+	<!-- {{#each eachlead}} -->
 		<div class="leadersface">  
-			<img src="{{face}}"/>
+			<img src="./images/face1.png"/>
 		</div>
-	{{/each}} 
+		<div class="leadersface">  
+			<img width="23%" src="http:​/​/​images.ak.instagram.com/​profiles/​profile_1314594135_75sq_1399439905.jpg"/>
+		</div>
+		<div class="leadersface">  
+			<img width="23%" src="http:​/​/​images.ak.instagram.com/​profiles/​profile_1314594135_75sq_1399439905.jpg"/>
+		</div>
+		<div class="leadersface">  
+			<img width="23%" src="http://images.ak.instagram.com/profiles/profile_1314594135_75sq_1399439905.jpg"/>
+		</div>
+		
+		
+	<!-- {{/each}}  -->
 </template>
 <template name="profilemenu">
 	{{#each user}}
@@ -342,9 +368,9 @@
 	<div id="surveybighandle">
 		<i id="updownarrow" class="huge sort ascending icon"></i>
 			<div class="hashKeyword">  </div>
-			<div class="leaderSection">
+			<!-- <div class="leaderSection">
 	  			{{> leadersboard}}
-	  		</div>
+	  		</div> -->
 	</div>
 	<div id="surveybig" class="ui labeled vertical fluid  icon menu" style="">
   		

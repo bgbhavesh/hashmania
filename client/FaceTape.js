@@ -1278,8 +1278,11 @@ Meteor.documentReady = documentReady;
         input.val("");
         onScore(10);
     }
+    var currentBigHtml=null;
     function tapOnBigFeedSurvey(event){
+        // element = event.currentTarget;
         var parent = $(this).parent(".hashFeed");
+        currentBigHtml = parent
         parent.find(".tertiary").show();
         currentSurveyBig = $(this);
         var x = event.gesture.center.pageX;
@@ -1287,7 +1290,6 @@ Meteor.documentReady = documentReady;
         // y = y - $(this)[0].offsetTop;
         var offset = $(event.currentTarget).offset();
         // var w = $("#surveybig");
-        
         // console.log(offset.top +" " +w.scrollTop() +" " +y)
         var height = $(parent).height();
         var width = $("body").width();
@@ -1303,7 +1305,7 @@ Meteor.documentReady = documentReady;
         
         var likeid = $(parent).attr("likeid")
         // progress2(left, $('#hprogressBar'),top, $('#outer'),likeid);
-        
+        // console.log(parent)
         Session.set("currentBig",likeid)
         var clientid = Session.get("clientid");
         var votepic = null;
@@ -1319,7 +1321,6 @@ Meteor.documentReady = documentReady;
         var date = new Date().getTime();
         // console.log(likeid +" " +Session.get("currentBig"));
         top+=40;
-        
         var currentvotes = $("#"+likeid).children(".voting");
         for(var i=0,il=currentvotes.length;i<il;i++){
             var cursorvotenow = $(currentvotes[i]).attr("clientid");
@@ -1328,6 +1329,7 @@ Meteor.documentReady = documentReady;
                 var noComment = $(currentvotes[i]).find("p");
                 // console.log(noComment);
                 if(noComment.length==0){
+                    showcomments();
                     tapOnBigFeedSecond(null,currentvotes[i]);
                     // showSpecialPopup("commentingOverlay");
                     // currentCommenting
@@ -3502,9 +3504,12 @@ function tapOnVoting(event){
     try{
         var element = null;
         element = event.currentTarget;
+        var clientid = $(element).attr("clientid");
         var link= $(element).parent(".hashFeed").attr("link")
+        if(clientid == Session.get("clientid")){
+            window.open(link, '_system');
+        }
         // console.log(link)
-        window.open(link, '_system');
 
     }catch(error){
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnVoting"});
@@ -3531,7 +3536,6 @@ function tapOnBigFeedSecond(event,myElement){
         $("#commentingOverlay").attr("likeid",likeid);
         $("#commentingOverlay").attr("clientid",clientid);
         var p = $(currentCommenting).find("p").text();
-        console.log(p);
         if(p){
             $("#commentInput").val(p);
         }else{
@@ -3596,6 +3600,33 @@ function tapOnBigFeedSecond(event,myElement){
     }
         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
+function showcomments(){
+    var html,p,img,clientid;
+    var votes = $(currentBigHtml).children(".voting")
+    var div = $("#showallcomments")[0];
+    // console.log(div)
+    for(var i=0,il=votes.length;i<il;i++){
+        p = $(votes[i]).find("p").text();
+        img = $(votes[i]).children("img").attr("src");
+        clientid = $(votes[i]).attr("clientid");
+        if(p){
+            if(clientid == Session.get("clientid")){
+                html = '<div class="commentwrapper"><div class="imageComment" class="allcomment" style="float:left">'
+                +'<img src='+img+'></div><div class="ui right labeled icon input submitComment" class="allcomment"><i class="comment icon"></i>'
+                +'<textarea disabled id="commentInput" type="text" cols="40" rows="4" placeholder="">'+p+'</textarea>'
+                +'</div><div id="cross" style=""><srrong>x</srrong></div></div>';
+            }else{
+                html = '<div class="imageComment" class="allcomment" style="float:left"><img src='+img+'></div><div class="ui right labeled icon input '
+                +'submitComment" class="allcomment"><i class="comment icon"></i><textarea disabled id="commentInput" type="text" cols="40" rows="4"'
+                +'placeholder="">'+p+'</textarea></div><div id="cross" style=""><srrong>x</srrong></div>';
+            }
+            
+            div.insertAdjacentHTML( 'beforeend', html );
+        }
+    }
+    // console.log(currentBigHtml)
+
+}
 function commentOneVote(){
     hideSpecialPopup("commentingOverlay");
     var value = $("#commentInput").val();
@@ -3608,7 +3639,7 @@ function commentOneVote(){
     var div = currentCommenting;
     var votingid = $(div).attr("votingid");
     $(currentCommenting).css({"display":"block"});
-    console.log(currentCommenting);
+    // console.log(currentCommenting);
     if(!value)
       return;
     if(p.length>0){
@@ -3627,6 +3658,7 @@ function commentOneVote(){
       }
       $("#commentInput").val(null);
     }
+    $("#showallcomments").empty();
     var stringArray = value.split(" ");
     var selectitem = null;
     var str = "#";
@@ -3650,7 +3682,6 @@ function commentOneVote(){
           }
         }
     }
-    
     // $("currentCommenting").append(html)
 
     // for(var i=0,il=voting.length;i<il;i++){

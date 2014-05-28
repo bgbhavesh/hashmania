@@ -1060,7 +1060,7 @@ Meteor.documentReady = documentReady;
                 continue;
             if(!currentData.keyword)
                 continue;
-            newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'">' 
+            newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
                 +'<img src="' +currentData.keyword.standard +'">'
             //     +'<div class="ui tertiary form segment">'
             //     +'<div class="commentWrapper">';
@@ -1311,7 +1311,7 @@ Meteor.documentReady = documentReady;
                 var noComment = $(currentvotes[i]).find("p");
                 // console.log(noComment);
                 if(noComment.length==0){
-                    tapOnVoting(null,currentvotes[i]);
+                    tapOnBigFeedSecond(null,currentvotes[i]);
                     // showSpecialPopup("commentingOverlay");
                     // currentCommenting
                     return;
@@ -3457,6 +3457,7 @@ function holdOnRecomm(event){
     }
 }
 function holdOnVoting(event){
+    var starttimer = new Date().getTime();
     var eventType = event.type;
     var followid = $(this).attr("myid");
     var votingid = $(this).attr("votingid");
@@ -3479,8 +3480,22 @@ function holdOnVoting(event){
     }
         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
+function tapOnVoting(event){
+    var starttimer = new Date().getTime();
+    try{
+        var element = null;
+        element = event.currentTarget;
+        var link= $(element).parent(".hashFeed").attr("link")
+        // console.log(link)
+        window.open(link, '_system');
+
+    }catch(error){
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnVoting"});
+    }
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+}
 var currentCommenting = null;
-function tapOnVoting(event,myElement){
+function tapOnBigFeedSecond(event,myElement){
     var starttimer = new Date().getTime();
     //console.log(event);
     try{
@@ -3560,7 +3575,7 @@ function tapOnVoting(event,myElement){
     }
     catch(error){
         console.log(error);
-        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnVoting"});
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnBigFeedSecond"});
     }
         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
@@ -5910,7 +5925,7 @@ function autoSize(){
         // return;
         var adjustedWidth = 0;
             adjustedWidth = (windowHeight / 4 ) * 2 ;
-        if(windowWidth > adjustedWidth){
+        if(windowWidth > windowHeight){
             Session.set("orientation","landscape");
             // adjustLeft = (adjustedWidth/2);
             // $("#bodyWrapper").width(adjustedWidth);

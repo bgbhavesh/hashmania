@@ -1233,6 +1233,7 @@ App.isAdmin = isAdmin;
         }
         App.searchParser = searchParser;
     function searchHashParser(myJson,tag,clientid){
+        console.log("searchHashParser start "+tag +" for client " +clientid)
             var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
             var insertCount = 0;
             
@@ -1258,7 +1259,8 @@ App.isAdmin = isAdmin;
                       
                     for(var i=0,il=data.length;i<il;i++){
                       //data[i]            //,"clientid":clientid
-                        var insert = {"type":"s","keyword":tag,"display":"y","likeid":data[i].id ,"standard":data[i].images.standard_resolution.url,"thumb":data[i].images.thumbnail.url,"low":data[i].images.low_resolution.url, "counts":data[i].likes.count,"voting":0};
+                      console.log(data[i].link)
+                        var insert = {"type":"s","keyword":tag,"display":"y","likeid":data[i].id ,"standard":data[i].images.standard_resolution.url,"thumb":data[i].images.thumbnail.url,"low":data[i].images.low_resolution.url, "counts":data[i].likes.count,"voting":0,"link":data[i].link};
                       //   cursorSearch = Search.findOne({"likeid":insert.likeid,"userid": ids});
                       // if(!cursorSearch)
                       //     cursorSearch = Recents.findOne({"likeid":insert.likeid,"userid": ids});

@@ -1183,7 +1183,7 @@ Meteor.documentReady = documentReady;
 
             return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'" style="border-style: inset;">  '  
-                  +'<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.5;">' +comment +'</p>'      
+                  +'<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.8;">' +comment +'</p>'      
                   +'</div>'
           }
     }
@@ -3626,14 +3626,14 @@ function commentOneVote(){
     if(!value)
       return;
     if(p.length>0){
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.7;">' +value +'</p>';
+      var html = '<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.8;">' +value +'</p>';
       $(currImg).css({"border-style":"inset"});
       $(p).text(value); 
       if(votingid){
         Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
     }else{
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.7;">' +value +'</p>'; 
+      var html = '<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.8;">' +value +'</p>'; 
       div.insertAdjacentHTML( 'beforeend', html );
       $(currImg).css({"border-style":"inset"});
       if(votingid){

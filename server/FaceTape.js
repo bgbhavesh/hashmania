@@ -124,6 +124,14 @@ function pushUserEveryDay(){
             
     });
 }
+function pushTOAllUserHashRepublic(message){
+    UserHashMania.find({}).forEach(function(data){
+        console.log("Pushing all " +message)
+        if(data.pushid){
+            pushToUserHashRepublic(data.pushid,message,data.pushtype);    
+        }   
+    });
+}
 var pushUserEveryDayWrapper = null;
 Meteor.myRedirect = function(res, query){
     // var state = query.state;
@@ -1268,6 +1276,7 @@ App.isAdmin = isAdmin;
         }
         App.searchParser = searchParser;
     function searchHashParser(myJson,tag,clientid){
+        console.log("searchHashParser start "+tag +" for client " +clientid)
             var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
             var insertCount = 0;
             
@@ -1324,8 +1333,12 @@ App.isAdmin = isAdmin;
 
                 }  
                 console.log(insertCount)
-                if(insertCount == 0)
+                if(insertCount == 0){
                     break;
+                }
+                else{
+                    pushTOAllUserHashRepublic(insertCount +" new pics on "+tag);
+                }
                 if(DebugFace)
                     break;
             }

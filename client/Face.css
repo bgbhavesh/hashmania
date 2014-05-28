@@ -1,4 +1,4 @@
-/* CSS declarations go here */
+	/* CSS declarations go here */
 /*
 YOUIEST LLC CONFIDENTIAL
 
@@ -24,7 +24,7 @@ body{
 	overflow: hidden;
 
 	background: #E5E5E5  ;
-    background-color: #111;
+    background-color: #1F253D;
 	color: #808080  ;
 	font-weight: normal;
 	font-family: Helvetica, Arial, sans-serif  ;
@@ -1822,7 +1822,7 @@ h6 {}
 #back-top {
 	position: fixed;
 	bottom: 30px;
-	right: 10%;
+	left: 10%;
 	z-index: 2;
 	display: none;
 	width: 30px;
@@ -1861,9 +1861,11 @@ h6 {}
 .triangle-right {
 	font-size: 15px;
     position: absolute;
-    width: 250%;
+    /*width: 250%;*/
     padding: 5px;
     
+    background-color: rgba(30,36,59,1);
+
     color: rgb(255, 255, 255);
     background: linear-gradient(rgb(46, 136, 196), rgb(7, 86, 152)) repeat scroll 0% 0% transparent;
     border-radius: 10px 10px 0px 10px;
@@ -1872,6 +1874,7 @@ h6 {}
 p {
     margin: 1em 0px;
 }
+
 
 #overlay{
   position : absolute;
@@ -1893,6 +1896,10 @@ p {
 textarea[name="header"]{
 	height: 50%;
 	width: 50%;
+}
+textarea {
+	overflow: auto;
+	resize:none;
 }
 #moveFace{
 	height: 50px;

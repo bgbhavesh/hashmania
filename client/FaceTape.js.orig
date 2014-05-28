@@ -1068,7 +1068,11 @@ Meteor.documentReady = documentReady;
                 continue;
             if(!currentData.keyword)
                 continue;
+<<<<<<< HEAD
+            newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"likeid="' +currentData.keyword.link +'">' 
+=======
             newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
+>>>>>>> f98cfd0915c12e946a51f0dc089328296780fb01
                 +'<img src="' +currentData.keyword.standard +'">'
             //     +'<div class="ui tertiary form segment">'
             //     +'<div class="commentWrapper">';

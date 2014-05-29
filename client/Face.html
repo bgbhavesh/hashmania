@@ -329,10 +329,8 @@
 <template name="leadersboard">
 	{{#each eachlead}}
 		<div class="leadersface">  
-			<img src={{face}}/>
+			<img src="{{face}}"/>
 		</div>
-		
-		
 	{{/each}} 
 </template>
 <template name="profilemenu">
@@ -380,14 +378,14 @@
 		<div class="imageComment" style="float:left">
 			<img src="">
 		</div>
-		<div class="ui right labeled icon input submitComment">
-			<!-- <i class="comment icon"></i> -->
-			<textarea id="commentInput" type="text" cols="40" 
-       rows="4"  placeholder="Enter Comment"></textarea>
+			<div class="ui right labeled icon input submitComment">
+				<textarea id="commentInput" type="text" cols="40" rows="4"  placeholder="Enter Comment"></textarea>
+			</div>
+			<div id="cross" style=""><strong>x</strong>
 		</div>
-		<div id="cross" style=""><strong>x</strong>
-		</div>
+		<!-- <i class="comment icon"></i> -->
 		<div id="showallcomments">
+
 		</div>
 	</div>
 	

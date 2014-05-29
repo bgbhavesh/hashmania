@@ -1358,6 +1358,7 @@ App.isAdmin = isAdmin;
 
                     console.log(searchurl)   
                     myJson = Meteor.http.get(searchurl);
+                    if(cursorSponserKeyword)
                     SponserKeyword.update({"_id":cursorSponserKeyword._id},{$set : {"next_url":myJson.data.pagination.next_url}});
 
 

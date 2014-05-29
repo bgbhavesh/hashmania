@@ -3668,6 +3668,7 @@ function showcomments(){
         img = $(votes[i]).children("img").attr("src");
         clientid = $(votes[i]).attr("clientid");
         if(p){
+<<<<<<< HEAD
             size = 20 * getRankLeader(clientid);
             style="style='height: " +size +"px;'"
             // html = '<div class="commentwrapper" >'
@@ -3697,6 +3698,18 @@ function showcomments(){
             //     +'placeholder="">'+p+'</textarea></div><div id="cross" style=""><strong>x</strong></div>';
             // }
             
+=======
+            if(clientid == Session.get("clientid")){
+                html = '<div class="commentwrapper"><div class="imageComment" class="allcomment" style="float:left">'
+                +'<img src='+img+'></div><div class="ui right labeled icon input submitComment" class="allcomment"><i class="comment icon"></i>'
+                +'<textarea disabled id="commentInput" type="text" cols="40" rows="4" placeholder="">'+p+'</textarea>'
+                +'</div><div id="cross" style=""><srrong>x</srrong></div></div>';
+            }else{
+                html = '<div class="imageComment" class="allcomment" style="float:left"><img src='+img+'></div><div class="ui right labeled icon input '
+                +'submitComment" class="allcomment"><i class="comment icon"></i><textarea disabled id="commentInput" type="text" cols="40" rows="4"'
+                +'placeholder="">'+p+'</textarea></div><div id="cross" style=""><srrong>x</srrong></div>';
+            }
+>>>>>>> ff175900af9f629f382f90843a6e532128ad95d1
             div.insertAdjacentHTML( 'beforeend', html );
         }
     }

@@ -331,8 +331,6 @@
 		<div class="leadersface">  
 			<img src="{{face}}"/>
 		</div>
-		
-		
 	{{/each}} 
 </template>
 <template name="profilemenu">
@@ -380,10 +378,19 @@
 		<div class="imageComment" style="float:left">
 			<img src="">
 		</div>
+<<<<<<< HEAD
 			<div class="ui right labeled icon input submitComment">
 				<textarea id="commentInput" type="text" cols="40" rows="4"  placeholder="Enter Comment"></textarea>
 			</div>
 			<div id="cross" style=""><strong>x</strong>
+=======
+		<div class="ui form right labeled icon input submitComment">
+			<!-- <i class="comment icon"></i> -->
+			<textarea id="commentInput" type="text" cols="40" 
+       rows="4"  placeholder="Enter Comment"></textarea>
+		</div>
+		<div id="cross" style=""><strong>x</strong>
+>>>>>>> ff175900af9f629f382f90843a6e532128ad95d1
 		</div>
 		<!-- <i class="comment icon"></i> -->
 		<div id="showallcomments">

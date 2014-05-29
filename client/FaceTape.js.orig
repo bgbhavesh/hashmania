@@ -1041,10 +1041,9 @@ Meteor.documentReady = documentReady;
         // DataBase[key].prevLoad = DataBase[key].curLoad;
     }
     function renderResults(data,loadMoreFlag){
-        console.log(data)
-        console.log("load more " +loadMoreFlag)
+        console.log(loadMoreFlag)
         if(!data){
-            // $("#semanticLoader").hide();
+            $("#semanticLoader").hide();
             return;
         }
         $(".loading").show();
@@ -1143,15 +1142,14 @@ Meteor.documentReady = documentReady;
         
         // $(".tertiary").hide();
         
-        // $("#semanticLoader").hide();
+        $("#semanticLoader").hide();
     }
     function onImageError(event){
-        // console.log(event)
+        console.log(event)
         Meteor.myElement = event.currentTarget;
         var element = $(event.currentTarget).parent(".hashFeed");
         var likeid = element.attr("likeid");
         element.remove();
-        cacheTheResult(likeid,null,null,"delete");
         Meteor.call("checkImageError",likeid,function(err,data){})
     }
     function cacheData(data){
@@ -1409,7 +1407,7 @@ Meteor.documentReady = documentReady;
         }
         onScore(10);
     }
-    function cacheTheResult(likeid,VotesInsert,key,action){
+    function cacheTheResult(likeid,VotesInsert,key){
         var keySession = Session.get("keyword");
         console.log(keySession);
         for(var i=0,il=preload[keySession].length;i<il;i++){
@@ -1425,10 +1423,6 @@ Meteor.documentReady = documentReady;
                 }
                 current[i][key].push(VotesInsert);
                 console.log(current[i])
-                if(action){
-                    console.log("removed");
-                    current[i] = {};
-                }
             }
         }
         cacheEverything();
@@ -3674,8 +3668,8 @@ function showcomments(){
         img = $(votes[i]).children("img").attr("src");
         clientid = $(votes[i]).attr("clientid");
         if(p){
+<<<<<<< HEAD
             size = 20 * getRankLeader(clientid);
-            size = Math.min(size,100);
             style="style='height: " +size +"px;'"
             // html = '<div class="commentwrapper" >'
             //         // +'<div class="imageComment" class="allcomment" style="float:left">'
@@ -3703,7 +3697,19 @@ function showcomments(){
             //     +'submitComment" class="allcomment"><i class="comment icon"></i><textarea disabled id="commentInput" type="text" cols="40" rows="4"'
             //     +'placeholder="">'+p+'</textarea></div><div id="cross" style=""><strong>x</strong></div>';
             // }
-            if(div)
+            
+=======
+            if(clientid == Session.get("clientid")){
+                html = '<div class="commentwrapper"><div class="imageComment" class="allcomment" style="float:left">'
+                +'<img src='+img+'></div><div class="ui right labeled icon input submitComment" class="allcomment"><i class="comment icon"></i>'
+                +'<textarea disabled id="commentInput" type="text" cols="40" rows="4" placeholder="">'+p+'</textarea>'
+                +'</div><div id="cross" style=""><srrong>x</srrong></div></div>';
+            }else{
+                html = '<div class="imageComment" class="allcomment" style="float:left"><img src='+img+'></div><div class="ui right labeled icon input '
+                +'submitComment" class="allcomment"><i class="comment icon"></i><textarea disabled id="commentInput" type="text" cols="40" rows="4"'
+                +'placeholder="">'+p+'</textarea></div><div id="cross" style=""><srrong>x</srrong></div>';
+            }
+>>>>>>> ff175900af9f629f382f90843a6e532128ad95d1
             div.insertAdjacentHTML( 'beforeend', html );
         }
     }
@@ -7943,32 +7949,7 @@ function divOldNew(data){
     // renderResults(newRenderResults);
 }
 function getDefaultData(){
-    var currentKeyword = SponserKeyword.find({},{sort : {"hits": -1}});
-    var newCacheData = null;
-    var keyword;
-    var keywordArray = []; 
-    currentKeyword.forEach(function(data){   
-          keywordArray.push(data.keyword);                           
-    });
-    for(var i=0,il=keywordArray.length;i<il;i++){
-        keyword = keywordArray[i];
-        Meteor.call("getResult",keyword,CLIENTID,function(err,data){
-                if(data){
-                    // console.log(data[0].keyword.keyword);
-                    newCacheData = preload[data[0].keyword.keyword];
-                    // console.log(newCacheData);
-                    if(!newCacheData){
-                        console.log("!newCacheData")
-                        // console.log(data)
-                        preload[data[0].keyword.keyword] = data;
-                       // cacheData(data); 
-                    }
-                    else{
-                        console.log("newCacheData");
-                    }
-                }
-            });
-    }
+
 }
 Meteor.startup(function () {
     
@@ -7979,7 +7960,7 @@ Meteor.startup(function () {
         var keyword = Session.get("keyword");
         console.log(keyword);
         if(keyword){
-            // $("#semanticLoader").show();
+            $("#semanticLoader").show();
             $(".hashKeyword").html("#"+keyword);
             $("#surveybig").html("");
             // Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){

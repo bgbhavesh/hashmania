@@ -1457,6 +1457,7 @@ language.html = [
                         alreadyResult[ar].keyword = data
                         alreadyResult[ar].votes = votes;
                         alreadyResult[ar].comments = comments;
+                        alreadyResult[ar].likeid = data.likeid
                         ar++;
                     }
                     else{
@@ -1464,6 +1465,7 @@ language.html = [
                         firstResult[fr].keyword = data
                         firstResult[fr].votes = votes;
                         firstResult[fr].comments = comments;
+                        firstResult[fr].likeid = data.likeid
                         fr++;
                     } 
                 }
@@ -1679,7 +1681,8 @@ language.html = [
             try{
                 var cursorHashKeyword = HashKeyword.findOne({"likeid":likeid}); 
                 
-                var result = Meteor.http.get(cursorHashKeyword.standard);
+                var result = Meteor.http.post(cursorHashKeyword.standard);
+                console.log(result)
                 return false;
             }
             catch(error){
@@ -1690,6 +1693,14 @@ language.html = [
                 
                 return true;
             }
+        },        
+        "leaderRanking" : function(){
+            var leaderRanking = []; 
+            UserHashMania.find({},{sort : {"heatScore": -1}}).forEach(function(data){
+                leaderRanking.push(data._id);
+            });
+            console.log(leaderRanking);
+            return leaderRanking;
         }
         ////////////////////UserHashMania////////////////
     });

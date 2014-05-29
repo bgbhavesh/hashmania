@@ -1145,11 +1145,12 @@ Meteor.documentReady = documentReady;
         $("#semanticLoader").hide();
     }
     function onImageError(event){
-        console.log(event)
+        // console.log(event)
         Meteor.myElement = event.currentTarget;
         var element = $(event.currentTarget).parent(".hashFeed");
         var likeid = element.attr("likeid");
         element.remove();
+        cacheTheResult(likeid,null,null,"delete");
         Meteor.call("checkImageError",likeid,function(err,data){})
     }
     function cacheData(data){
@@ -1407,7 +1408,7 @@ Meteor.documentReady = documentReady;
         }
         onScore(10);
     }
-    function cacheTheResult(likeid,VotesInsert,key){
+    function cacheTheResult(likeid,VotesInsert,key,action){
         var keySession = Session.get("keyword");
         console.log(keySession);
         for(var i=0,il=preload[keySession].length;i<il;i++){
@@ -1423,6 +1424,10 @@ Meteor.documentReady = documentReady;
                 }
                 current[i][key].push(VotesInsert);
                 console.log(current[i])
+                if(action){
+                    console.log("removed");
+                    current[i] = {};
+                }
             }
         }
         cacheEverything();
@@ -3669,6 +3674,7 @@ function showcomments(){
         clientid = $(votes[i]).attr("clientid");
         if(p){
             size = 20 * getRankLeader(clientid);
+            size = Math.min(size,100);
             style="style='height: " +size +"px;'"
             // html = '<div class="commentwrapper" >'
             //         // +'<div class="imageComment" class="allcomment" style="float:left">'
@@ -3696,7 +3702,7 @@ function showcomments(){
             //     +'submitComment" class="allcomment"><i class="comment icon"></i><textarea disabled id="commentInput" type="text" cols="40" rows="4"'
             //     +'placeholder="">'+p+'</textarea></div><div id="cross" style=""><strong>x</strong></div>';
             // }
-            
+            if(div)
             div.insertAdjacentHTML( 'beforeend', html );
         }
     }

@@ -1809,6 +1809,9 @@ h6 {}
 	height: 60%;
 	overflow-y: scroll;
 }
+#showallcomments{
+	background: rgb(37, 36, 77);
+}
 /*
 .triangle-right:after {
     content: "";

@@ -1285,7 +1285,7 @@ Meteor.documentReady = documentReady;
         top = (top/height) * 100;
         left = Math.round(left) ;
         top = Math.round(top) ;
-        
+        $("#showallcomments").empty();
         var likeid = $(parent).attr("likeid")
         // progress2(left, $('#hprogressBar'),top, $('#outer'),likeid);
         // console.log(parent)
@@ -1310,7 +1310,7 @@ Meteor.documentReady = documentReady;
             if(cursorvotenow==Session.get("clientid")){
                 // console.log($(currentvotes[i]).find("p"));
                 var noComment = $(currentvotes[i]).find("p");
-                // console.log(noComment);
+                // console.log(noComment.length);
                 if(noComment.length==0){
                     showcomments();
                     tapOnBigFeedSecond(null,currentvotes[i]);
@@ -1318,7 +1318,13 @@ Meteor.documentReady = documentReady;
                     // currentCommenting
                     return;
                 }
-                // return;
+                else if(noComment.length==1){
+                    // console.log("noComment else")
+                    showcomments();
+                    showSpecialPopup("commentingOverlay");
+                    // tapOnBigFeedSecond(null,currentvotes[i]);
+                }
+                return;
 
             }            
         }
@@ -3584,6 +3590,7 @@ function tapOnBigFeedSecond(event,myElement){
         MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function showcomments(){
+    // console.log(currentBigHtml)
     var html,p,img,clientid;
     var votes = $(currentBigHtml).children(".voting")
     var div = $("#showallcomments")[0];
@@ -3603,7 +3610,6 @@ function showcomments(){
                 +'submitComment" class="allcomment"><i class="comment icon"></i><textarea disabled id="commentInput" type="text" cols="40" rows="4"'
                 +'placeholder="">'+p+'</textarea></div><div id="cross" style=""><srrong>x</srrong></div>';
             }
-            
             div.insertAdjacentHTML( 'beforeend', html );
         }
     }
@@ -3641,7 +3647,7 @@ function commentOneVote(){
       }
       $("#commentInput").val(null);
     }
-    $("#showallcomments").empty();
+    // $("#showallcomments").empty();
     var stringArray = value.split(" ");
     var selectitem = null;
     var str = "#";
@@ -7840,6 +7846,9 @@ function divOldNew(data){
     return newRenderResults;
     // renderResults(newRenderResults);
 }
+function getDefaultData(){
+
+}
 Meteor.startup(function () {
     
     Deps.autorun(function(){
@@ -7874,6 +7883,7 @@ Meteor.startup(function () {
             }
             
             set("keyword",keyword)
+            getDefaultData();
             // }
             
         }

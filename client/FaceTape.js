@@ -1200,7 +1200,7 @@ Meteor.documentReady = documentReady;
 
             return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'" style="border-style: inset;">  '  
-                  +'<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.8;">' +comment +'</p>'      
+                  +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                   +'</div>'
           }
     }
@@ -3643,14 +3643,14 @@ function commentOneVote(){
     if(!value)
       return;
     if(p.length>0){
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.8;">' +value +'</p>';
+      var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>';
       $(currImg).css({"border-style":"inset"});
       $(p).text(value); 
       if(votingid){
         Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
     }else{
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.8;">' +value +'</p>'; 
+      var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>'; 
       div.insertAdjacentHTML( 'beforeend', html );
       $(currImg).css({"border-style":"inset"});
       if(votingid){
@@ -7428,10 +7428,12 @@ function openSurvey(){
     $(".hashKeyword").css({"display":"none"});
     $('#updownarrow').css({"top": "0%"});
     $(".leaderSection").hide();
+    $('#back-top').fadeOut();
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
     //$("#updownarrow").animate("class","huge sort ascending icon");
     //$("#surveybighandle").css({"z-index":"4"});
     snapTopFlag = false;
+
 }
 function closeSurvey(){
     $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});

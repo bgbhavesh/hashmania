@@ -1057,7 +1057,7 @@ Meteor.documentReady = documentReady;
         var newElement = null;
         var currentData = null;
         var showFlag = false;
-        upp ='<div id="back-top"></div>'                  // go to upp
+        upp ='<div id="back-top"><i class="level up icon">UP</i></div>'                  // go to upp
         var element = $("#surveybig").append(upp);
        
         for(var i=0,il=data.length;i<il;i++){
@@ -1103,7 +1103,7 @@ Meteor.documentReady = documentReady;
             }
         }
         $(".loadmore").remove();
-        button ='<a class="ui button  loadmore" id="loadMoreImg" style=" background-color: rgb(80, 90, 122);box-shadow: none;" >   &#8609; MORE  &#8609; </a>';
+        button ='<a class="ui button  loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);box-shadow: none;" >   &#8609; MORE  &#8609; </a>';
 
         var element = $("#surveybig").append(button);
 

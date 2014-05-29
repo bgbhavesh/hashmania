@@ -1031,9 +1031,10 @@ Meteor.documentReady = documentReady;
         // DataBase[key].prevLoad = DataBase[key].curLoad;
     }
     function renderResults(data,loadMoreFlag){
-        console.log(loadMoreFlag)
+        console.log(data)
+        console.log("load more " +loadMoreFlag)
         if(!data){
-            $("#semanticLoader").hide();
+            // $("#semanticLoader").hide();
             return;
         }
         $(".loading").show();
@@ -1132,7 +1133,7 @@ Meteor.documentReady = documentReady;
         
         // $(".tertiary").hide();
         
-        $("#semanticLoader").hide();
+        // $("#semanticLoader").hide();
     }
     function onImageError(event){
         console.log(event)
@@ -7867,7 +7868,32 @@ function divOldNew(data){
     // renderResults(newRenderResults);
 }
 function getDefaultData(){
-
+    var currentKeyword = SponserKeyword.find({},{sort : {"hits": -1}});
+    var newCacheData = null;
+    var keyword;
+    var keywordArray = []; 
+    currentKeyword.forEach(function(data){   
+          keywordArray.push(data.keyword);                           
+    });
+    for(var i=0,il=keywordArray.length;i<il;i++){
+        keyword = keywordArray[i];
+        Meteor.call("getResult",keyword,CLIENTID,function(err,data){
+                if(data){
+                    // console.log(data[0].keyword.keyword);
+                    newCacheData = preload[data[0].keyword.keyword];
+                    // console.log(newCacheData);
+                    if(!newCacheData){
+                        console.log("!newCacheData")
+                        // console.log(data)
+                        preload[data[0].keyword.keyword] = data;
+                       // cacheData(data); 
+                    }
+                    else{
+                        console.log("newCacheData");
+                    }
+                }
+            });
+    }
 }
 Meteor.startup(function () {
     
@@ -7878,7 +7904,7 @@ Meteor.startup(function () {
         var keyword = Session.get("keyword");
         console.log(keyword);
         if(keyword){
-            $("#semanticLoader").show();
+            // $("#semanticLoader").show();
             $(".hashKeyword").html("#"+keyword);
             $("#surveybig").html("");
             // Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){

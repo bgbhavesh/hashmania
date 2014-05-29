@@ -1833,6 +1833,13 @@ h6 {}
     display: block;
     width: 0px;
 }*/
+.loadmore{
+	background-color: #50597b;
+	box-shadow: none;
+	/*height: 10%;*/
+	/*width: 20%;*/
+	/*margin-left: 40%;*/
+}
 #back-top {
 	position: fixed;
 	bottom: 30px;

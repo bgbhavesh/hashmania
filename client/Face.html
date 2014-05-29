@@ -1,5 +1,5 @@
 <head>
-	<title>Tapmate</title>  
+	<title>Hash Republic</title>  
 	<!-- Cordova Plugins -->
 	<!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />-->
 	<meta name="viewport" content="height=device-height, width=device-width, user-scalable=no" />
@@ -142,11 +142,26 @@
 	</div>
 
   <div id="snapy" class="ui large vertical inverted labeled icon sidebar menu active">
+
+	 <div class="item">
+	  <div id="LeaderBoard"><b>Leaders</b></div>
+	  <div id="section1" class="menu">
+		<div class="leaderSection">
+			{{> leadersboard}}
+		</div>
+	  </div>
+	</div>
+<!-- <div class="leaderSection">
+	  			{{> leadersboard}}
+	  		</div> -->
+
+
+<!-- 
 	  <div id="showpicsmenu1">
 	<div class="item" id="menuresents">
 	  <b id="Recentslabel"> Preview </b>
 	  {{> Section1}}
-	</div></div>
+	</div></div> -->
 	<div id="gamemenu">
 	<div class="item" >
 		{{> profilemenu}}
@@ -314,8 +329,10 @@
 <template name="leadersboard">
 	{{#each eachlead}}
 		<div class="leadersface">  
-			<img src="{{face}}"/>
+			<img src={{face}}/>
 		</div>
+		
+		
 	{{/each}} 
 </template>
 <template name="profilemenu">
@@ -342,9 +359,9 @@
 	<div id="surveybighandle">
 		<i id="updownarrow" class="huge sort ascending icon"></i>
 			<div class="hashKeyword">  </div>
-			<div class="leaderSection">
+			<!-- <div class="leaderSection">
 	  			{{> leadersboard}}
-	  		</div>
+	  		</div> -->
 	</div>
 	<div id="surveybig" class="ui labeled vertical fluid  icon menu" style="">
   		
@@ -363,7 +380,7 @@
 		<div class="imageComment" style="float:left">
 			<img src="">
 		</div>
-		<div class="ui right labeled icon input submitComment">
+		<div class="ui form right labeled icon input submitComment">
 			<!-- <i class="comment icon"></i> -->
 			<textarea id="commentInput" type="text" cols="40" 
        rows="4"  placeholder="Enter Comment"></textarea>
@@ -397,7 +414,7 @@
 
 <template name="server"> 
 	<div id="status" class="{{status}}Status" data-step="1" data-intro="Online / Offline" data-position="left">
-		<div id="tapmateLogo" class="{{status}}Status"> </div> 
+		<!-- <div id="tapmateLogo" class="{{status}}Status"> </div>  -->
 	</div>
 </template>
 

@@ -951,6 +951,14 @@ Meteor.documentReady = documentReady;
     Template.leadersboard.eachlead = function(){
         return UserHashMania.find({},{sort : {"heatScore": -1},limit:4})
     }
+    Template.leadersboard.events({
+        "click .leadersface" : function(event){
+            if(this.instagramUsername)
+            window.open("http://instagram.com/"+this.instagramUsername,"_system");
+            else
+                toast("Not a instagram user.");
+        }
+    });
     Template.BeforeLogin.keyword = function(){
         return Session.get("keyword");
     }
@@ -1003,7 +1011,7 @@ Meteor.documentReady = documentReady;
                 $('#back-top').click(function () {
                     $('#surveybig').animate({
                         scrollTop: 0
-                    }, 100);
+                    }, 10);
          //            return false;
          //        });
           }); 
@@ -1049,7 +1057,7 @@ Meteor.documentReady = documentReady;
         var newElement = null;
         var currentData = null;
         var showFlag = false;
-        upp ='<div id="back-top"></div>'                  // go to upp
+        upp ='<div id="back-top"><i class="level up icon">UP</i></div>'                  // go to upp
         var element = $("#surveybig").append(upp);
        
         for(var i=0,il=data.length;i<il;i++){
@@ -1095,7 +1103,8 @@ Meteor.documentReady = documentReady;
             }
         }
         $(".loadmore").remove();
-        button ='<a class="ui purple button loadmore" id="loadMoreImg">   &#8609; MORE    &#8609; </a>'
+        button ='<a class="ui button  loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);box-shadow: none;" >   &#8609; MORE  &#8609; </a>';
+
         var element = $("#surveybig").append(button);
 
         $(".hashFeed img").hammer().off("tap");  
@@ -1107,6 +1116,7 @@ Meteor.documentReady = documentReady;
         $(".hashFeed img").hammer().off("hold",holdOnBigFeedSurvey);
         $(".hashFeed img").hammer().on("hold",holdOnBigFeedSurvey);
 
+        $(".hashFeed img").error(onImageError)
         
         $(".submitComment").hammer().off("tap");  
         $(".submitComment").hammer().on("tap",tapOnSubmitComment);
@@ -1124,6 +1134,14 @@ Meteor.documentReady = documentReady;
         
         $("#semanticLoader").hide();
     }
+    function onImageError(event){
+        console.log(event)
+        Meteor.myElement = event.currentTarget;
+        var element = $(event.currentTarget).parent(".hashFeed");
+        var likeid = element.attr("likeid");
+        element.remove();
+        Meteor.call("checkImageError",likeid,function(err,data){})
+    }
     function cacheData(data){
         preload[Session.get("keyword")] = data;
         console.log("caching");
@@ -1140,7 +1158,7 @@ Meteor.documentReady = documentReady;
     }
     function tapOnloadMoreImg(){
         console.log("tapOnloadMoreImg")
-        $("#loadMoreImg").css("display","none");
+        $("#loadMoreImg").css("display","block");
 
         var loadMore = [];
         // console.log(moreRenderResults.length);
@@ -1183,7 +1201,7 @@ Meteor.documentReady = documentReady;
 
             return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'" style="border-style: inset;">  '  
-                  +'<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.8;">' +comment +'</p>'      
+                  +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                   +'</div>'
           }
     }
@@ -3632,14 +3650,14 @@ function commentOneVote(){
     if(!value)
       return;
     if(p.length>0){
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.8;">' +value +'</p>';
+      var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>';
       $(currImg).css({"border-style":"inset"});
       $(p).text(value); 
       if(votingid){
         Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
     }else{
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;opacity: 0.8;">' +value +'</p>'; 
+      var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>'; 
       div.insertAdjacentHTML( 'beforeend', html );
       $(currImg).css({"border-style":"inset"});
       if(votingid){
@@ -7417,10 +7435,12 @@ function openSurvey(){
     $(".hashKeyword").css({"display":"none"});
     $('#updownarrow').css({"top": "0%"});
     $(".leaderSection").hide();
+    $('#back-top').fadeOut();
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
     //$("#updownarrow").animate("class","huge sort ascending icon");
     //$("#surveybighandle").css({"z-index":"4"});
     snapTopFlag = false;
+
 }
 function closeSurvey(){
     $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
@@ -7860,6 +7880,7 @@ Meteor.startup(function () {
         if(keyword){
             $("#semanticLoader").show();
             $(".hashKeyword").html("#"+keyword);
+            $("#surveybig").html("");
             // Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){
             //     $(".loading").hide();
             // });

@@ -753,11 +753,12 @@ function documentReady(){
             setTimeout(showKeywordPopup,250);
             suscribeMeteor();
             restoreData();
-            Session.set("keyword",get("keyword"));
+            
             Meteor.call("leaderRanking",CLIENTID,function(err,data){
                 if(data)
                     leaderRanking = data;
-            })
+            });
+            getDefaultData();
             // snapy();  
             // autoLogin();
             // bindEvents();
@@ -1037,9 +1038,9 @@ Meteor.documentReady = documentReady;
         // DataBase[key].prevLoad = DataBase[key].curLoad;
     }
     function renderResults(data,loadMoreFlag){
-        console.log(loadMoreFlag)
+        console.log("load more " +loadMoreFlag)
         if(!data){
-            $("#semanticLoader").hide();
+            // $("#semanticLoader").hide();
             return;
         }
         $(".loading").show();
@@ -1138,7 +1139,7 @@ Meteor.documentReady = documentReady;
         
         // $(".tertiary").hide();
         
-        $("#semanticLoader").hide();
+        // $("#semanticLoader").hide();
     }
     function onImageError(event){
         // console.log(event)
@@ -1828,28 +1829,29 @@ Meteor.documentReady = documentReady;
     // /////////////////////////////end profile////////////////////
     Template.distanceTemplate.distance = function(){
         try{
-            var cursorMe = Me.findOne({"_id":Session.get("clientid")})        
-            if(cursorMe){
-                return cursorMe.score;
-            }
+            return UserHashMania.findOne({"_id":Session.get("clientid")});
+            // var cursorMe = 
+            // if(cursorMe){
+            //     return cursorMe.score;
+            // }
         }
         catch(error){
             console.log(error);
             ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.distanceTemplate.distance"});
         }
     }
-    Template.distanceTemplate.heat = function(){
-        try{
-            var cursorMe = Me.findOne({"_id":Session.get("clientid")})        
-            if(cursorMe){
-                return cursorMe.heatscore;
-            }
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.distanceTemplate.heat"});
-        }
-    }
+    // Template.distanceTemplate.heat = function(){
+    //     try{
+    //         var cursorMe = Me.findOne({"_id":Session.get("clientid")})        
+    //         if(cursorMe){
+    //             return cursorMe.heatscore;
+    //         }
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.distanceTemplate.heat"});
+    //     }
+    // }
 
     // Template.Section2.follows = function(){  
     //     try{
@@ -2336,7 +2338,7 @@ Meteor.documentReady = documentReady;
             try{
                 var tempKeyword = this.keyword;
                 toast("#" +tempKeyword +" is started.");
-                
+                console.log("click .eachkeyword")
                 Meteor.call("findHashKeyword",tempKeyword,CLIENTID,function(err,data){
                                
                 });
@@ -3728,6 +3730,7 @@ function commentOneVote(){
       }
     }else{
       var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>'; 
+      if(div)
       div.insertAdjacentHTML( 'beforeend', html );
       $(currImg).css({"border-style":"inset"});
       if(votingid){
@@ -5955,7 +5958,9 @@ function showKeywordPopup(){
 }
 function searchHash(){
     var starttimer = new Date().getTime();
-  var searchKeyword = $("#searchKeyword").val();
+    var searchKeyword = $("#searchKeyword").val();
+    searchKeyword = searchKeyword.replace(" ","");
+    console.log("searchHash")
     Session.set("keyword",searchKeyword)
     if(!searchKeyword){
         toast(i18n.__("enterKeyword"));
@@ -7937,18 +7942,45 @@ function divOldNew(data){
     // renderResults(newRenderResults);
 }
 function getDefaultData(){
-
+    var currentKeyword = SponserKeyword.find({},{sort : {"hits": -1}});
+    var newCacheData = null;
+    var keyword;
+    var keywordArray = []; 
+    currentKeyword.forEach(function(data){   
+          keywordArray.push(data.keyword);                           
+    });
+    for(var i=0,il=keywordArray.length;i<il;i++){
+        keyword = keywordArray[i];
+        if(preload[keyword])
+            continue;
+        Meteor.call("getResult",keyword,CLIENTID,function(err,data){
+            if(data){
+                // console.log(data[0].keyword.keyword);
+                newCacheData = preload[data[0].keyword.keyword];
+                // console.log(newCacheData);
+                if(!newCacheData){
+                    console.log("!newCacheData")
+                    // console.log(data)
+                    preload[data[0].keyword.keyword] = data;
+                   // cacheData(data); 
+                }
+                else{
+                    console.log("newCacheData");
+                }
+            }
+        });
+    }
 }
 Meteor.startup(function () {
-    
+    Session.set("keyword",get("keyword"));
     Deps.autorun(function(){
         CLIENTID = Session.get("clientid");    
     })
     Deps.autorun(function(){
         var keyword = Session.get("keyword");
-        console.log(keyword);
+        console.log("deps autorun " +keyword);
         if(keyword){
-            $("#semanticLoader").show();
+            // $("#semanticLoader").show();
             $(".hashKeyword").html("#"+keyword);
             $("#surveybig").html("");
             // Meteor.subscribe("hashkeyword",Session.get("keyword"),function onReady(){
@@ -7974,7 +8006,7 @@ Meteor.startup(function () {
             }
             
             set("keyword",keyword)
-            getDefaultData();
+            // getDefaultData();
             // }
             
         }

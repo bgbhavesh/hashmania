@@ -2237,6 +2237,7 @@ direction: ltr;
 	width: 100%;
 	float: left;
 	height: 20px;
+	margin: 1%;
 }
 .commentwrapper img,.commentwrapper textarea{
 	position: relative;

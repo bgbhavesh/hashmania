@@ -727,7 +727,7 @@ function getRankLeader(clientid){
     return 1;
 }
 function documentReady(){
-
+            // console.log("documentReady")
             // autoLogin();
             // iphone 3gs unable to scroll issue
             // $("body").on("touchmove",function(event){
@@ -1041,8 +1041,8 @@ Meteor.documentReady = documentReady;
         // DataBase[key].prevLoad = DataBase[key].curLoad;
     }
     function renderResults(data,loadMoreFlag){
-        console.log(data)
-        console.log("load more " +loadMoreFlag)
+        // console.log(data)
+        // console.log("load more " +loadMoreFlag)
         if(!data){
             // $("#semanticLoader").hide();
             return;
@@ -1105,7 +1105,7 @@ Meteor.documentReady = documentReady;
                     showFlag = true;
                 }
                 
-                appendVotesManuallyHash(currentData.keyword.likeid,currentData.votes[j])
+                // appendVotesManuallyHash(currentData.keyword.likeid,currentData.votes[j])
             }
             $("#"+currentData.keyword.likeid).children(".tertiary").hide();
             if(showFlag){
@@ -1206,9 +1206,11 @@ Meteor.documentReady = documentReady;
         var local = currentVote;
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
+        console.log("likeid"+id)
         $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment))
     }
     function getVoteHTMLHash(left,top,size,pics,id,clientid,comment){
+        // console.log("id"+id+"/ comment"+comment)
       if(!comment){
             return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'">'
@@ -7943,6 +7945,7 @@ function divOldNew(data){
     // renderResults(newRenderResults);
 }
 function getDefaultData(){
+    console.log("getDefaultData");
     var currentKeyword = SponserKeyword.find({},{sort : {"hits": -1}});
     var newCacheData = null;
     var keyword;
@@ -7971,14 +7974,17 @@ function getDefaultData(){
     }
 }
 Meteor.startup(function () {
-    
+    // console.log("startup");
+    // Session.set("keyword",get("keyword"));
     Deps.autorun(function(){
         CLIENTID = Session.get("clientid");    
     })
     Deps.autorun(function(){
         var keyword = Session.get("keyword");
-        console.log(keyword);
+        // console.log("keyword");
+        // console.log(keyword);
         if(keyword){
+            console.log("called here " +keyword)
             // $("#semanticLoader").show();
             $(".hashKeyword").html("#"+keyword);
             $("#surveybig").html("");
@@ -7998,7 +8004,7 @@ Meteor.startup(function () {
                 console.log("preloading");
             }
             else{
-                console.log("serverloading");
+                // console.log("serverloading");
                 Meteor.call("getResult",keyword,CLIENTID,++pageCount,function(err,data){
                     renderResults(data);
                 });

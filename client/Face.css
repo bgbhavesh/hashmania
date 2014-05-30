@@ -1899,7 +1899,7 @@ h6 {}
 
     color: rgb(255, 255, 255);
     /*background: linear-gradient(rgb(46, 136, 196), rgb(7, 86, 152)) repeat scroll 0% 0% transparent;*/
-    border-radius: 10px 10px 0px 10px;
+    border-radius: 10px 0px 10px 10px;
 
 }
 p {

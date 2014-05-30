@@ -727,7 +727,7 @@ function getRankLeader(clientid){
     return 1;
 }
 function documentReady(){
-
+            // console.log("documentReady")
             // autoLogin();
             // iphone 3gs unable to scroll issue
             // $("body").on("touchmove",function(event){
@@ -753,7 +753,7 @@ function documentReady(){
             setTimeout(showKeywordPopup,250);
             suscribeMeteor();
             restoreData();
-            
+            Session.set("keyword",get("keyword"));
             Meteor.call("leaderRanking",CLIENTID,function(err,data){
                 if(data)
                     leaderRanking = data;
@@ -1020,7 +1020,11 @@ Meteor.documentReady = documentReady;
                     }
             
                 $('#back-top').click(function () {
-                    $('#surveybig').animate({scrollTop: 0 }, 10);
+                    $('#surveybig').animate({
+                        scrollTop: 0
+                    }, 10);
+         //            return false;
+         //        });
           }); 
     }
     function initDataBase(key){
@@ -1038,7 +1042,12 @@ Meteor.documentReady = documentReady;
         // DataBase[key].prevLoad = DataBase[key].curLoad;
     }
     function renderResults(data,loadMoreFlag){
+<<<<<<< HEAD
+        // console.log(data)
+        // console.log("load more " +loadMoreFlag)
+=======
         console.log("load more " +loadMoreFlag)
+>>>>>>> a6b92b005af02f7529ac964d02e45722660de620
         if(!data){
             // $("#semanticLoader").hide();
             return;
@@ -1066,10 +1075,7 @@ Meteor.documentReady = documentReady;
         var showFlag = false;
         upp ='<div id="back-top"><i class="level up icon">UP</i></div>'                  // go to upp
         var element = $("#surveybig").append(upp);
-        $(".loadmore").remove();
-        button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   &#8609; MORE  &#8609; </a>';
-        var element = $("#surveybig").append(button);
-
+       
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
             currentData = data[i];
@@ -1112,7 +1118,11 @@ Meteor.documentReady = documentReady;
                 $("#"+currentData.keyword.likeid).children(".tertiary").show();
             }
         }
-       
+        $(".loadmore").remove();
+        button ='<a class="ui button  loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);box-shadow: none;" >   &#8609; MORE  &#8609; </a>';
+
+        var element = $("#surveybig").append(button);
+
         $(".hashFeed img").hammer().off("tap");  
         $(".hashFeed img").hammer().on("tap",tapOnBigFeedSurvey);
 
@@ -1136,7 +1146,8 @@ Meteor.documentReady = documentReady;
         $("#surveybighandle").hammer().off("tap");
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
         
-        // $(".tertiary").hide();        
+        // $(".tertiary").hide();
+        
         // $("#semanticLoader").hide();
     }
     function onImageError(event){
@@ -1168,10 +1179,10 @@ Meteor.documentReady = documentReady;
     }
     function tapOnloadMoreImg(){
         console.log("tapOnloadMoreImg")
-        // $("#loadMoreImg").css("display","block");
+        $("#loadMoreImg").css("display","block");
 
         var loadMore = [];
-        console.log(moreRenderResults.length);
+        // console.log(moreRenderResults.length);
         var limit = $(".hashFeed").length;
         if(moreRenderResults == 0){
             // Meteor.call("getMoreResult",Session.get("keyword"),CLIENTID,limit,function(err,data){
@@ -1200,9 +1211,11 @@ Meteor.documentReady = documentReady;
         var local = currentVote;
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
+        console.log("likeid"+id)
         $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment))
     }
     function getVoteHTMLHash(left,top,size,pics,id,clientid,comment){
+        // console.log("id"+id+"/ comment"+comment)
       if(!comment){
             return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'">'
@@ -1353,6 +1366,7 @@ Meteor.documentReady = documentReady;
                     // tapOnBigFeedSecond(null,currentvotes[i]);
                 }
                 return;
+
             }            
         }
         for(var i=0,il=currentvotes.length;i<il;i++){
@@ -2336,6 +2350,7 @@ Meteor.documentReady = documentReady;
             try{
                 var tempKeyword = this.keyword;
                 toast("#" +tempKeyword +" is started.");
+                console.log("click .eachkeyword")
                 Meteor.call("findHashKeyword",tempKeyword,CLIENTID,function(err,data){
                                
                 });
@@ -3676,14 +3691,14 @@ function showcomments(){
             //         // +'</div>'
             //         // +'<div class="ui right labeled icon input submitComment" class="allcomment">'
             //             +'<i class="comment icon"></i>'
-            //             +'<textarea disabled id="commentInput" type="text" cols="15" rows="4" placeholder="">'+p+'</textarea>'
+            //             +'<textarea disabled id="commentInput" type="text" cols="40" rows="4" placeholder="">'+p+'</textarea>'
             //         // +'</div>'
             //         +'<div id="cross" style=""><strong>x</strong></div>'
             //     +'</div>';
             html =  '<div class="commentwrapper" ' +style +'>'
                         +'<img src="'+img+'">'
                         +'<i class="comment icon"></i>'
-                        +'<textarea disabled="" id="commentInput" type="text" cols="15" rows="6" placeholder="">'+p+'</textarea>'              
+                        +'<textarea disabled="" id="commentInput" type="text" cols="40" rows="4" placeholder="">'+p+'</textarea>'              
                     +'</div>'
             // if(clientid == Session.get("clientid")){
             //     html = '<div class="commentwrapper"><div class="imageComment" class="allcomment" style="float:left">'
@@ -5955,8 +5970,13 @@ function showKeywordPopup(){
 }
 function searchHash(){
     var starttimer = new Date().getTime();
+<<<<<<< HEAD
+  var searchKeyword = $("#searchKeyword").val();
+=======
     var searchKeyword = $("#searchKeyword").val();
-    searchKeyword = searchKeyword.replace(" ","")
+    searchKeyword = searchKeyword.replace(" ","");
+    console.log("searchHash")
+>>>>>>> a6b92b005af02f7529ac964d02e45722660de620
     Session.set("keyword",searchKeyword)
     if(!searchKeyword){
         toast(i18n.__("enterKeyword"));
@@ -7938,6 +7958,7 @@ function divOldNew(data){
     // renderResults(newRenderResults);
 }
 function getDefaultData(){
+    console.log("getDefaultData");
     var currentKeyword = SponserKeyword.find({},{sort : {"hits": -1}});
     var newCacheData = null;
     var keyword;
@@ -7947,35 +7968,40 @@ function getDefaultData(){
     });
     for(var i=0,il=keywordArray.length;i<il;i++){
         keyword = keywordArray[i];
-        if(preload[keyword])
-            continue;
         Meteor.call("getResult",keyword,CLIENTID,function(err,data){
-            if(data){
-                // console.log(data[0].keyword.keyword);
-                newCacheData = preload[data[0].keyword.keyword];
-                // console.log(newCacheData);
-                if(!newCacheData){
-                    console.log("!newCacheData")
-                    // console.log(data)
-                    preload[data[0].keyword.keyword] = data;
-                   // cacheData(data); 
+                if(data){
+                    // console.log(data[0].keyword.keyword);
+                    newCacheData = preload[data[0].keyword.keyword];
+                    // console.log(newCacheData);
+                    if(!newCacheData){
+                        console.log("!newCacheData")
+                        // console.log(data)
+                        preload[data[0].keyword.keyword] = data;
+                       // cacheData(data); 
+                    }
+                    else{
+                        console.log("newCacheData");
+                    }
                 }
-                else{
-                    console.log("newCacheData");
-                }
-            }
-        });
+            });
     }
 }
 Meteor.startup(function () {
-    Session.set("keyword",get("keyword"));
+    // console.log("startup");
+    // Session.set("keyword",get("keyword"));
     Deps.autorun(function(){
         CLIENTID = Session.get("clientid");    
     })
     Deps.autorun(function(){
         var keyword = Session.get("keyword");
+<<<<<<< HEAD
+        // console.log("keyword");
+        // console.log(keyword);
+=======
         console.log("deps autorun " +keyword);
+>>>>>>> a6b92b005af02f7529ac964d02e45722660de620
         if(keyword){
+            console.log("called here " +keyword)
             // $("#semanticLoader").show();
             $(".hashKeyword").html("#"+keyword);
             $("#surveybig").html("");
@@ -7995,7 +8021,7 @@ Meteor.startup(function () {
                 console.log("preloading");
             }
             else{
-                console.log("serverloading");
+                // console.log("serverloading");
                 Meteor.call("getResult",keyword,CLIENTID,++pageCount,function(err,data){
                     renderResults(data);
                 });

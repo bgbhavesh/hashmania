@@ -1019,11 +1019,7 @@ Meteor.documentReady = documentReady;
                     }
             
                 $('#back-top').click(function () {
-                    $('#surveybig').animate({
-                        scrollTop: 0
-                    }, 10);
-         //            return false;
-         //        });
+                    $('#surveybig').animate({scrollTop: 0 }, 10);
           }); 
     }
     function initDataBase(key){
@@ -1113,7 +1109,7 @@ Meteor.documentReady = documentReady;
             }
         }
         $(".loadmore").remove();
-        button ='<a class="ui button  loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);box-shadow: none;" >   &#8609; MORE  &#8609; </a>';
+        button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   &#8609; MORE  &#8609; </a>';
 
         var element = $("#surveybig").append(button);
 
@@ -1173,10 +1169,10 @@ Meteor.documentReady = documentReady;
     }
     function tapOnloadMoreImg(){
         console.log("tapOnloadMoreImg")
-        $("#loadMoreImg").css("display","block");
+        // $("#loadMoreImg").css("display","block");
 
         var loadMore = [];
-        // console.log(moreRenderResults.length);
+        console.log(moreRenderResults.length);
         var limit = $(".hashFeed").length;
         if(moreRenderResults == 0){
             // Meteor.call("getMoreResult",Session.get("keyword"),CLIENTID,limit,function(err,data){
@@ -1358,7 +1354,6 @@ Meteor.documentReady = documentReady;
                     // tapOnBigFeedSecond(null,currentvotes[i]);
                 }
                 return;
-
             }            
         }
         for(var i=0,il=currentvotes.length;i<il;i++){

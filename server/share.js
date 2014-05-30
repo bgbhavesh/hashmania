@@ -90,7 +90,9 @@ App.facebook = function(query){
         console.log(facebookInfo);
         console.log(state)
         // HASHREPUBLIC
-            var cursorUserHashMania = UserHashMania.findOne({"emailtoken":state})
+            var cursorUserHashMania = UserHashMania.findOne({"emailtoken":state});
+            if(!cursorUserHashMania)
+                cursorUserHashMania = UserHashMania.findOne({"_id":state});
             console.log(cursorUserHashMania)
             if(cursorUserHashMania){
                 UserHashMania.update({"_id":cursorUserHashMania._id},{$set :facebookInfo});

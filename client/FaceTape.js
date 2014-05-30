@@ -5730,7 +5730,7 @@ function loginWithInstagramHashManiaCallbackFunction(err){
 
     }
     else{
-        Meteor.call("mergedMyFace",emailAuthFlag,function(){
+        Meteor.call("mergedMyFace",emailAuthFlag,Session.get("clientid"),function(){
             $(".hideAfterComplete").html("Now");
             console.log("here too")
         })
@@ -5762,7 +5762,7 @@ function loginWithFacebook(){
                 clearInterval(facebookIntervalID);        
             }
     })
-    onScore(10);
+    onScore(1000);
     // {
     //         $(".hideAfterComplete").html("Now");
     //     }
@@ -6270,7 +6270,7 @@ function bindEvents(){
             });
              $("#sePassLogin").keyup(function(event){
                 if(event.keyCode == 13){
-                    onloginWithHashRepublic();
+                    onLoginWithHashRepublic();
                 }
             });
             $("#searchKeyword").keyup(function(event){
@@ -7920,7 +7920,7 @@ function clickOnLoginButton(){
         setTimeout(function(){$("#loginwithInsta,#loginButton").show();},3000);
         showLoader("Login Process");
             preLoginAction();            
-            Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramCallbackFunction);
+            Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramHashManiaCallbackFunction);
               
             Me.update({"_id":ClientId},{$inc : {"timesLoggedin" : 1}});
             firstTimeLoginFlag = true;

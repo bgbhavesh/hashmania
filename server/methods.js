@@ -1613,8 +1613,10 @@ language.html = [
             }
             return false;
         },
-        "mergedMyFace" : function(emailtoken){
+        "mergedMyFace" : function(emailtoken,clientid){
             var cursorUserHashMania = UserHashMania.findOne({"emailtoken":emailtoken});
+            if(clientid)
+                cursorUserHashMania = UserHashMania.findOne({"_id":clientid});
             if(cursorUserHashMania){
                                                                                         // ,"emailtoken":"" can use for future
                 

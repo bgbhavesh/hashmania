@@ -175,13 +175,11 @@ margin: 1%;
 	width: initial;
 	background-color: steelblue;
 	color: white;
-
 }
 .submenu, .helpSubMenu{	
     font-size: 20px;
     background-color: cornflowerblue;
     width: 90%;
-
 }
 #showpicsmenu1{
 	height: 35%;
@@ -1783,7 +1781,8 @@ h6 {}
 }
 .imageComment{
 	width:40%;
-	margin: 5%;
+	margin: 1%;
+	overflow: auto;
 
 }
 .imageComment img {height: 100%;}
@@ -1791,13 +1790,11 @@ h6 {}
   position : absolute;
   display : none; 
 }
-/*#commentInput{
-	width: 100%;
-	height: 140px;
-}*/
+
 .submitComment{
 	width:40%;
-	margin: 5%;	
+	margin: 1%;	
+	overflow :auto;
 }
 #commentingOverlay{
 	display: none;
@@ -1818,8 +1815,9 @@ h6 {}
 	margin-left: 5%;
 	opacity: 0.8;
 	background-color: #394264;
-	height: 60%;
+	max-height: 60%;
 	overflow-y: scroll;
+	padding: 1%;
 }
 #showallcomments{
 	background: rgb(37, 36, 77);
@@ -1837,8 +1835,8 @@ h6 {}
     width: 0px;
 }*/
 .loadmore{
-	background-color: #50597b;
-	box-shadow: none;
+	/*background-color: rgb(81,90,122);*/
+	/*box-shadow: none;*/
 	/*height: 10%;*/
 	/*width: 20%;*/
 	/*margin-left: 40%;*/
@@ -1875,9 +1873,7 @@ h6 {}
 	-moz-transition: 1s;
 	transition: 1s;
 }*/
-#back-top p:hover span {
-	background-color: #777;
-}
+
 #cross
 {
 	float: right;
@@ -1887,7 +1883,7 @@ h6 {}
 	color: white;
 	background-color: #11a8ab;
 	margin-right: 4%;
-	border-radius: 10px 10.0px 0px 0px
+	border-radius: 10px 10px 10px 0px
 }
 .triangle-right {
 	font-size: 15px;

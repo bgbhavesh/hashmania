@@ -753,7 +753,7 @@ function documentReady(){
             setTimeout(showKeywordPopup,250);
             suscribeMeteor();
             restoreData();
-            Session.set("keyword",get("keyword"));
+            
             Meteor.call("leaderRanking",CLIENTID,function(err,data){
                 if(data)
                     leaderRanking = data;
@@ -5961,7 +5961,8 @@ function showKeywordPopup(){
 }
 function searchHash(){
     var starttimer = new Date().getTime();
-  var searchKeyword = $("#searchKeyword").val();
+    var searchKeyword = $("#searchKeyword").val();
+    searchKeyword = searchKeyword.replace(" ","")
     Session.set("keyword",searchKeyword)
     if(!searchKeyword){
         toast(i18n.__("enterKeyword"));
@@ -7952,26 +7953,28 @@ function getDefaultData(){
     });
     for(var i=0,il=keywordArray.length;i<il;i++){
         keyword = keywordArray[i];
+        if(preload[keyword])
+            continue;
         Meteor.call("getResult",keyword,CLIENTID,function(err,data){
-                if(data){
-                    // console.log(data[0].keyword.keyword);
-                    newCacheData = preload[data[0].keyword.keyword];
-                    // console.log(newCacheData);
-                    if(!newCacheData){
-                        console.log("!newCacheData")
-                        // console.log(data)
-                        preload[data[0].keyword.keyword] = data;
-                       // cacheData(data); 
-                    }
-                    else{
-                        console.log("newCacheData");
-                    }
+            if(data){
+                // console.log(data[0].keyword.keyword);
+                newCacheData = preload[data[0].keyword.keyword];
+                // console.log(newCacheData);
+                if(!newCacheData){
+                    console.log("!newCacheData")
+                    // console.log(data)
+                    preload[data[0].keyword.keyword] = data;
+                   // cacheData(data); 
                 }
-            });
+                else{
+                    console.log("newCacheData");
+                }
+            }
+        });
     }
 }
 Meteor.startup(function () {
-    
+    Session.set("keyword",get("keyword"));
     Deps.autorun(function(){
         CLIENTID = Session.get("clientid");    
     })

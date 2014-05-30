@@ -688,6 +688,8 @@ Meteor.startup(function () {
 
                 startCount++
             });
+            var faqUrl= 'https://docs.google.com/forms/d/1oIoqFrz1F55Nc4i_v4IgSxmWbf9wLPTQGJrC3DyA-L8/viewform';
+            faqdata = Meteor.http.get(faqUrl).content;
         }
 
         
@@ -737,9 +739,11 @@ Meteor.startup(function () {
     }        
     else
         ContestID = Contest.insert({"countDownHours":0,"countDownMins":0,"countDownSecs":0});
+   
     
     if(!DebugFace)
         checkContest();
+
     /*
         http://zulfait.blogspot.in/2013/01/meteor-js-send-email-through-gmail.html
         can send email through gmail
@@ -750,8 +754,7 @@ Meteor.startup(function () {
 
     // HASTEN SMTP ADDRESS
     process.env.MAIL_URL = 'smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587';
-    var faqUrl= 'https://docs.google.com/forms/d/1oIoqFrz1F55Nc4i_v4IgSxmWbf9wLPTQGJrC3DyA-L8/viewform';
-    faqdata = Meteor.http.get(faqUrl).content;
+    
     // console.log(faqdata)
 });
 App.testNewUser = testNewUser;

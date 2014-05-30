@@ -1066,10 +1066,7 @@ Meteor.documentReady = documentReady;
         var showFlag = false;
         upp ='<div id="back-top"><i class="level up icon">UP</i></div>'                  // go to upp
         var element = $("#surveybig").append(upp);
-        $(".loadmore").remove();
-        button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   &#8609; MORE  &#8609; </a>';
-        var element = $("#surveybig").append(button);
-
+        
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
             currentData = data[i];
@@ -1112,7 +1109,10 @@ Meteor.documentReady = documentReady;
                 $("#"+currentData.keyword.likeid).children(".tertiary").show();
             }
         }
-       
+       $(".loadmore").remove();
+        button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   &#8609; MORE  &#8609; </a>';
+        var element = $("#surveybig").append(button);
+
         $(".hashFeed img").hammer().off("tap");  
         $(".hashFeed img").hammer().on("tap",tapOnBigFeedSurvey);
 
@@ -1168,7 +1168,7 @@ Meteor.documentReady = documentReady;
     }
     function tapOnloadMoreImg(){
         console.log("tapOnloadMoreImg")
-        // $("#loadMoreImg").css("display","block");
+        $("#loadMoreImg").css("display","none");
 
         var loadMore = [];
         console.log(moreRenderResults.length);

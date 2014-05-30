@@ -757,7 +757,8 @@ function documentReady(){
             Meteor.call("leaderRanking",CLIENTID,function(err,data){
                 if(data)
                     leaderRanking = data;
-            })
+            });
+            getDefaultData();
             // snapy();  
             // autoLogin();
             // bindEvents();
@@ -1041,7 +1042,6 @@ Meteor.documentReady = documentReady;
         // DataBase[key].prevLoad = DataBase[key].curLoad;
     }
     function renderResults(data,loadMoreFlag){
-        console.log(data)
         console.log("load more " +loadMoreFlag)
         if(!data){
             // $("#semanticLoader").hide();
@@ -1834,28 +1834,29 @@ Meteor.documentReady = documentReady;
     // /////////////////////////////end profile////////////////////
     Template.distanceTemplate.distance = function(){
         try{
-            var cursorMe = Me.findOne({"_id":Session.get("clientid")})        
-            if(cursorMe){
-                return cursorMe.score;
-            }
+            return UserHashMania.findOne({"_id":Session.get("clientid")});
+            // var cursorMe = 
+            // if(cursorMe){
+            //     return cursorMe.score;
+            // }
         }
         catch(error){
             console.log(error);
             ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.distanceTemplate.distance"});
         }
     }
-    Template.distanceTemplate.heat = function(){
-        try{
-            var cursorMe = Me.findOne({"_id":Session.get("clientid")})        
-            if(cursorMe){
-                return cursorMe.heatscore;
-            }
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.distanceTemplate.heat"});
-        }
-    }
+    // Template.distanceTemplate.heat = function(){
+    //     try{
+    //         var cursorMe = Me.findOne({"_id":Session.get("clientid")})        
+    //         if(cursorMe){
+    //             return cursorMe.heatscore;
+    //         }
+    //     }
+    //     catch(error){
+    //         console.log(error);
+    //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.distanceTemplate.heat"});
+    //     }
+    // }
 
     // Template.Section2.follows = function(){  
     //     try{
@@ -2342,7 +2343,7 @@ Meteor.documentReady = documentReady;
             try{
                 var tempKeyword = this.keyword;
                 toast("#" +tempKeyword +" is started.");
-                
+                console.log("click .eachkeyword")
                 Meteor.call("findHashKeyword",tempKeyword,CLIENTID,function(err,data){
                                
                 });
@@ -3734,6 +3735,7 @@ function commentOneVote(){
       }
     }else{
       var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>'; 
+      if(div)
       div.insertAdjacentHTML( 'beforeend', html );
       $(currImg).css({"border-style":"inset"});
       if(votingid){
@@ -5962,7 +5964,8 @@ function showKeywordPopup(){
 function searchHash(){
     var starttimer = new Date().getTime();
     var searchKeyword = $("#searchKeyword").val();
-    searchKeyword = searchKeyword.replace(" ","")
+    searchKeyword = searchKeyword.replace(" ","");
+    console.log("searchHash")
     Session.set("keyword",searchKeyword)
     if(!searchKeyword){
         toast(i18n.__("enterKeyword"));
@@ -7980,7 +7983,7 @@ Meteor.startup(function () {
     })
     Deps.autorun(function(){
         var keyword = Session.get("keyword");
-        console.log(keyword);
+        console.log("deps autorun " +keyword);
         if(keyword){
             // $("#semanticLoader").show();
             $(".hashKeyword").html("#"+keyword);
@@ -8008,7 +8011,7 @@ Meteor.startup(function () {
             }
             
             set("keyword",keyword)
-            getDefaultData();
+            // getDefaultData();
             // }
             
         }

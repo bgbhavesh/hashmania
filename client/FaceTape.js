@@ -1066,7 +1066,10 @@ Meteor.documentReady = documentReady;
         var showFlag = false;
         upp ='<div id="back-top"><i class="level up icon">UP</i></div>'                  // go to upp
         var element = $("#surveybig").append(upp);
-       
+        $(".loadmore").remove();
+        button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   &#8609; MORE  &#8609; </a>';
+        var element = $("#surveybig").append(button);
+
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
             currentData = data[i];
@@ -1109,11 +1112,7 @@ Meteor.documentReady = documentReady;
                 $("#"+currentData.keyword.likeid).children(".tertiary").show();
             }
         }
-        $(".loadmore").remove();
-        button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   &#8609; MORE  &#8609; </a>';
-
-        var element = $("#surveybig").append(button);
-
+       
         $(".hashFeed img").hammer().off("tap");  
         $(".hashFeed img").hammer().on("tap",tapOnBigFeedSurvey);
 
@@ -1137,8 +1136,7 @@ Meteor.documentReady = documentReady;
         $("#surveybighandle").hammer().off("tap");
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
         
-        // $(".tertiary").hide();
-        
+        // $(".tertiary").hide();        
         // $("#semanticLoader").hide();
     }
     function onImageError(event){
@@ -3679,14 +3677,14 @@ function showcomments(){
             //         // +'</div>'
             //         // +'<div class="ui right labeled icon input submitComment" class="allcomment">'
             //             +'<i class="comment icon"></i>'
-            //             +'<textarea disabled id="commentInput" type="text" cols="40" rows="4" placeholder="">'+p+'</textarea>'
+            //             +'<textarea disabled id="commentInput" type="text" cols="15" rows="4" placeholder="">'+p+'</textarea>'
             //         // +'</div>'
             //         +'<div id="cross" style=""><strong>x</strong></div>'
             //     +'</div>';
             html =  '<div class="commentwrapper" ' +style +'>'
                         +'<img src="'+img+'">'
                         +'<i class="comment icon"></i>'
-                        +'<textarea disabled="" id="commentInput" type="text" cols="40" rows="4" placeholder="">'+p+'</textarea>'              
+                        +'<textarea disabled="" id="commentInput" type="text" cols="15" rows="6" placeholder="">'+p+'</textarea>'              
                     +'</div>'
             // if(clientid == Session.get("clientid")){
             //     html = '<div class="commentwrapper"><div class="imageComment" class="allcomment" style="float:left">'

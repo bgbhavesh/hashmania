@@ -53,7 +53,7 @@ body{
 #hashFaqForm{
 	float: left;
 	height: 100%;
-	width: 30%;
+	width: 50%;
 	display: none;
 /*	left: 50%;
 */	position: absolute;
@@ -1788,7 +1788,7 @@ h6 {}
 .imageComment img {height: 100%;}
 #comment{
   position : absolute;
-  display : none;  
+  display : none; 
 }
 
 .submitComment{
@@ -1895,7 +1895,7 @@ h6 {}
 
     color: rgb(255, 255, 255);
     /*background: linear-gradient(rgb(46, 136, 196), rgb(7, 86, 152)) repeat scroll 0% 0% transparent;*/
-    border-radius: 10px 0px 10px 10px;
+    border-radius: 10px 10px 0px 10px;
 
 }
 p {

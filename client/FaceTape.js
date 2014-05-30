@@ -595,6 +595,7 @@ function onLoginWithHashRepublic(){
             Session.set("clientid",email);
             set("welcomeAlert",true);
             set("profile_picture",data.instagramFace);
+            // Session.set("profile_picture",data.instagramFace)
             set("password",password)
 
         }
@@ -678,6 +679,7 @@ function onSignUpWithTapmate(){
           CLIENTID = email;
           Session.set("clientid",email);
           set("profile_picture","/images/face.jpg");
+          // Session.set("profile_picture","/images/face.jpg");
           welcomeAlertPopup();
           set("welcomeAlert",true);
           // $("#seError").css("display","none");
@@ -1330,6 +1332,7 @@ Meteor.documentReady = documentReady;
             votepic = "/images/face.jpg"; 
         voteFlag = false;
         var date = new Date().getTime();
+        $('.imageComment img').attr('src',get("profile_picture"));
         // console.log(likeid +" " +Session.get("currentBig"));
         top+=40;
         var currentvotes = $("#"+likeid).children(".voting");
@@ -3596,9 +3599,10 @@ function tapOnBigFeedSecond(event,myElement){
         }else{
             $("#commentInput").val("");
         }
-        $('.imageComment img').attr('src',get("profile_picture"));
+        // var src = get("profile_picture");
+        // console.log(src);
         showSpecialPopup("commentingOverlay");
-        $(currentCommenting).css({"display":"none"});
+        // $(currentCommenting).css({"display":"none"});
         // $("#commentingOverlay").show();
         // will see later use
         return;
@@ -3714,7 +3718,7 @@ function commentOneVote(){
     var currImg = $(currentCommenting).find("img");
     var div = currentCommenting;
     var votingid = $(div).attr("votingid");
-    $(currentCommenting).css({"display":"block"});
+    // $(currentCommenting).css({"display":"block"});
     // console.log(currentCommenting);
     if(!value)
       return;
@@ -5722,7 +5726,7 @@ function loginWithInstagramHashManiaCallbackFunction(err){
 
     }
     else{
-        Meteor.call("mergedMyFace",emailAuthFlag,function(){
+        Meteor.call("mergedMyFace",emailAuthFlag,Session.get("clientid"),function(){
             $(".hideAfterComplete").html("Now");
             console.log("here too")
         })
@@ -5754,7 +5758,7 @@ function loginWithFacebook(){
                 clearInterval(facebookIntervalID);        
             }
     })
-    onScore(10);
+    onScore(1000);
     // {
     //         $(".hideAfterComplete").html("Now");
     //     }
@@ -6261,7 +6265,7 @@ function bindEvents(){
             });
              $("#sePassLogin").keyup(function(event){
                 if(event.keyCode == 13){
-                    onloginWithHashRepublic();
+                    onLoginWithHashRepublic();
                 }
             });
             $("#searchKeyword").keyup(function(event){
@@ -7911,7 +7915,7 @@ function clickOnLoginButton(){
         setTimeout(function(){$("#loginwithInsta,#loginButton").show();},3000);
         showLoader("Login Process");
             preLoginAction();            
-            Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramCallbackFunction);
+            Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramHashManiaCallbackFunction);
               
             Me.update({"_id":ClientId},{$inc : {"timesLoggedin" : 1}});
             firstTimeLoginFlag = true;

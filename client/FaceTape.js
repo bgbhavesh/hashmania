@@ -1391,6 +1391,7 @@ Meteor.documentReady = documentReady;
                     tapOnBigFeedSecond(null,currentvotes[i]);
                     // showSpecialPopup("commentingOverlay");
                     // currentCommenting
+                    $("#commentInput").focus();
                     return;
                 }
                 else if(noComment.length>0){
@@ -3720,7 +3721,7 @@ function showcomments(){
         var clientid = $(votes[i]).attr("clientid");
         img = $(votes[i]).children("img").attr("src");
         clientid = $(votes[i]).attr("clientid");
-        console.log("p="+p+"/ img="+img)
+        // console.log("p="+p+"/ img="+img)
         if(p){
             size = 20 * getRankLeader(clientid);
             size = Math.min(size,100);

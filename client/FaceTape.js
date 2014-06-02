@@ -1347,19 +1347,20 @@ Meteor.documentReady = documentReady;
                 // console.log($(currentvotes[i]).find("p"));
                 var noComment = $(currentvotes[i]).find("p");
                 // console.log(noComment.length);
-                if(noComment){
+                if(noComment.length==0){
                     showcomments();
                     tapOnBigFeedSecond(null,currentvotes[i]);
                     // showSpecialPopup("commentingOverlay");
                     // currentCommenting
                     return;
                 }
-                // else if(noComment.length>0){
-                //     // console.log("noComment else")
-                //     showcomments();
-                //     showSpecialPopup("commentingOverlay");
-                //     // tapOnBigFeedSecond(null,currentvotes[i]);
-                // }
+                else if(noComment.length>0){
+                    console.log("noComment else"+noComment.length)
+                    showcomments();
+                    tapOnBigFeedSecond(null,currentvotes[i]);
+                    showSpecialPopup("commentingOverlay");
+                    // tapOnBigFeedSecond(null,currentvotes[i]);
+                }
                 $("#commentInput").focus();
                 return;
             }            
@@ -3680,6 +3681,7 @@ function showcomments(){
         var clientid = $(votes[i]).attr("clientid");
         img = $(votes[i]).children("img").attr("src");
         clientid = $(votes[i]).attr("clientid");
+        console.log("p="+p+"/ img="+img)
         if(p){
             size = 20 * getRankLeader(clientid);
             size = Math.min(size,100);

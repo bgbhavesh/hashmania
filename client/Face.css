@@ -1841,6 +1841,14 @@ h6 {}
 	/*width: 20%;*/
 	/*margin-left: 40%;*/
 }
+.leaderSection{
+	margin-left: 7%;
+}
+.leadersface
+{
+	height: 65%;
+	width: 10%;
+}
 #back-top :active{
 	color: black;
 }

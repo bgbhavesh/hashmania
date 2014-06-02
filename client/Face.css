@@ -136,7 +136,7 @@ body{
 }
 .leaderSection{
 	height: 50%;
-
+	display: none;
 }
 .leadersface {
 height: 22%;

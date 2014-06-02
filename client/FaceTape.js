@@ -259,6 +259,7 @@ MethodTimer = new Meteor.Collection("methodtimer");
 HashKeyword  = new Meteor.Collection("hashkeyword");
 HashComment  = new Meteor.Collection("hashcomment");
 UserHashMania =  new Meteor.Collection("hashmania");
+HashHistory  = new Meteor.Collection("hashhistory");
 
 // Feed =  new Meteor.SmartCollection("feed");
 // Likes = new Meteor.SmartCollection("likes");
@@ -481,9 +482,6 @@ Meteor.startup(function () {
                 }
                 else{
                     $("#loginScreen").show();
-                    $("#seErrorLogin").removeClass("ui error message").addClass("ui ignored warning message");
-                    $("#errorMessage").text("Enter username and password.")
-                    $("#seErrorLogin").css("display","block");
                     $("#Main").hide();
                 }
             }
@@ -603,9 +601,7 @@ function onLoginWithHashRepublic(){
 
         }
         else{
-            $("#seErrorLogin").removeClass("ui ignored warning message").addClass("ui error message");
-            $("#errorMessage").text("Username or Password is Incorrect");
-            // $("#seErrorLogin").css("display","block");
+
         }
     })
 }
@@ -1024,40 +1020,9 @@ Meteor.documentReady = documentReady;
                         $('#back-top').fadeIn();
                     } else {
                         $('#back-top').fadeOut();
-                    }
+            }
             
-                $('#back-top').click(function () {
-                    $('#surveybig').animate({scrollTop: 0 }, 10);
-          }); 
-         $("#totalimages").hide();
 
-         if ($("#surveybig").scrollTop() > 300) {
-                        $('#totalimages').fadeIn();
-                    } else {
-                        $('#totalimages').fadeOut();
-                    }
-            
-                $('#totalimages').click(function () {
-                    $('#surveybig').animate({scrollTop: 0 }, 10);
-          }); 
-            var x=$("#surveybig").scrollTop();
-            var y=$(".hashFeed img").height();
-        $("#totalimages").html("<i class='circle up icon'>"+(parseInt(x/y)+2)+"</i>");
-
-        $("#toComeimages").hide();
-        if ($("#surveybig").scrollTop() > 300) {
-                        $('#toComeimages').fadeIn();
-                    } else {
-                        $('#toComeimages').fadeOut();
-                    }
-            
-                $('#toComeimages').click(function () {
-                    $('#surveybig').animate({scrollTop: 17000 }, 10);
-          }); 
-            var x=$("#surveybig").scrollTop();
-            var y=$(".hashFeed img").height();
-            var z=parseInt(x/y)+2;
-        $("#toComeimages").html("<i class='circle down icon'>"+""+"</i>");
     }
     function initDataBase(key){
         if(DataBase[key])
@@ -1100,15 +1065,8 @@ Meteor.documentReady = documentReady;
         var newElement = null;
         var currentData = null;
         var showFlag = false;
-        upp ='<div id="back-top"><i class="level up icon">NEWER</i></div>'                  // go to upp
+        upp ='<div id="back-top"><i class="level up icon">UP</i></div>'                  // go to upp
         var element = $("#surveybig").append(upp);
-        var totalimages=0;
-        tot ='<div id="totalimages"><i class="level up icon">'+totalimages+'</i></div>'                  //total images
-        var element = $("#surveybig").append(tot);
-        
-        var toComeimages=0;
-        tot ='<div id="toComeimages"><i class="level down icon">'+totalimages+'</i></div>'                  //total images
-        var element = $("#surveybig").append(tot);
         
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
@@ -1178,9 +1136,16 @@ Meteor.documentReady = documentReady;
 
         $("#surveybighandle").hammer().off("tap");
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
-        
+        $('#back-top').click(newImageLogic);
         // $(".tertiary").hide();        
         // $("#semanticLoader").hide();
+    }
+    function newImageLogic() {
+        Meteor.call("getNewData",Session.get("keyword"),CLIENTID,function(err,data){
+            renderResults(data,true);    
+        })
+         // newLoad();
+        $('#surveybig').animate({scrollTop: 0 }, 10);
     }
     function onImageError(event){
         // console.log(event)
@@ -3607,11 +3572,7 @@ function tapOnVoting(event){
         var clientid = $(element).attr("clientid");
         var link= $(element).parent(".hashFeed").attr("link")
         if(clientid == Session.get("clientid")){
-            if(link == "undefined"){
-
-            }else{
-                window.open(link, '_system');
-            }
+            window.open(link, '_system');
         }
         // console.log(link)
 
@@ -4601,9 +4562,6 @@ function autoLogin(){
             else{
                 console.log("No password found.");
                 $("#loginScreen").show();
-                $("#seErrorLogin").removeClass("ui error message").addClass("ui ignored warning message");
-                $("#errorMessage").text("Enter username and password.")
-                $("#seErrorLogin").css("display","block");
             }
             // Tapmate user conditions
             return ;
@@ -4632,9 +4590,6 @@ function autoLogin(){
         }
         else{
             $("#loginScreen").show();
-            $("#seErrorLogin").removeClass("ui error message").addClass("ui ignored warning message");
-            $("#errorMessage").text("Enter username and password.")
-            $("#seErrorLogin").css("display","block");
             // hideLoader();
             // GoodBye Guest ID
             // ClientId = "guest"+Random.id()

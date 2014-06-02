@@ -7945,30 +7945,26 @@ function getDefaultData(){
     var newCacheData = null;
     var keyword;
     var keywordArray = []; 
-    currentKeyword.forEach(function(data){   
-          keywordArray.push(data.keyword);                           
+    // currentKeyword.forEach(function(data){   
+    //       keywordArray.push(data.keyword);                           
+    // });
+    $.each(preload, function(key, value){
+        keywordArray.push(key);
     });
-    for(var i=0,il=keywordArray.length;i<il;i++){
-        keyword = keywordArray[i];
-        if(preload[keyword])
-            continue;
-        Meteor.call("getResult",keyword,CLIENTID,function(err,data){
+    // for(var i=0,il=keywordArray.length;i<il;i++){
+    //     keyword = keywordArray[i];
+    //     if(preload[keyword])
+    //         continue;
+        Meteor.call("getDefaultData",keywordArray,CLIENTID,function(err,data){
             if(data){
-                // console.log(data[0].keyword.keyword);
-                newCacheData = preload[data[0].keyword.keyword];
-                // console.log(newCacheData);
-                if(!newCacheData){
-                    console.log("!newCacheData")
-                    // console.log(data)
-                    preload[data[0].keyword.keyword] = data;
-                   // cacheData(data); 
-                }
-                else{
-                    console.log("newCacheData");
-                }
+                $.each(data, function(key, value){
+                    preload[key] = value;
+                }); 
+                cacheEverything();
             }
+
         });
-    }
+    // }
 }
 Meteor.startup(function () {
     Session.set("keyword",get("keyword"));

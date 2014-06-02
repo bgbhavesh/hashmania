@@ -135,7 +135,7 @@ body{
     background-color: #333;
 }
 .leaderSection{
-	height: 10%;
+	height: 50%;
 
 }
 .leadersface {
@@ -1585,12 +1585,12 @@ h6 {}
 	z-index: 1;
 }
 .leadersface{
-	height: 10%;
+	height: 100%;
 	position: relative;
 	float: left;
 }
 .leadersface img{
-	height: 10%;
+	height: 100%;
 	width: 100%;
 }
 .hashFeed

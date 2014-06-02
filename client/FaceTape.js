@@ -7956,6 +7956,7 @@ function divOldNew(data){
     // renderResults(newRenderResults);
 }
 function getDefaultData(){
+    console.log("getDefaultData started");
     var currentKeyword = SponserKeyword.find({},{sort : {"hits": -1}});
     var newCacheData = null;
     var keyword;
@@ -7976,6 +7977,7 @@ function getDefaultData(){
                     preload[key] = value;
                 }); 
                 cacheEverything();
+                console.log("getDefaultData ended");
             }
 
         });

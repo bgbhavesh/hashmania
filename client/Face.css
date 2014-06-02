@@ -1846,7 +1846,7 @@ h6 {}
 }
 #back-top {
 	position: fixed;
-	bottom: 0px;
+	bottom: 75%;
 	left: 5%;
 	z-index: 2;
 	display: none;

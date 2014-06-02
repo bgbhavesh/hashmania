@@ -482,9 +482,6 @@ Meteor.startup(function () {
                 }
                 else{
                     $("#loginScreen").show();
-                    $("#seErrorLogin").removeClass("ui error message").addClass("ui ignored warning message");
-                    $("#errorMessage").text("Enter username and password.")
-                    $("#seErrorLogin").css("display","block");
                     $("#Main").hide();
                 }
             }
@@ -604,9 +601,7 @@ function onLoginWithHashRepublic(){
 
         }
         else{
-            $("#seErrorLogin").removeClass("ui ignored warning message").addClass("ui error message");
-            $("#errorMessage").text("Username or Password is Incorrect");
-            // $("#seErrorLogin").css("display","block");
+
         }
     })
 }
@@ -1027,6 +1022,9 @@ Meteor.documentReady = documentReady;
                         $('#back-top').fadeOut();
             }
             
+<<<<<<< HEAD
+
+=======
                 
          $("#totalimages").hide();
 
@@ -1051,6 +1049,7 @@ Meteor.documentReady = documentReady;
             var y=$(".hashFeed img").height();
             var z=parseInt(x/y)+2;
         $("#toComeimages").html("<i class='circle down icon'>"+""+"</i>");
+>>>>>>> e93793bcec771b57d1aed37440bedf71dbbceb1d
     }
     function initDataBase(key){
         if(DataBase[key])
@@ -1093,15 +1092,12 @@ Meteor.documentReady = documentReady;
         var newElement = null;
         var currentData = null;
         var showFlag = false;
+<<<<<<< HEAD
+        upp ='<div id="back-top"><i class="level up icon">UP</i></div>'                  // go to upp
+=======
         upp ='<div id="back-top"><i class="circle blank icon">NEWER</i></div>'                  // go to upp
+>>>>>>> e93793bcec771b57d1aed37440bedf71dbbceb1d
         var element = $("#surveybig").append(upp);
-        var totalimages=0;
-        tot ='<div id="totalimages"><i class="level up icon">'+totalimages+'</i></div>'                  //total images
-        var element = $("#surveybig").append(tot);
-        
-        var toComeimages=0;
-        tot ='<div id="toComeimages"><i class="level down icon">'+totalimages+'</i></div>'                  //total images
-        var element = $("#surveybig").append(tot);
         
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
@@ -1171,9 +1167,21 @@ Meteor.documentReady = documentReady;
 
         $("#surveybighandle").hammer().off("tap");
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+<<<<<<< HEAD
+        $('#back-top').click(newImageLogic);
+=======
         
         
-        $('#back-top').click(newImageLogic); 
+          $('#back-top').click(function () {
+                    $('#surveybig').animate({scrollTop: 0 }, 10);
+          }); 
+                $('#totalimages').click(function () {
+                    $('#surveybig').animate({scrollTop: 0 }, 10);
+          }); 
+                $('#toComeimages').click(function () {
+                    $('#surveybig').animate({scrollTop: 17000 }, 10);
+          }); 
+>>>>>>> e93793bcec771b57d1aed37440bedf71dbbceb1d
         // $(".tertiary").hide();        
 
         // $("#semanticLoader").hide();
@@ -1391,7 +1399,6 @@ Meteor.documentReady = documentReady;
                     tapOnBigFeedSecond(null,currentvotes[i]);
                     // showSpecialPopup("commentingOverlay");
                     // currentCommenting
-                    $("#commentInput").focus();
                     return;
                 }
                 else if(noComment.length>0){
@@ -3612,11 +3619,7 @@ function tapOnVoting(event){
         var clientid = $(element).attr("clientid");
         var link= $(element).parent(".hashFeed").attr("link")
         if(clientid == Session.get("clientid")){
-            if(link == "undefined"){
-
-            }else{
-                window.open(link, '_system');
-            }
+            window.open(link, '_system');
         }
         // console.log(link)
 
@@ -3721,7 +3724,7 @@ function showcomments(){
         var clientid = $(votes[i]).attr("clientid");
         img = $(votes[i]).children("img").attr("src");
         clientid = $(votes[i]).attr("clientid");
-        // console.log("p="+p+"/ img="+img)
+        console.log("p="+p+"/ img="+img)
         if(p){
             size = 20 * getRankLeader(clientid);
             size = Math.min(size,100);
@@ -4607,9 +4610,6 @@ function autoLogin(){
             else{
                 console.log("No password found.");
                 $("#loginScreen").show();
-                $("#seErrorLogin").removeClass("ui error message").addClass("ui ignored warning message");
-                $("#errorMessage").text("Enter username and password.")
-                $("#seErrorLogin").css("display","block");
             }
             // Tapmate user conditions
             return ;
@@ -4638,9 +4638,6 @@ function autoLogin(){
         }
         else{
             $("#loginScreen").show();
-            $("#seErrorLogin").removeClass("ui error message").addClass("ui ignored warning message");
-            $("#errorMessage").text("Enter username and password.")
-            $("#seErrorLogin").css("display","block");
             // hideLoader();
             // GoodBye Guest ID
             // ClientId = "guest"+Random.id()

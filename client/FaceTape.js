@@ -3828,7 +3828,7 @@ function tapOnRightArrow(event){
         console.log(error);
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnRightArrow"});
     }
-        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function tapOnConnection(event){
     var status = Meteor.status().connected;
@@ -3952,7 +3952,7 @@ function fitTextFunction(parent,child,fontSize){
         console.log(error);
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "fitTextFunction"});
     }
-      MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 
 /// Not using dynamic loading but will require soon.
@@ -4045,7 +4045,6 @@ function logOutUser(){
         console.log(error);
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "logOutUser"});
     }
-    
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function afterLogOut(){
@@ -4054,7 +4053,6 @@ function afterLogOut(){
     window.location.reload();
     //console.log("LogOutSuccess");
 }
-
 function commentOnInstagram(){
     var starttimer = new Date().getTime();
     try{
@@ -4080,7 +4078,7 @@ function commentOnInstagram(){
         console.log(error);
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "commentOnInstagram"});
     }
-      MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function likeOnInstagram(){
     var starttimer = new Date().getTime();
@@ -4112,7 +4110,7 @@ function likeOnInstagram(){
         console.log(error);
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "likeOnInstagram"});
     }
-      MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function addFollowPic(){
     var starttimer = new Date().getTime();
@@ -4123,7 +4121,7 @@ function addFollowPic(){
         console.log(error);
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "addFollowPic"});
     }
-        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function followOnInstagram(){
     var starttimer = new Date().getTime();
@@ -4456,8 +4454,7 @@ function swipeLeft(event){
         }
         hideAllButtons();
         Me.update({"_id":Session.get("clientid")},{$inc : {"swipeleft":1,"yswipeleft":1,"mswipeleft":1,"wswipeleft":1,"dswipeleft":1}});
-        closeOverlay();
-        
+        closeOverlay();        
     }
     catch(error){
         console.log(error);
@@ -4549,8 +4546,7 @@ function autoLogin(){
                 suscribeMeteor(ClientId);
                 Session.set("username",ClientId);
                 profilePic = ".images/face.jpg";
-                Meteor.call("getLoginStatus",ClientId,function(err,data){
-                    
+                Meteor.call("getLoginStatus",ClientId,function(err,data){                    
                 });
                 restoreCollection();
             }
@@ -4685,7 +4681,6 @@ function onLoginWithApp(){
     $("#form").animate({ "top": "43%" }, 700);   
     // $(this).attr
 }
-
 function onSignupWithAppButton(){
     var starttimer = new Date().getTime();
     try{

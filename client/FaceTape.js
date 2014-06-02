@@ -481,6 +481,9 @@ Meteor.startup(function () {
                 }
                 else{
                     $("#loginScreen").show();
+                    $("#seErrorLogin").removeClass("ui error message").addClass("ui ignored warning message");
+                    $("#errorMessage").text("Enter username and password.")
+                    $("#seErrorLogin").css("display","block");
                     $("#Main").hide();
                 }
             }
@@ -600,7 +603,9 @@ function onLoginWithHashRepublic(){
 
         }
         else{
-
+            $("#seErrorLogin").removeClass("ui ignored warning message").addClass("ui error message");
+            $("#errorMessage").text("Username or Password is Incorrect");
+            // $("#seErrorLogin").css("display","block");
         }
     })
 }
@@ -3565,7 +3570,11 @@ function tapOnVoting(event){
         var clientid = $(element).attr("clientid");
         var link= $(element).parent(".hashFeed").attr("link")
         if(clientid == Session.get("clientid")){
-            window.open(link, '_system');
+            if(link == "undefined"){
+
+            }else{
+                window.open(link, '_system');
+            }
         }
         // console.log(link)
 
@@ -4557,6 +4566,9 @@ function autoLogin(){
             else{
                 console.log("No password found.");
                 $("#loginScreen").show();
+                $("#seErrorLogin").removeClass("ui error message").addClass("ui ignored warning message");
+                $("#errorMessage").text("Enter username and password.")
+                $("#seErrorLogin").css("display","block");
             }
             // Tapmate user conditions
             return ;
@@ -4585,6 +4597,9 @@ function autoLogin(){
         }
         else{
             $("#loginScreen").show();
+            $("#seErrorLogin").removeClass("ui error message").addClass("ui ignored warning message");
+            $("#errorMessage").text("Enter username and password.")
+            $("#seErrorLogin").css("display","block");
             // hideLoader();
             // GoodBye Guest ID
             // ClientId = "guest"+Random.id()

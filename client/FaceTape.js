@@ -1360,6 +1360,7 @@ Meteor.documentReady = documentReady;
                     showSpecialPopup("commentingOverlay");
                     // tapOnBigFeedSecond(null,currentvotes[i]);
                 }
+                $("#commentInput").focus();
                 return;
             }            
         }
@@ -3837,7 +3838,7 @@ function tapOnRightArrow(event){
         console.log(error);
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnRightArrow"});
     }
-        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function tapOnConnection(event){
     var status = Meteor.status().connected;
@@ -3961,7 +3962,7 @@ function fitTextFunction(parent,child,fontSize){
         console.log(error);
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "fitTextFunction"});
     }
-      MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 
 /// Not using dynamic loading but will require soon.
@@ -4089,7 +4090,7 @@ function commentOnInstagram(){
         console.log(error);
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "commentOnInstagram"});
     }
-      MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function likeOnInstagram(){
     var starttimer = new Date().getTime();
@@ -4121,7 +4122,7 @@ function likeOnInstagram(){
         console.log(error);
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "likeOnInstagram"});
     }
-      MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function addFollowPic(){
     var starttimer = new Date().getTime();
@@ -4132,7 +4133,7 @@ function addFollowPic(){
         console.log(error);
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "addFollowPic"});
     }
-        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function followOnInstagram(){
     var starttimer = new Date().getTime();
@@ -4465,8 +4466,7 @@ function swipeLeft(event){
         }
         hideAllButtons();
         Me.update({"_id":Session.get("clientid")},{$inc : {"swipeleft":1,"yswipeleft":1,"mswipeleft":1,"wswipeleft":1,"dswipeleft":1}});
-        closeOverlay();
-        
+        closeOverlay();        
     }
     catch(error){
         console.log(error);
@@ -4558,8 +4558,7 @@ function autoLogin(){
                 suscribeMeteor(ClientId);
                 Session.set("username",ClientId);
                 profilePic = ".images/face.jpg";
-                Meteor.call("getLoginStatus",ClientId,function(err,data){
-                    
+                Meteor.call("getLoginStatus",ClientId,function(err,data){                    
                 });
                 restoreCollection();
             }
@@ -7961,30 +7960,26 @@ function getDefaultData(){
     var newCacheData = null;
     var keyword;
     var keywordArray = []; 
-    currentKeyword.forEach(function(data){   
-          keywordArray.push(data.keyword);                           
+    // currentKeyword.forEach(function(data){   
+    //       keywordArray.push(data.keyword);                           
+    // });
+    $.each(preload, function(key, value){
+        keywordArray.push(key);
     });
-    for(var i=0,il=keywordArray.length;i<il;i++){
-        keyword = keywordArray[i];
-        if(preload[keyword])
-            continue;
-        Meteor.call("getResult",keyword,CLIENTID,function(err,data){
+    // for(var i=0,il=keywordArray.length;i<il;i++){
+    //     keyword = keywordArray[i];
+    //     if(preload[keyword])
+    //         continue;
+        Meteor.call("getDefaultData",keywordArray,CLIENTID,function(err,data){
             if(data){
-                // console.log(data[0].keyword.keyword);
-                newCacheData = preload[data[0].keyword.keyword];
-                // console.log(newCacheData);
-                if(!newCacheData){
-                    console.log("!newCacheData")
-                    // console.log(data)
-                    preload[data[0].keyword.keyword] = data;
-                   // cacheData(data); 
-                }
-                else{
-                    console.log("newCacheData");
-                }
+                $.each(data, function(key, value){
+                    preload[key] = value;
+                }); 
+                cacheEverything();
             }
+
         });
-    }
+    // }
 }
 Meteor.startup(function () {
     Session.set("keyword",get("keyword"));

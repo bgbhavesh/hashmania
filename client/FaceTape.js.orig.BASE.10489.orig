@@ -482,9 +482,6 @@ Meteor.startup(function () {
                 }
                 else{
                     $("#loginScreen").show();
-                    $("#seErrorLogin").removeClass("ui error message").addClass("ui ignored warning message");
-                    $("#errorMessage").text("Enter username and password.")
-                    $("#seErrorLogin").css("display","block");
                     $("#Main").hide();
                 }
             }
@@ -604,9 +601,7 @@ function onLoginWithHashRepublic(){
 
         }
         else{
-            $("#seErrorLogin").removeClass("ui ignored warning message").addClass("ui error message");
-            $("#errorMessage").text("Username or Password is Incorrect");
-            // $("#seErrorLogin").css("display","block");
+
         }
     })
 }
@@ -1016,7 +1011,6 @@ Meteor.documentReady = documentReady;
 // var curLoad = [];
 // var pageCount = -1;
 // var DataBase = [];
-var totalData=0;
     function checkscroll()
     {
         // console.log("go to top");
@@ -1024,36 +1018,38 @@ var totalData=0;
 
          if ($("#surveybig").scrollTop() > 300) {
                         $('#back-top').fadeIn();
-        } else {
+                    } else {
                         $('#back-top').fadeOut();
-                }
-                           
+            }
+            
+<<<<<<< HEAD
+
+=======
+                
          $("#totalimages").hide();
 
          if ($("#surveybig").scrollTop() > 300) {
                         $('#totalimages').fadeIn();
-        } else {
+                    } else {
                         $('#totalimages').fadeOut();
-                }
+                    }
            
-        var x=$("#surveybig").scrollTop();
-        var y=$(".hashFeed img").height();
-
-        $("#totalimages").html("<i class='circle up icon'>"+(parseInt(x/y)+1)+"</i>");
+            var x=$("#surveybig").scrollTop();
+            var y=$(".hashFeed img").height();
+        $("#totalimages").html("<i class='circle up icon'>"+(parseInt(x/y)+2)+"</i>");
 
         $("#toComeimages").hide();
-
         if ($("#surveybig").scrollTop() > 300) {
                         $('#toComeimages').fadeIn();
-        } else {
+                    } else {
                         $('#toComeimages').fadeOut();
-        }
+                    }
            
-        var a=$("#surveybig").scrollTop();
-        var b=$(".hashFeed img").height();
-        var z=parseInt(x/y)+2;
-
-        $("#toComeimages").html("<i class='circle down icon'>"+(totalData-z)+"</i>");
+            var x=$("#surveybig").scrollTop();
+            var y=$(".hashFeed img").height();
+            var z=parseInt(x/y)+2;
+        $("#toComeimages").html("<i class='circle down icon'>"+""+"</i>");
+>>>>>>> e93793bcec771b57d1aed37440bedf71dbbceb1d
     }
     function initDataBase(key){
         if(DataBase[key])
@@ -1070,7 +1066,6 @@ var totalData=0;
         // DataBase[key].prevLoad = DataBase[key].curLoad;
     }
     function renderResults(data,loadMoreFlag){
-
         console.log("load more " +loadMoreFlag)
         if(!data){
             // $("#semanticLoader").hide();
@@ -1097,15 +1092,12 @@ var totalData=0;
         var newElement = null;
         var currentData = null;
         var showFlag = false;
+<<<<<<< HEAD
+        upp ='<div id="back-top"><i class="level up icon">UP</i></div>'                  // go to upp
+=======
         upp ='<div id="back-top"><i class="circle blank icon">NEWER</i></div>'                  // go to upp
+>>>>>>> e93793bcec771b57d1aed37440bedf71dbbceb1d
         var element = $("#surveybig").append(upp);
-        var totalimages=0;
-        tot ='<div id="totalimages"><i class="level up icon">'+totalimages+'</i></div>'                  //total images
-        var element = $("#surveybig").append(tot);
-        
-        var toComeimages=0;
-        tot ='<div id="toComeimages"><i class="level down icon">'+totalimages+'</i></div>'                  //total images
-        var element = $("#surveybig").append(tot);
         
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
@@ -1175,37 +1167,31 @@ var totalData=0;
 
         $("#surveybighandle").hammer().off("tap");
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
-
-       
-        $("#back-top").hammer().off("tap");
-        $("#back-top").hammer().on("tap",surveyNewer);
-       
-        $("#totalimages").hammer().off("tap");
-        $("#totalimages").hammer().on("tap",surveyUp);
-       
-        $("#toComeimages").hammer().off("tap");
-        $("#toComeimages").hammer().on("tap",surveyDown);
+<<<<<<< HEAD
+        $('#back-top').click(newImageLogic);
+=======
         
         
-         function surveyNewer () {
+          $('#back-top').click(function () {
                     $('#surveybig').animate({scrollTop: 0 }, 10);
-                    console.log("test");
-          } 
-         function surveyUp() {
+          }); 
+                $('#totalimages').click(function () {
                     $('#surveybig').animate({scrollTop: 0 }, 10);
-          }
-         function surveyDown() {
+          }); 
+                $('#toComeimages').click(function () {
                     $('#surveybig').animate({scrollTop: 17000 }, 10);
-          }
+          }); 
+>>>>>>> e93793bcec771b57d1aed37440bedf71dbbceb1d
         // $(".tertiary").hide();        
 
         // $("#semanticLoader").hide();
     }
     function newImageLogic() {
-        console.log("newImageLogic")
         Meteor.call("getNewData",Session.get("keyword"),CLIENTID,function(err,data){
             renderResults(data,true);    
-        });
+        })
+         // newLoad();
+        $('#surveybig').animate({scrollTop: 0 }, 10);
     }
     function onImageError(event){
         // console.log(event)
@@ -1264,7 +1250,6 @@ var totalData=0;
         
         
     }
-
     function appendVotesManuallyHash(id,currentVote){
         var local = currentVote;
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
@@ -1414,7 +1399,6 @@ var totalData=0;
                     tapOnBigFeedSecond(null,currentvotes[i]);
                     // showSpecialPopup("commentingOverlay");
                     // currentCommenting
-                    $("#commentInput").focus();
                     return;
                 }
                 else if(noComment.length>0){
@@ -3635,11 +3619,7 @@ function tapOnVoting(event){
         var clientid = $(element).attr("clientid");
         var link= $(element).parent(".hashFeed").attr("link")
         if(clientid == Session.get("clientid")){
-            if(link == "undefined"){
-
-            }else{
-                window.open(link, '_system');
-            }
+            window.open(link, '_system');
         }
         // console.log(link)
 
@@ -3744,7 +3724,7 @@ function showcomments(){
         var clientid = $(votes[i]).attr("clientid");
         img = $(votes[i]).children("img").attr("src");
         clientid = $(votes[i]).attr("clientid");
-        // console.log("p="+p+"/ img="+img)
+        console.log("p="+p+"/ img="+img)
         if(p){
             size = 20 * getRankLeader(clientid);
             size = Math.min(size,100);
@@ -4630,9 +4610,6 @@ function autoLogin(){
             else{
                 console.log("No password found.");
                 $("#loginScreen").show();
-                $("#seErrorLogin").removeClass("ui error message").addClass("ui ignored warning message");
-                $("#errorMessage").text("Enter username and password.")
-                $("#seErrorLogin").css("display","block");
             }
             // Tapmate user conditions
             return ;
@@ -4661,9 +4638,6 @@ function autoLogin(){
         }
         else{
             $("#loginScreen").show();
-            $("#seErrorLogin").removeClass("ui error message").addClass("ui ignored warning message");
-            $("#errorMessage").text("Enter username and password.")
-            $("#seErrorLogin").css("display","block");
             // hideLoader();
             // GoodBye Guest ID
             // ClientId = "guest"+Random.id()
@@ -8012,17 +7986,13 @@ function divOldNew(data){
     for(var i=0,il=9;i<il;i++){
         newRenderResults.push(data[i]);
     }
-
     if(data.length>10){
         for(var i=10,il=data.length;i<il;i++){
             moreRenderResults.push(data[i]);
         }
     }
-    totalData=data.length;
     return newRenderResults;
     // renderResults(newRenderResults);
-      
-
 }
 function getDefaultData(){
     console.log("getDefaultData started");

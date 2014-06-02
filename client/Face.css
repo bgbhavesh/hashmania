@@ -709,7 +709,7 @@ h6 {}
     -webkit-apperance:none;
     font-family: 'ambleregular';
 }
-#keywordButton:hover{
+#keywordButton:active{
 	border:0px solid ;
 	box-shadow: 0 0 0px 0px  #11a8ab;
 }
@@ -1841,7 +1841,7 @@ h6 {}
 	/*width: 20%;*/
 	/*margin-left: 40%;*/
 }
-#back-top :hover{
+#back-top :active{
 	color: black;
 }
 #back-top {
@@ -1856,7 +1856,22 @@ h6 {}
 	background-size: 100%;
 	font-size: 20px;
 }
-#totalimages :hover{
+#MoreNewImage :active{
+	color: black;
+}
+#MoreNewImage {
+	position: fixed;
+	bottom: 75%;
+	left: 5%;
+	z-index: 2;
+	display: none;
+	width: 30px;
+	height: 30px;
+	/*background: url(../images/gotop.png) ;*/
+	background-size: 100%;
+	font-size: 20px;
+}
+#totalimages :active{
 	color: black;
 }
 #totalimages {
@@ -1871,7 +1886,7 @@ h6 {}
 	background-size: 100%;
 	font-size: 20px;
 }
-#toComeimages :hover{
+#toComeimages :active{
 	color: black;
 }
 #toComeimages {
@@ -2374,7 +2389,7 @@ top: 0%;
 	padding:1%;
 }*/
 
-#status:hover{
+#status:active{
 box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 }
 /*Email Start/// */

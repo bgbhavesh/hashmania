@@ -7594,6 +7594,8 @@ function openSurvey(){
     $('#updownarrow').css({"top": "0%"});
     $(".leaderSection").hide();
     $('#back-top').fadeOut();
+    $('#totalimages').fadeOut();
+    $('#toComeimages').fadeOut();
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
     //$("#updownarrow").animate("class","huge sort ascending icon");
     //$("#surveybighandle").css({"z-index":"4"});

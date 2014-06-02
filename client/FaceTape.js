@@ -670,29 +670,28 @@ function welcomeAlertPopup(){
     }
 }
 function onSignUpWithTapmate(){
-      var email = $("#seEmail").val();
-      var pass = $("#sePass").val();
-      if(validateEmail(email)){
-          set("email",email);
-          set("clientid",email);
-          CLIENTID = email;
-          Session.set("clientid",email);
-          set("profile_picture","/images/face.jpg");
-          welcomeAlertPopup();
-          set("welcomeAlert",true);
-          // $("#seError").css("display","none");
-          // Accounts.createUser({"email":email,"password":pass}, loginWithTapmateCallbackFunction);
-          // TapmateUser = email;
-          Meteor.call("verifyHashEmail",email,function(){
-          
-          });
-      }
-      else{
-          showLoginErrorMessage("not a valid email")
-      }
+    var email = $("#seEmail").val();
+    var pass = $("#sePass").val();
+    if(validateEmail(email)){
+        set("email",email);
+        set("clientid",email);
+        CLIENTID = email;
+        Session.set("clientid",email);
+        set("profile_picture","/images/face.jpg");
+        welcomeAlertPopup();
+        set("welcomeAlert",true);
+        // $("#seError").css("display","none");
+        // Accounts.createUser({"email":email,"password":pass}, loginWithTapmateCallbackFunction);
+        // TapmateUser = email;
+        Meteor.call("verifyHashEmail",email,function(){
+
+        });
+    }
+    else{
+        showLoginErrorMessage("not a valid email")
+    }
   }
 function convertEmail(email){
-
     email = email.toLowerCase();
     var finalEmail = "";
     var ch = null;
@@ -1352,6 +1351,7 @@ Meteor.documentReady = documentReady;
                     showSpecialPopup("commentingOverlay");
                     // tapOnBigFeedSecond(null,currentvotes[i]);
                 }
+                $("#commentInput").focus();
                 return;
             }            
         }

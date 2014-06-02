@@ -1016,6 +1016,7 @@ Meteor.documentReady = documentReady;
 // var curLoad = [];
 // var pageCount = -1;
 // var DataBase = [];
+var totalData=0;
     function checkscroll()
     {
         // console.log("go to top");
@@ -1023,34 +1024,36 @@ Meteor.documentReady = documentReady;
 
          if ($("#surveybig").scrollTop() > 300) {
                         $('#back-top').fadeIn();
-                    } else {
+        } else {
                         $('#back-top').fadeOut();
-            }
-            
-                
+                }
+                           
          $("#totalimages").hide();
 
          if ($("#surveybig").scrollTop() > 300) {
                         $('#totalimages').fadeIn();
-                    } else {
+        } else {
                         $('#totalimages').fadeOut();
-                    }
+                }
            
-            var x=$("#surveybig").scrollTop();
-            var y=$(".hashFeed img").height();
-        $("#totalimages").html("<i class='circle up icon'>"+(parseInt(x/y)+2)+"</i>");
+        var x=$("#surveybig").scrollTop();
+        var y=$(".hashFeed img").height();
+
+        $("#totalimages").html("<i class='circle up icon'>"+(parseInt(x/y)+1)+"</i>");
 
         $("#toComeimages").hide();
+
         if ($("#surveybig").scrollTop() > 300) {
                         $('#toComeimages').fadeIn();
-                    } else {
+        } else {
                         $('#toComeimages').fadeOut();
-                    }
+        }
            
-            var x=$("#surveybig").scrollTop();
-            var y=$(".hashFeed img").height();
-            var z=parseInt(x/y)+2;
-        $("#toComeimages").html("<i class='circle down icon'>"+""+"</i>");
+        var a=$("#surveybig").scrollTop();
+        var b=$(".hashFeed img").height();
+        var z=parseInt(x/y)+2;
+
+        $("#toComeimages").html("<i class='circle down icon'>"+(totalData-z)+"</i>");
     }
     function initDataBase(key){
         if(DataBase[key])
@@ -1067,6 +1070,7 @@ Meteor.documentReady = documentReady;
         // DataBase[key].prevLoad = DataBase[key].curLoad;
     }
     function renderResults(data,loadMoreFlag){
+
         console.log("load more " +loadMoreFlag)
         if(!data){
             // $("#semanticLoader").hide();
@@ -1171,19 +1175,37 @@ Meteor.documentReady = documentReady;
 
         $("#surveybighandle").hammer().off("tap");
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+
+       
+        $("#back-top").hammer().off("tap");
+        $("#back-top").hammer().on("tap",surveyNewer);
+       
+        $("#totalimages").hammer().off("tap");
+        $("#totalimages").hammer().on("tap",surveyUp);
+       
+        $("#toComeimages").hammer().off("tap");
+        $("#toComeimages").hammer().on("tap",surveyDown);
         
         
-        $('#back-top').click(newImageLogic); 
+         function surveyNewer () {
+                    $('#surveybig').animate({scrollTop: 0 }, 10);
+                    console.log("test");
+          } 
+         function surveyUp() {
+                    $('#surveybig').animate({scrollTop: 0 }, 10);
+          }
+         function surveyDown() {
+                    $('#surveybig').animate({scrollTop: 17000 }, 10);
+          }
         // $(".tertiary").hide();        
 
         // $("#semanticLoader").hide();
     }
     function newImageLogic() {
+        console.log("newImageLogic")
         Meteor.call("getNewData",Session.get("keyword"),CLIENTID,function(err,data){
             renderResults(data,true);    
-        })
-         // newLoad();
-        $('#surveybig').animate({scrollTop: 0 }, 10);
+        });
     }
     function onImageError(event){
         // console.log(event)
@@ -1242,6 +1264,7 @@ Meteor.documentReady = documentReady;
         
         
     }
+
     function appendVotesManuallyHash(id,currentVote){
         var local = currentVote;
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
@@ -7989,13 +8012,17 @@ function divOldNew(data){
     for(var i=0,il=9;i<il;i++){
         newRenderResults.push(data[i]);
     }
+
     if(data.length>10){
         for(var i=10,il=data.length;i<il;i++){
             moreRenderResults.push(data[i]);
         }
     }
+    totalData=data.length;
     return newRenderResults;
     // renderResults(newRenderResults);
+      
+
 }
 function getDefaultData(){
     console.log("getDefaultData started");

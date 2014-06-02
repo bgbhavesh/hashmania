@@ -1347,19 +1347,19 @@ Meteor.documentReady = documentReady;
                 // console.log($(currentvotes[i]).find("p"));
                 var noComment = $(currentvotes[i]).find("p");
                 // console.log(noComment.length);
-                if(noComment.length==0){
+                if(noComment){
                     showcomments();
                     tapOnBigFeedSecond(null,currentvotes[i]);
                     // showSpecialPopup("commentingOverlay");
                     // currentCommenting
                     return;
                 }
-                else if(noComment.length==1){
-                    // console.log("noComment else")
-                    showcomments();
-                    showSpecialPopup("commentingOverlay");
-                    // tapOnBigFeedSecond(null,currentvotes[i]);
-                }
+                // else if(noComment.length>0){
+                //     // console.log("noComment else")
+                //     showcomments();
+                //     showSpecialPopup("commentingOverlay");
+                //     // tapOnBigFeedSecond(null,currentvotes[i]);
+                // }
                 $("#commentInput").focus();
                 return;
             }            

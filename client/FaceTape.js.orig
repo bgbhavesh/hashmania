@@ -671,6 +671,28 @@ function welcomeAlertPopup(){
     }
 }
 function onSignUpWithTapmate(){
+<<<<<<< HEAD
+    var email = $("#seEmail").val();
+    var pass = $("#sePass").val();
+    if(validateEmail(email)){
+        set("email",email);
+        set("clientid",email);
+        CLIENTID = email;
+        Session.set("clientid",email);
+        set("profile_picture","/images/face.jpg");
+        welcomeAlertPopup();
+        set("welcomeAlert",true);
+        // $("#seError").css("display","none");
+        // Accounts.createUser({"email":email,"password":pass}, loginWithTapmateCallbackFunction);
+        // TapmateUser = email;
+        Meteor.call("verifyHashEmail",email,function(){
+
+        });
+    }
+    else{
+        showLoginErrorMessage("not a valid email")
+    }
+=======
       var email = $("#seEmail").val();
       var pass = $("#sePass").val();
       if(validateEmail(email)){
@@ -692,9 +714,9 @@ function onSignUpWithTapmate(){
       else{
           showLoginErrorMessage("not a valid email")
       }
+>>>>>>> 66bcc15d3b3f3dc5dc397d03b795b6340d5da3a4
   }
 function convertEmail(email){
-
     email = email.toLowerCase();
     var finalEmail = "";
     var ch = null;
@@ -4046,7 +4068,6 @@ function logOutUser(){
         console.log(error);
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "logOutUser"});
     }
-    
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function afterLogOut(){
@@ -4055,7 +4076,6 @@ function afterLogOut(){
     window.location.reload();
     //console.log("LogOutSuccess");
 }
-
 function commentOnInstagram(){
     var starttimer = new Date().getTime();
     try{
@@ -4684,7 +4704,6 @@ function onLoginWithApp(){
     $("#form").animate({ "top": "43%" }, 700);   
     // $(this).attr
 }
-
 function onSignupWithAppButton(){
     var starttimer = new Date().getTime();
     try{

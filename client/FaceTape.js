@@ -1026,9 +1026,30 @@ Meteor.documentReady = documentReady;
                         $('#back-top').fadeOut();
                     }
             
-                $('#back-top').click(function () {
-                    $('#surveybig').animate({scrollTop: 0 }, 10);
-          }); 
+                
+         $("#totalimages").hide();
+
+         if ($("#surveybig").scrollTop() > 300) {
+                        $('#totalimages').fadeIn();
+                    } else {
+                        $('#totalimages').fadeOut();
+                    }
+           
+            var x=$("#surveybig").scrollTop();
+            var y=$(".hashFeed img").height();
+        $("#totalimages").html("<i class='circle up icon'>"+(parseInt(x/y)+2)+"</i>");
+
+        $("#toComeimages").hide();
+        if ($("#surveybig").scrollTop() > 300) {
+                        $('#toComeimages').fadeIn();
+                    } else {
+                        $('#toComeimages').fadeOut();
+                    }
+           
+            var x=$("#surveybig").scrollTop();
+            var y=$(".hashFeed img").height();
+            var z=parseInt(x/y)+2;
+        $("#toComeimages").html("<i class='circle down icon'>"+""+"</i>");
     }
     function initDataBase(key){
         if(DataBase[key])
@@ -1071,8 +1092,15 @@ Meteor.documentReady = documentReady;
         var newElement = null;
         var currentData = null;
         var showFlag = false;
-        upp ='<div id="back-top"><i class="level up icon">UP</i></div>'                  // go to upp
+        upp ='<div id="back-top"><i class="circle blank icon">NEWER</i></div>'                  // go to upp
         var element = $("#surveybig").append(upp);
+        var totalimages=0;
+        tot ='<div id="totalimages"><i class="level up icon">'+totalimages+'</i></div>'                  //total images
+        var element = $("#surveybig").append(tot);
+        
+        var toComeimages=0;
+        tot ='<div id="toComeimages"><i class="level down icon">'+totalimages+'</i></div>'                  //total images
+        var element = $("#surveybig").append(tot);
         
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
@@ -1143,7 +1171,18 @@ Meteor.documentReady = documentReady;
         $("#surveybighandle").hammer().off("tap");
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
         
+        
+          $('#back-top').click(function () {
+                    $('#surveybig').animate({scrollTop: 0 }, 10);
+          }); 
+                $('#totalimages').click(function () {
+                    $('#surveybig').animate({scrollTop: 0 }, 10);
+          }); 
+                $('#toComeimages').click(function () {
+                    $('#surveybig').animate({scrollTop: 17000 }, 10);
+          }); 
         // $(".tertiary").hide();        
+
         // $("#semanticLoader").hide();
     }
     function onImageError(event){

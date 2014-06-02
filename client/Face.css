@@ -1847,7 +1847,7 @@ h6 {}
 #back-top {
 	position: fixed;
 	bottom: 0px;
-	left: 10%;
+	left: 5%;
 	z-index: 2;
 	display: none;
 	width: 30px;
@@ -1856,7 +1856,36 @@ h6 {}
 	background-size: 100%;
 	font-size: 20px;
 }
-
+#totalimages :hover{
+	color: black;
+}
+#totalimages {
+	position: fixed;
+	bottom: 0px;
+	left: 80%;
+	z-index: 2;
+	display: none;
+	width: 30px;
+	height: 30px;
+	/*background: url(../images/gotop.png) ;*/
+	background-size: 100%;
+	font-size: 20px;
+}
+#toComeimages :hover{
+	color: black;
+}
+#toComeimages {
+	position: fixed;
+	bottom: 75%;
+	left: 80%;
+	z-index: 2;
+	display: none;
+	width: 30px;
+	height: 30px;
+	/*background: url(../images/gotop.png) ;*/
+	background-size: 100%;
+	font-size: 20px;
+}
 /*
 
 #back-top span {

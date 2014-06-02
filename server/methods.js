@@ -1566,6 +1566,64 @@ language.html = [
             console.log("getResult ended " +keyword +" for client " +clientid +" " +result.length);
             return result;
         },
+        "getDefaultData" : function(keywordArray,clientid){
+            console.log("getDefaultData started " +keywordArray +" for client " +clientid);
+            var keyword = "";
+            var nonKeywordArray = [];
+            console.log(keywordArray)
+            SponserKeyword.find({ "keyword": { $nin : keywordArray}}).forEach(function(data){
+                nonKeywordArray.push(data.keyword);
+            }); 
+            var result = {};           
+            console.log(nonKeywordArray);
+            for(var k=0,kl=nonKeywordArray.length;k<kl;k++){
+                keyword = nonKeywordArray[k];
+                
+                
+                var deckFlag = false;
+                var alreadyResult = [],ar=0,firstResult = [],fr=0;
+                var count = HashKeyword.find({"keyword":keyword}).count();
+                console.log(count)
+                if(count < 10)
+                    App.searchHashParserUrgent(null,keyword,clientid); 
+                HashKeyword.find({"keyword":keyword},{limit:5}).forEach(function(data){
+                    deckFlag = false;
+                    
+                    // marked as dead image
+                    if(!data.remove){
+                       var votes = [],comments = [];
+                        Votes.find({"likeid":data.likeid}).forEach(function(data){
+                            if(data.followid == clientid)
+                                deckFlag = true;
+                            votes.push(data);
+                        });
+                        HashComment.find({"likeid":data.likeid}).forEach(function(data){
+                            comments.push(data);
+                        });
+                        // if(deckFlag){
+                            alreadyResult[ar] = {};
+                            alreadyResult[ar].keyword = data
+                            alreadyResult[ar].votes = votes;
+                            alreadyResult[ar].comments = comments;
+                            alreadyResult[ar].likeid = data.likeid
+                            ar++;
+                        // }
+                        // else{
+                        //     firstResult[fr] = {};
+                        //     firstResult[fr].keyword = data
+                        //     firstResult[fr].votes = votes;
+                        //     firstResult[fr].comments = comments;
+                        //     firstResult[fr].likeid = data.likeid
+                        //     fr++;
+                        // } 
+                    }
+                    result[keyword] = alreadyResult;
+                });               
+                
+            }
+            console.log("getDefaultData ended " +keyword +" for client " +clientid);
+            return result;
+        },
         "verifyHashEmail" : function(email){
             
             // try{

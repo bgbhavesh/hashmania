@@ -598,7 +598,7 @@ function onLoginWithHashRepublic(){
             set("clientid",email);
             Session.set("clientid",email);
             set("welcomeAlert",true);
-            set("profile_picture",data.instagramFace);
+            set("profile_picture",data.face);
             // Session.set("profile_picture",data.instagramFace)
             set("password",password)
 

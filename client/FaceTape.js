@@ -1170,17 +1170,26 @@ Meteor.documentReady = documentReady;
 
         $("#surveybighandle").hammer().off("tap");
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+       
+        $("#back-top").hammer().off("tap");
+        $("#back-top").hammer().on("tap",surveyNewer);
+       
+        $("#totalimages").hammer().off("tap");
+        $("#totalimages").hammer().on("tap",surveyUp);
+       
+        $("#toComeimages").hammer().off("tap");
+        $("#toComeimages").hammer().on("tap",surveyDown);
         
         
-          $('#back-top').click(function () {
+         function surveyNewer () {
                     $('#surveybig').animate({scrollTop: 0 }, 10);
-          }); 
-                $('#totalimages').click(function () {
+          } 
+         function surveyUp() {
                     $('#surveybig').animate({scrollTop: 0 }, 10);
-          }); 
-                $('#toComeimages').click(function () {
+          }
+         function surveyDown() {
                     $('#surveybig').animate({scrollTop: 17000 }, 10);
-          }); 
+          }
         // $(".tertiary").hide();        
 
         // $("#semanticLoader").hide();

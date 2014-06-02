@@ -598,7 +598,7 @@ function onLoginWithHashRepublic(){
             set("clientid",email);
             Session.set("clientid",email);
             set("welcomeAlert",true);
-            set("profile_picture",data.instagramFace);
+            set("profile_picture",data.face);
             // Session.set("profile_picture",data.instagramFace)
             set("password",password)
 
@@ -1149,7 +1149,7 @@ var totalData=0;
                 $("#"+currentData.keyword.likeid).children(".tertiary").show();
             }
         }
-       $(".loadmore").remove();
+        $(".loadmore").remove();
         button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   &#8609; MORE  &#8609; </a>';
         var element = $("#surveybig").append(button);
 
@@ -1162,7 +1162,8 @@ var totalData=0;
         $(".hashFeed img").hammer().off("hold",holdOnBigFeedSurvey);
         $(".hashFeed img").hammer().on("hold",holdOnBigFeedSurvey);
 
-        $(".hashFeed img").error(onImageError)
+        $(".hashFeed img").unbind("error",onImageError)
+        $(".hashFeed img").bind("error",onImageError)
         
         $(".submitComment").hammer().off("tap");  
         $(".submitComment").hammer().on("tap",tapOnSubmitComment);
@@ -1187,24 +1188,26 @@ var totalData=0;
         $("#toComeimages").hammer().on("tap",surveyDown);
         
         
-         function surveyNewer () {
-                    $('#surveybig').animate({scrollTop: 0 }, 10);
-                    console.log("test");
-          } 
-         function surveyUp() {
-                    $('#surveybig').animate({scrollTop: 0 }, 10);
-          }
-         function surveyDown() {
-                    $('#surveybig').animate({scrollTop: 17000 }, 10);
-          }
+         
         // $(".tertiary").hide();        
 
         // $("#semanticLoader").hide();
     }
+    function surveyNewer () {
+        newImageLogic();
+    } 
+    function surveyUp() {
+        $('#surveybig').animate({scrollTop: 0 }, 10);
+    }
+    function surveyDown() {
+        $('#surveybig').animate({scrollTop: 17000 }, 10);
+    }
     function newImageLogic() {
-        console.log("newImageLogic")
+        console.log("newImageLogic");
+        $("#back-top").hide();
         Meteor.call("getNewData",Session.get("keyword"),CLIENTID,function(err,data){
-            renderResults(data,true);    
+            renderResults(data,true);
+            $("#back-top").show();    
         });
     }
     function onImageError(event){
@@ -6035,6 +6038,9 @@ function showKeywordPopup(){
         }
     }
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+}
+function replaceSpace(keyword){
+
 }
 function searchHash(){
     var starttimer = new Date().getTime();

@@ -1100,7 +1100,7 @@ Meteor.documentReady = documentReady;
         var newElement = null;
         var currentData = null;
         var showFlag = false;
-        upp ='<div id="back-top"><i class="level up icon">UP</i></div>'                  // go to upp
+        upp ='<div id="back-top"><i class="level up icon">NEWER</i></div>'                  // go to upp
         var element = $("#surveybig").append(upp);
         var totalimages=0;
         tot ='<div id="totalimages"><i class="level up icon">'+totalimages+'</i></div>'                  //total images

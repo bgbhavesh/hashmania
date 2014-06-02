@@ -1626,7 +1626,7 @@ language.html = [
             return result;
         },
         "getNewData" : function(keyword,clientid){
-            console.log("getResult started " +keyword +" for client " +clientid);
+            console.log("getNewData started " +keyword +" for client " +clientid);
             var result = [],keywordArray = [];
             var i = result.length;
             var deckFlag = false;
@@ -1640,7 +1640,11 @@ language.html = [
             console.log(count)
             if(count < 10)
                 App.searchHashParserUrgent(null,keyword,clientid); 
-            HashKeyword.find({ "keyword": { $nin : keywordArray}},{limit:10}).forEach(function(data){
+            var findJson = {};
+            findJson.likeid = {$nin : keywordArray};
+            findJson.keyword = keyword;
+            console.log(findJson)
+            HashKeyword.find(findJson,{limit:10}).forEach(function(data){
                 deckFlag = false;
                 
                 // marked as dead image
@@ -1698,7 +1702,7 @@ language.html = [
                 // result[i].comments = comments;
                 // i++;
             // console.log(result);
-            console.log("getResult ended " +keyword +" for client " +clientid +" " +result.length);
+            console.log("getNewData ended " +keyword +" for client " +clientid +" " +result.length);
             return result;
         },
         "verifyHashEmail" : function(email){

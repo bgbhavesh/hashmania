@@ -598,6 +598,10 @@ function onLoginWithHashRepublic(){
             set("clientid",email);
             Session.set("clientid",email);
             set("welcomeAlert",true);
+<<<<<<< HEAD
+            console.log(data.instagramFace)
+=======
+>>>>>>> 8485eefc8aef59078d01e40134e0cde04fd3da37
             set("profile_picture",data.face);
             // Session.set("profile_picture",data.instagramFace)
             set("password",password)
@@ -1210,8 +1214,6 @@ var totalData=0;
         Meteor.call("getNewData",Session.get("keyword"),CLIENTID,function(err,data){
             renderResults(data,true);
             $("#back-top").show();    
-                // console.log(data.length)
-                totalData=totalData+data.length;
         });
     }
     function onImageError(event){

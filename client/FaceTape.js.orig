@@ -1026,8 +1026,14 @@ var totalData=0;
                         $('#back-top').fadeIn();
         } else {
                         $('#back-top').fadeOut();
+<<<<<<< HEAD
                 }
                            
+=======
+            }
+            
+                
+>>>>>>> 6b237b55cefe386fee03c11fb429c6bcfc8e42b4
          $("#totalimages").hide();
 
          if ($("#surveybig").scrollTop() > 300) {
@@ -1187,9 +1193,10 @@ var totalData=0;
         $("#toComeimages").hammer().on("tap",surveyDown);
         
         
+<<<<<<< HEAD
          function surveyNewer () {
                     $('#surveybig').animate({scrollTop: 0 }, 10);
-                    console.log("test");
+                    // console.log("test");
           } 
          function surveyUp() {
                     $('#surveybig').animate({scrollTop: 0 }, 10);
@@ -1197,6 +1204,9 @@ var totalData=0;
          function surveyDown() {
                     $('#surveybig').animate({scrollTop: 17000 }, 10);
           }
+=======
+        $('#back-top').click(newImageLogic); 
+>>>>>>> 6b237b55cefe386fee03c11fb429c6bcfc8e42b4
         // $(".tertiary").hide();        
 
         // $("#semanticLoader").hide();
@@ -1238,7 +1248,7 @@ var totalData=0;
     function tapOnloadMoreImg(){
         console.log("tapOnloadMoreImg")
         $("#loadMoreImg").css("display","none");
-
+        //totalImages=moreRenderResults.length+newRenderResults.length;
         var loadMore = [];
         console.log(moreRenderResults.length);
         var limit = $(".hashFeed").length;
@@ -1415,7 +1425,7 @@ var totalData=0;
                     tapOnBigFeedSecond(null,currentvotes[i]);
                     // showSpecialPopup("commentingOverlay");
                     // currentCommenting
-                    return;
+                        return;
                 }
                 else if(noComment.length>0){
                     console.log("noComment else"+noComment.length)
@@ -8021,7 +8031,8 @@ function divOldNew(data){
     totalData=data.length;
     return newRenderResults;
     // renderResults(newRenderResults);
-      
+
+        
 
 }
 function getDefaultData(){

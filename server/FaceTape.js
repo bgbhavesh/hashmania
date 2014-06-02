@@ -598,6 +598,7 @@ MethodTimer = new Meteor.Collection("methodtimer");
 HashKeyword  = new Meteor.Collection("hashkeyword");
 UserHashMania =  new Meteor.Collection("hashmania");
 HashComment  = new Meteor.Collection("hashcomment");
+HashHistory  = new Meteor.Collection("hashhistory");
 ////////////// HASHMANIA COLLECTION ////////////////
 var faqdata = null;
 var cursor = null;
@@ -661,9 +662,12 @@ if (Meteor.isServer) {
 Meteor.startup(function () {
         pushUserEveryDayWrapper =  Meteor.bindEnvironment(function(){pushUserEveryDay();});
         var startSize = 40,startCount =0;
-        
-        // console.log(sponserKeywordArray)
+
+        // HashHistory.remove({})
+        // var cursorHashHistory = HashHistory.findOne({"_id":"nicolsondsouza@gmail.com"})
+        // console.log(cursorHashHistory)
         // console.log(querystring);
+        
         if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
             DebugFace = true;
         // testNewUser();
@@ -2732,3 +2736,30 @@ function pushToUserHashRepublic(registrationid,mymessage,type){
     }
     
 }
+
+function updateUserHistory(clientid,keyword,likeid){
+    if(!clientid)
+        return;
+    // console.log("updateUserHistory " +clientid +" " +keyword +" " +likeid);
+    var cursorHashHistory = HashHistory.findOne({"_id":clientid});
+    var updateJson = {};
+    if(!cursorHashHistory){
+        cursorHashHistory = {};
+        cursorHashHistory._id = HashHistory.insert({"_id":clientid});
+    }
+    if(!cursorHashHistory[keyword]){
+        updateJson[keyword] = [];
+        // updateJson[keyword].currentImage = [];
+        // updateJson[keyword].loadImage = [];
+        // updateJson[keyword].newImage = [];
+        // console.log(updateJson)
+        HashHistory.update({"_id":clientid},{$set : updateJson});
+    }
+    updateJson = {};
+    updateJson[keyword]
+    updateJson[keyword] = likeid;
+    // console.log(updateJson)
+    HashHistory.update({"_id":clientid},{$push : updateJson});
+}
+
+App.updateUserHistory = updateUserHistory;

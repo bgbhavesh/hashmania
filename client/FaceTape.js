@@ -1026,9 +1026,7 @@ Meteor.documentReady = documentReady;
                         $('#back-top').fadeOut();
                     }
             
-                $('#back-top').click(function () {
-                    $('#surveybig').animate({scrollTop: 0 }, 10);
-          }); 
+                
          $("#totalimages").hide();
 
          if ($("#surveybig").scrollTop() > 300) {
@@ -1036,10 +1034,7 @@ Meteor.documentReady = documentReady;
                     } else {
                         $('#totalimages').fadeOut();
                     }
-            
-                $('#totalimages').click(function () {
-                    $('#surveybig').animate({scrollTop: 0 }, 10);
-          }); 
+           
             var x=$("#surveybig").scrollTop();
             var y=$(".hashFeed img").height();
         $("#totalimages").html("<i class='circle up icon'>"+(parseInt(x/y)+2)+"</i>");
@@ -1050,10 +1045,7 @@ Meteor.documentReady = documentReady;
                     } else {
                         $('#toComeimages').fadeOut();
                     }
-            
-                $('#toComeimages').click(function () {
-                    $('#surveybig').animate({scrollTop: 17000 }, 10);
-          }); 
+           
             var x=$("#surveybig").scrollTop();
             var y=$(".hashFeed img").height();
             var z=parseInt(x/y)+2;
@@ -1179,7 +1171,18 @@ Meteor.documentReady = documentReady;
         $("#surveybighandle").hammer().off("tap");
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
         
+        
+          $('#back-top').click(function () {
+                    $('#surveybig').animate({scrollTop: 0 }, 10);
+          }); 
+                $('#totalimages').click(function () {
+                    $('#surveybig').animate({scrollTop: 0 }, 10);
+          }); 
+                $('#toComeimages').click(function () {
+                    $('#surveybig').animate({scrollTop: 17000 }, 10);
+          }); 
         // $(".tertiary").hide();        
+
         // $("#semanticLoader").hide();
     }
     function onImageError(event){

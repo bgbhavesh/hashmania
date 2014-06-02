@@ -598,7 +598,8 @@ function onLoginWithHashRepublic(){
             set("clientid",email);
             Session.set("clientid",email);
             set("welcomeAlert",true);
-            set("profile_picture",data.instagramFace);
+            console.log(data.instagramFace)
+            set("profile_picture",data.face);
             // Session.set("profile_picture",data.instagramFace)
             set("password",password)
 
@@ -1027,7 +1028,10 @@ var totalData=0;
         } else {
                         $('#back-top').fadeOut();
                 }
-                           
+
+        var x=$("#surveybig").scrollTop();
+        var y=$(".hashFeed img").height();
+         $("#totalimages").html("<i class='circle up icon'>"+(parseInt(x/y)+1)+"</i>");                  
          $("#totalimages").hide();
 
          if ($("#surveybig").scrollTop() > 300) {
@@ -1036,11 +1040,12 @@ var totalData=0;
                         $('#totalimages').fadeOut();
                 }
            
-        var x=$("#surveybig").scrollTop();
-        var y=$(".hashFeed img").height();
+        
 
-        $("#totalimages").html("<i class='circle up icon'>"+(parseInt(x/y)+1)+"</i>");
-
+        var a=$("#surveybig").scrollTop();
+        var b=$(".hashFeed img").height();
+        var z=parseInt(x/y)+2;
+        $("#toComeimages").html("<i class='circle down icon'>"+(totalData-z)+"</i>");
         $("#toComeimages").hide();
 
         if ($("#surveybig").scrollTop() > 300) {
@@ -1049,11 +1054,9 @@ var totalData=0;
                         $('#toComeimages').fadeOut();
         }
            
-        var a=$("#surveybig").scrollTop();
-        var b=$(".hashFeed img").height();
-        var z=parseInt(x/y)+2;
+        
 
-        $("#toComeimages").html("<i class='circle down icon'>"+(totalData-z)+"</i>");
+        
     }
     function initDataBase(key){
         if(DataBase[key])

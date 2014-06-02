@@ -1179,11 +1179,10 @@ Meteor.documentReady = documentReady;
         // $("#semanticLoader").hide();
     }
     function newImageLogic() {
+        console.log("newImageLogic")
         Meteor.call("getNewData",Session.get("keyword"),CLIENTID,function(err,data){
             renderResults(data,true);    
-        })
-         // newLoad();
-        $('#surveybig').animate({scrollTop: 0 }, 10);
+        });
     }
     function onImageError(event){
         // console.log(event)

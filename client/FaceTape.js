@@ -1305,6 +1305,9 @@ var totalData=0;
     function onScore(score){
         //console.log("score " +score);
         UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
+        $("#displayScore").text(score);
+        $("#displayScore").css({"opacity":"1.0","top":"46%","display":"block"});
+        $("#displayScore").animate({"opacity":"0.0","top":"5%"},2000,"easeOutBounce");
     }
     /*
 
@@ -3836,7 +3839,6 @@ function commentOneVote(){
               console.log(data);
               console.log(data._id);
               // if(err)                
-              
           });
           var commentcurssor = SponserKeyword.findOne({"keyword":keyword})
           if(commentcurssor){
@@ -6152,7 +6154,7 @@ function autoSize(){
             $("#bodyWrapper").width(adjustedWidth);
             //$("#bodyWrapper").css({"left":"50%","margin-left": -adjustLeft +"px"});
             // $("#hashFaqForm").css({"margin-left": adjustLeft +"px"});
-            $("#hashFaqForm").width(adjustedWidth);
+            // $("#hashFaqForm").width(adjustedWidth);
             $("#hashFaqForm").css({"margin-left": adjustedWidth +"px"});
             feedWidth = null;
             var one = $(".extrabutton")[0];

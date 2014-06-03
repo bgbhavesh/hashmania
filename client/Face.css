@@ -1849,9 +1849,6 @@ h6 {}
 	height: 65%;
 	width: 10%;
 }
-#back-top :active{
-	color: black;
-}
 #back-top {
 	position: fixed;
 	bottom: 75%;
@@ -1864,10 +1861,8 @@ h6 {}
 	background-size: 100%;
 	font-size: 20px;
 }
-#MoreNewImage :active{
-	color: black;
-}
-#MoreNewImage {
+#MoreNewImage
+ {
 	position: fixed;
 	bottom: 75%;
 	left: 5%;
@@ -1878,9 +1873,6 @@ h6 {}
 	/*background: url(../images/gotop.png) ;*/
 	background-size: 100%;
 	font-size: 20px;
-}
-#totalimages :active{
-	color: black;
 }
 #totalimages {
 	position: fixed;
@@ -1894,9 +1886,6 @@ h6 {}
 	background-size: 100%;
 	font-size: 20px;
 }
-#toComeimages :active{
-	color: black;
-}
 #toComeimages {
 	position: fixed;
 	bottom: 75%;
@@ -1909,6 +1898,16 @@ h6 {}
 	background-size: 100%;
 	font-size: 20px;
 }
+#back-top :active,#MoreNewImage :active,#toComeimages :active,#totalimages :active{
+	color: black;
+}
+
+#back-top i,#totalimages i,#toComeimages i,#MoreNewImage 	i{
+	padding: 1%;
+	background-color: rgba(7, 86, 152,0.7);
+	border-radius: 10em;
+}
+
 /*
 
 #back-top span {

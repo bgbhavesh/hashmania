@@ -1100,10 +1100,10 @@ var totalData=0;
         var newElement = null;
         var currentData = null;
         var showFlag = false;
-        upp ='<div id="back-top"><i class="circle blank icon">NEWER</i></div>'                  // go to upp
+        upp ='<div id="back-top"><i class="asterisk icon">new</i></div>'                  // go to upp
         var element = $("#surveybig").append(upp);
         var totalimages=0;
-        tot ='<div id="totalimages"><i class="level up icon">'+totalimages+'</i></div>'                  //total images
+        tot ='<div id="totalimages"><i class="level up icon">'+(totalimages+1)+'</i></div>'                  //total images
         var element = $("#surveybig").append(tot);
         
         var toComeimages=0;
@@ -7618,7 +7618,7 @@ function closeSurvey(){
     $("#surveybig").transition({"top":"18%"});
     $(".hashKeyword").css({"display":"block"});
     $('#updownarrow').addClass('huge sort descending icon');
-    $('#updownarrow').css({"top": "56%"});
+    $('#updownarrow').css({"top": "52%"});
     $(".leaderSection").show();
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");

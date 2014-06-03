@@ -665,7 +665,7 @@ Meteor.startup(function () {
 
 function startup(){
         pushUserEveryDayWrapper =  Meteor.bindEnvironment(function(){pushUserEveryDay();});
-        var startSize = 40,startCount =0;
+        
         
         if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
             DebugFace = true;
@@ -706,6 +706,7 @@ function startup(){
 }
 function fontSizeOnStartUp(){
     // font-size on startup.
+    var startSize = 40,startCount =0;
     SponserKeyword.find({},{sort : {"hits": -1}}).forEach(function(data){
         sponserKeywordArray.push(data.keyword);
         SponserKeyword.update({"_id":data._id},{$set : {"size":startSize}});
@@ -1504,7 +1505,7 @@ App.isAdmin = isAdmin;
                 Fiber(function () {
                 Meteor.setTimeout(scheduleFixing,300);
                 }).run();
-                
+
                 // put anything which needs to be executed everyday.
                 checkNewImages();
                 fontSizeOnStartUp();

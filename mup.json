@@ -23,12 +23,13 @@
   "setupPhantom": true,
 
   //location of app (local directory)
-  "app": "/home/hasten/tapmate",
-
+  "app": "/media/nicolsondsouza/Last/Nicolson/ubuntu/meteor/HashRepublicUpgrade",
+  //second app
+  "appName": "staging",
   //configure environmental
   "env": {
     "ROOT_URL": "http://youtap.youiest.com",
-    "PORT" : "80"
+    "PORT" : "3000"
   },
 
   //meteor-up checks if the app comes online just after the deployment

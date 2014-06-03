@@ -968,7 +968,12 @@ Meteor.documentReady = documentReady;
     //     return HashKeyword.find({"keyword":Session.get("keyword")})
     // }
     Template.leadersboard.eachlead = function(){
-        return UserHashMania.find({},{sort : {"heatScore": -1},limit:4})
+        var sortJson = {sort : {},limit:4};
+        var key = Session.get("keyword");
+        // key = "heatScore";
+        // console.log("sorting by " +key)
+        sortJson.sort[key] = -1
+        return UserHashMania.find({},sortJson)
     }
     Template.leadersboard.events({
         "click .leadersface" : function(event){
@@ -1061,6 +1066,10 @@ var totalData=0;
     function saveCurrentToPrevious(){
         // var key = Session.get("keyword");
         // DataBase[key].prevLoad = DataBase[key].curLoad;
+    }
+    function preRenderResults(){
+        $("#surveybighandle").hammer().off("tap");
+        $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
     }
     function renderResults(data,loadMoreFlag){
 
@@ -1294,8 +1303,15 @@ var totalData=0;
                 + '</div>'
     }
     function onScore(score){
-        //console.log("score " +score);
-        UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
+        
+        var incJson = {"score":score,"heatScore":score};
+        var key = Session.get("keyword");
+        if(key){
+            incJson[key] = score;            
+        }
+        // console.log("score " +score);
+        // console.log(incJson)
+        UserHashMania.update({"_id":Session.get("clientid")},{$inc : incJson})
     }
     /*
 
@@ -6331,6 +6347,10 @@ function bindEvents(){
             $("#loginButtonWithGooglePlus").hammer().off("tap",loginWithGoogle);
             $("#loginButtonWithGooglePlus").hammer().on("tap",loginWithGoogle);
             $("#FAQButton").hammer().on("tap",onClickFAQButton);
+
+            $("#surveybighandle").hammer().off("tap");
+            $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+
             $("#seEmail").keyup(function(event){
                 $(this).val(convertEmail($(this).val()));
                 if(event.keyCode == 13){
@@ -8078,6 +8098,7 @@ Meteor.startup(function () {
             // if(get("search")){
             //     restoreData();
             // }
+            preRenderResults();
             if(preload[keyword] && preload[keyword].length != 0){
                 renderResults(preload[keyword]);
                 console.log("preloading");

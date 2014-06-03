@@ -968,7 +968,11 @@ Meteor.documentReady = documentReady;
     //     return HashKeyword.find({"keyword":Session.get("keyword")})
     // }
     Template.leadersboard.eachlead = function(){
-        var sortJson = {sort : {"heatScore": -1},limit:4};
+        var sortJson = {sort : {},limit:4};
+        var key = Session.get("keyword");
+        // key = "heatScore";
+        // console.log("sorting by " +key)
+        sortJson.sort[key] = -1
         return UserHashMania.find({},sortJson)
     }
     Template.leadersboard.events({
@@ -1308,8 +1312,15 @@ var totalData=0;
                 + '</div>'
     }
     function onScore(score){
-        //console.log("score " +score);
-        UserHashMania.update({"_id":Session.get("clientid")},{$inc : {"score":score,"heatScore":score}})
+        
+        var incJson = {"score":score,"heatScore":score};
+        var key = Session.get("keyword");
+        if(key){
+            incJson[key] = score;            
+        }
+        // console.log("score " +score);
+        // console.log(incJson)
+        UserHashMania.update({"_id":Session.get("clientid")},{$inc : incJson})
     }
     /*
 

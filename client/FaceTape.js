@@ -1311,16 +1311,25 @@ var totalData=0;
                  +' <img src="' +pics +'">  '
                 + '</div>'
     }
-    function onScore(score){
+    function onScore(score,keyword){
         
         var incJson = {"score":score,"heatScore":score};
         var key = Session.get("keyword");
+
+        if(keyword)
+            key = keyword;
         if(key){
-            incJson[key] = score;            
+            incJson[key] = score;
+            // increment hits for the keyword too.
+            var cursorSponserKeyword = SponserKeyword.findOne({"keyword":key});
+                if(cursorSponserKeyword)
+                    SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});   
         }
+
         // console.log("score " +score);
         // console.log(incJson)
         UserHashMania.update({"_id":Session.get("clientid")},{$inc : incJson})
+
     }
     /*
 
@@ -2508,7 +2517,15 @@ function saveCollection(){
     saveIndividual("SponserKeyword");
     // saveIndividual("FollowsGroup");
     StopSession();
-    // saveOutstanding();  
+    // saveOutstanding();
+    Meteor.call("getDefaultData",[],CLIENTID,function(err,data){
+        if(data){
+            preload = data;
+            cacheEverything();
+            console.log("getDefaultData ended last");
+        }
+
+    });  
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"saveCollection","time":((new Date().getTime())-starttimer)});
 
 }
@@ -3845,22 +3862,23 @@ function commentOneVote(){
         selectitem = stringArray[i];
         if(selectitem.length >= str.length && selectitem.substring(0, str.length) == str){
           var keyword = selectitem.slice(1);
-          Meteor.call("findHashKeyword",keyword,CLIENTID,function(err,data){
-              console.log("err");
-              console.log(err);
-              console.log("data");
-              console.log(data);
-              console.log(data._id);
-              // if(err)                
+          // Meteor.call("findHashKeyword",keyword,CLIENTID,function(err,data){
+          //     console.log("err");
+          //     console.log(err);
+          //     console.log("data");
+          //     console.log(data);
+          //     console.log(data._id);
+          //     // if(err)                
               
-          });
-          var commentcurssor = SponserKeyword.findOne({"keyword":keyword})
-          if(commentcurssor){
-            console.log("you got 25 points");
-            onScore(25);
-          }
+          // });
+            var commentcurssor = SponserKeyword.findOne({"keyword":keyword})
+            if(commentcurssor){
+                console.log("you got 25 points");
+                onScore(15,keyword);
+            }
         }
     }
+    onScore(10);
     // $("currentCommenting").append(html)
 
     // for(var i=0,il=voting.length;i<il;i++){

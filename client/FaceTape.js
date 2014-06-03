@@ -1026,41 +1026,32 @@ var totalData=0;
     {
         // console.log("go to top");
         $("#back-top").hide();
-
-         if ($("#surveybig").scrollTop() > 300) {
-                        $('#back-top').fadeIn();
+        if ($("#surveybig").scrollTop() > 300) {
+            $('#back-top').fadeIn();
         } else {
-                        $('#back-top').fadeOut();
-                }
-
+            $('#back-top').fadeOut();
+        }
         var x=$("#surveybig").scrollTop();
         var y=$(".hashFeed img").height();
-         $("#totalimages").html("<i class='circle up icon'>"+(parseInt(x/y)+1)+"</i>");                  
-         $("#totalimages").hide();
-
-         if ($("#surveybig").scrollTop() > 300) {
-                        $('#totalimages').fadeIn();
+        $("#totalimages").html("<i class='circle up icon'>"+(parseInt(x/y)+1)+"</i>");                  
+        $("#totalimages").hide();
+        if ($("#surveybig").scrollTop() > 300) {
+            $('#totalimages').fadeIn();
         } else {
-                        $('#totalimages').fadeOut();
-                }
-           
-        
-
+            $('#totalimages').fadeOut();
+        }   
         var a=$("#surveybig").scrollTop();
         var b=$(".hashFeed img").height();
         var z=parseInt(x/y)+2;
-        $("#toComeimages").html("<i class='circle down icon'>"+(totalData-z)+"</i>");
+        var c=totalData-z;
+        if(c>0)
+        $("#toComeimages").html("<i class='circle down icon'>"+c+"</i>");
         $("#toComeimages").hide();
-
         if ($("#surveybig").scrollTop() > 300) {
                         $('#toComeimages').fadeIn();
         } else {
                         $('#toComeimages').fadeOut();
-        }
-           
-        
-
-        
+        }    
     }
     function initDataBase(key){
         if(DataBase[key])

@@ -1099,7 +1099,7 @@ var totalData=0;
         var newElement = null;
         var currentData = null;
         var showFlag = false;
-        upp ='<div id="back-top"><i class="icon plus">NEW</i></div>'                  // go to upp
+        upp ='<div id="back-top"><i class="asterisk icon">new</i></div>'                  // go to upp
         var element = $("#surveybig").append(upp);
         var totalimages=0;
         tot ='<div id="totalimages"><i class="level up icon">'+(totalimages+1)+'</i></div>'                  //total images

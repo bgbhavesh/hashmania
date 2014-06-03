@@ -968,7 +968,8 @@ Meteor.documentReady = documentReady;
     //     return HashKeyword.find({"keyword":Session.get("keyword")})
     // }
     Template.leadersboard.eachlead = function(){
-        return UserHashMania.find({},{sort : {"heatScore": -1},limit:4})
+        var sortJson = {sort : {"heatScore": -1},limit:4};
+        return UserHashMania.find({},sortJson)
     }
     Template.leadersboard.events({
         "click .leadersface" : function(event){
@@ -6340,6 +6341,10 @@ function bindEvents(){
             $("#loginButtonWithGooglePlus").hammer().off("tap",loginWithGoogle);
             $("#loginButtonWithGooglePlus").hammer().on("tap",loginWithGoogle);
             $("#FAQButton").hammer().on("tap",onClickFAQButton);
+
+            $("#surveybighandle").hammer().off("tap");
+            $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+
             $("#seEmail").keyup(function(event){
                 $(this).val(convertEmail($(this).val()));
                 if(event.keyCode == 13){

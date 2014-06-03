@@ -660,107 +660,61 @@ App.testNewUser = testNewUser;
 var sponserKeywordArray = [];
 if (Meteor.isServer) {
 Meteor.startup(function () {
+    Meteor.setTimeout(startup,500);
+});
+
+function startup(){
         pushUserEveryDayWrapper =  Meteor.bindEnvironment(function(){pushUserEveryDay();});
         var startSize = 40,startCount =0;
-
-        // HashHistory.remove({})
-        // var cursorHashHistory = HashHistory.findOne({"_id":"nicolsondsouza@gmail.com"})
-        // console.log(cursorHashHistory)
-        // console.log(querystring);
         
         if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
             DebugFace = true;
-        // testNewUser();
-        // getBase();
-        // Feed.find({"clientid":"491204471"}).forEach(function(data){
-        //     Feed.remove({"_id":data._id});
-        // })
-        // Chat.remove({});
-        // Me.remove({});
-        // Follows.remove({});
+
         testingFunction();
         if(!DebugFace){
             Votes.find({"likeid":undefined}).forEach(function(data){console.log(data);Votes.remove({"_id":data._id})});
             checkNewImages();
 
-            // font-size on startup.
-            SponserKeyword.find({},{sort : {"hits": -1}}).forEach(function(data){
-                sponserKeywordArray.push(data.keyword);
-                SponserKeyword.update({"_id":data._id},{$set : {"size":startSize}});
-                if(startCount%5 == 0 && startSize >10)
-                    startSize -= 5;
-
-                startCount++
-            });
+            fontSizeOnStartUp();
+           
             var faqUrl= 'https://docs.google.com/forms/d/1oIoqFrz1F55Nc4i_v4IgSxmWbf9wLPTQGJrC3DyA-L8/viewform';
             faqdata = Meteor.http.get(faqUrl).content;
         }
 
+
+        ErrorUpdate.remove({});
+
+        accountsSetup();
+        var cursorContest =  Contest.findOne({});
+        if(cursorContest){
+            // ContestID = cursorContest._id;
+            // countDownHours = cursorContest.countDownHours;
+            // countDownMins = cursorContest.countDownMins;
+            // countDownSecs = cursorContest.countDownSecs;
+            // if(countDownHours == 0 && countDownMins == 0 && countDownSecs == 0){}
+            //else{startCounting();}            
+        }        
+        else
+            ContestID = Contest.insert({"countDownHours":0,"countDownMins":0,"countDownSecs":0});
+       
         
-        // FollowsGroup.remove({});
-        // EmailCollection.remove({});
-        // SponserKeyword.remove({});
-        // HashKeyword.remove({})
-        // FollowsGroup.find().forEach(function(data){console.log(data)});
-        // var cursorUsers = Meteor.users.find({});
-        // cursorUsers.forEach(function(data){
-        //     console.log(data)    
-        // })
-        
-        // console.log(Meteor.myMongoUrl);
-        // console.log("here");
-        // var cursorFeed = Feed.findOne({"low":"http://distilleryimage8.s3.amazonaws.com/9fefccca4edc11e3907c1296586a1d24_6.jpg"});
-        // console.log(cursorFeed)
-        // var cursorFeed = Feed.findOne({"low":"http://distilleryimage6.s3.amazonaws.com/3d6d1e304ece11e38aa1125559adfe5f_6.jpg"});
-        // http://distilleryimage6.s3.amazonaws.com/4895ea3a4b5411e39a99122380136edc_6.jpg
-        // http://distilleryimage6.s3.amazonaws.com/3d6d1e304ece11e38aa1125559adfe5f_6.jpg
-        // http://distilleryimage8.s3.amazonaws.com/9fefccca4edc11e3907c1296586a1d24_6.jpg
-        // console.log(cursorFeed)
-        // Meteor.call("recentMediaFetch","3877984","487690035.f28d28f.59143bb52afa4405a536448686c5b44c");
-    ErrorUpdate.remove({});
-    // GlobalFeed.remove({});
-    // Search.remove({});
-    // Votes.remove({});
+        if(!DebugFace)
+            checkContest();
 
-//    console.log ( 'M.url', murl = Meteor.absoluteUrl())
-//    console.log ( 'rurl', rurl = process.env.ROOT_URL)
-//    console.log ( 'eurl', eurl = process.env.ABSOLUTE_URL)
-    //Meteor.absoluteUrl.defaultOptions.rootUrl = "http://174.129.12.79:3000/";
-    // Meteor.absoluteUrl.defaultOptions.rootUrl = "http://youtap.meteor.com/";
-    //Meteor.absoluteUrl.defaultOptions.rootUrl =  "http://tapmatrix-23170.euw1.actionbox.io:3000/";  
-    
-    //MONGO_URL= "mongodb://nicolsondsouza:123456789@paulo.mongohq.com:10017/youtap"
-  /// REMOVING COLLECTION 
-    accountsSetup();
-    var cursorContest =  Contest.findOne({});
-    if(cursorContest){
-        // ContestID = cursorContest._id;
-        // countDownHours = cursorContest.countDownHours;
-        // countDownMins = cursorContest.countDownMins;
-        // countDownSecs = cursorContest.countDownSecs;
-        // if(countDownHours == 0 && countDownMins == 0 && countDownSecs == 0){}
-        //else{startCounting();}            
-    }        
-    else
-        ContestID = Contest.insert({"countDownHours":0,"countDownMins":0,"countDownSecs":0});
-   
-    
-    if(!DebugFace)
-        checkContest();
 
-    /*
-        http://zulfait.blogspot.in/2013/01/meteor-js-send-email-through-gmail.html
-        can send email through gmail
-    */
-    //process.env.MAIL_URL = 'smtp://postmaster%40tapmatrix.mailgun.org:40m6u1yi5lb5@smtp.mailgun.org:587';
-    
-    //process.env.MAIL_URL = 'smtp://postmaster%tapmate.mailgun.org:2e8ch6il0kh9@smtp.mailgun.org:587';
+        process.env.MAIL_URL = 'smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587';
+}
+function fontSizeOnStartUp(){
+    // font-size on startup.
+    SponserKeyword.find({},{sort : {"hits": -1}}).forEach(function(data){
+        sponserKeywordArray.push(data.keyword);
+        SponserKeyword.update({"_id":data._id},{$set : {"size":startSize}});
+        if(startCount%5 == 0 && startSize >10)
+            startSize -= 5;
 
-    // HASTEN SMTP ADDRESS
-    process.env.MAIL_URL = 'smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587';
-    
-    // console.log(faqdata)
-});
+        startCount++
+    });
+}
 App.testNewUser = testNewUser;
 //////// Observers starts //////
 
@@ -1550,6 +1504,10 @@ App.isAdmin = isAdmin;
                 Fiber(function () {
                 Meteor.setTimeout(scheduleFixing,300);
                 }).run();
+                
+                // put anything which needs to be executed everyday.
+                checkNewImages();
+                fontSizeOnStartUp();
     });
     maileveryweekWrapper = Meteor.bindEnvironment(function(){
                 Fiber(function () {
@@ -2655,7 +2613,7 @@ function checkForRank(){
 }
 function checkNewImages(){
     // console.log("checkNewImages every hour");
-    Meteor.setInterval(function(){
+    // Meteor.setInterval(function(){
         for(var i=0,il=sponserKeywordArray.length;i<il;i++){
             keyword = sponserKeywordArray[i];
             var cursorSponserKeyword = SponserKeyword.findOne({"keyword":keyword});
@@ -2671,7 +2629,7 @@ function checkNewImages(){
             SponserKeyword.update({"_id":cursorSponserKeyword._id},{$set : {"next_url":data.data.pagination.next_url}});            
         }
 
-    },3600000);    
+    // },3600000);    
 }
 
 function pushToUserHashRepublic(registrationid,mymessage,type){

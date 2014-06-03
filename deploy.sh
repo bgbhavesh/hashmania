@@ -1,6 +1,6 @@
 echo $(pwd)
 
-forever stop ../app/main.js
+pm2 stop ../app/main.js
 
 rm -Rf ../app
 mkdir ../app
@@ -23,4 +23,4 @@ echo $(pwd)
 export MONGO_URL='mongodb://localhost'
 export ROOT_URL='http://evo.zzzeal.com'
 export PORT=2009
-forever start main.js
+pm2 start main.js

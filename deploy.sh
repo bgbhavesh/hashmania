@@ -1,9 +1,14 @@
 echo $(pwd)
 
+
 pm2 stop ../app/main.js
 
 rm -Rf ../app
 mkdir ../app
+
+rm bundle.tar.gz
+
+meteor bundle bundle.tar.gz
 
 mv bundle.tar.gz ../app/bundle.tar.gz
 
@@ -21,6 +26,6 @@ cd ..
 cd ..
 echo $(pwd)
 export MONGO_URL='mongodb://localhost'
-export ROOT_URL='http://evo.zzzeal.com'
-export PORT=2009
+export ROOT_URL='http://128.199.196.222:3000'
+export PORT=3000
 pm2 start main.js

@@ -1072,6 +1072,10 @@ var totalData=0;
         // var key = Session.get("keyword");
         // DataBase[key].prevLoad = DataBase[key].curLoad;
     }
+    function preRenderResults(){
+        $("#surveybighandle").hammer().off("tap");
+        $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+    }
     function renderResults(data,loadMoreFlag){
 
         console.log("load more " +loadMoreFlag)
@@ -8092,6 +8096,7 @@ Meteor.startup(function () {
             // if(get("search")){
             //     restoreData();
             // }
+            preRenderResults();
             if(preload[keyword] && preload[keyword].length != 0){
                 renderResults(preload[keyword]);
                 console.log("preloading");

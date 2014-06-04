@@ -229,8 +229,19 @@
   </div>
 </div>
 </template>
-
+<template name="allLeadersboard">
+	{{#each eachlead}}
+		<div class="leadersface">  
+			<img src="{{face}}"/>
+		</div>
+		
+		
+	{{/each}} 
+</template>
 <template name="keyword">
+	<div class="allLeaderSection">
+			{{> allLeadersboard}}
+	</div>
 	<div id="keywordPopupBackground"></div>
 
   <div id="keywordPopup" class="ui vertical menu">
@@ -364,14 +375,14 @@
 	{{> header}}  
 	<div id="hashOverlay">
 	<div id="surveybighandle">
-		<div class="leaderSection">
-			{{> leadersboard}}
-		</div>
 		<i id="updownarrow" class="huge sort ascending icon"></i>
 			<div class="hashKeyword">  </div>
 			<!-- <div class="leaderSection">
 	  			{{> leadersboard}}
 	  		</div> -->
+	</div>
+	<div class="leaderSection">
+			{{> leadersboard}}
 	</div>
 	<div id="surveybig" class="ui labeled vertical fluid  icon menu" style="">
   		

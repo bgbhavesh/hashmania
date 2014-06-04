@@ -1118,14 +1118,19 @@ var totalData=0;
         var newElement = null;
         var currentData = null;
         var showFlag = false;
-        upp ='<div id="back-top"><i class="asterisk icon">new</i></div>'                  // go to upp
+
+        $("#back-top").remove();
+        var upp ='<div id="back-top"><i class="asterisk icon">new</i></div>'                  // New Images
         var element = $("#surveybig").append(upp);
         var totalimages=0;
-        tot ='<div id="totalimages"><i class="level up icon">'+(totalimages+1)+'</i></div>'                  //total images
+
+        $("#totalimages").remove();
+        var tot ='<div id="totalimages"><i class="level up icon">'+(totalimages+1)+'</i></div>'     // up total images
         var element = $("#surveybig").append(tot);
-        
         var toComeimages=0;
-        tot ='<div id="toComeimages"><i class="level down icon">'+totalimages+'</i></div>'                  //total images
+
+        $("#toComeimages").remove();
+        var tot ='<div id="toComeimages"><i class="level down icon">'+totalimages+'</i></div>'      //down total images
         var element = $("#surveybig").append(tot);
         
         for(var i=0,il=data.length;i<il;i++){

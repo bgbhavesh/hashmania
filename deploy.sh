@@ -1,8 +1,5 @@
 echo $(pwd)
 
-settings=$(cat hashsettings.json)
-
-
 
 rm bundle.tar.gz
 
@@ -33,5 +30,5 @@ echo $(pwd)
 export MONGO_URL='mongodb://localhost'
 export ROOT_URL='http://128.199.196.222:3000'
 export PORT=3000
-export METEOR_SETTINGS=$settings
+export METEOR_SETTINGS=$(cat ../../HashRepublic/hashsettings.json)
 pm2 start main.js

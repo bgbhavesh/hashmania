@@ -1596,7 +1596,7 @@ h6 {}
 	z-index: 1;
 }
 .leadersface{
-	height: 100%;
+	height: 90%;
 	position: relative;
 	float: left;
 }
@@ -1851,16 +1851,12 @@ h6 {}
 }
 #back-top {
 	position: fixed;
-	bottom: 75%;
+	bottom: 66%;
 	left: 1%;
 	z-index: 2;
 	display: none;
 	width: 30px;
 	height: 30px;
-	/*background: url(../images/gotop.png) ;*/
-	background-size: 100%;
-	font-size: 20px;
-	top: 28%;
 }
 #MoreNewImage
  {
@@ -1871,7 +1867,7 @@ h6 {}
 	display: none;
 	width: 30px;
 	height: 30px;
-	font-size: 20px;
+	
 }
 #totalimages {
 	position: fixed;
@@ -1881,7 +1877,7 @@ h6 {}
 	display: none;
 	width: 30px;
 	height: 30px;
-	font-size: 20px;
+	/*font-size: 20px;*/
 }
 #toComeimages {
 	position: fixed;
@@ -1891,17 +1887,20 @@ h6 {}
 	display: none;
 	width: 30px;
 	height: 30px;
-	font-size: 20px;
+	/*font-size: 20px;*/
 }
 #back-top :active,#MoreNewImage :active,#toComeimages :active,#totalimages :active{
 	color: black;
 }
 #back-top i ,#totalimages i,#toComeimages i,#MoreNewImage i{
 	padding: 1%;
+	padding-left: 3%;
+	padding-right: 3%;
 	width: auto;
 	background-color: rgba(7, 86, 152,0.7);
 	border-radius: 10em;
 	background-size: 100%;
+	font-size: 20px;
 }
 
 /*

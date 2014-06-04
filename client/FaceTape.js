@@ -1060,37 +1060,22 @@ Meteor.documentReady = documentReady;
     var totalData=0;
     function checkscroll()
     {
-        // console.log("go to top");
-        $("#back-top").hide();
-        if ($("#surveybig").scrollTop() > 300) {
-            $('#back-top').show();
-        } else {
-            $('#back-top').hide();
-        }
-
         var x=$("#surveybig").scrollTop();
         var y=$(".hashFeed img").height();
         var z=parseInt(x/y);
         $("#totalimages").html('<i class="level up icon">'+(z+1)+'</i>');                  
-        $("#totalimages").hide();
-        if ($("#surveybig").scrollTop() > 300) {
-            $('#totalimages').show();
-        } else {
-            $('#totalimages').hide();
-        }   
-        
-        var a=$("#surveybig").scrollTop();
-        var b=$(".hashFeed img").height();
+                 
         var z=parseInt(x/y)+2;
         var c=totalData-z;
+
         if(c>0)
         $("#toComeimages").html('<i class="level down icon">'+c+'</i>');
-        $("#toComeimages").hide();
+        $(".tapToShow").hide();
 
         if ($("#surveybig").scrollTop() > 300) {
-            $('#toComeimages').show();
+            $('.tapToShow').show();
         } else {
-            $('#toComeimages').hide();
+            $('.tapToShow').hide();
         }    
     }
     
@@ -1137,8 +1122,8 @@ Meteor.documentReady = documentReady;
         var tot ='<div id="toComeimages" class="tapToShow"></div>'      //down total images
         var element = $("#surveybig").append(tot);
         
-        $("#surveybig").hammer().off("tap",$('.tapToShow').hide());
-        $("#surveybig").hammer().on("tap",$('.tapToShow').show());
+        $("#surveybig").hammer().off("touch",$('.tapToShow').hide());
+        $("#surveybig").hammer().on("touch",checkscroll);
         
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
@@ -6426,7 +6411,7 @@ function bindEvents(){
             });
             // $("#surveybig").on("scrollstop",onSurveyScroll)
         //  HASH MANIA  checkscroll
-        $("#surveybig").on("scrollstop",checkscroll)
+        // $("#surveybig").on("scrollstop",checkscroll)
         touchScroll("snapy");
             ///Last Event
             // if(!Session.get("phonegap"))
@@ -7676,7 +7661,7 @@ function closeSurvey(){
     $('#updownarrow').addClass('huge sort descending icon');
     $('#updownarrow').css({"top": "45%"});
     $(".leaderSection").show();
-     $('.tapToShow').hide();
+    $('.tapToShow').hide();
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});

@@ -136,7 +136,7 @@ body{
 }
 .allLeaderSection{
 	display: block;
-	height: 14%;
+	height: 10%;
 	top: 7.5%;
 	position: absolute;
 	width: 100%;
@@ -147,11 +147,11 @@ body{
 	width: 100%;
 	height: 10%;
 	z-index: 4;
-	top: 20%;
+	top: 17%;
 }
 .leadersface {
-	height: 22%;
-	width: 23%;
+	height: 90%;
+	width: 10%;
 	position: static;
 	float: left;
 	margin: 1%;
@@ -202,7 +202,7 @@ body{
 #surveybighandle{
 	top: 89%;
 	overflow-y: scroll;
-	height: 20.5%;
+	height: 17%;
 	width: 100%;
 	position: absolute;
 	z-index: 4;
@@ -212,7 +212,7 @@ body{
 #surveybig{
 	top: 92%;
 	overflow-y: scroll;
-	height: 79%;
+	height: 81%;
 	width: 100%;
 	position: absolute;
 	/*border-top:#11a8ab 1px solid;*/
@@ -1601,8 +1601,9 @@ h6 {}
 	float: left;
 }
 .leadersface img{
-	height: 100%;
+	height: 90%;
 	width: 100%;
+	padding: 1%;
 }
 .hashFeed
 {
@@ -1689,7 +1690,7 @@ h6 {}
 	margin-left: 44%;*/
 	color: white;
 	position: absolute;
-	bottom: 10%;
+	bottom: 0%;
 	left: 55%;
 	font-size: 30px;
 
@@ -1848,15 +1849,10 @@ h6 {}
 	/*width: 20%;*/
 	/*margin-left: 40%;*/
 }
-.leadersface
-{
-	height: 65%;
-	width: 10%;
-}
 #back-top {
 	position: fixed;
 	bottom: 75%;
-	left: 5%;
+	left: 1%;
 	z-index: 2;
 	display: none;
 	width: 30px;
@@ -1875,34 +1871,27 @@ h6 {}
 	display: none;
 	width: 30px;
 	height: 30px;
-	/*background: url(../images/gotop.png) ;*/
-	background-size: 100%;
 	font-size: 20px;
 }
 #totalimages {
 	position: fixed;
 	bottom: 0px;
-	left: 80%;
+	left: 85%;
 	z-index: 2;
 	display: none;
 	width: 30px;
 	height: 30px;
-	/*background: url(../images/gotop.png) ;*/
-	background-size: 100%;
 	font-size: 20px;
 }
 #toComeimages {
 	position: fixed;
-	bottom: 75%;
-	left: 80%;
+	bottom: 0%;
+	left: 1%;
 	z-index: 2;
 	display: none;
 	width: 30px;
 	height: 30px;
-	/*background: url(../images/gotop.png) ;*/
-	background-size: 100%;
 	font-size: 20px;
-	top: 28%
 }
 #back-top :active,#MoreNewImage :active,#toComeimages :active,#totalimages :active{
 	color: black;
@@ -1912,6 +1901,7 @@ h6 {}
 	width: auto;
 	background-color: rgba(7, 86, 152,0.7);
 	border-radius: 10em;
+	background-size: 100%;
 }
 
 /*

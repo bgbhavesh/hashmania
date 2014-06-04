@@ -7661,9 +7661,8 @@ function openSurvey(){
     $(".hashKeyword").css({"display":"none"});
     $('#updownarrow').css({"top": "0%"});
     $(".leaderSection").hide();
-    $('#back-top').fadeOut();
-    $('#totalimages').fadeOut();
-    $('#toComeimages').fadeOut();
+    $('.tapToShow').hide();
+    
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
     //$("#updownarrow").animate("class","huge sort ascending icon");
     //$("#surveybighandle").css({"z-index":"4"});
@@ -7672,11 +7671,12 @@ function openSurvey(){
 }
 function closeSurvey(){
     $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
-    $("#surveybig").transition({"top":"18%"});
+    $("#surveybig").transition({"top":"15%"});
     $(".hashKeyword").css({"display":"block"});
     $('#updownarrow').addClass('huge sort descending icon');
-    $('#updownarrow').css({"top": "52%"});
+    $('#updownarrow').css({"top": "45%"});
     $(".leaderSection").show();
+     $('.tapToShow').hide();
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});

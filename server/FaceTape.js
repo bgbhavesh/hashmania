@@ -546,6 +546,14 @@ function testingFunction(){
 }
 
 // Development Settings
+function getSettingVarialble(key){
+    if(Meteor.settings)
+        if(Meteor.settings.public)
+            if(Meteor.settings.public[key])
+                return Meteor.settings.public[key];
+
+    return null;
+}
 
 DebugFace = null;
 if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
@@ -556,7 +564,9 @@ if(DebugFace)
 else
     ROOTURL = "http://hashrepublic.meteor.com";
 
-
+var origin = getSettingVarialble("origin");
+if(origin)
+    ROOTURL = origin;
 
 App.testingFunction = testingFunction;
 var ACCESSTOKEN = null;
@@ -666,17 +676,17 @@ Meteor.startup(function () {
 function startup(){
         pushUserEveryDayWrapper =  Meteor.bindEnvironment(function(){pushUserEveryDay();});
         
-        
+        fontSizeOnStartUp();
         if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
             DebugFace = true;
 
         testingFunction();
         if(!DebugFace){
             Votes.find({"likeid":undefined}).forEach(function(data){console.log(data);Votes.remove({"_id":data._id})});
+            
+            fontSizeOnStartUp();
             checkNewImages();
 
-            fontSizeOnStartUp();
-           
             var faqUrl= 'https://docs.google.com/forms/d/1oIoqFrz1F55Nc4i_v4IgSxmWbf9wLPTQGJrC3DyA-L8/viewform';
             faqdata = Meteor.http.get(faqUrl).content;
         }
@@ -704,6 +714,7 @@ function startup(){
 
         process.env.MAIL_URL = 'smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587';
 }
+var HashUserRanking = {};
 function fontSizeOnStartUp(){
     // font-size on startup.
     var startSize = 40,startCount =0;
@@ -715,8 +726,27 @@ function fontSizeOnStartUp(){
 
         startCount++
     });
+    var sortJson = null;
+    HashUserRanking = getHashUserRanking();
 }
 App.testNewUser = testNewUser;
+function getHashUserRanking(){
+    var localHashUserRanking = {};
+    for(var i=0,il=sponserKeywordArray.length;i<il;i++){
+        // console.log(sponserKeywordArray[i])
+        sortJson = {sort : {},limit:4};
+        // var key = Session.get("keyword");
+        var key = sponserKeywordArray[i];
+        // console.log("sorting by " +key)
+        sortJson.sort[key] = -1;
+        localHashUserRanking[key] = [];
+        UserHashMania.find({},sortJson).forEach(function(data){
+            // console.log(data._id);
+            localHashUserRanking[key].push(data._id);
+        })
+    }
+    return localHashUserRanking;
+}
 //////// Observers starts //////
 
 function getGuestId(){
@@ -1507,8 +1537,8 @@ App.isAdmin = isAdmin;
                 }).run();
 
                 // put anything which needs to be executed everyday.
-                checkNewImages();
                 fontSizeOnStartUp();
+                checkNewImages();                
     });
     maileveryweekWrapper = Meteor.bindEnvironment(function(){
                 Fiber(function () {
@@ -2552,11 +2582,13 @@ function checkForPushHash(old,news){
     if(old.heatScore != news.heatScore){
         // this means that score has been updated.
         if(old.pushid)
-            pushToUserHashRepublic(old.pushid,news.pushmessage,news.pushtype)
+            pushToUserHashRepublic(old.pushid,news.pushmessage,news.pushtype);
+        checkKeywordScore();
     }
 }
 function blinkForSecond(old,news){
     if(old.hits != news.hits){
+        console.log("old hits " +old.hits +" new hits" +news.hits)
         SponserKeyword.update({"_id":old._id},{$set : {"color":"red"}});
         Meteor.setTimeout(function(){
             SponserKeyword.update({"_id":old._id},{$set : {"color":"normal"}});
@@ -2564,6 +2596,44 @@ function blinkForSecond(old,news){
         checkForRank();
     }
 }
+function checkKeywordScore(){
+    console.log("checkKeywordScore")
+    var localHashUserRanking = getHashUserRanking();
+    var currentRank = null;
+    var message = "";
+    var cursorUserHashMania = null;
+    for(var i=0,il=sponserKeywordArray.length;i<il;i++){
+        // console.log(sponserKeywordArray[i])
+        currentRank = HashUserRanking[sponserKeywordArray[i]];
+        currentLocalHashUserRanking = localHashUserRanking[sponserKeywordArray[i]];
+        if(currentRank){
+            for(var j=0,jl=currentRank.length;j<jl;j++){
+                if(currentRank[j] != currentLocalHashUserRanking[j]){
+                    cursorUserHashMania = UserHashMania.findOne({"_id":currentRank[j]});
+                    if(cursorUserHashMania){
+                        message = "You lost the presidency of #" +sponserKeywordArray[i] +" to @" +currentLocalHashUserRanking[j];
+                        console.log(message);
+                        if(cursorUserHashMania.pushid){
+                            pushToUserHashRepublic(cursorUserHashMania.pushid,message,cursorUserHashMania.pushtype)
+                        }
+                    }
+                    cursorUserHashMania = UserHashMania.findOne({"_id":currentLocalHashUserRanking[j]});
+                    if(cursorUserHashMania){
+                        message = "You won the presidency of #" +sponserKeywordArray[i] +" to @" +currentRank[j];
+                        console.log(message);
+                        if(cursorUserHashMania.pushid){
+                            pushToUserHashRepublic(cursorUserHashMania.pushid,message,cursorUserHashMania.pushtype)
+                        }
+                    }
+                    j++;
+                }
+            }            
+        }
+
+    }
+}
+
+
 function checkForRank(){
     var currentKeywordArray = [];
     var winnerLooser = []
@@ -2576,7 +2646,7 @@ function checkForRank(){
             winnerLooser.push(sponserKeywordArray[i]);
         }
     }
-    console.log(winnerLooser.length)
+    console.log("winner count" +winnerLooser.length)
     if(winnerLooser.length >1){
         var cursorSponserKeyword = null;
         var cursorUserHashMania = null;

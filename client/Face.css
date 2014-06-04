@@ -139,11 +139,11 @@ body{
 	display: none;
 }
 .leadersface {
-height: 22%;
-width: 23%;
-position: static;
-float: left;
-margin: 1%;
+	height: 22%;
+	width: 23%;
+	position: static;
+	float: left;
+	margin: 1%;
 }
 #gamemenu{
 /*	height: 45%;

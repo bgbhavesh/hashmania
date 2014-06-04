@@ -1,12 +1,17 @@
 echo $(pwd)
 
+settings=$(cat hashsettings.json)
+
+
+
+rm bundle.tar.gz
 
 pm2 stop ../app/main.js
 
 rm -Rf ../app
 mkdir ../app
 
-rm bundle.tar.gz
+
 
 meteor bundle bundle.tar.gz
 
@@ -28,4 +33,5 @@ echo $(pwd)
 export MONGO_URL='mongodb://localhost'
 export ROOT_URL='http://128.199.196.222:3000'
 export PORT=3000
+export METEOR_SETTINGS=$settings
 pm2 start main.js

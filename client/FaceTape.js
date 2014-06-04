@@ -191,6 +191,7 @@ Router.map(function () {
             emailAuthFlag = emailtoken;
             window.localStorage.setItem("clientid","");
         }
+
     }); 
     
     this.route('index', {
@@ -578,6 +579,7 @@ Template.loginWithInstagram.rendered = function(){
         
         $("#seError").show();
         $("#seError div").html("Enter a new password");
+        $("#loginsignupform").css("display","none");
     }
     // $("#loginWithAppButton").hammer().off("tap",onLoginWithApp);   
     // $("#signupButton").hammer().off("tap",onLoginWithAppButton);
@@ -967,6 +969,22 @@ Meteor.documentReady = documentReady;
     // Template.hashmania.eachBig = function(){
     //     return HashKeyword.find({"keyword":Session.get("keyword")})
     // }
+    Template.allLeadersboard.eachlead = function(){
+        var sortJson = {sort : {},limit:4};
+        // var key = Session.get("keyword");
+        var key = "heatScore";
+        // console.log("sorting by " +key)
+        sortJson.sort[key] = -1
+        return UserHashMania.find({},sortJson)
+    }
+    Template.allLeadersboard.events({
+        "click .leadersface" : function(event){
+            if(this.instagramUsername)
+            window.open("http://instagram.com/"+this.instagramUsername,"_system");
+            else
+                toast("Not a instagram user.");
+        }
+    });
     Template.leadersboard.eachlead = function(){
         var sortJson = {sort : {},limit:4};
         var key = Session.get("keyword");

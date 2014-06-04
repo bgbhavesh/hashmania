@@ -1,10 +1,11 @@
 {
     "public": {
-        "nicolson" : "helloworld",
+        "appName" : "HashRepublic",
         "redirect" : "http://128.199.196.222:3000/_oauth/instagram?close=close&response_type=code",
         "clientid" : "c0ad20f79efe4a648f3ce2fe24f39d53",
         "secret" : "6c846534923c4355812ea39c08aa680a",
         "DDP" : "http://128.199.196.222:3000",
+        "origin" : "http://128.199.196.222:3000",
         "redirectServer" : "http://128.199.196.222:3000/_oauth/instagram?close=close",
         "redirectClose" : "http://128.199.196.222:3000/_oauth",
         "fbredirect" : "http://128.199.196.222:3000/facebook?close",

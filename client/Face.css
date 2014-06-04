@@ -187,6 +187,19 @@ body{
 	background-color: steelblue;
 	color: white;
 }
+#displayScore{
+	display: none;
+	position: absolute;
+	height: 6%;
+	width: 10%;
+	float: left;
+	top: 50%;
+	z-index: 20;
+	background: black;
+	left: 45%;
+	font-size: xx-large;
+	border-radius: 10px 10px 10px 10px;
+}
 .submenu, .helpSubMenu{	
     font-size: 20px;
     background-color: cornflowerblue;

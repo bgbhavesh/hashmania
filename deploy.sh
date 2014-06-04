@@ -1,12 +1,13 @@
 echo $(pwd)
 
+rm bundle.tar.gz
 
 pm2 stop ../app/main.js
 
 rm -Rf ../app
 mkdir ../app
 
-rm bundle.tar.gz
+
 
 meteor bundle bundle.tar.gz
 

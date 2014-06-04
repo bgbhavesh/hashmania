@@ -191,6 +191,7 @@ Router.map(function () {
             emailAuthFlag = emailtoken;
             window.localStorage.setItem("clientid","");
         }
+
     }); 
     
     this.route('index', {
@@ -578,6 +579,7 @@ Template.loginWithInstagram.rendered = function(){
         
         $("#seError").show();
         $("#seError div").html("Enter a new password");
+        $("#loginsignupform").css("display","none");
     }
     // $("#loginWithAppButton").hammer().off("tap",onLoginWithApp);   
     // $("#signupButton").hammer().off("tap",onLoginWithAppButton);
@@ -967,6 +969,22 @@ Meteor.documentReady = documentReady;
     // Template.hashmania.eachBig = function(){
     //     return HashKeyword.find({"keyword":Session.get("keyword")})
     // }
+    Template.allLeadersboard.eachlead = function(){
+        var sortJson = {sort : {},limit:4};
+        // var key = Session.get("keyword");
+        var key = "heatScore";
+        // console.log("sorting by " +key)
+        sortJson.sort[key] = -1
+        return UserHashMania.find({},sortJson)
+    }
+    Template.allLeadersboard.events({
+        "click .leadersface" : function(event){
+            if(this.instagramUsername)
+            window.open("http://instagram.com/"+this.instagramUsername,"_system");
+            else
+                toast("Not a instagram user.");
+        }
+    });
     Template.leadersboard.eachlead = function(){
         var sortJson = {sort : {},limit:4};
         var key = Session.get("keyword");
@@ -1021,39 +1039,6 @@ Meteor.documentReady = documentReady;
 // var curLoad = [];
 // var pageCount = -1;
 // var DataBase = [];
-var totalData=0;
-    function checkscroll()
-    {
-        // console.log("go to top");
-        $("#back-top").hide();
-        if ($("#surveybig").scrollTop() > 300) {
-            $('#back-top').fadeIn();
-        } else {
-            $('#back-top').fadeOut();
-        }
-        var x=$("#surveybig").scrollTop();
-        var y=$(".hashFeed img").height();
-        $("#totalimages").html("<i class='circle up icon'>"+(parseInt(x/y)+1)+"</i>");                  
-        $("#totalimages").hide();
-        if ($("#surveybig").scrollTop() > 300) {
-            $('#totalimages').fadeIn();
-        } else {
-            $('#totalimages').fadeOut();
-        }   
-        var a=$("#surveybig").scrollTop();
-        var b=$(".hashFeed img").height();
-        var z=parseInt(x/y)+2;
-        var c=totalData-z;
-        if(c>0)
-        $("#toComeimages").html("<i class='circle down icon'>"+c+"</i>");
-        $("#toComeimages").hide();
-
-        if ($("#surveybig").scrollTop() > 300) {
-                        $('#toComeimages').fadeIn();
-        } else {
-                        $('#toComeimages').fadeOut();
-        }    
-    }
     function initDataBase(key){
         if(DataBase[key])
             return false;
@@ -1072,6 +1057,43 @@ var totalData=0;
         $("#surveybighandle").hammer().off("tap");
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
     }
+    var totalData=0;
+    function checkscroll()
+    {
+        // console.log("go to top");
+        $("#back-top").hide();
+        if ($("#surveybig").scrollTop() > 300) {
+            $('#back-top').show();
+        } else {
+            $('#back-top').hide();
+        }
+
+        var x=$("#surveybig").scrollTop();
+        var y=$(".hashFeed img").height();
+        var z=parseInt(x/y);
+        $("#totalimages").html('<i class="level up icon">'+(z+1)+'</i>');                  
+        $("#totalimages").hide();
+        if ($("#surveybig").scrollTop() > 300) {
+            $('#totalimages').show();
+        } else {
+            $('#totalimages').hide();
+        }   
+        
+        var a=$("#surveybig").scrollTop();
+        var b=$(".hashFeed img").height();
+        var z=parseInt(x/y)+2;
+        var c=totalData-z;
+        if(c>0)
+        $("#toComeimages").html('<i class="level down icon">'+c+'</i>');
+        $("#toComeimages").hide();
+
+        if ($("#surveybig").scrollTop() > 300) {
+            $('#toComeimages').show();
+        } else {
+            $('#toComeimages').hide();
+        }    
+    }
+    
     function renderResults(data,loadMoreFlag){
 
         console.log("load more " +loadMoreFlag)
@@ -1100,15 +1122,23 @@ var totalData=0;
         var newElement = null;
         var currentData = null;
         var showFlag = false;
-        upp ='<div id="back-top"><i class="asterisk icon">new</i></div>'                  // go to upp
+
+        $("#back-top").remove();
+        var upp ='<div id="back-top" class="tapToShow"><i class="asterisk icon">new</i></div>'                  // New Images
         var element = $("#surveybig").append(upp);
         var totalimages=0;
-        tot ='<div id="totalimages"><i class="level up icon">'+(totalimages+1)+'</i></div>'                  //total images
+
+        $("#totalimages").remove();
+        var tot ='<div id="totalimages" class="tapToShow"></div>'     // up total images
+        var element = $("#surveybig").append(tot);
+        var toComeimages=0;
+
+        $("#toComeimages").remove();
+        var tot ='<div id="toComeimages" class="tapToShow"></div>'      //down total images
         var element = $("#surveybig").append(tot);
         
-        var toComeimages=0;
-        tot ='<div id="toComeimages"><i class="level down icon">'+totalimages+'</i></div>'                  //total images
-        var element = $("#surveybig").append(tot);
+        $("#surveybig").hammer().off("tap",$('.tapToShow').hide());
+        $("#surveybig").hammer().on("tap",$('.tapToShow').show());
         
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
@@ -7631,9 +7661,8 @@ function openSurvey(){
     $(".hashKeyword").css({"display":"none"});
     $('#updownarrow').css({"top": "0%"});
     $(".leaderSection").hide();
-    $('#back-top').fadeOut();
-    $('#totalimages').fadeOut();
-    $('#toComeimages').fadeOut();
+    $('.tapToShow').hide();
+    
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
     //$("#updownarrow").animate("class","huge sort ascending icon");
     //$("#surveybighandle").css({"z-index":"4"});
@@ -7642,11 +7671,12 @@ function openSurvey(){
 }
 function closeSurvey(){
     $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
-    $("#surveybig").transition({"top":"18%"});
+    $("#surveybig").transition({"top":"15%"});
     $(".hashKeyword").css({"display":"block"});
     $('#updownarrow').addClass('huge sort descending icon');
-    $('#updownarrow').css({"top": "52%"});
+    $('#updownarrow').css({"top": "45%"});
     $(".leaderSection").show();
+     $('.tapToShow').hide();
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});

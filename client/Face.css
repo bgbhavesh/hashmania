@@ -53,23 +53,10 @@ body{
 #hashFaqForm{
 	float: left;
 	height: 100%;
-	/*width: 50%;*/
+	width: 50%;
 	display: none;
 /*	left: 50%;
 */	position: absolute;
-}
-#displayScore{
-	display: none;
-	position: absolute;
-	height: 6%;
-	width: 10%;
-	float: left;
-	top: 50%;
-	z-index: 20;
-	background: black;
-	left: 45%;
-	font-size: xx-large;
-	border-radius: 10px 10px 10px 10px;
 }
 .profileBody{
 

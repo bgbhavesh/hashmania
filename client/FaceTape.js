@@ -1021,39 +1021,6 @@ Meteor.documentReady = documentReady;
 // var curLoad = [];
 // var pageCount = -1;
 // var DataBase = [];
-var totalData=0;
-    function checkscroll()
-    {
-        // console.log("go to top");
-        $("#back-top").hide();
-        if ($("#surveybig").scrollTop() > 300) {
-            $('#back-top').fadeIn();
-        } else {
-            $('#back-top').fadeOut();
-        }
-        var x=$("#surveybig").scrollTop();
-        var y=$(".hashFeed img").height();
-        $("#totalimages").html("<i class='circle up icon'>"+(parseInt(x/y)+1)+"</i>");                  
-        $("#totalimages").hide();
-        if ($("#surveybig").scrollTop() > 300) {
-            $('#totalimages').fadeIn();
-        } else {
-            $('#totalimages').fadeOut();
-        }   
-        var a=$("#surveybig").scrollTop();
-        var b=$(".hashFeed img").height();
-        var z=parseInt(x/y)+2;
-        var c=totalData-z;
-        if(c>0)
-        $("#toComeimages").html("<i class='circle down icon'>"+c+"</i>");
-        $("#toComeimages").hide();
-
-        if ($("#surveybig").scrollTop() > 300) {
-                        $('#toComeimages').fadeIn();
-        } else {
-                        $('#toComeimages').fadeOut();
-        }    
-    }
     function initDataBase(key){
         if(DataBase[key])
             return false;
@@ -1072,6 +1039,43 @@ var totalData=0;
         $("#surveybighandle").hammer().off("tap");
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
     }
+    var totalData=0;
+    function checkscroll()
+    {
+        // console.log("go to top");
+        $("#back-top").hide();
+        if ($("#surveybig").scrollTop() > 300) {
+            $('#back-top').show();
+        } else {
+            $('#back-top').hide();
+        }
+
+        var x=$("#surveybig").scrollTop();
+        var y=$(".hashFeed img").height();
+        var z=parseInt(x/y);
+        $("#totalimages").html('<i class="level up icon">'+(z+1)+'</i>');                  
+        $("#totalimages").hide();
+        if ($("#surveybig").scrollTop() > 300) {
+            $('#totalimages').show();
+        } else {
+            $('#totalimages').hide();
+        }   
+        
+        var a=$("#surveybig").scrollTop();
+        var b=$(".hashFeed img").height();
+        var z=parseInt(x/y)+2;
+        var c=totalData-z;
+        if(c>0)
+        $("#toComeimages").html('<i class="level down icon">'+c+'</i>');
+        $("#toComeimages").hide();
+
+        if ($("#surveybig").scrollTop() > 300) {
+            $('#toComeimages').show();
+        } else {
+            $('#toComeimages').hide();
+        }    
+    }
+    
     function renderResults(data,loadMoreFlag){
 
         console.log("load more " +loadMoreFlag)
@@ -1102,18 +1106,21 @@ var totalData=0;
         var showFlag = false;
 
         $("#back-top").remove();
-        var upp ='<div id="back-top"><i class="asterisk icon">new</i></div>'                  // New Images
+        var upp ='<div id="back-top" class="tapToShow"><i class="asterisk icon">new</i></div>'                  // New Images
         var element = $("#surveybig").append(upp);
         var totalimages=0;
 
         $("#totalimages").remove();
-        var tot ='<div id="totalimages"><i class="level up icon">'+(totalimages+1)+'</i></div>'     // up total images
+        var tot ='<div id="totalimages" class="tapToShow"></div>'     // up total images
         var element = $("#surveybig").append(tot);
         var toComeimages=0;
 
         $("#toComeimages").remove();
-        var tot ='<div id="toComeimages"><i class="level down icon">'+totalimages+'</i></div>'      //down total images
+        var tot ='<div id="toComeimages" class="tapToShow"></div>'      //down total images
         var element = $("#surveybig").append(tot);
+        
+        $("#surveybig").hammer().off("tap",$('.tapToShow').hide());
+        $("#surveybig").hammer().on("tap",$('.tapToShow').show());
         
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;

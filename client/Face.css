@@ -1857,7 +1857,7 @@ h6 {}
 	display: none;
 	width: 30px;
 	height: 30px;
-}
+}/*
 #MoreNewImage
  {
 	position: fixed;
@@ -1868,7 +1868,7 @@ h6 {}
 	width: 30px;
 	height: 30px;
 	
-}
+}*/
 #totalimages {
 	position: fixed;
 	bottom: 0px;
@@ -1940,7 +1940,7 @@ h6 {}
     background-color: rgba(7, 86, 152,0.7);
     color: rgb(255, 255, 255);
     /*background: linear-gradient(rgb(46, 136, 196), rgb(7, 86, 152)) repeat scroll 0% 0% transparent;*/
-    border-radius: 10px 10px 0px 10px;
+    border-radius: 10px 10px 10px 10px;
 }
 p {
     margin: 1em 0px;

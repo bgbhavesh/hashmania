@@ -1108,17 +1108,17 @@ Meteor.documentReady = documentReady;
         var currentData = null;
         var showFlag = false;
 
-        $("#back-top").remove();
+        $(".tapToShow").remove();
         var upp ='<div id="back-top" class="tapToShow"><i class="asterisk icon">new</i></div>'                  // New Images
         var element = $("#surveybig").append(upp);
         var totalimages=0;
 
-        $("#totalimages").remove();
+        // $("#totalimages").remove();
         var tot ='<div id="totalimages" class="tapToShow"></div>'     // up total images
         var element = $("#surveybig").append(tot);
         var toComeimages=0;
 
-        $("#toComeimages").remove();
+        // $("#toComeimages").remove();
         var tot ='<div id="toComeimages" class="tapToShow"></div>'      //down total images
         var element = $("#surveybig").append(tot);
         

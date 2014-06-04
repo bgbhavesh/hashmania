@@ -1100,19 +1100,14 @@ var totalData=0;
         var newElement = null;
         var currentData = null;
         var showFlag = false;
-
-        $("#back-top").remove();
-        var upp ='<div id="back-top"><i class="asterisk icon">new</i></div>'                  // New Images
+        upp ='<div id="back-top"><i class="asterisk icon">new</i></div>'                  // go to upp
         var element = $("#surveybig").append(upp);
         var totalimages=0;
-
-        $("#totalimages").remove();
-        var tot ='<div id="totalimages"><i class="level up icon">'+(totalimages+1)+'</i></div>'     // up total images
+        tot ='<div id="totalimages"><i class="level up icon">'+(totalimages+1)+'</i></div>'                  //total images
         var element = $("#surveybig").append(tot);
+        
         var toComeimages=0;
-
-        $("#toComeimages").remove();
-        var tot ='<div id="toComeimages"><i class="level down icon">'+totalimages+'</i></div>'      //down total images
+        tot ='<div id="toComeimages"><i class="level down icon">'+totalimages+'</i></div>'                  //total images
         var element = $("#surveybig").append(tot);
         
         for(var i=0,il=data.length;i<il;i++){
@@ -1326,9 +1321,13 @@ var totalData=0;
         // console.log("score " +score);
         // console.log(incJson)
         UserHashMania.update({"_id":Session.get("clientid")},{$inc : incJson})
+<<<<<<< HEAD
+
+=======
         $("#displayScore").text(score);
         $("#displayScore").css({"opacity":"1.0","top":"46%","display":"block"});
         $("#displayScore").animate({"opacity":"0.0","top":"5%"},2000,"easeOutBounce");
+>>>>>>> 38eab7613726d2b3707961a9c33bb22a6ac3b3e4
     }
     /*
 

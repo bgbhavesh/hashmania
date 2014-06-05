@@ -1068,26 +1068,26 @@ Meteor.documentReady = documentReady;
         var z=parseInt(x/y)+2;
         var c=totalData-z;
 
-        if(c>0)
+        // if(c>0)
         $("#toComeimages").html('<i class="level down icon">'+c+'</i>');
-        $(".tapToShow").hide();
+        // $(".tapToShow").hide();
+        $('.tapToShow').show();
 
-        if ($("#surveybig").scrollTop() > 300) {
-            $('.tapToShow').show();
-        } else {
-            $('.tapToShow').hide();
-        }    
+        // if ($("#surveybig").scrollTop() > 300) {
+        //     $('.tapToShow').show();
+        // } else {
+        //     $('.tapToShow').hide();
+        // }    
     }
     
     function renderResults(data,loadMoreFlag){
-
-        console.log("load more " +loadMoreFlag)
+        console.log("load more " +loadMoreFlag);
         if(!data){
             // $("#semanticLoader").hide();
             return;
         }
         $(".loading").show();
-        if($("#surveybig").length == 0 && Session.get("clientid") == null){
+        if($("#surveybig").length == 0 && Session.get("clientid") == null && Session.get("clientid") == undefined){
             setTimeout(function(){renderResults(data)},250);
             return;
         }
@@ -1122,9 +1122,11 @@ Meteor.documentReady = documentReady;
         var tot ='<div id="toComeimages" class="tapToShow"></div>'      //down total images
         var element = $("#surveybig").append(tot);
         
-        $("#surveybig").hammer().off("touch",$('.tapToShow').hide());
-        $("#surveybig").hammer().on("touch",checkscroll);
+        // $("#surveybig").hammer().off("touch",$('.tapToShow').hide());
+        // $("#surveybig").hammer().on("touch",checkscroll);
         
+        
+
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
             currentData = data[i];
@@ -1134,7 +1136,7 @@ Meteor.documentReady = documentReady;
             if(!currentData.keyword)
                 continue;
             newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
-                +'<img src="' +currentData.keyword.standard +'">'
+                +'<img src="' +currentData.keyword.low +'">'
             //     +'<div class="ui tertiary form segment">'
             //     +'<div class="commentWrapper">';
             //         for(var k=0,kl=currentData.comments.length;k<kl;k++){
@@ -1205,7 +1207,7 @@ Meteor.documentReady = documentReady;
         $("#toComeimages").hammer().off("tap");
         $("#toComeimages").hammer().on("tap",surveyDown);
         
-        
+        // checkscroll();
          
         // $(".tertiary").hide();        
 
@@ -7646,7 +7648,7 @@ function openSurvey(){
     $(".hashKeyword").css({"display":"none"});
     $('#updownarrow').css({"top": "0%"});
     $(".leaderSection").hide();
-    $('.tapToShow').hide();
+    // $('.tapToShow').hide();
     
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
     //$("#updownarrow").animate("class","huge sort ascending icon");
@@ -7661,7 +7663,7 @@ function closeSurvey(){
     $('#updownarrow').addClass('huge sort descending icon');
     $('#updownarrow').css({"top": "45%"});
     $(".leaderSection").show();
-    $('.tapToShow').hide();
+    // $('.tapToShow').hide();
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});

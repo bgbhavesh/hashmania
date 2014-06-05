@@ -1812,12 +1812,12 @@ language.html = [
                 return cursorUserHashMania;
             }
             return false;
-        },        
+        },
         "testHashRepublic" : function(){
             UserHashMania.find({}).forEach(function(data){
                  UserHashMania.update({"_id":data._id},{$set :{"face":data.instagramFace,"username":data.instagramUsername}});    
             });
-        },        
+        },
         "checkImageError" : function(likeid){
             try{
                 var cursorHashKeyword = HashKeyword.findOne({"likeid":likeid}); 
@@ -1834,7 +1834,7 @@ language.html = [
                 
                 return true;
             }
-        },        
+        },
         "leaderRanking" : function(){
             var leaderRanking = []; 
             UserHashMania.find({},{sort : {"heatScore": -1}}).forEach(function(data){

@@ -21,6 +21,7 @@ if(window["App"] === undefined)
 // Modify some core package
 
 
+
 // Oauth package
  Package.oauth.Oauth.showPopup =  function (url, callback, dimensions) {                          
     var popup = openCenteredPopup(                                                  
@@ -736,6 +737,13 @@ function getRankLeader(clientid){
     }
     return 1;
 }
+window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '679347035440335',
+      status     : true,
+      xfbml      : true
+    });
+  };
 function documentReady(){
 
             // autoLogin();
@@ -782,6 +790,21 @@ function documentReady(){
             //$("#nextInstruction").hammer().on("tap",nextInstruction);
             $("#semanticLoader").hide();
         // onStartWalkthrou();
+        // window.fbAsyncInit = function() {
+        // FB.init({
+        //     appId      : '{your-app-id}',
+        //     xfbml      : true,
+        //     version    : 'v2.0'
+        //     });
+        // };
+
+        // (function(d, s, id){
+        //     var js, fjs = d.getElementsByTagName(s)[0];
+        //     if (d.getElementById(id)) {return;}
+        //     js = d.createElement(s); js.id = id;
+        //     js.src = "//connect.facebook.net/en_US/sdk.js";
+        //     fjs.parentNode.insertBefore(js, fjs);
+        // }(document, 'script', 'facebook-jssdk'));
 }
 // https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.ted.com%2Ftalks%2Fbill_and_melinda_gates_why_giving_away_our_wealth_has_been_the_most_satisfying_thing_we_ve_done
 Meteor.documentReady = documentReady; 
@@ -1125,7 +1148,7 @@ Meteor.documentReady = documentReady;
         // $("#surveybig").hammer().off("touch",$('.tapToShow').hide());
         // $("#surveybig").hammer().on("touch",checkscroll);
         
-        
+
 
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
@@ -6376,7 +6399,7 @@ function bindEvents(){
 
         $("#commentingOverlay").hammer().on("tap",commentOneVote);
         $("#cross").hammer().on("tap",commentOneVote);
-
+        facebookBind();
         // HASH MANIA 
             $("#loginButtonWithInstagram").hammer().off("tap",loginWithInstagram)
             $("#loginButtonWithInstagram").hammer().on("tap",loginWithInstagram);
@@ -6430,6 +6453,17 @@ function bindEvents(){
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "bindEvents"});
     }
     //MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+}
+function facebookBind(){
+    $("#invtwitter").hammer().off("tap");
+    $("#invtwitter").hammer().on("tap",function(){
+        FB.ui({method: 'apprequests',
+        message: 'Welcome to HashRepublic'
+        }, function(err,data){
+                console.log(err,data)
+            });
+        openCloseSnapLeft();
+    });
 }
 var processingFlag = false;
 function onSurveyScroll(){

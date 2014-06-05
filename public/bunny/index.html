@@ -1,0 +1,126 @@
+<html>
+	<head>
+	<meta name="viewport" content="height=device-height, width=device-width, user-scalable=no" />
+	<!-- Meta Tag For BlackBerry Events -->
+	<meta name="touch-event-mode" content="native=false, native=disable, native=no" />
+		<script src="pixi.js"></script>
+		<script src="jquery.js"></script>
+		<script src="hammer.js"></script>
+	</head>
+	<style type="text/css">
+		body{
+			height: 98%;
+			width: 98%;	
+		}
+	</style>
+	<body>
+		<script>
+
+	// create an new instance of a pixi stage
+	var stage = new PIXI.Stage(0x66FF99);
+	var n = 10;
+	// create a renderer instance.
+	var width = $('body').width();
+	var heigth = $('body').height(); 
+	var renderer = PIXI.autoDetectRenderer(width, heigth);
+
+	// add the renderer view element to the DOM
+	document.body.appendChild(renderer.view);
+
+	requestAnimFrame( animate );
+
+	// create a texture from an image path
+	var texture = PIXI.Texture.fromImage("bunny.png");
+	// create a new Sprite using the texture
+	var bunny = new PIXI.Sprite(texture);
+	
+	// initialize
+	var bunnyArray = [];
+	createBunny();
+
+	setInterval(function(){
+		for(var i=0;i<n;i++){
+			// bunnyArray[i].position.x--;
+			if(bunnyArray[i]){
+				bunnyArray[i].position.y += 20;
+				if(bunnyArray[i].position.y > heigth){
+					bunnyArray[i].position.y = 0;
+					bunnyArray[i].position.x = Math.random()*width;
+				}
+			}
+			
+		}
+		renderer.render(stage);
+	},350)
+	// center the sprites anchor point
+	bunny.anchor.x = 0.5;
+	bunny.anchor.y = 0.5;
+
+	// move the sprite t the center of the screen
+	bunny.position.x = 200;
+	bunny.position.y = 150;
+	bunny.heigth = 100;
+	bunny.width = 100;
+	stage.addChild(bunny);
+
+	function animate() {
+
+	    // requestAnimFrame( animate );
+
+	    // just for fun, lets rotate mr rabbit a little
+	    // bunny.rotation += 0.1;
+
+	    // render the stage   
+	    renderer.render(stage);
+	}
+	var body = document.getElementsByTagName('body')
+	function onMouseMove(event){
+		console.log(event)
+		if(event.gesture)
+		setTimeout(function(){onMouseMoveTimeOut(event)},100);
+	}
+	function onMouseMoveTimeOut(event){
+		bunny.position.x = event.gesture.center.pageX;
+		bunny.position.y = event.gesture.center.pageY;
+		var count = 0;
+		for(var i=0;i<n;i++){
+			if(bunnyArray[i]){
+				if(intersectRect(bunny,bunnyArray[i])){
+					console.log(true);
+					stage.removeChild(bunnyArray[i]);
+					bunnyArray[i] = null;						
+				}
+				count++;
+			}
+		}
+		if(count==0){
+			n *=2;
+			createBunny();
+		}
+		requestAnimFrame( animate );
+	}
+	// $("body").bind("mousemove",onMouseMove);
+	$('body').hammer().on("drag",onMouseMove)
+	// $('body').bind('touchmove',onMouseMove);
+	function intersectRect(hero, enemy) {
+		return !(hero.position.x > enemy.position.x+50 || 
+		       hero.position.x+50 < enemy.position.x || 
+		       hero.position.y > enemy.position.y+50 ||
+		       hero.position.y+50 < enemy.position.y);
+	}
+	function createBunny(){
+		for(var i=0;i<n;i++){
+			bunnyArray[i] = new PIXI.Sprite(texture);
+			bunnyArray[i].anchor.x = 0.5;
+			bunnyArray[i].anchor.y = 0.5;
+			bunnyArray[i].position.x = Math.random()*width;
+			bunnyArray[i].position.y = Math.random()*heigth;
+			bunnyArray[i].heigth = 100;
+			bunnyArray[i].width = 100;
+			stage.addChild(bunnyArray[i]);
+		}
+	}
+	</script>
+
+	</body>
+</html>

@@ -151,10 +151,9 @@ body{
 }
 .leadersface {
 	height: 90%;
-	width: 10%;
+	width: 25%;
 	position: static;
 	float: left;
-	margin: 1%;
 }
 #gamemenu{
 /*	height: 45%;
@@ -2539,6 +2538,13 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 	top: 30%;
 	z-index: 10;
 	text-align: center;
+}
+
+.fb_dialog{
+	width: 100%;
+}
+.fb_dialog_advanced{
+	width: 100%;	
 }
 /*   CHAT ENDS    */
 

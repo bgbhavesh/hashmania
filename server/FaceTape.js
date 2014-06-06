@@ -14,6 +14,11 @@ is strictly forbidden unless prior written permission is obtained
 from Youiest LLC.
 */
 
+var languageJson = {
+                    "eng":{},
+                    "arabic" :{}
+                    };
+
 // var api_key = 'key-038ycoitre5k7ml0dlqijw7zdjqrl5d5';
 // var domain = 'tapmatrix.mailgun.org';
 // MailGun = Npm.require('mailgun-js')(api_key, domain);
@@ -672,7 +677,7 @@ BrowserPolicy.framing.allowAll()
 if (Meteor.isServer) {
 Meteor.startup(function () {
     Meteor.setTimeout(startup,500);
-    console.log(BrowserPolicy)
+    // console.log(BrowserPolicy)
     
 
     // BrowserPolicy.content.allowSameOriginForAll()

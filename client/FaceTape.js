@@ -1000,6 +1000,12 @@ Meteor.documentReady = documentReady;
         sortJson.sort[key] = -1
         return UserHashMania.find({},sortJson)
     }
+    
+    sizeLeaderboard = function(){
+        console.log("Template.allLeadersboard");
+        $(".leadersface").width($(".leadersface").height());
+    }
+    Template.allLeadersboard.rendered  = Template.leadersboard.rendered = sizeLeaderboard
     Template.allLeadersboard.events({
         "click .leadersface" : function(event){
             if(this.instagramUsername)

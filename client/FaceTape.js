@@ -1207,7 +1207,7 @@ Meteor.documentReady = documentReady;
             }
         }
         $(".loadmore").remove();
-        button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   &#8609; MORE  &#8609; </a>';
+        button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   &#8609; more  &#8609; </a>';//&#8609; MORE  &#8609;
         var element = $("#surveybig").append(button);
 
         $(".hashFeed img").hammer().off("tap");  

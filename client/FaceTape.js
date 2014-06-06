@@ -405,6 +405,7 @@ var actionArray = [];
 var tapCount=0;
 var CLIENTID = null;
 var leaderRanking = [];
+// var imageQuality = "low";
 preload = {};
 
 // new architec
@@ -423,7 +424,8 @@ if (Meteor.isClient) {
     Session.set("searchByFollow","0-50");
     Session.set("searchKeyword",null);
     Session.set("userid",null);
-    Session.set("group",null)    
+    Session.set("group",null);
+    Session.set("imageQuality","low"); 
     var activeFollowsElement = null;
     Session.set("limit",8);
     var isActiveArray = [];
@@ -1162,13 +1164,14 @@ Meteor.documentReady = documentReady;
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
             currentData = data[i];
-            console.log(currentData.keyword.std)
+            // console.log(currentData.keyword.std)
             if(!currentData)
                 continue;
             if(!currentData.keyword)
                 continue;
+            var resolution = Session.get("imageQuality");
             newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
-                +'<img class="lowImg" src="' +currentData.keyword.low +'">'
+                +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
                 // +'<img class="stdImg" src="' +currentData.keyword.std +'">'
             //     +'<div class="ui tertiary form segment">'
             //     +'<div class="commentWrapper">';
@@ -6424,6 +6427,10 @@ function bindEvents(){
             $("#loginButtonWithGooglePlus").hammer().on("tap",loginWithGoogle);
             $("#FAQButton").hammer().on("tap",onClickFAQButton);
 
+            $("#lowReso").hammer().on("tap",changeResolutionToLow)
+            $("#MediumReso").hammer().on("tap",changeResolutionToMedium);
+            $("#HighReso").hammer().on("tap",changeResolutionToHigh);
+
             $("#surveybighandle").hammer().off("tap");
             $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
 
@@ -6468,6 +6475,30 @@ function bindEvents(){
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "bindEvents"});
     }
     //MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+}
+function changeResolutionToLow(){
+    Session.set("imageQuality","thumb");
+    document.getElementById('lowReso').className = 'blue ui button';
+    document.getElementById('MediumReso').className = 'ui button';
+    document.getElementById('HighReso').className = 'ui button';
+    renderResults(preload[Session.get("keyword")]);
+    openCloseSnapLeft();
+}
+function changeResolutionToMedium(){
+    Session.set("imageQuality","low");
+    document.getElementById('lowReso').className = 'ui button';
+    document.getElementById('MediumReso').className = 'blue ui button';
+    document.getElementById('HighReso').className = 'ui button';
+    renderResults(preload[Session.get("keyword")]);
+    openCloseSnapLeft();
+}
+function changeResolutionToHigh(){
+    Session.set("imageQuality","standard");
+    document.getElementById('lowReso').className = 'ui button';
+    document.getElementById('MediumReso').className = 'ui button';
+    document.getElementById('HighReso').className = 'blue ui button';
+    renderResults(preload[Session.get("keyword")]);
+    openCloseSnapLeft();
 }
 function facebookBind(){
     $("#invtwitter").hammer().off("tap");
@@ -6870,26 +6901,36 @@ function getEmailButton(){
 //     // },1000);    
 // }
 function checkOptimized(){
-    var starttimer = new Date().getTime();
-    var checkState = window.localStorage.getItem("optimizeLimit");
-    var check1 = $("#optimizeCheckBox").prop('checked');
-    if(checkState==4){
-        //console.log("four");
-        Session.set("limit",4);
-        $(".ui.checkbox").checkbox('enable');
+    var imageQuality = Session.get("imageQuality");
+    if(imageQuality == "low"){
+        document.getElementById('lowReso').className = 'blue ui button';
+    }else if(imageQuality == "standard"){
+        document.getElementById('MediumReso').className = 'blue ui button';
+    }else if(imageQuality == "thumb"){
+        document.getElementById('HighReso').className = 'blue ui button';
+    }else{
+
     }
-    else{
-        Session.set("limit",8);
-        //console.log("eight");
-        //console.log(checkState);
-        $(".ui.checkbox").checkbox('disable');
-    }  
-    var agreeFlag = window.localStorage.getItem("agree");
-    if(!agreeFlag)
-        $("#Aggrements").show();
-    else
-        $("#Aggrements").remove();
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+    // var starttimer = new Date().getTime();
+    // var checkState = window.localStorage.getItem("optimizeLimit");
+    // var check1 = $("#optimizeCheckBox").prop('checked');
+    // if(checkState==4){
+    //     //console.log("four");
+    //     Session.set("limit",4);
+    //     $(".ui.checkbox").checkbox('enable');
+    // }
+    // else{
+    //     Session.set("limit",8);
+    //     //console.log("eight");
+    //     //console.log(checkState);
+    //     $(".ui.checkbox").checkbox('disable');
+    // }  
+    // var agreeFlag = window.localStorage.getItem("agree");
+    // if(!agreeFlag)
+    //     $("#Aggrements").show();
+    // else
+    //     $("#Aggrements").remove();
+    // MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function onOptimize(){
     var starttimer = new Date().getTime();

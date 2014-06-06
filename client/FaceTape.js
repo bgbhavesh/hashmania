@@ -1116,11 +1116,13 @@ Meteor.documentReady = documentReady;
             // $("#semanticLoader").hide();
             return;
         }
+        var clientid = Session.get("clientid");
         $(".loading").show();
-        if($("#surveybig").length == 0 && Session.get("clientid") == null && Session.get("clientid") == undefined){
+        if($("#surveybig").length == 0 && clientid == null && clientid == undefined){
             setTimeout(function(){renderResults(data)},250);
             return;
         }
+        console.log(clientid)
         if(!loadMoreFlag){
             $("#surveybig").html("");
             cacheData(data);
@@ -1194,7 +1196,7 @@ Meteor.documentReady = documentReady;
             }
             for(j=0,jl=currentData.votes.length;j<jl;j++){
                 // console.log(currentData.votes[j].followid +" " +Session.get("clientid") +" " +(currentData.votes[j].followid == Session.get("clientid")))
-                if(currentData.votes[j].followid == Session.get("clientid")){
+                if(currentData.votes[j].followid == clientid){
                     showFlag = true;
                 }
                 

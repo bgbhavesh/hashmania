@@ -224,6 +224,9 @@ body{
 	text-align: center;
 	background: transparent;
 }
+/*#surveybig img{
+	border-radius: 8px;
+}*/
 #surveybig{
 	top: 92%;
 	overflow-y: scroll;
@@ -662,7 +665,7 @@ body{
 	height: 100%;
 	z-index: 2;
 	position: absolute;
-	border-radius: 0px;
+	border-radius: 8px;
 	left: 1%;
 	display: block;
 	/*background:url("images/patternX.png") #111;*/
@@ -1824,9 +1827,10 @@ h6 {}
 }
 
 .submitComment{
-	width:45%;
+	width:47%;
 	margin: 1%;	
 	overflow :auto;
+	border-radius: 8px;
 }
 #commentingOverlay{
 	display: none;
@@ -1845,13 +1849,17 @@ h6 {}
 	left: 0%;
 	width: 90%;
 	margin-left: 5%;
-	opacity: 0.8;
+	opacity: 1;
+	/*background: linear-gradient(to bottom,  rgba(41,184,227,0.7) 0%,rgba(81,90,122,0.7) 50%,rgba(41,184,227,0.7) 100%); */
 	background-color: #394264;
 	max-height: 60%;
+	border-radius: 8px;
 	overflow-y: scroll;
 	padding: 1%;
 }
-
+/*.allLeaderSection*/ /*.leadersface img{
+	border-radius: 8px;
+}*/
 #showallcomments{
 	background: rgb(37, 36, 77);
 }
@@ -1912,8 +1920,9 @@ h6 {}
 	padding-left: 2%;
 	padding-right: 2%;	
 	width: auto;
+	/*background: linear-gradient(to bottom,  rgba(41,184,227,0.7) 0%,rgba(81,90,122,0.7) 50%,rgba(41,184,227,0.7) 100%); */
 	background-color: rgba(7, 86, 152,0.7);
-	border-radius: 10em;
+	border-radius: 8px;
 	background-size: 100%;
 	font-size: 20px;
 	z-index: 3;
@@ -1966,11 +1975,11 @@ h6 {}
 	float: right;
 	padding: 5px;
 	padding-bottom: 2px;
-	font-size: 15px;
+	font-size: 17px;
 	color: white;
 	background-color: #11a8ab;
 	/*margin-right: 4%;*/
-	border-radius: 0px 0px 0px 10px
+	border-radius: 8px;
 }
 .triangle-right {
 	font-size: 15px;
@@ -2012,7 +2021,11 @@ textarea {
 	overflow: auto;
 	resize:none;
 	height: 100%;
-	width: 100%;
+	width: 95%;
+	border-radius: 8px;
+}
+img{
+	border-radius: 8px;
 }
 #moveFace{
 	height: 50px;
@@ -2403,7 +2416,7 @@ mark{
 	width: 10%;
 	background-image: url(/images/logo.png);
 	background-size: 100% 100%;
- 
+ 	
    	margin-left: 1%
    	-webkit-box-shadow: -1px 0 0 rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
 	-moz-box-shadow: -1px 0 0 rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);

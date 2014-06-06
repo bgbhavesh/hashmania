@@ -152,12 +152,12 @@ body{
 	z-index: 4;
 	top: 17%;
 }
-.leadersface {
+/*.leadersface {
 	height: 90%;
-	width: 25%;
+	width: 20%;
 	position: static;
 	float: left;
-}
+}*/
 #gamemenu{
 /*	height: 45%;
 */	overflow-y: scroll;
@@ -1620,6 +1620,9 @@ h6 {}
 	height: 90%;
 	position: relative;
 	float: left;
+	height: 90%;
+	width: 14%;	
+	padding: 0.5%;
 }
 .leadersface img{
 	height: 90%;
@@ -1855,6 +1858,7 @@ h6 {}
 	overflow-y: scroll;
 	padding: 1%;
 }
+
 #showallcomments{
 	background: rgb(37, 36, 77);
 }
@@ -1872,7 +1876,7 @@ h6 {}
 }*/
 .loadmore{
 	/*background-color: rgb(81,90,122);*/
-	/*box-shadow: none;*/
+	box-shadow: none;
 	/*height: 10%;*/
 	/*width: 20%;*/
 	/*margin-left: 40%;*/

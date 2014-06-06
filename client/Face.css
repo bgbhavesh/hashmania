@@ -1809,7 +1809,7 @@ h6 {}
 	overflow: auto;
 
 }
-.imageComment img {height: 100%;}
+.imageComment img {outline: 0; max-width: 100%; height: auto;}
 #comment{
   position : absolute;
   display : none; 

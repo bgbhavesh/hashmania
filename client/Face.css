@@ -1851,6 +1851,10 @@ h6 {}
 	overflow-y: scroll;
 	padding: 1%;
 }
+.tiny{
+	font-size: .8em;
+	/*margin-left: 1%;*/
+}
 #showallcomments{
 	background: rgb(37, 36, 77);
 }

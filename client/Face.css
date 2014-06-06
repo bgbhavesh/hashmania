@@ -1437,6 +1437,9 @@ h6 {}
 	-moz-border-radius: 15%;
  	-webkit-border-radius: 15%;
 }
+.voting p{
+	display: none;
+}
 .sender img{
 	height: 100%;
 	width: 100%;
@@ -1808,14 +1811,14 @@ h6 {}
 	overflow: auto;
 
 }
-.imageComment img {height: 100%;}
+.imageComment img {outline: 0; max-width: 100%; height: auto;}
 #comment{
   position : absolute;
   display : none; 
 }
 
 .submitComment{
-	width:40%;
+	width:45%;
 	margin: 1%;	
 	overflow :auto;
 }
@@ -1864,49 +1867,65 @@ h6 {}
 	/*width: 20%;*/
 	/*margin-left: 40%;*/
 }
-#back-top {
-	position: fixed;
-	bottom: 66%;
+#NweImageAdded {
+	
+	bottom:70%;
 	left: 1%;
-	z-index: 2;
-	display: none;
-	width: 30px;
-	height: 30px;
+	position: absolute;
+	
 }/*
 #MoreNewImage
  {
 	position: fixed;
-	bottom: 75%;
-	left: 5%;
-	z-index: 2;
-	display: none;
-	width: 30px;
-	height: 30px;
-	
-}*/
-#totalimages {
-	position: fixed;
-	bottom: 0px;
-	left: 85%;
-	z-index: 2;
-	display: none;
-	width: 30px;
-	height: 30px;
-	/*font-size: 20px;*/
-}
-#toComeimages {
-	position: fixed;
-	bottom: 0%;
+	bottom: 70%;
 	left: 1%;
 	z-index: 2;
 	display: none;
 	width: 30px;
 	height: 30px;
-	/*font-size: 20px;*/
+	padding: 0%;
+	padding-left: 3%;
+	padding-right: 3%;
+	width: auto;
+	background-color: rgba(7, 86, 152,0.7);
+	border-radius: 10em;
+	background-size: 100%;
+	font-size: 20px;
+	
+}*/
+#NweImageAdded {
+	
+	bottom:70%;
+	left: 2%;
+	position: absolute;
+	
 }
-#back-top :active,#MoreNewImage :active,#toComeimages :active,#totalimages :active{
+.tapToShow{
+	padding: 0%;
+	padding-left: 2%;
+	padding-right: 2%;	
+	width: auto;
+	background-color: rgba(7, 86, 152,0.7);
+	border-radius: 10em;
+	background-size: 100%;
+	font-size: 20px;
+	z-index: 3;
+	display: none;
+	color:white;
+}
+#totalimages {
+	position: fixed;
+	bottom: 1%;
+	left: 85%;	
+}
+#toComeimages {
+	position: fixed;
+	bottom: 1%;
+	left: 2%;
+}
+.tapToShow :active{
 	color: black;
-}
+}/*
 #back-top i ,#totalimages i,#toComeimages i,#MoreNewImage i{
 	padding: 1%;
 	padding-left: 3%;
@@ -1916,7 +1935,7 @@ h6 {}
 	border-radius: 10em;
 	background-size: 100%;
 	font-size: 20px;
-}
+}*/
 
 /*
 
@@ -1940,11 +1959,11 @@ h6 {}
 	float: right;
 	padding: 5px;
 	padding-bottom: 2px;
-	font-size: 11px;
+	font-size: 15px;
 	color: white;
 	background-color: #11a8ab;
-	margin-right: 4%;
-	border-radius: 10px 10px 10px 0px
+	/*margin-right: 4%;*/
+	border-radius: 0px 0px 0px 10px
 }
 .triangle-right {
 	font-size: 15px;
@@ -1985,6 +2004,8 @@ textarea[name="header"]{
 textarea {
 	overflow: auto;
 	resize:none;
+	height: 100%;
+	width: 100%;
 }
 #moveFace{
 	height: 50px;

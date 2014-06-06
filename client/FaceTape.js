@@ -1164,13 +1164,14 @@ Meteor.documentReady = documentReady;
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
             currentData = data[i];
-            //console.log(currentData.keyword)
+            console.log(currentData.keyword.std)
             if(!currentData)
                 continue;
             if(!currentData.keyword)
                 continue;
             newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
-                +'<img src="' +currentData.keyword.low +'">'
+                +'<img class="lowImg" src="' +currentData.keyword.low +'">'
+                // +'<img class="stdImg" src="' +currentData.keyword.std +'">'
             //     +'<div class="ui tertiary form segment">'
             //     +'<div class="commentWrapper">';
             //         for(var k=0,kl=currentData.comments.length;k<kl;k++){
@@ -5217,7 +5218,7 @@ function selectlang(currlang){
                     "videotutorial"   :"<i class='video icon'></i>Video tutorial",
                     "accounts"    :"<b>Accounts</b>",
                     "settings"    :"<b>Settings</b>",
-                    "tapmate"   :"<b>Tapmate</b>",
+                    "tapmate"   :"<b>Hash Republic</b>",
                     "menubug"   :"<b>Development</b>",
                 };
                 // var fr = {
@@ -7711,7 +7712,7 @@ function closeSurvey(){
     $("#surveybig").transition({"top":"15%"});
     $(".hashKeyword").css({"display":"block"});
     $('#updownarrow').addClass('huge sort descending icon');
-    $('#updownarrow').css({"top": "45%"});
+    $('#updownarrow').css({"top": "43%"});
     $(".leaderSection").show();
     $(".tapToShow").show();
     document.getElementById('updownarrow').className = ' huge sort descending icon';

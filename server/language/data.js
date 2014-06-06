@@ -1,4 +1,4 @@
-cb(
+china = 
     {
 	"gamestart"		:"游戏开始..！",
 	"regCalled"		:"所谓注册",
@@ -60,4 +60,4 @@ cb(
           "termsandcondition"       :"<b>条款和条件</b> <br/>通过接受我同意你接受下面的链接的所有协议 <a href='https://www.docracy.com/0e2d355wq30/youiest-tapmate-privacy-policy'/>.<br/>",
           "I aggree"                : "我同意", 
           "sendMail"                :" 发送邮件 ",
-);
+}

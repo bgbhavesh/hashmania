@@ -405,6 +405,7 @@ var actionArray = [];
 var tapCount=0;
 var CLIENTID = null;
 var leaderRanking = [];
+var imageQuality = "low";
 preload = {};
 
 // new architec
@@ -1170,7 +1171,7 @@ Meteor.documentReady = documentReady;
             if(!currentData.keyword)
                 continue;
             newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
-                +'<img class="lowImg" src="' +currentData.keyword.low +'">'
+                +'<img class="lowImg" src="' +currentData.keyword[imageQuality] +'">'
                 // +'<img class="stdImg" src="' +currentData.keyword.std +'">'
             //     +'<div class="ui tertiary form segment">'
             //     +'<div class="commentWrapper">';

@@ -1,3 +1,7 @@
+2 ways to get face.
+https://graph.facebook.com/[PROFILE_ID]/picture
+http://www.facebook.com/profile.php?id=[PROFILE_ID]
+
 meteor deploy youtap.meteor.com --settings youtapsettings.json
 
 

@@ -1435,6 +1435,9 @@ h6 {}
 	-moz-border-radius: 15%;
  	-webkit-border-radius: 15%;
 }
+.voting p{
+	display: none;
+}
 .sender img{
 	height: 100%;
 	width: 100%;

@@ -1960,11 +1960,11 @@ h6 {}
 	float: right;
 	padding: 5px;
 	padding-bottom: 2px;
-	font-size: 11px;
+	font-size: 15px;
 	color: white;
 	background-color: #11a8ab;
-	margin-right: 4%;
-	border-radius: 10px 10px 10px 0px
+	/*margin-right: 4%;*/
+	border-radius: 0px 0px 0px 10px
 }
 .triangle-right {
 	font-size: 15px;

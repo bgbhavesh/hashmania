@@ -13,7 +13,38 @@ Dissemination of this information or reproduction of this material
 is strictly forbidden unless prior written permission is obtained
 from Youiest LLC.
 */
-
+// var languagejson = {};
+// languagejson.eng = {};
+// languagejson.engfaq = [ 
+//     "Did you know you get ranked in every hash tag (or hash state!) that you vote in?",
+//     "Did you know you climb higher in the ranks for accurately guessing the crowds 'share' average on an image?",
+//     "You can gain ranks by inviting likeminded friends to hashstates (tags). They probably like to 'share' the same things and you are also rise in rank when they join.",
+//     "Did you know each hashstate has a governor, a deputy, a secretary? Get into the top 10 for a chance to hold office in that.",
+//     "Did you know the hashrepublic elects a president each sunday? That's right the citizen with the most points across all tags on sunday at midnight EST is elected President!",
+//     "Did you know that 'tagging' images on instagram raises your rank in a hashstate? Just type the #hashtag into a comment and our app will find it. And of course you get points for tagging and even more when people vote it up in the hashstate.",
+//     "Tell users when they download that instrcutions come in the form of push notifications. But also have a section in the meny where you can scroll through these tip of the day type messages."
+// ]
+// languagejson.arbfaq = [
+//     "هل تعلم أنك الحصول على مرتبة في كل علامة التجزئة (أو دولة التجزئة!) التي تصوت في؟",
+//     "هل تعلم أنك تسلق أعلى في صفوف لالتخمين بدقة 'حصة' متوسط ​​الحشود على الصورة؟",
+//     "يمكنك الحصول على الرتب من خلال دعوة الأصدقاء أمثالهم لhashstates (العلامات). انهم ربما ترغب في 'حصة' نفس الأشياء وأنت ترتفع أيضا في المرتبة عند انضمامهم.",
+//     "هل تعلم كل hashstate لديها محافظ، ونائب وأمين؟ ندخل في أعلى 10 للحصول على فرصة لمنصبه في ذلك.",
+//     "هل تعلم hashrepublic ينتخب رئيسا لكل الأحد؟ هذا حق المواطن مع أكبر عدد من النقاط عبر كافة العلامات يوم الأحد في منتصف الليل بتوقيت شرق الولايات المتحدة يتم انتخاب الرئيس!",
+//     "هل تعلم أن 'علامات' الصور على إينستاجرام يثير رتبتك في hashstate؟ فقط اكتب # الوسم في التعليق وسوف تطبيقنا العثور عليه. وبالطبع تحصل على نقاط لوضع علامات و أكثر حينما يصوت الناس أنه حتى في وhashstate. ",
+//     "قل المستخدمين عند تحميل هذا القياس instrcutions تأتي في شكل دفع الإخطارات، ولكن أيضا لديها قسم في نؤسسه حيث يمكنك التمرير خلال هذه غيض من نوع الرسائل يوميا."
+// ]
+// languagejson.eng = {
+//     "m1"    :"You won the presidency of #",
+//     "m2"    :"to @",
+//     "m3"    :"Please secure your account here:",
+//     "m4"    :"Welcome to HashRepublic"
+// }
+// languagejson.arb = {
+//     "m1"    :"فزت رئاسة #",
+//     "m2"    :"إلى @",
+//     "m3"    :"يرجى تأمين حسابك هنا:",
+//     "m4"    :"مرحبا بكم في HashRepublic"
+// }
 // var api_key = 'key-038ycoitre5k7ml0dlqijw7zdjqrl5d5';
 // var domain = 'tapmatrix.mailgun.org';
 // MailGun = Npm.require('mailgun-js')(api_key, domain);

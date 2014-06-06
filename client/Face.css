@@ -103,6 +103,9 @@ body{
 	font-weight: normal;
 	
 }
+.stdImg{
+	display: none;
+}
 #loader{
 	z-index: 20;
 	display: block;	

@@ -1103,9 +1103,14 @@ Meteor.documentReady = documentReady;
         // }    
     }
     
+<<<<<<< HEAD
     function renderResults(data,loadMoreFlag,newerFlag){
 
         console.log("load more " +loadMoreFlag)
+=======
+    function renderResults(data,loadMoreFlag){
+        console.log("load more " +loadMoreFlag);
+>>>>>>> 9c76d3f2efa1f855c91ee1d4b3a1ff6f8c232ade
         if(!data){
             // $("#semanticLoader").hide();
             return;

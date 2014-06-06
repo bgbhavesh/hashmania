@@ -154,10 +154,9 @@ body{
 }
 .leadersface {
 	height: 90%;
-	width: 10%;
+	width: 25%;
 	position: static;
 	float: left;
-	margin: 1%;
 }
 #gamemenu{
 /*	height: 45%;
@@ -1815,7 +1814,7 @@ h6 {}
 	overflow: auto;
 
 }
-.imageComment img {height: 100%;}
+.imageComment img {outline: 0; max-width: 100%; height: auto;}
 #comment{
   position : absolute;
   display : none; 
@@ -1871,12 +1870,11 @@ h6 {}
 	/*width: 20%;*/
 	/*margin-left: 40%;*/
 }
-#back-top {
-	position: fixed;
-	bottom: 	0%;
-	left: 1%;
-	z-index: 2;
+#NweImageAdded {
 	
+	bottom:70%;
+	left: 1%;
+	position: absolute;
 	
 }/*
 #MoreNewImage
@@ -1898,31 +1896,39 @@ h6 {}
 	font-size: 20px;
 	
 }*/
+#NweImageAdded {
+	
+	bottom:70%;
+	left: 2%;
+	position: absolute;
+	
+}
 .tapToShow{
 	padding: 0%;
-	padding-left: 3%;
-	padding-right: 3%;
+	padding-left: 2%;
+	padding-right: 2%;	
 	width: auto;
 	background-color: rgba(7, 86, 152,0.7);
 	border-radius: 10em;
 	background-size: 100%;
 	font-size: 20px;
-	z-index: 2;
+	z-index: 3;
 	display: none;
+	color:white;
 }
 #totalimages {
 	position: fixed;
-	bottom: 0px;
+	bottom: 1%;
 	left: 85%;	
 }
 #toComeimages {
 	position: fixed;
-	bottom: 0%;
-	left: 1%;
+	bottom: 1%;
+	left: 2%;
 }
-#back-top :active,#MoreNewImage :active,#toComeimages :active,#totalimages :active{
+.tapToShow :active{
 	color: black;
-}
+}/*
 #back-top i ,#totalimages i,#toComeimages i,#MoreNewImage i{
 	padding: 1%;
 	padding-left: 3%;
@@ -1932,7 +1938,7 @@ h6 {}
 	border-radius: 10em;
 	background-size: 100%;
 	font-size: 20px;
-}
+}*/
 
 /*
 
@@ -1956,11 +1962,11 @@ h6 {}
 	float: right;
 	padding: 5px;
 	padding-bottom: 2px;
-	font-size: 11px;
+	font-size: 15px;
 	color: white;
 	background-color: #11a8ab;
-	margin-right: 4%;
-	border-radius: 10px 10px 10px 0px
+	/*margin-right: 4%;*/
+	border-radius: 0px 0px 0px 10px
 }
 .triangle-right {
 	font-size: 15px;
@@ -2556,6 +2562,13 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 	top: 30%;
 	z-index: 10;
 	text-align: center;
+}
+
+.fb_dialog{
+	width: 100%;
+}
+.fb_dialog_advanced{
+	width: 100%;	
 }
 /*   CHAT ENDS    */
 

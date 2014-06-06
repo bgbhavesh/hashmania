@@ -13,6 +13,7 @@ Dissemination of this information or reproduction of this material
 is strictly forbidden unless prior written permission is obtained
 from Youiest LLC.
 */
+<<<<<<< HEAD
 // var languagejson = {};
 // languagejson.eng = {};
 // languagejson.engfaq = [ 
@@ -45,6 +46,14 @@ from Youiest LLC.
 //     "m3"    :"يرجى تأمين حسابك هنا:",
 //     "m4"    :"مرحبا بكم في HashRepublic"
 // }
+=======
+
+var languageJson = {
+                    "eng":{},
+                    "arabic" :{}
+                    };
+
+>>>>>>> 7b560bcfacd0eb52f9b2f5652a2d3ea35ec367ec
 // var api_key = 'key-038ycoitre5k7ml0dlqijw7zdjqrl5d5';
 // var domain = 'tapmatrix.mailgun.org';
 // MailGun = Npm.require('mailgun-js')(api_key, domain);

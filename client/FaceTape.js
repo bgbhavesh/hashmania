@@ -1000,6 +1000,12 @@ Meteor.documentReady = documentReady;
         sortJson.sort[key] = -1
         return UserHashMania.find({},sortJson)
     }
+    
+    sizeLeaderboard = function(){
+        console.log("Template.allLeadersboard");
+        $(".leadersface").width($(".leadersface").height());
+    }
+    Template.allLeadersboard.rendered  = Template.leadersboard.rendered = sizeLeaderboard
     Template.allLeadersboard.events({
         "click .leadersface" : function(event){
             if(this.instagramUsername)
@@ -1205,11 +1211,6 @@ Meteor.documentReady = documentReady;
         button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   &#8609; MORE  &#8609; </a>';
         var element = $("#surveybig").append(button);
 
-        // $(".tapToShow").remove();
-        // upp ='<div id="back-top" class="tapToShow">new</div>';                    // New Images
-        // var element = $("#surveybig").append(upp);
-        
-
         $(".hashFeed img").hammer().off("tap");  
         $(".hashFeed img").hammer().on("tap",tapOnBigFeedSurvey);
 
@@ -1235,8 +1236,8 @@ Meteor.documentReady = documentReady;
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
 
        
-        // $("#back-top").hammer().off("tap");
-        // $("#back-top").hammer().on("tap",surveyNewer);
+        $("#NweImageAdded").hammer().off("tap");
+        $("#NweImageAdded").hammer().on("tap",surveyNewer);
        
         $("#totalimages").hammer().off("tap");
         $("#totalimages").hammer().on("tap",surveyUp);
@@ -1261,10 +1262,10 @@ Meteor.documentReady = documentReady;
     }
     function newImageLogic() {
         console.log("newImageLogic");
-        $("#back-top").hide();
+        $("#NweImageAdded").hide();
         Meteor.call("getNewData",Session.get("keyword"),CLIENTID,function(err,data){
             renderResults(data,true,true);
-            $("#back-top").show();    
+            $("#NweImageAdded").show();    
                 // console.log(data.length)
                 totalData=totalData+data.length;
         });
@@ -5215,7 +5216,7 @@ function selectlang(currlang){
                     "videotutorial"   :"<i class='video icon'></i>Video tutorial",
                     "accounts"    :"<b>Accounts</b>",
                     "settings"    :"<b>Settings</b>",
-                    "tapmate"   :"<b>Tapmate</b>",
+                    "tapmate"   :"<b>Hash Republic</b>",
                     "menubug"   :"<b>Development</b>",
                 };
                 // var fr = {
@@ -7696,7 +7697,7 @@ function openSurvey(){
     $(".hashKeyword").css({"display":"none"});
     $('#updownarrow').css({"top": "0%"});
     $(".leaderSection").hide();
-    // $(".tapToShow").hide();
+    $(".tapToShow").hide();
     
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
     //$("#updownarrow").animate("class","huge sort ascending icon");
@@ -7709,9 +7710,9 @@ function closeSurvey(){
     $("#surveybig").transition({"top":"15%"});
     $(".hashKeyword").css({"display":"block"});
     $('#updownarrow').addClass('huge sort descending icon');
-    $('#updownarrow').css({"top": "45%"});
+    $('#updownarrow').css({"top": "43%"});
     $(".leaderSection").show();
-    // $(".tapToShow").show();
+    $(".tapToShow").show();
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});

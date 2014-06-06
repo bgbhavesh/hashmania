@@ -668,9 +668,18 @@ function testNewUser(){
 }
 App.testNewUser = testNewUser;
 var sponserKeywordArray = [];
+BrowserPolicy.framing.allowAll()
 if (Meteor.isServer) {
 Meteor.startup(function () {
     Meteor.setTimeout(startup,500);
+    console.log(BrowserPolicy)
+    
+
+    // BrowserPolicy.content.allowSameOriginForAll()
+    // BrowserPolicy.content.allowDataUrlForAll()
+    // BrowserPolicy.content.allowConnectOrigin("https://*.cdninstagram.com");
+    // BrowserPolicy.content.allowOriginForAll()
+    // BrowserPolicy.content.disallowAll()
 });
 
 function startup(){

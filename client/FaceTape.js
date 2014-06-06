@@ -1204,11 +1204,6 @@ Meteor.documentReady = documentReady;
         button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   &#8609; MORE  &#8609; </a>';
         var element = $("#surveybig").append(button);
 
-        // $(".tapToShow").remove();
-        // upp ='<div id="back-top" class="tapToShow">new</div>';                    // New Images
-        // var element = $("#surveybig").append(upp);
-        
-
         $(".hashFeed img").hammer().off("tap");  
         $(".hashFeed img").hammer().on("tap",tapOnBigFeedSurvey);
 
@@ -1234,8 +1229,8 @@ Meteor.documentReady = documentReady;
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
 
        
-        // $("#back-top").hammer().off("tap");
-        // $("#back-top").hammer().on("tap",surveyNewer);
+        $("#NweImageAdded").hammer().off("tap");
+        $("#NweImageAdded").hammer().on("tap",surveyNewer);
        
         $("#totalimages").hammer().off("tap");
         $("#totalimages").hammer().on("tap",surveyUp);
@@ -1260,10 +1255,10 @@ Meteor.documentReady = documentReady;
     }
     function newImageLogic() {
         console.log("newImageLogic");
-        $("#back-top").hide();
+        $("#NweImageAdded").hide();
         Meteor.call("getNewData",Session.get("keyword"),CLIENTID,function(err,data){
             renderResults(data,true,true);
-            $("#back-top").show();    
+            $("#NweImageAdded").show();    
                 // console.log(data.length)
                 totalData=totalData+data.length;
         });
@@ -7695,7 +7690,7 @@ function openSurvey(){
     $(".hashKeyword").css({"display":"none"});
     $('#updownarrow').css({"top": "0%"});
     $(".leaderSection").hide();
-    // $(".tapToShow").hide();
+    $(".tapToShow").hide();
     
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
     //$("#updownarrow").animate("class","huge sort ascending icon");
@@ -7710,7 +7705,7 @@ function closeSurvey(){
     $('#updownarrow').addClass('huge sort descending icon');
     $('#updownarrow').css({"top": "45%"});
     $(".leaderSection").show();
-    // $(".tapToShow").show();
+    $(".tapToShow").show();
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});

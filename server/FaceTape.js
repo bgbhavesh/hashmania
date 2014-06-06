@@ -13,7 +13,7 @@ Dissemination of this information or reproduction of this material
 is strictly forbidden unless prior written permission is obtained
 from Youiest LLC.
 */
-// var languagejson = {};
+var languagejson = {};
 // languagejson.eng = {};
 // languagejson.engfaq = [ 
 //     "Did you know you get ranked in every hash tag (or hash state!) that you vote in?",
@@ -601,7 +601,7 @@ if(origin)
 
 App.testingFunction = testingFunction;
 var ACCESSTOKEN = null;
-TOKEN = "491204471.f28d28f.66d2f419e7d64a4fbe81a7277aa70c78";
+TOKEN = "487690035.f28d28f.59143bb52afa4405a536448686c5b44c";
 var ClientId = null;
 ClientId = null;
 
@@ -702,6 +702,7 @@ var sponserKeywordArray = [];
 BrowserPolicy.framing.allowAll()
 if (Meteor.isServer) {
 Meteor.startup(function () {
+
     Meteor.setTimeout(startup,500);
     // console.log(BrowserPolicy)
     
@@ -712,10 +713,20 @@ Meteor.startup(function () {
     // BrowserPolicy.content.allowOriginForAll()
     // BrowserPolicy.content.disallowAll()
 });
-
+var languageArray = ["en","ar"];
+function initilizaLanguage(){
+    var i=0;
+    // for(var i=0,il=languageArray.length;i<il;i++){
+        // var fileName = "locales/" +languageArray[i] +".json"
+        // var string = Assets.getText(fileName);
+        // stringJson = EJSON.parse(string);
+        // stringJson.fun = new Function(stringJson.fun);
+        // languagejson[languageArray[i]] = stringJson;    
+    // }
+}
 function startup(){
         pushUserEveryDayWrapper =  Meteor.bindEnvironment(function(){pushUserEveryDay();});
-        
+        initilizaLanguage();
         fontSizeOnStartUp();
         if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
             DebugFace = true;
@@ -1315,7 +1326,7 @@ App.isAdmin = isAdmin;
             // console.log(DebugFace)
             for(;;){
                 insertCount = 0;
-                var searchurl = "https://api.instagram.com/v1/tags/" +tag +"/media/recent?access_token="+access;
+                var searchurl = "https://api.instagram.com/v1/tags/" +tag +"/media/recent?access_token="+TOKEN;
                     var cursorSponserKeyword = SponserKeyword.findOne({"keyword":tag});
                     if(cursorSponserKeyword)
                     if(cursorSponserKeyword.next_url)              
@@ -1382,7 +1393,7 @@ App.isAdmin = isAdmin;
             var insertCount = 0;
             for(var i=0;i<1;i++){
                 insertCount = 0;
-                var searchurl = "https://api.instagram.com/v1/tags/" +tag +"/media/recent?access_token="+access;
+                var searchurl = "https://api.instagram.com/v1/tags/" +tag +"/media/recent?access_token="+TOKEN;
                     var cursorSponserKeyword = SponserKeyword.findOne({"keyword":tag});
                     if(cursorSponserKeyword)
                     if(cursorSponserKeyword.next_url)              

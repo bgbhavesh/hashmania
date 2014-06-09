@@ -140,7 +140,6 @@ body{
 .allLeaderSection{
 	display: block;
 	height: 9%;
-	/*top: 7.5%;*/
 	position: absolute;
 	width: 100%;
 	z-index: 1;
@@ -765,7 +764,6 @@ h6 {}
 	border-radius: 0px;
 	box-shadow: 0 0px 0px rgba(0,0,0,.4) inset, 0 0px 0 rgba(255,255,255,.2);
 }
-
 #keywords{	
     overflow-x: hidden;
 	overflow-y: scroll;
@@ -776,9 +774,6 @@ h6 {}
 	position: relative;
 	bottom: 0;
 	height: 70%;
-}
-#keywords div{
-	display: inline-block;	
 }
 .eachkeyword{
 	position: relative;
@@ -792,7 +787,6 @@ h6 {}
  */ -webkit-background-clip: text;
      -moz-background-clip: text;
           background-clip: text;
-           display: inline-block;
 }
 .redKeyword{
     background-color: #11a8ab;

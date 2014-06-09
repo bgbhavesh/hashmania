@@ -416,6 +416,8 @@ var pageCount = -1;
 
 if (Meteor.isClient) {
     ///Session Variables
+    Session.set("hideVotes",null);
+    Session.set("hideComments",null);
     Session.set("activeFollows",null);
     Session.set("followFollow",null);
     // Session.set("currentBig",null);
@@ -771,6 +773,7 @@ function documentReady(){
             setTimeout(location,120);
             // setTimeout(defaultfeeds,150);
             setTimeout(showKeywordPopup,250);
+            setTimeout(checkVotesAndCommetsStatus,500);
             suscribeMeteor();
             restoreData();
             
@@ -1493,6 +1496,10 @@ Meteor.documentReady = documentReady;
         for(var i=0,il=currentvotes.length;i<il;i++){
             var cursorvotenow = $(currentvotes[i]).attr("clientid");
             if(cursorvotenow==Session.get("clientid")){
+                var getCommentsStatus = Session.get("hideComments");
+                if(getCommentsStatus == "false"){
+                    return;
+                }
                 // console.log($(currentvotes[i]).find("p"));
                 var noComment = $(currentvotes[i]).find("p");
                 // console.log(noComment.length);
@@ -5569,6 +5576,70 @@ function onClicklanguageButton(){
     $("#language").animate({ "top": "25%" }, 900);
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
+function onClickHideVotesButton(){
+     var getVotesStatus = Session.get("hideVotes");
+     console.log(getVotesStatus)
+     if(getVotesStatus){
+        if(getVotesStatus == "true"){
+            Session.set("hideVotes","false");
+            $(".voting").css({"display":"block"});
+            $("#hideVotesButton").text("Hide Votes");
+        }else{
+            Session.set("hideVotes","true");
+            $(".voting").css({"display":"none"});
+            $("#hideVotesButton").text("Show Votes");
+         }
+     }else{
+        Session.set("hideVotes","true");
+        $(".voting").css({"display":"none"});
+        $("#hideVotesButton").text("Hide Votes");
+     }
+    
+}
+function onClickHideCommentsButton(){
+    // Session.set("hideComments","false");
+    var getCommentsStatus = Session.get("hideComments");
+     if(getCommentsStatus){
+        if(getCommentsStatus == "true"){
+            Session.set("hideComments","false");
+            $("#hideCommentsButton").text("Show Comments");
+        }else{
+            Session.set("hideComments","true");
+            $("#hideCommentsButton").text("Hide Comments");
+         }
+     }else{
+        Session.set("hideComments","false");
+        $("#hideCommentsButton").text("Hide Comments");
+     }
+}
+function checkVotesAndCommetsStatus(){
+    var getVotesStatus = Session.get("hideVotes");
+    console.log(getVotesStatus)
+     if(getVotesStatus){
+        if(getVotesStatus == "true"){
+            $(".voting").css({"display":"block"});
+            $("#hideVotesButton").text("Show Votes");
+        }else{
+            $(".voting").css({"display":"none"});
+            $("#hideVotesButton").text("Hide Votes");
+         }
+     }else{
+        Session.set("hideVotes","false");
+        $(".voting").css({"display":"block"});
+        $("#hideVotesButton").text("Hide Votes");
+     }
+     var getCommentsStatus = Session.get("hideComments");
+     if(getCommentsStatus){
+        if(getCommentsStatus == "true"){
+            $("#hideCommentsButton").text("Show Comments");
+        }else{
+            $("#hideCommentsButton").text("Hide Comments");
+         }
+     }else{
+        Session.set("hideComments","true");
+        $("#hideCommentsButton").text("Hide Comments");
+     }
+}
 function hideAboutForm(){
     $("#AboutUsPopUp").animate({ "top": "100%" }, 700,function(){
         $("#AboutUsPopUp").hide();
@@ -6442,6 +6513,8 @@ function bindEvents(){
             $("#loginButtonWithGooglePlus").hammer().off("tap",loginWithGoogle);
             $("#loginButtonWithGooglePlus").hammer().on("tap",loginWithGoogle);
             $("#FAQButton").hammer().on("tap",onClickFAQButton);
+            $("#hideVotesButton").hammer().on("tap",onClickHideVotesButton);
+            $("#hideCommentsButton").hammer().on("tap",onClickHideCommentsButton);
 
             $("#lowReso").hammer().on("tap",changeResolutionToLow)
             $("#MediumReso").hammer().on("tap",changeResolutionToMedium);

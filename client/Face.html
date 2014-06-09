@@ -273,12 +273,14 @@
 	{{/each}} 
 </template>
 <template name="keyword">
-	<div class="allLeaderSection">
-			{{> allLeadersboard}}
-	</div>
+	
 	<div id="keywordPopupBackground"></div>
 
   <div id="keywordPopup" class="ui vertical menu">
+  	<div class="allLeaderSection">
+			{{> allLeadersboard}}
+	</div>
+  
   		<div class="searchicon"> <b> #</b></div>
 		<div  id="keywordButton" class="ui icon input">
 			<input  id="searchKeyword" type="text" placeholder="search Instagram..">
@@ -453,14 +455,12 @@
 		
  -->
 <template name="header">
-  <div id="headerSection"> 
+  <div id="headerSection" > 
 	{{> server}} 
 	
-	<div class="three"> . </div>
+	<div class="three" style="font-size:0px;"> . </div>
 	<div class="header">
-	  
-	   <div class="appname"> . </div>
-	
+		<div class="appname"> . </div>
 	</div>
 	
 	

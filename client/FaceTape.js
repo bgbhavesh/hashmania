@@ -761,7 +761,7 @@ function documentReady(){
             // an attempt to prevent an error occuring on startup
             
 
-            pushNotifiPopup(pushpic,pushmsg,pushlkid);
+            pushNotifiPopup(pushpic,pushmsg,pushlkid,pushKeyword);
             
             setTimeout(snapy,50);
             setTimeout(autoLogin,60);
@@ -6709,18 +6709,23 @@ function holdOnBigFeedSurvey(share){
 
 
 ////////////////////////push notification//////////////
-function pushNotifiPopup(pushpic,pushmsg,pushlkid){
+function pushNotifiPopup(pushpic,pushmsg,pushlkid,pushKeyword){
     var starttimer = new Date().getTime();
     // console.log("pushNotifiPopup");
-    if(pushpic && pushmsg && pushlkid){
-        // $("#pushnotificationimages").attr("src",pushpic);
-        // $("#pushtext").html(pushmsg);
-        // $("#pushimagePopUp").css("top","0%")
-        // $("#pushimagePopUp").css("display","block");
-        // $("#pushimagePopUp").animate({ "top": "39%" }, 1500);
-        Meteor.subscribe("pushnotification",Session.get("clientid"),pushlkid);
-        Session.set("currentBig",pushlkid);
+    
+    if(pushKeyword){
+        Session.set("keyword",pushKeyword)
     }
+    // Old code
+    // if(pushpic && pushmsg && pushlkid){
+    //     // $("#pushnotificationimages").attr("src",pushpic);
+    //     // $("#pushtext").html(pushmsg);
+    //     // $("#pushimagePopUp").css("top","0%")
+    //     // $("#pushimagePopUp").css("display","block");
+    //     // $("#pushimagePopUp").animate({ "top": "39%" }, 1500);
+    //     Meteor.subscribe("pushnotification",Session.get("clientid"),pushlkid);
+    //     Session.set("currentBig",pushlkid);
+    // }
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function OnClickPushImage(event){
@@ -7329,7 +7334,7 @@ function pushNotificationClick(){
 var pushpic = null;
 var pushmsg = null;
 var pushlkid=null;
-                
+var pushKeyword = null;                
 var app = {
     // Application Constructor
     initialize: function() {
@@ -7414,8 +7419,9 @@ var app = {
                 }
                 pushpic = e.payload.low;
                 pushmsg = e.payload.message;
-                pushlkid = e.payload.likeid;
-                pushNotifiPopup(pushpic,pushmsg,pushlkid);
+                pushlkid = e.payload.keyword;
+                pushKeyword = e.payload.keyword;
+                pushNotifiPopup(pushpic,pushmsg,pushlkid,pushKeyword);
                 
             break;
  

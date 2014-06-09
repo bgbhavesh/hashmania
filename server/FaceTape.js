@@ -155,12 +155,12 @@ function pushUserEveryDay(){
             
     });
 }
-function pushTOAllUserHashRepublic(message){
+function pushTOAllUserHashRepublic(message,keyword){
     UserHashMania.find({}).forEach(function(data){
         console.log("Pushing all " +message)
         if(data.pushid){
-            pushToUserHashRepublic(data.pushid,message,data.pushtype);    
-        }   
+            pushToUserHashRepublic(data.pushid,message,data.pushtype,keyword);    
+        }
     });
 }
 var pushUserEveryDayWrapper = null;
@@ -1387,7 +1387,7 @@ App.isAdmin = isAdmin;
                     break;
             }
             if(globalCount !=0)
-                pushTOAllUserHashRepublic(globalCount +" new pics on "+tag);
+                pushTOAllUserHashRepublic(globalCount +" new pics on "+tag,tag);
             
         }
         App.searchHashParser = searchHashParser;
@@ -2683,8 +2683,8 @@ function checkKeywordScore(){
                 }
             }            
         }
-
     }
+    HashUserRanking = localHashUserRanking;
 }
 
 
@@ -2735,6 +2735,7 @@ function checkForRank(){
             }
         }
     }
+    sponserKeywordArray = currentKeywordArray;
 }
 function checkNewImages(){
     // console.log("checkNewImages every hour");
@@ -2757,7 +2758,7 @@ function checkNewImages(){
     // },3600000);    
 }
 
-function pushToUserHashRepublic(registrationid,mymessage,type){
+function pushToUserHashRepublic(registrationid,mymessage,type,keyword){
     // I have noticed that android registration id has dash "-" and iphone doesn't hence this is good for now    
     // if(registrationid.match("-")){
     //     type = "android";
@@ -2800,8 +2801,8 @@ function pushToUserHashRepublic(registrationid,mymessage,type){
         // message.addData('mydata','nicolson');
         if(mymessage)
         message.addData('message',mymessage);
-        // if(low)
-        // message.addData('low',low);
+        if(keyword)
+        message.addData('keyword',keyword);
         // if(likeid)
         // message.addData('likeid',likeid);
         message.collapseKey = 'demo';

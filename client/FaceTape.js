@@ -1340,6 +1340,7 @@ Meteor.documentReady = documentReady;
         $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment))
     }
     function getVoteHTMLHash(left,top,size,pics,id,clientid,comment){
+        if(pics=="undefined")pics="../images/face.jpg";
       if(!comment){
             return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'">'

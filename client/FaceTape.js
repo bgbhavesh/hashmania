@@ -416,6 +416,8 @@ var pageCount = -1;
 
 if (Meteor.isClient) {
     ///Session Variables
+    Session.set("hideVotes",null);
+    Session.set("hideComments",null);
     Session.set("activeFollows",null);
     Session.set("followFollow",null);
     // Session.set("currentBig",null);
@@ -771,6 +773,7 @@ function documentReady(){
             setTimeout(location,120);
             // setTimeout(defaultfeeds,150);
             setTimeout(showKeywordPopup,250);
+            setTimeout(checkVotesAndCommetsStatus,500);
             suscribeMeteor();
             restoreData();
             
@@ -1213,7 +1216,7 @@ Meteor.documentReady = documentReady;
             }
         }
         $(".loadmore").remove();
-        button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   &#8609; more  &#8609; </a>';//&#8609; MORE  &#8609;
+        button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   Old  </a>';//&#8609; MORE  &#8609;
         var element = $("#surveybig").append(button);
 
         $(".hashFeed img").hammer().off("tap");  
@@ -1340,6 +1343,7 @@ Meteor.documentReady = documentReady;
         $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment))
     }
     function getVoteHTMLHash(left,top,size,pics,id,clientid,comment){
+        if(pics=="undefined")pics="../images/face.jpg";
       if(!comment){
             return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'">'
@@ -1492,6 +1496,10 @@ Meteor.documentReady = documentReady;
         for(var i=0,il=currentvotes.length;i<il;i++){
             var cursorvotenow = $(currentvotes[i]).attr("clientid");
             if(cursorvotenow==Session.get("clientid")){
+                var getCommentsStatus = Session.get("hideComments");
+                if(getCommentsStatus == "false"){
+                    return;
+                }
                 // console.log($(currentvotes[i]).find("p"));
                 var noComment = $(currentvotes[i]).find("p");
                 // console.log(noComment.length);
@@ -1506,6 +1514,9 @@ Meteor.documentReady = documentReady;
                 else if(noComment.length>0){
                     console.log("noComment else"+noComment.length)
                     showcomments();
+                    setTimeout(function() {
+                        $('#commentingCommentOverlay').animate({scrollTop: 4000 }, 3000);
+                    }, 2000);
                     tapOnBigFeedSecond(null,currentvotes[i]);
                     showSpecialPopup("commentingOverlay");
                     // tapOnBigFeedSecond(null,currentvotes[i]);
@@ -3786,9 +3797,9 @@ function tapOnBigFeedSecond(event,myElement){
             //console.log(followid +" " +Session.get("clientid"))
             if(followid == Session.get("clientid")){
                $("#likeButton").css({"left":left,"top":top ,"display":"block","height":height,"width":width})
-                                .transition({"left":left - 10,"top":top -10,"height":height +50,"width":width +50,"opacity":"1.0"},500)
+                                .transition({"left":left - 10,"top":top -10,"height":height +30,"width":width +30,"opacity":"1.0"},500)
                                 .transition({"left":left ,"top":top,"height":height ,"width":width,"opacity":"0.5"},500)                                
-                                .transition({"left":left - 10,"top":top -10,"height":height +50,"width":width +50,"opacity":"1.0"},500)
+                                .transition({"left":left - 10,"top":top -10,"height":height +30,"width":width +30,"opacity":"1.0"},500)
                                 .transition({"left":left ,"top":top,"height":height ,"width":width,"opacity":"1.0"},500);
                   faceAwayLikeButton();          
                   faceAwayCommentButton();
@@ -3836,6 +3847,7 @@ function showcomments(){
     for(var i=0,il=votes.length;i<il;i++){
         p = $(votes[i]).find("p").text();
         var clientid = $(votes[i]).attr("clientid");
+        var votingid = $(votes[i]).attr("votingid");
         img = $(votes[i]).children("img").attr("src");
         clientid = $(votes[i]).attr("clientid");
         // console.log("p="+p+"/ img="+img)
@@ -3854,7 +3866,7 @@ function showcomments(){
             //         +'<div id="cross" style=""><strong>x</strong></div>'
             //     +'</div>';
             html =  '<div class="commentwrapper" ' +style +'>'
-                        +'<img src="'+img+'">'
+                        +'<img class="' +votingid +'" src="'+img+'">'
                         +'<i class="comment icon"></i>'
                         +'<textarea disabled="" id="commentInput" type="text" rows="9" placeholder="">'+p+'</textarea>'              
                     +'</div>'
@@ -3873,8 +3885,17 @@ function showcomments(){
             div.insertAdjacentHTML( 'beforeend', html );
         }
     }
+    // $("commentwrapper img").hammer().off("tap");
+    // $('#commentingCommentOverlay').animate({scrollTop: 5000 }, 10);
+    $(".commentwrapper img").hammer().on("tap",voteOnComment);
     // console.log(currentBigHtml)
 
+}
+function voteOnComment(event){
+    // console.log(event);
+    // console.log(event.target.className);
+    var votingid = event.target.className;
+    Votes.update({"_id":votingid},{$inc : {"hits":1}});
 }
 function commentOneVote(){
     hideSpecialPopup("commentingOverlay");
@@ -5555,6 +5576,70 @@ function onClicklanguageButton(){
     $("#language").animate({ "top": "25%" }, 900);
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
+function onClickHideVotesButton(){
+     var getVotesStatus = Session.get("hideVotes");
+     console.log(getVotesStatus)
+     if(getVotesStatus){
+        if(getVotesStatus == "true"){
+            Session.set("hideVotes","false");
+            $(".voting").css({"display":"block"});
+            $("#hideVotesButton").text("Hide Votes");
+        }else{
+            Session.set("hideVotes","true");
+            $(".voting").css({"display":"none"});
+            $("#hideVotesButton").text("Show Votes");
+         }
+     }else{
+        Session.set("hideVotes","true");
+        $(".voting").css({"display":"none"});
+        $("#hideVotesButton").text("Hide Votes");
+     }
+    
+}
+function onClickHideCommentsButton(){
+    // Session.set("hideComments","false");
+    var getCommentsStatus = Session.get("hideComments");
+     if(getCommentsStatus){
+        if(getCommentsStatus == "true"){
+            Session.set("hideComments","false");
+            $("#hideCommentsButton").text("Show Comments");
+        }else{
+            Session.set("hideComments","true");
+            $("#hideCommentsButton").text("Hide Comments");
+         }
+     }else{
+        Session.set("hideComments","false");
+        $("#hideCommentsButton").text("Hide Comments");
+     }
+}
+function checkVotesAndCommetsStatus(){
+    var getVotesStatus = Session.get("hideVotes");
+    console.log(getVotesStatus)
+     if(getVotesStatus){
+        if(getVotesStatus == "true"){
+            $(".voting").css({"display":"block"});
+            $("#hideVotesButton").text("Show Votes");
+        }else{
+            $(".voting").css({"display":"none"});
+            $("#hideVotesButton").text("Hide Votes");
+         }
+     }else{
+        Session.set("hideVotes","false");
+        $(".voting").css({"display":"block"});
+        $("#hideVotesButton").text("Hide Votes");
+     }
+     var getCommentsStatus = Session.get("hideComments");
+     if(getCommentsStatus){
+        if(getCommentsStatus == "true"){
+            $("#hideCommentsButton").text("Show Comments");
+        }else{
+            $("#hideCommentsButton").text("Hide Comments");
+         }
+     }else{
+        Session.set("hideComments","true");
+        $("#hideCommentsButton").text("Hide Comments");
+     }
+}
 function hideAboutForm(){
     $("#AboutUsPopUp").animate({ "top": "100%" }, 700,function(){
         $("#AboutUsPopUp").hide();
@@ -6428,6 +6513,8 @@ function bindEvents(){
             $("#loginButtonWithGooglePlus").hammer().off("tap",loginWithGoogle);
             $("#loginButtonWithGooglePlus").hammer().on("tap",loginWithGoogle);
             $("#FAQButton").hammer().on("tap",onClickFAQButton);
+            $("#hideVotesButton").hammer().on("tap",onClickHideVotesButton);
+            $("#hideCommentsButton").hammer().on("tap",onClickHideCommentsButton);
 
             $("#lowReso").hammer().on("tap",changeResolutionToLow)
             $("#MediumReso").hammer().on("tap",changeResolutionToMedium);

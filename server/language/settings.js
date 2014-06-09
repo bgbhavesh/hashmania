@@ -88,6 +88,7 @@ Settings.checkKeywordScore = function (){
     }
 }
 
+// Deck rules 50% old and 50% new pics depending on the user and keyword
 Settings.decks = function(keyword,clientid){
     console.log("getResult started " +keyword +" for client " +clientid);
     var result = [];

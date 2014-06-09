@@ -776,6 +776,9 @@ h6 {}
 	bottom: 0;
 	height: 70%;
 }
+#keywords p{
+	text-align: justify;
+}
 #eachkeyword{
 	position: relative;
 	float: left;

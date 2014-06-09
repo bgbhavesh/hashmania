@@ -1321,7 +1321,7 @@ App.isAdmin = isAdmin;
     function searchHashParser(myJson,tag,clientid){
         console.log("searchHashParser start "+tag +" for client " +clientid)
             var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
-            var insertCount = 0;
+            var insertCount = 0,globalCount =0;
             
             // console.log(DebugFace)
             for(;;){
@@ -1368,6 +1368,7 @@ App.isAdmin = isAdmin;
                         //insert.checked = false;
                         HashKeyword.insert(insert); 
                         insertCount++;
+                        globalCount++;
                         // Meteor.call("media",insert.likeid,access);
                       }                           
                     }
@@ -1380,11 +1381,13 @@ App.isAdmin = isAdmin;
                     break;
                 }
                 else{
-                    pushTOAllUserHashRepublic(insertCount +" new pics on "+tag);
+                    // pushTOAllUserHashRepublic(insertCount +" new pics on "+tag);
                 }
                 if(DebugFace)
                     break;
             }
+            if(globalCount !=0)
+                pushTOAllUserHashRepublic(globalCount +" new pics on "+tag);
             
         }
         App.searchHashParser = searchHashParser;

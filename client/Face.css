@@ -776,7 +776,7 @@ h6 {}
 	bottom: 0;
 	height: 70%;
 }
-.eachkeyword{
+#eachkeyword{
 	position: relative;
 	float: left;
 	cursor: pointer;

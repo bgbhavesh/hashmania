@@ -299,10 +299,12 @@
 			
 	  </div> -->
 	  <div id="keywords">
-		{{#each eachkeyword}}
-			<div class="eachkeyword {{color}}Keyword" style="font-size: {{size}}px;"> <u> #{{keyword}}</u>&nbsp;</div>
-		{{/each}}		
-	</div>
+	    <div class="ui link list">
+			{{#each eachkeyword}}
+				<a class="eachkeyword {{color}}Keyword item" style="font-size: {{size}}px;"> <u> #{{keyword}}</u>&nbsp;</a>
+			{{/each}}		
+		</div>
+	  </div>
   </div>
 </template>
 

@@ -139,7 +139,7 @@ body{
 }
 .allLeaderSection{
 	display: block;
-	height: 10%;
+	height: 9%;
 	/*top: 7.5%;*/
 	position: absolute;
 	width: 100%;
@@ -765,6 +765,7 @@ h6 {}
 	border-radius: 0px;
 	box-shadow: 0 0px 0px rgba(0,0,0,.4) inset, 0 0px 0 rgba(255,255,255,.2);
 }
+
 #keywords{	
     overflow-x: hidden;
 	overflow-y: scroll;
@@ -775,6 +776,9 @@ h6 {}
 	position: relative;
 	bottom: 0;
 	height: 70%;
+}
+#keywords div{
+	display: inline-block;	
 }
 .eachkeyword{
 	position: relative;
@@ -788,6 +792,7 @@ h6 {}
  */ -webkit-background-clip: text;
      -moz-background-clip: text;
           background-clip: text;
+           display: inline-block;
 }
 .redKeyword{
     background-color: #11a8ab;
@@ -1834,8 +1839,11 @@ h6 {}
   display : none; 
 }
 
+#cross :active{
+	color: black;
+}
 .submitComment{
-	width:47%;
+	width:46%;
 	margin: 1%;	
 	overflow :auto;
 	border-radius: 8px;
@@ -1912,7 +1920,7 @@ h6 {}
 }*/
 #NweImageAdded {
 	
-	bottom:70%;
+	bottom:69%;
 	left: 2%;
 	position: absolute;
 	
@@ -1975,11 +1983,11 @@ h6 {}
 #cross
 {
 	float: right;
-	padding: 5px;
-	padding-bottom: 2px;
-	font-size: 17px;
+	padding: 2px;
+	padding-left: 3px;
+	font-size: 18px;
 	color: white;
-	background-color: #11a8ab;
+	/*background-color: #11a8ab;*/
 	/*margin-right: 4%;*/
 	border-radius: 8px;
 }
@@ -2389,7 +2397,7 @@ mark{
 	-webkit-box-shadow: -1px 0 0 rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
 	-moz-box-shadow: -1px 0 0 rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
 	box-shadow: 1px 1px 1px rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
-	width: 8%;
+	width: 9%;
 	height: 100%;
 	top: 0%;
 }

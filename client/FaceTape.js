@@ -773,7 +773,7 @@ function documentReady(){
             setTimeout(location,120);
             // setTimeout(defaultfeeds,150);
             setTimeout(showKeywordPopup,250);
-            setTimeout(checkVotesAndCommetsStatus,2000);
+            setTimeout(checkVotesAndCommetsStatus,250);
             suscribeMeteor();
             restoreData();
             
@@ -5580,7 +5580,7 @@ function onClicklanguageButton(){
 function onClickHideVotesButton(){
      // var getVotesStatus = hideVotes
      var getVotesStatus = get("hideVotes");
-     console.log(getVotesStatus)
+     // console.log(getVotesStatus)
      if(getVotesStatus){
         if(getVotesStatus == "true"){
             set("hideVotes","false");
@@ -5596,7 +5596,7 @@ function onClickHideVotesButton(){
         $(".voting").css({"display":"block"});
         $("#hideVotesButton").text("Hide Votes");
      }
-    console.log(get("hideVotes"))
+    // console.log(get("hideVotes"))
 }
 function onClickHideCommentsButton(){
     // Session.set("hideComments","false");
@@ -5635,7 +5635,7 @@ function checkVotesAndCommetsStatus(){
      }
 
      var getCommentsStatus = get("hideComments");
-     console.log(getCommentsStatus)
+     // console.log(getCommentsStatus)
      if(getCommentsStatus){
         if(getCommentsStatus == "true"){
             $("#hideCommentsButton").text("Hide Comments");

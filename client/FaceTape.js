@@ -364,6 +364,8 @@ if(typeof GroundDB == "function"){
    // GroundDB.now();
 }
 // variable
+var hideVotes = null;
+var hideComments = null;
 var newRenderResults = [];
 var moreRenderResults = [];
 var cursor = null;
@@ -416,8 +418,6 @@ var pageCount = -1;
 
 if (Meteor.isClient) {
     ///Session Variables
-    Session.set("hideVotes",null);
-    Session.set("hideComments",null);
     Session.set("activeFollows",null);
     Session.set("followFollow",null);
     // Session.set("currentBig",null);
@@ -773,7 +773,7 @@ function documentReady(){
             setTimeout(location,120);
             // setTimeout(defaultfeeds,150);
             setTimeout(showKeywordPopup,250);
-            setTimeout(checkVotesAndCommetsStatus,500);
+            setTimeout(checkVotesAndCommetsStatus,2000);
             suscribeMeteor();
             restoreData();
             
@@ -1210,7 +1210,8 @@ Meteor.documentReady = documentReady;
                 appendVotesManuallyHash(currentData.keyword.likeid,currentData.votes[j])
             }
             $("#"+currentData.keyword.likeid).children(".tertiary").hide();
-            if(showFlag){
+            var getVotesStatus = get("hideVotes");
+            if(showFlag && getVotesStatus!= "false"){
                 $("#"+currentData.keyword.likeid).children(".voting").show()
                 $("#"+currentData.keyword.likeid).children(".tertiary").show();
             }
@@ -1496,7 +1497,7 @@ Meteor.documentReady = documentReady;
         for(var i=0,il=currentvotes.length;i<il;i++){
             var cursorvotenow = $(currentvotes[i]).attr("clientid");
             if(cursorvotenow==Session.get("clientid")){
-                var getCommentsStatus = Session.get("hideComments");
+                var getCommentsStatus = get("hideComments");
                 if(getCommentsStatus == "false"){
                     return;
                 }
@@ -5577,66 +5578,72 @@ function onClicklanguageButton(){
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
 function onClickHideVotesButton(){
-     var getVotesStatus = Session.get("hideVotes");
+     // var getVotesStatus = hideVotes
+     var getVotesStatus = get("hideVotes");
      console.log(getVotesStatus)
      if(getVotesStatus){
         if(getVotesStatus == "true"){
-            Session.set("hideVotes","false");
-            $(".voting").css({"display":"block"});
-            $("#hideVotesButton").text("Hide Votes");
-        }else{
-            Session.set("hideVotes","true");
+            set("hideVotes","false");
             $(".voting").css({"display":"none"});
             $("#hideVotesButton").text("Show Votes");
+        }else{
+            set("hideVotes","true");
+            $(".voting").css({"display":"block"});
+            $("#hideVotesButton").text("Hide  Votes");
          }
      }else{
-        Session.set("hideVotes","true");
-        $(".voting").css({"display":"none"});
+        set("hideVotes","true");
+        $(".voting").css({"display":"block"});
         $("#hideVotesButton").text("Hide Votes");
      }
-    
+    console.log(get("hideVotes"))
 }
 function onClickHideCommentsButton(){
     // Session.set("hideComments","false");
-    var getCommentsStatus = Session.get("hideComments");
+    var getCommentsStatus = get("hideComments");
      if(getCommentsStatus){
         if(getCommentsStatus == "true"){
-            Session.set("hideComments","false");
+            // hideComments = "false";
+            set("hideComments","false");
             $("#hideCommentsButton").text("Show Comments");
         }else{
-            Session.set("hideComments","true");
+            // hideComments = "true";
+            set("hideComments","true");
             $("#hideCommentsButton").text("Hide Comments");
          }
      }else{
-        Session.set("hideComments","false");
+        // hideComments = "false";
+        // console.log(hideComments)
+        set("hideComments","false");
         $("#hideCommentsButton").text("Hide Comments");
      }
 }
 function checkVotesAndCommetsStatus(){
-    var getVotesStatus = Session.get("hideVotes");
-    console.log(getVotesStatus)
+    var getVotesStatus = get("hideVotes");
      if(getVotesStatus){
         if(getVotesStatus == "true"){
-            $(".voting").css({"display":"block"});
-            $("#hideVotesButton").text("Show Votes");
-        }else{
-            $(".voting").css({"display":"none"});
+            // $(".voting").css({"display":"block"});
             $("#hideVotesButton").text("Hide Votes");
+        }else{
+            // $(".voting").css({"display":"none"});
+            $("#hideVotesButton").text("Show Votes");
          }
      }else{
-        Session.set("hideVotes","false");
+        set("hideVotes","true");
         $(".voting").css({"display":"block"});
         $("#hideVotesButton").text("Hide Votes");
      }
-     var getCommentsStatus = Session.get("hideComments");
+
+     var getCommentsStatus = get("hideComments");
+     console.log(getCommentsStatus)
      if(getCommentsStatus){
         if(getCommentsStatus == "true"){
-            $("#hideCommentsButton").text("Show Comments");
-        }else{
             $("#hideCommentsButton").text("Hide Comments");
+        }else{
+            $("#hideCommentsButton").text("Show Comments");
          }
      }else{
-        Session.set("hideComments","true");
+        set("hideComments","false");//hideComments = "";
         $("#hideCommentsButton").text("Hide Comments");
      }
 }

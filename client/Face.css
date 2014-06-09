@@ -2472,7 +2472,7 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 	width: 30%;
 	position: relative;
 	float: left;
-	margin:0.5%;
+	/*margin:0.5%;*/
 	height: 90%;
 }
 .allLeaderSection .leadersface

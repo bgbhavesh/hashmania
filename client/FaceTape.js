@@ -3786,9 +3786,9 @@ function tapOnBigFeedSecond(event,myElement){
             //console.log(followid +" " +Session.get("clientid"))
             if(followid == Session.get("clientid")){
                $("#likeButton").css({"left":left,"top":top ,"display":"block","height":height,"width":width})
-                                .transition({"left":left - 10,"top":top -10,"height":height +50,"width":width +50,"opacity":"1.0"},500)
+                                .transition({"left":left - 10,"top":top -10,"height":height +30,"width":width +30,"opacity":"1.0"},500)
                                 .transition({"left":left ,"top":top,"height":height ,"width":width,"opacity":"0.5"},500)                                
-                                .transition({"left":left - 10,"top":top -10,"height":height +50,"width":width +50,"opacity":"1.0"},500)
+                                .transition({"left":left - 10,"top":top -10,"height":height +30,"width":width +30,"opacity":"1.0"},500)
                                 .transition({"left":left ,"top":top,"height":height ,"width":width,"opacity":"1.0"},500);
                   faceAwayLikeButton();          
                   faceAwayCommentButton();

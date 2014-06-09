@@ -1506,6 +1506,9 @@ Meteor.documentReady = documentReady;
                 else if(noComment.length>0){
                     console.log("noComment else"+noComment.length)
                     showcomments();
+                    setTimeout(function() {
+                        $('#commentingCommentOverlay').animate({scrollTop: 4000 }, 3000);
+                    }, 2000);
                     tapOnBigFeedSecond(null,currentvotes[i]);
                     showSpecialPopup("commentingOverlay");
                     // tapOnBigFeedSecond(null,currentvotes[i]);
@@ -3836,6 +3839,7 @@ function showcomments(){
     for(var i=0,il=votes.length;i<il;i++){
         p = $(votes[i]).find("p").text();
         var clientid = $(votes[i]).attr("clientid");
+        var votingid = $(votes[i]).attr("votingid");
         img = $(votes[i]).children("img").attr("src");
         clientid = $(votes[i]).attr("clientid");
         // console.log("p="+p+"/ img="+img)
@@ -3854,7 +3858,7 @@ function showcomments(){
             //         +'<div id="cross" style=""><strong>x</strong></div>'
             //     +'</div>';
             html =  '<div class="commentwrapper" ' +style +'>'
-                        +'<img src="'+img+'">'
+                        +'<img class="' +votingid +'" src="'+img+'">'
                         +'<i class="comment icon"></i>'
                         +'<textarea disabled="" id="commentInput" type="text" rows="9" placeholder="">'+p+'</textarea>'              
                     +'</div>'
@@ -3873,8 +3877,17 @@ function showcomments(){
             div.insertAdjacentHTML( 'beforeend', html );
         }
     }
+    // $("commentwrapper img").hammer().off("tap");
+    // $('#commentingCommentOverlay').animate({scrollTop: 5000 }, 10);
+    $(".commentwrapper img").hammer().on("tap",voteOnComment);
     // console.log(currentBigHtml)
 
+}
+function voteOnComment(event){
+    // console.log(event);
+    // console.log(event.target.className);
+    var votingid = event.target.className;
+    Votes.update({"_id":votingid},{$inc : {"hits":1}});
 }
 function commentOneVote(){
     hideSpecialPopup("commentingOverlay");

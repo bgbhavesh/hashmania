@@ -141,7 +141,7 @@ body{
 	display: block;
 	height: 9%;
 	position: absolute;
-	width: 100%;
+	width: 15%;
 	z-index: 1;
 	top:8%;
 }
@@ -2479,6 +2479,7 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 .allLeaderSection .leadersface
 {
 	float:none;
+	width: 100%;
 }
 .eachLeaders img{
 	width: 100%;

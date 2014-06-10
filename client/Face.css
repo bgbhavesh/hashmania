@@ -139,11 +139,11 @@ body{
 }
 .allLeaderSection{
 	display: block;
-	height: 10%;
-	/*top: 7.5%;*/
+	height: 9%;
 	position: absolute;
-	width: 100%;
+	width: 15%;
 	z-index: 1;
+	top:8%;
 }
 .leaderSection{
 	display: none;
@@ -654,13 +654,7 @@ body{
 	color: rgb(151, 151, 151);
 }
 #keywordPopup{
-    /*left: 10%;
-	top: 43%;
-	width: 80%;
-	height: 100%;
-	z-index: 5;
-	position: absolute;
-	max-height: 50%;*/
+  
 	top: 7%;
 	width: 98%;
 	height: 100%;
@@ -769,9 +763,10 @@ h6 {}
     overflow-x: hidden;
 	overflow-y: scroll;
 	font-size: 20px;
-	color: #7C7C7C;
+	color: #11a8ab;
 	margin-top: 2%;
     margin-left: 16%;
+    margin-right: 2%;
 	position: relative;
 	bottom: 0;
 	height: 70%;
@@ -1837,8 +1832,11 @@ h6 {}
   display : none; 
 }
 
+#cross :active{
+	color: black;
+}
 .submitComment{
-	width:47%;
+	width:46%;
 	margin: 1%;	
 	overflow :auto;
 	border-radius: 8px;
@@ -1915,7 +1913,7 @@ h6 {}
 }*/
 #NweImageAdded {
 	
-	bottom:70%;
+	bottom:69%;
 	left: 2%;
 	position: absolute;
 	
@@ -1978,11 +1976,11 @@ h6 {}
 #cross
 {
 	float: right;
-	padding: 5px;
-	padding-bottom: 2px;
-	font-size: 17px;
+	padding: 2px;
+	padding-left: 3px;
+	font-size: 18px;
 	color: white;
-	background-color: #11a8ab;
+	/*background-color: #11a8ab;*/
 	/*margin-right: 4%;*/
 	border-radius: 8px;
 }
@@ -2392,7 +2390,7 @@ mark{
 	-webkit-box-shadow: -1px 0 0 rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
 	-moz-box-shadow: -1px 0 0 rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
 	box-shadow: 1px 1px 1px rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
-	width: 8%;
+	width: 9%;
 	height: 100%;
 	top: 0%;
 }
@@ -2481,6 +2479,7 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 .allLeaderSection .leadersface
 {
 	float:none;
+	width: 100%;
 }
 .eachLeaders img{
 	width: 100%;

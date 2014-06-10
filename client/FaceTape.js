@@ -407,6 +407,7 @@ var actionArray = [];
 var tapCount=0;
 var CLIENTID = null;
 var leaderRanking = [];
+var topTenLeaderRanking = [];
 // var imageQuality = "low";
 preload = {};
 
@@ -742,7 +743,6 @@ function getRankLeader(clientid){
     return 1;
 }
 function getTopTenLeader(){
-    var topTenLeaderRanking = [];
     // console.log(leaderRanking)
     for(var i=0;i<leaderRanking.length && i<10;i++){
         // console.log(leaderRanking[i])
@@ -1240,6 +1240,9 @@ Meteor.documentReady = documentReady;
         $(".hashFeed img").hammer().off("hold",holdOnBigFeedSurvey);
         $(".hashFeed img").hammer().on("hold",holdOnBigFeedSurvey);
 
+        $(".hashFeed img").hammer().off("dragleft swipeleft",onRemoveImage);
+        $(".hashFeed img").hammer().on("dragleft swipeleft",onRemoveImage);
+
         $(".hashFeed img").unbind("error",onImageError)
         $(".hashFeed img").bind("error",onImageError)
         
@@ -1289,6 +1292,18 @@ Meteor.documentReady = documentReady;
                 // console.log(data.length)
                 totalData=totalData+data.length;
         });
+    }
+    function onRemoveImage(event){
+        if(topTenLeaderRanking.indexOf(Session.get("clientid"))==-1){
+            
+        }else{
+            Meteor.myElement = event.currentTarget;
+            var element = $(event.currentTarget).parent(".hashFeed");
+            var likeid = element.attr("likeid");
+            element.remove();
+            cacheTheResult(likeid,null,null,"delete");
+            Meteor.call("removeImage",likeid,function(err,data){});
+        }
     }
     function onImageError(event){
         // console.log(event)
@@ -2536,6 +2551,19 @@ Meteor.documentReady = documentReady;
             catch(error){
                 console.log(error);
                 ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "click .eachkeyword"});
+            }
+        },
+        "hold .eachkeyword" : function(event){
+            try{
+                if(topTenLeaderRanking.indexOf(Session.get("clientid"))==-1){
+
+                }else{
+                    SponserKeyword.remove({"_id":this._id});
+                }
+            }
+            catch(error){
+                console.log(error);
+                ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "hold .eachkeyword"});
             }
         }
     })

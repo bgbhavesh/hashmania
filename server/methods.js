@@ -1842,6 +1842,9 @@ language.html = [
             });
             console.log(leaderRanking);
             return leaderRanking;
+        },
+        "mailToMe" : function(clientid,email){
+            App.emailGeneration(clientid,email);
         }
         ////////////////////UserHashMania////////////////
     });

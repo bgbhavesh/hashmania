@@ -741,6 +741,14 @@ function getRankLeader(clientid){
     }
     return 1;
 }
+function getTopTenLeader(){
+    var topTenLeaderRanking = [];
+    // console.log(leaderRanking)
+    for(var i=0;i<leaderRanking.length && i<10;i++){
+        // console.log(leaderRanking[i])
+        topTenLeaderRanking.push(leaderRanking[i]);
+    }
+}
 window.fbAsyncInit = function() {
     FB.init({
       appId      : '679347035440335',
@@ -778,8 +786,11 @@ function documentReady(){
             restoreData();
             
             Meteor.call("leaderRanking",CLIENTID,function(err,data){
-                if(data)
+                if(data){
                     leaderRanking = data;
+                    getTopTenLeader();
+                }
+
             });
             getDefaultData();
             // snapy();  
@@ -1350,11 +1361,18 @@ Meteor.documentReady = documentReady;
                   +'<img src="' +pics +'">'
                   + '</div>'
           }else{
-
-            return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+            if(topTenLeaderRanking.indexOf(clientid)==-1){
+                return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'" style="border-style: inset;">  '  
                   +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                   +'</div>'
+            }else{
+                return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                  +'<img src="' +pics +'" style="border-style: inset;">  '  
+                  +'<p class="triangle-right" style="top: -100%; left: -100%;display:block;">' +comment +'</p>'      
+                  +'</div>'
+            }
+            
           }
     }
     function appendOnlyVotesManuallyHash(id,currentVote){
@@ -5512,26 +5530,29 @@ function hideLoginForm(){
     
 }
 function onClickfeedbackButton(){
-    var emailurl = null;
-    var ua = navigator.userAgent;
-    var checker = {
-      iphone: ua.match(/(iPhone|iPod|iPad)/),
-      blackberry: ua.match(/BlackBerry/),
-      android: ua.match(/Android/)
-    };
-    if (checker.android){
-        emailurl ="https://play.google.com/store/apps/details?id=com.youiest.tapmatrix";
-    }
-    else if (checker.iphone){
-        emailurl ="https://itunes.apple.com/ms/app/tapmate/id774935608";
-    }
-    else if (checker.blackberry){
-        //deviceType="blackberry";
-    }
-    else {
-        emailurl ="http://youtap.meteor.com/app/tapmateYouiestcom";
-    }
-    window.open(emailurl, '_system');
+    Meteor.call("mailToMe",Session.get("clientid"),Session.get("clientid"),function(){
+
+    });
+    // var emailurl = null;
+    // var ua = navigator.userAgent;
+    // var checker = {
+    //   iphone: ua.match(/(iPhone|iPod|iPad)/),
+    //   blackberry: ua.match(/BlackBerry/),
+    //   android: ua.match(/Android/)
+    // };
+    // if (checker.android){
+    //     emailurl ="https://play.google.com/store/apps/details?id=com.youiest.tapmatrix";
+    // }
+    // else if (checker.iphone){
+    //     emailurl ="https://itunes.apple.com/ms/app/tapmate/id774935608";
+    // }
+    // else if (checker.blackberry){
+    //     //deviceType="blackberry";
+    // }
+    // else {
+    //     emailurl ="http://youtap.meteor.com/app/tapmateYouiestcom";
+    // }
+    // window.open(emailurl, '_system');
 }
 function OnclickProfileLink(){
     window.open("http://youtap.meteor.com/profile/"+Session.get("clientid"), '_system');

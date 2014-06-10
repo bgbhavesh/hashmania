@@ -1138,7 +1138,7 @@ Meteor.documentReady = documentReady;
             setTimeout(function(){renderResults(data)},250);
             return;
         }
-        console.log(clientid)
+        // console.log(clientid)
         if(!loadMoreFlag){
             $("#surveybig").html("");
             cacheData(data);
@@ -1255,6 +1255,9 @@ Meteor.documentReady = documentReady;
         $(".voting").hammer().off("tap");  
         $(".voting").hammer().on("tap",tapOnVoting);
 
+        $(".voting").hammer().off("hold");  
+        $(".voting").hammer().on("hold",holdOnVoting);
+
         $("#surveybighandle").hammer().off("tap");
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
 
@@ -1300,9 +1303,10 @@ Meteor.documentReady = documentReady;
             Meteor.myElement = event.currentTarget;
             var element = $(event.currentTarget).parent(".hashFeed");
             var likeid = element.attr("likeid");
-            element.remove();
-            cacheTheResult(likeid,null,null,"delete");
-            Meteor.call("removeImage",likeid,function(err,data){});
+            element.css({"opacity":"0.5"})
+            // element.remove();
+            // cacheTheResult(likeid,null,null,"delete");
+            Meteor.call("removeImage",likeid,Session.get("clientid"),function(err,data){});
         }
     }
     function onImageError(event){
@@ -1401,24 +1405,31 @@ Meteor.documentReady = documentReady;
                  +' <img src="' +pics +'">  '
                 + '</div>'
     }
-    function onScore(score,keyword){
-        
+    function onScore(score,keyword,downClientid){
         var incJson = {"score":score,"heatScore":score};
         var key = Session.get("keyword");
-
         if(keyword)
             key = keyword;
-        if(key){
-            incJson[key] = score;
-            // increment hits for the keyword too.
-            var cursorSponserKeyword = SponserKeyword.findOne({"keyword":key});
-                if(cursorSponserKeyword)
-                    SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});   
+        if(!downClientid){
+            
+            if(key){
+                incJson[key] = score;
+                // increment hits for the keyword too.
+                var cursorSponserKeyword = SponserKeyword.findOne({"keyword":key});
+                    if(cursorSponserKeyword)
+                        SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});   
+            }
+            UserHashMania.update({"_id":Session.get("clientid")},{$inc : incJson});
+        }else{
+            if(key){
+                incJson[key] = score;
+                // increment hits for the keyword too.
+                var cursorSponserKeyword = SponserKeyword.findOne({"keyword":key});
+                    if(cursorSponserKeyword)
+                        SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":-1}});   
+            }
+            UserHashMania.update({"_id":downClientid},{$inc : incJson});
         }
-
-        // console.log("score " +score);
-        // console.log(incJson)
-        UserHashMania.update({"_id":Session.get("clientid")},{$inc : incJson})
         $("#displayScore").text(score);
         $("#displayScore").css({"opacity":"1.0","top":"46%","display":"block"});
         $("#displayScore").animate({"opacity":"0.0","top":"5%"},2000,"easeOutBounce");
@@ -1604,8 +1615,39 @@ Meteor.documentReady = documentReady;
         if(cursorSponserKeyword){
             SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});
         }
-        onScore(10);
+        var currentQuadrant = checkQuadrant(left,top);
+        if(currentQuadrant == 1){
+            onScore(20);
+        }else{
+            onScore(10);
+        }
+
     }
+    function checkQuadrant(left,top){
+        top = top - 40;
+        // console.log("left");
+        // console.log(left);
+        // console.log("top");
+        // console.log(top);
+        var quad = 0;
+        if(left > 50 && top < 50){        
+            quad = 1;  
+        }
+        else if(left < 50 && top < 50){        
+            quad = 0;
+        }
+        else if(left < 50 && top > 50){        
+            quad = 2;
+        }
+        else if(left > 50 && top > 50){       
+            quad = 3; 
+        }
+        else{       
+        }
+        console.log(quad)
+        return quad;   
+    }
+    App.checkQuadrant = checkQuadrant;
     function cacheTheResult(likeid,VotesInsert,key,action){
         var keySession = Session.get("keyword");
         console.log(keySession);
@@ -3632,56 +3674,56 @@ function removeDummy(){
     $(".dummyElement").remove();
 }
 var checkQuadrantTimeOut = null;
-function checkQuadrant(left,top,flag){
-    var starttimer = new Date().getTime();
-    if(checkQuadrantTimeOut)
-        clearTimeout(checkQuadrantTimeOut);
-    top = top - 40;
-    var quad = 0;
-    if(left > 50 && top < 25){        
-        quad = 1;
-        if(flag)
-            toast(i18n.__("loveNpromote"));
-            //toast("You love and promoted this picture");//rooster    
-        $("#loveQuadrant,#promoteQuadrant")
-            .css({"opacity":"1.0"});    
-    }
-    else if(left < 50 && top < 25){        
-        quad = 0;
-        if(flag)
-            toast(i18n.__("love"));
-            //toast("You love this picture");//eagle
-        $("#loveQuadrant,#dummyelement")
-            .css({"opacity":"1.0"});
-    }
-    else if(left < 50 && top > 25){        
-        quad = 2;
-        if(flag)
-             toast(i18n.__("hate"));
-            //toast("You hate the picture");//rat
-    }
-    else if(left > 50 && top > 25){       
-        quad = 3; 
-        if(flag) 
-            toast(i18n.__("hateNpromote"));      
-            //toast("You hated and promoted this picture");//segal
-        $("#promoteQuadrant,#dummyelement").css({"opacity":"1.0"});
-    }
-    else{       
-    }
-    // console.log($("#quadrant div")[quad]);
-    // console.log($(".mainQuadrant")[quad]);
-    // console.log(quad)
-    $($(".mainQuadrant")[quad])
-    .animate({"opacity":"1.0"},500,"linear")
-    .animate({"opacity":"0.0"},500,"linear")
-    .animate({"opacity":"1.0"},500,"linear")
-    .animate({"opacity":"0.0"},500,"linear"); 
-    checkQuadrantTimeOut = setTimeout(function(){$("#loveQuadrant,#promoteQuadrant").css({"opacity":"0.0"})},2000)
-    return quad;   
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-}
-App.checkQuadrant = checkQuadrant;      
+// function checkQuadrant(left,top,flag){
+//     var starttimer = new Date().getTime();
+//     if(checkQuadrantTimeOut)
+//         clearTimeout(checkQuadrantTimeOut);
+//     top = top - 40;
+//     var quad = 0;
+//     if(left > 50 && top < 25){        
+//         quad = 1;
+//         if(flag)
+//             toast(i18n.__("loveNpromote"));
+//             //toast("You love and promoted this picture");//rooster    
+//         $("#loveQuadrant,#promoteQuadrant")
+//             .css({"opacity":"1.0"});    
+//     }
+//     else if(left < 50 && top < 25){        
+//         quad = 0;
+//         if(flag)
+//             toast(i18n.__("love"));
+//             //toast("You love this picture");//eagle
+//         $("#loveQuadrant,#dummyelement")
+//             .css({"opacity":"1.0"});
+//     }
+//     else if(left < 50 && top > 25){        
+//         quad = 2;
+//         if(flag)
+//              toast(i18n.__("hate"));
+//             //toast("You hate the picture");//rat
+//     }
+//     else if(left > 50 && top > 25){       
+//         quad = 3; 
+//         if(flag) 
+//             toast(i18n.__("hateNpromote"));      
+//             //toast("You hated and promoted this picture");//segal
+//         $("#promoteQuadrant,#dummyelement").css({"opacity":"1.0"});
+//     }
+//     else{       
+//     }
+//     // console.log($("#quadrant div")[quad]);
+//     // console.log($(".mainQuadrant")[quad]);
+//     // console.log(quad)
+//     $($(".mainQuadrant")[quad])
+//     .animate({"opacity":"1.0"},500,"linear")
+//     .animate({"opacity":"0.0"},500,"linear")
+//     .animate({"opacity":"1.0"},500,"linear")
+//     .animate({"opacity":"0.0"},500,"linear"); 
+//     checkQuadrantTimeOut = setTimeout(function(){$("#loveQuadrant,#promoteQuadrant").css({"opacity":"0.0"})},2000)
+//     return quad;   
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+// }
+// App.checkQuadrant = checkQuadrant;      
 function tapOnRecomm (event){
     var starttimer = new Date().getTime();
     try{
@@ -3755,30 +3797,6 @@ function holdOnRecomm(event){
         Feed.remove({"_id":myrecc})
     }
 }
-function holdOnVoting(event){
-    var starttimer = new Date().getTime();
-    var eventType = event.type;
-    var followid = $(this).attr("myid");
-    var votingid = $(this).attr("votingid");
-    try{
-      var myvote= Votes.findOne({"followid":Session.get("clientid")});
-      if(myvote){
-        Votes.remove({"_id":votingid});
-        var myrecc= Feed.find({"whoid":Session.get("clientid"),"likeid":Session.get("currentBig")})
-        myrecc.forEach(function(data){
-              console.log(data._id);
-              Feed.remove({"_id":data._id})
-        });
-        //console.log(myrecc);
-        // if(myrecc){
-        //   //Votes.remove({"_id":votingid});
-        // }
-      }
-    }catch(error){
-        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "holdOnVoting"});
-    }
-        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-}
 function tapOnVoting(event){
     var starttimer = new Date().getTime();
     try{
@@ -3798,7 +3816,26 @@ function tapOnVoting(event){
     }catch(error){
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnVoting"});
     }
-        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"tapOnVoting","time":((new Date().getTime())-starttimer)});
+}
+function holdOnVoting(event){
+    var starttimer = new Date().getTime();
+    try{
+        var myid = Session.get("clientid");
+        if(topTenLeaderRanking.indexOf(myid)==-1){
+
+        }else{
+            var element = null;
+            element = event.currentTarget;
+            var clientid = $(element).attr("clientid");
+            if(clientid != myid)
+                onScore(-10,null,clientid)
+        }
+
+    }catch(error){
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnVoting"});
+    }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"holdOnVoting","time":((new Date().getTime())-starttimer)});
 }
 var currentCommenting = null;
 function tapOnBigFeedSecond(event,myElement){
@@ -3975,6 +4012,7 @@ function commentOneVote(){
         Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
       $("#commentInput").val(null);
+      onScore(10);
     }
     // $("#showallcomments").empty();
     var stringArray = value.split(" ");
@@ -3984,15 +4022,6 @@ function commentOneVote(){
         selectitem = stringArray[i];
         if(selectitem.length >= str.length && selectitem.substring(0, str.length) == str){
           var keyword = selectitem.slice(1);
-          // Meteor.call("findHashKeyword",keyword,CLIENTID,function(err,data){
-          //     console.log("err");
-          //     console.log(err);
-          //     console.log("data");
-          //     console.log(data);
-          //     console.log(data._id);
-          //     // if(err)                
-              
-          // });
             var commentcurssor = SponserKeyword.findOne({"keyword":keyword})
             if(commentcurssor){
                 console.log("you got 25 points");
@@ -4000,7 +4029,7 @@ function commentOneVote(){
             }
         }
     }
-    onScore(10);
+    // onScore(10);
     // $("currentCommenting").append(html)
 
     // for(var i=0,il=voting.length;i<il;i++){
@@ -4012,7 +4041,7 @@ function commentOneVote(){
     //         $("#"+likeid).append(html);   
     //     }
     // }
-    Meteor.myElement = $("#"+likeid);
+    // Meteor.myElement = $("#"+likeid);
     // <p class="triangle-right" style="left:' +(left -10) +"%;top:" +(top -10)  +'%;">cdcd</p>    
 }
 function tapOnSend(event){

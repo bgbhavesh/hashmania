@@ -1835,10 +1835,10 @@ language.html = [
                 return true;
             }
         },
-        "removeImage" : function(likeid){
+        "removeImage" : function(likeid,clientid){
             if(likeid){
                 HashKeyword.find({"likeid":likeid}).forEach(function(data){
-                    HashKeyword.update({"_id":data._id},{$set : {"remove":true}})
+                    HashKeyword.update({"_id":data._id},{$set : {"hide":clientid}})
                 });
             }
         },

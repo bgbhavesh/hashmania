@@ -1835,6 +1835,13 @@ language.html = [
                 return true;
             }
         },
+        "removeImage" : function(likeid){
+            if(likeid){
+                HashKeyword.find({"likeid":likeid}).forEach(function(data){
+                    HashKeyword.update({"_id":data._id},{$set : {"remove":true}})
+                });
+            }
+        },
         "leaderRanking" : function(){
             var leaderRanking = []; 
             UserHashMania.find({},{sort : {"heatScore": -1}}).forEach(function(data){

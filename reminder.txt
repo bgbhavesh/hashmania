@@ -1,4 +1,4 @@
-mongodb://<user>:<password>@kahana.mongohq.com:10093/HashRepublic
+mongodb://hashrepublic:123456@kahana.mongohq.com:10093/HashRepublic
 mongodb://youiest-llc:Wiber2wibing@kahana.mongohq.com:10093/HashRepublic
 
 

@@ -6049,7 +6049,11 @@ function loginWithFacebookCallbackFunction(err){
     console.log("loginWithFacebookCallbackFunction");
     console.log(err);
 }
-
+function notify(message,type){
+    noty({
+    text: message,"timeout" : 3000,"type":type
+  });
+}
 function loginWithInstagramCallbackFunction(err){
     var starttimer = new Date().getTime();
     // console.log("loginWithInstagramCallbackFunction")
@@ -7849,6 +7853,7 @@ function openSurvey(){
 
 }
 function closeSurvey(){
+    notify("Hold image to share it.","information");
     $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
     $("#surveybig").transition({"top":"15%"});
     $(".hashKeyword").css({"display":"block"});

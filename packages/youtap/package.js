@@ -25,7 +25,7 @@ Package.on_use(function (api) {
 	api.add_files('lib/jquery.plugin.js', 'client');
 	api.add_files('lib/jquery.countdown.css', 'client');
 	api.add_files('lib/jquery.countdown.js', 'client');
-
+	api.add_files('lib/noty.js', 'client');
 	
 	  if(api.export){
 		api.export("schedule","server");

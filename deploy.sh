@@ -27,7 +27,7 @@ cd ..
 cd ..
 cd ..
 echo $(pwd)
-export MONGO_URL='mongodb://localhost'
+export MONGO_URL='mongodb://hashrepublic:123456@kahana.mongohq.com:10093/HashRepublic'
 export ROOT_URL='http://128.199.196.222:3000'
 export PORT=3000
 export METEOR_SETTINGS=$(cat ../../HashRepublic/hashsettings.json)

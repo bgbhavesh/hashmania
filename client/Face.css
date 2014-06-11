@@ -1116,6 +1116,7 @@ h6 {}
   z-index: 1;
   font-size: 12px;
   top: 0px;
+  display: block;
 }
 .gameQuadrant{
   width : 50%;
@@ -1680,7 +1681,7 @@ h6 {}
     position: relative;
     left: 0px;
     border-radius: 8px;
-
+    z-index: 1;
 	-webkit-transform: translateZ(0);
 	-moz-transform: translateZ(0);
 	-ms-transform: translateZ(0);

@@ -1206,6 +1206,15 @@ Meteor.documentReady = documentReady;
                     newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
                     +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
             }
+                newElement +='<div class="quadrant" id="' +currentData.keyword.likeid +'">'
+                +'<div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>'
+                +'<div id="inerhprogressBar">'
+                +'<i class="big bullhorn icon" style="margin-left: 0px"></i></div>'
+                +'<div id="outer" class="ui warning progress">'
+                +'<div class="inner"  id="verticalprogress"></div> <hr style="height:100%;width:2px;margin-bottom:-8px;padding:0px;">'
+                +'</div>'
+                +'<div id="inner-inner"><i class="big thumbs up icon" style="margin-left: 0px;"></i></div>'   
+                +'</div>'
                 // newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +' style="opacity: 0.5;">' 
                 //     +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
                 // +'<img class="stdImg" src="' +currentData.keyword.std +'">'
@@ -1251,8 +1260,8 @@ Meteor.documentReady = documentReady;
         button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   Old  </a>';//&#8609; MORE  &#8609;
         var element = $("#surveybig").append(button);
 
-        $(".hashFeed img").hammer().off("tap");  
-        $(".hashFeed img").hammer().on("tap",tapOnBigFeedSurvey);
+        $(".hashFeed").hammer().off("tap");  
+        $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
 
         $(".hashFeed img").hammer().off("doubletap");  
         $(".hashFeed img").hammer().on("doubletap",likeOnInstagram);
@@ -1516,7 +1525,7 @@ Meteor.documentReady = documentReady;
     var currentBigHtml=null;
     function tapOnBigFeedSurvey(event){
         // element = event.currentTarget;
-        var parent = $(this).parent(".hashFeed");
+        var parent = $(this);//$(this).parent(".hashFeed");
         currentBigHtml = parent
         parent.find(".tertiary").show();
         currentSurveyBig = $(this);
@@ -1536,11 +1545,11 @@ Meteor.documentReady = documentReady;
         var toppx = top;
         top = (top/height) * 100;
         left = Math.round(left) ;
-        top = Math.round(top) ;
+        top = Math.round(top);
+        var newtop = top;
         $("#showallcomments").empty();
         var likeid = $(parent).attr("likeid")
-        // progress2(left, $('#hprogressBar'),top, $('#outer'),likeid);
-        // console.log(parent)
+        // console.log(left +"/"+top +"/"+ likeid )
         Session.set("currentBig",likeid)
         var clientid = Session.get("clientid");
         var votepic = null;
@@ -1554,6 +1563,7 @@ Meteor.documentReady = documentReady;
             votepic = "/images/face.jpg"; 
         voteFlag = false;
         var date = new Date().getTime();
+        // progress2(left,top,likeid,event);
         $('.imageComment img').attr('src',get("profile_picture"));
         // console.log(likeid +" " +Session.get("currentBig"));
         top+=40;
@@ -1611,6 +1621,7 @@ Meteor.documentReady = documentReady;
             }
         }
         var place = App.checkQuadrant(left,top);
+        progress2(left,newtop,likeid,event);
         var VotesInsert = {"checked":false,"place":place,"profile_picture":votepic, "followid": Session.get("clientid"),"likeid":likeid ,"left": left,"top": top,"date" : date,"comment": ""};
         // currentSurveyBig.append(getVoteHTML(VotesInsert.left,VotesInsert.top,"%"))
         // var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
@@ -1752,35 +1763,37 @@ Meteor.documentReady = documentReady;
                  +' <img src="' +pics +'">  '        
                 + '</div>'
     }
-    function progress2(percent, $element, percent1, $element1,likeid) {
+    function progress2(percent,percent1,likeid,event){
+            // console.log(percent +"/"+ $element+"/"+ percent1+"/"+ $element1+"/"+likeid)
             var addstring="div#"+likeid
-            var barDiv =$(addstring).children("#hprogressBar");
-            var hprogressBar =  percent+5;
+            var barDiv =$(currentBigHtml).children(".quadrant").children("#hprogressBar");
+            console.log(barDiv)
+            var hprogressBar =  percent;
 
-            $(addstring).find("div#inerhprogressBar").transition({ left: hprogressBar + "%" }, 500);
-            $(barDiv).find("div").transition({ width: hprogressBar + "%" }, 500)
-            promoteper=100-percent1;
+            $(currentBigHtml).find("div#inerhprogressBar").transition({ left: hprogressBar + "%" }, 500);
+            $(barDiv).find("div").transition({ "width": hprogressBar + "%" }, 500)
+            promoteper=95-percent1;
             cursorlove=percent1;
-            $(addstring).find("#inner-inner").css("top",cursorlove+"%");
+            $(currentBigHtml).find("#inner-inner").css("top",cursorlove+"%");
             $("#inner-inner").transition({"top":cursorlove+"%"});
-            $(addstring).find("#verticalprogress").css("height",promoteper +"%")
+            $(currentBigHtml).find("#verticalprogress").css("height",promoteper +"%")
 
-            $(addstring).find("#outer")
+            $(currentBigHtml).find("#outer")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
-            $(addstring).find(".inner")
+            $(currentBigHtml).find(".inner")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
-            $(addstring).find("div#hprogressBar")
+            $(currentBigHtml).find("div#hprogressBar")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
             $(barDiv).find("div")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
-            $(addstring).find("div#inerhprogressBar")
+            $(currentBigHtml).find("div#inerhprogressBar")
             .transition({"opacity":"0.0"},1,"linear")
             .transition({"opacity":"1.0"},100,"linear")
-            $(addstring).find("#inner-inner")
+            $(currentBigHtml).find("#inner-inner")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
             

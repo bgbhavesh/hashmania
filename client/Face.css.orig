@@ -2477,7 +2477,12 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 .allLeaderSection .leadersface
 {
 	float:none;
-	width: 100%;	
+	width: 100%;
+<<<<<<< HEAD
+	color: white;
+=======
+	
+>>>>>>> 1f2c486e6dec0629c6852219d4a5c09651f23d73
 }
 .eachLeaders img{
 	width: 100%;

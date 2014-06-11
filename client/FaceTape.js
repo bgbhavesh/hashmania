@@ -1107,24 +1107,25 @@ Meteor.documentReady = documentReady;
     var totalData=0;
     function checkscroll()
     {
-        var x=$("#surveybig").scrollTop();
-        var y=$(".hashFeed img").height();
-        var z=parseInt(x/y);
-        $("#totalimages").html('<i class="level up icon">'+(z+1)+'</i>');                  
+        // var x=$("#surveybig").scrollTop();
+        // var y=$(".hashFeed img").height();
+        // var z=parseInt(x/y);
+        // $("#totalimages").html('<i class="level up icon">'+(z+1)+'</i>');                  
                  
-        var z=parseInt(x/y)+2;
-        var c=totalData-z;
+        // var z=parseInt(x/y)+2;
+        // var c=totalData-z;
 
-        // if(c>0)
-        $("#toComeimages").html('<i class="level down icon">'+c+'</i>');
-        // $(".tapToShow").hide();
-        $('.tapToShow').show();
+        // // if(c>0)
+        // $("#toComeimages").html('<i class="level down icon">'+c+'</i>');
+        // // $(".tapToShow").hide();
+        // $('.tapToShow').show();
 
         // if ($("#surveybig").scrollTop() > 300) {
-        //     $('.tapToShow').show();
+        //     $('.leaderSection').hide();
         // } else {
-        //     $('.tapToShow').hide();
+        //     $('.leaderSection').show();
         // }    
+
     }
     
     function renderResults(data,loadMoreFlag,newerFlag){
@@ -1574,6 +1575,7 @@ Meteor.documentReady = documentReady;
                     // showSpecialPopup("commentingOverlay");
                     // currentCommenting
                     $("#commentInput").focus();
+                    $("#commentInput").select();
                     return;
                 }
                 else if(noComment.length>0){
@@ -1587,6 +1589,7 @@ Meteor.documentReady = documentReady;
                     // tapOnBigFeedSecond(null,currentvotes[i]);
                 }
                 $("#commentInput").focus();
+                $("#commentInput").select();
                 return;
             }
             // else{
@@ -3981,7 +3984,7 @@ function showcomments(){
             html =  '<div class="commentwrapper" ' +style +'>'
                         +'<img class="' +votingid +'" src="'+img+'">'
                         +'<i class="comment icon"></i>'
-                        +'<textarea disabled="" id="commentInput" type="text" rows="9" placeholder="">'+p+'</textarea>'              
+                        +'<textarea disabled="" id="commentInput" type="text" rows="4" placeholder="">'+p+'</textarea>'              
                     +'</div>'
             // if(clientid == Session.get("clientid")){
             //     html = '<div class="commentwrapper"><div class="imageComment" class="allcomment" style="float:left">'
@@ -6486,6 +6489,7 @@ function bindEvents(){
         //     selectlang(currlang);
         // }               
         // checkFormAndTimer("first");
+        $("#surveybig").on("scroll",checkscroll);
         window.localStorage.setItem("redirect",window.location);
         $("#Main").hammer().on("swiperight",swipeRight);
         $("#Main").hammer().on("swipeleft",swipeLeft);  

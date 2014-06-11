@@ -1107,7 +1107,15 @@ Meteor.documentReady = documentReady;
     var totalData=0;
     function checkscroll()
     {
-        // var x=$("#surveybig").scrollTop();
+        var x;
+        x=$("#surveybig").scrollTop();
+        if(x==0){
+            $(".leaderSection").show();
+        }else{
+            $(".leaderSection").hide();
+        }
+        // 
+        // console.log(x)
         // var y=$(".hashFeed img").height();
         // var z=parseInt(x/y);
         // $("#totalimages").html('<i class="level up icon">'+(z+1)+'</i>');                  
@@ -4049,7 +4057,7 @@ function commentOneVote(){
         Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
     }else{
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>'; 
+      var html = '<p class="triangle-right" style="top: -100%; left: -100%;display:block;">' +value +'</p>'; 
       if(div)
       div.insertAdjacentHTML( 'beforeend', html );
       $(currImg).css({"border-style":"inset"});
@@ -6502,7 +6510,7 @@ function bindEvents(){
         //     selectlang(currlang);
         // }               
         // checkFormAndTimer("first");
-        // $("#surveybig").on("scroll",checkscroll);
+        $("#surveybig").on("scroll",checkscroll);
         window.localStorage.setItem("redirect",window.location);
         $("#Main").hammer().on("swiperight",swipeRight);
         $("#Main").hammer().on("swipeleft",swipeLeft);  

@@ -1838,7 +1838,7 @@ language.html = [
         "removeImage" : function(likeid,clientid){
             if(likeid){
                 HashKeyword.find({"likeid":likeid}).forEach(function(data){
-                    HashKeyword.update({"_id":data._id},{$set : {"hide":clientid}})
+                    HashKeyword.update({"_id":data._id},{$set : {"hide":true}})
                 });
             }
         },

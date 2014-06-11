@@ -744,9 +744,11 @@ function getRankLeader(clientid){
 }
 function getTopTenLeader(){
     // console.log(leaderRanking)
+    topTenLeaderRanking = []
     for(var i=0;i<leaderRanking.length && i<10;i++){
         // console.log(leaderRanking[i])
         topTenLeaderRanking.push(leaderRanking[i]);
+
     }
 }
 window.fbAsyncInit = function() {
@@ -1177,7 +1179,8 @@ Meteor.documentReady = documentReady;
         // $("#surveybig").hammer().on("touch",checkscroll);
         
 
-
+        console.log(topTenLeaderRanking)
+        console.log(Session.get("clientid"));
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
             currentData = data[i];
@@ -1187,26 +1190,42 @@ Meteor.documentReady = documentReady;
             if(!currentData.keyword)
                 continue;
             var resolution = Session.get("imageQuality");
-            newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
-                +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
+            if(currentData.keyword.hide){
+                if(topTenLeaderRanking.indexOf(clientid)==-1){
+                    console.log("not top");
+                    newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
+                    +'<img class="lowImg" src="' +currentData.keyword[resolution] +'" style="display: none;">'
+                }else{
+                    console.log("its top");
+                    newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'" style="opacity: 0.5;">' 
+                    +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
+                }
+                    
+            }else{
+                    console.log("not working");
+                    newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
+                    +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
+            }
+                // newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +' style="opacity: 0.5;">' 
+                //     +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
                 // +'<img class="stdImg" src="' +currentData.keyword.std +'">'
-            //     +'<div class="ui tertiary form segment">'
-            //     +'<div class="commentWrapper">';
-            //         for(var k=0,kl=currentData.comments.length;k<kl;k++){
-            //             // console.log(currentData.comments[k].value.length)
-            //             if(currentData.comments[k].value.length !=0)
-            //             newElement +='<h4 class="ui header"><mark>'+currentData.comments[k].value +'</mark></h4>'                         
-            //         }
-            //     newElement += '</div>'
-            //       +'<div class="field" likeid="' +currentData.keyword.likeid +'">'
-            //         +'<div class="ui right labeled icon input submitComment">'
-            //           +'<i class="comment icon"></i>'
-            //           +'<input id="entercomment" type="text" placeholder="comment">'
-            //         +'</div>'
-            //         //+'<div class="ui blue submit button submitComment" id="submitComment">Comment Submit</div>'
-            //       +'</div>'                  
-            //     +'</div>'           
-            // +'</div>'
+                //     +'<div class="ui tertiary form segment">'
+                //     +'<div class="commentWrapper">';
+                //         for(var k=0,kl=currentData.comments.length;k<kl;k++){
+                //             // console.log(currentData.comments[k].value.length)
+                //             if(currentData.comments[k].value.length !=0)
+                //             newElement +='<h4 class="ui header"><mark>'+currentData.comments[k].value +'</mark></h4>'                         
+                //         }
+                //     newElement += '</div>'
+                //       +'<div class="field" likeid="' +currentData.keyword.likeid +'">'
+                //         +'<div class="ui right labeled icon input submitComment">'
+                //           +'<i class="comment icon"></i>'
+                //           +'<input id="entercomment" type="text" placeholder="comment">'
+                //         +'</div>'
+                //         //+'<div class="ui blue submit button submitComment" id="submitComment">Comment Submit</div>'
+                //       +'</div>'                  
+                //     +'</div>'           
+                // +'</div>'
             if(newerFlag){
                 var element = $("#surveybig").prepend(newElement);
                 setTimeout(surveyUp,1500);
@@ -1307,7 +1326,7 @@ Meteor.documentReady = documentReady;
             element.css({"opacity":"0.5"})
             // element.remove();
             // cacheTheResult(likeid,null,null,"delete");
-            Meteor.call("removeImage",likeid,Session.get("clientid"),function(err,data){});
+            Meteor.call("removeImage",likeid,function(err,data){});
         }
     }
     function onImageError(event){
@@ -1539,6 +1558,7 @@ Meteor.documentReady = documentReady;
         // console.log(likeid +" " +Session.get("currentBig"));
         top+=40;
         var currentvotes = $("#"+likeid).children(".voting");
+        // var allVotesClientId = [];
         for(var i=0,il=currentvotes.length;i<il;i++){
             var cursorvotenow = $(currentvotes[i]).attr("clientid");
             if(cursorvotenow==Session.get("clientid")){
@@ -1571,8 +1591,16 @@ Meteor.documentReady = documentReady;
                 $("#commentInput").focus();
                 $("#commentInput").select();
                 return;
-            }            
+            }
+            // else{
+            //     allVotesClientId.push(cursorvotenow);
+            // }            
         }
+        // if(allVotesClientId){
+        //     console.log(likeid);
+        //     console.log(clientid);
+        //     Meteor.call("checkSecondVote",likeid,clientid,function(){});
+        // }
         for(var i=0,il=currentvotes.length;i<il;i++){
             var cursorvotenow = $(currentvotes[i]).attr("clientid");
             if(cursorvotenow==Session.get("clientid")){
@@ -2743,6 +2771,7 @@ function restoreCollection(){
             leaderRanking = leaderRankingJson.leaderRanking;
             if(!leaderRanking)
                 leaderRanking = [];
+            getTopTenLeader();
         }
         
     }

@@ -855,12 +855,14 @@ function postActUser(id,access){
 App.postActUser = postActUser;
 
 function checkSecondVote(first){
-    var cursorVotes = Votes.find({"followid":first.followid,"likeid":first.likeid});
-    if(cursorVotes.count() > 1){
-        Votes.remove({"_id":first._id});
-        console.log("removed vote");
-        return;
-    }
+    var cursorVotes = Votes.find({"likeid":first.likeid});
+    // console.log("checkSecondVote " +cursorVotes.count())
+    cursorVotes.forEach(function(data){
+        if(first.followid != data.followid){
+            UserHashMania.update({"_id":data.followid},{$inc : {"heatScore":5,"score":5}});
+        }
+    })
+    
 
     // Tapmate concept
     // var cursorGroupVoteRecommend = GroupVoteRecommend.findOne({"clientid":first.followid,"likeid":first.likeid});
@@ -1920,10 +1922,10 @@ App.isAdmin = isAdmin;
     // }
     function getDay(day){return 7 - day};
     function batchEmail(){
-        console.log("batchEmailStarted");
-        Meteor.call("getTextForNewsletters"); //This will set admin text from the caption of instagram picture.
+        // console.log("batchEmailStarted");
+        // Meteor.call("getTextForNewsletters"); //This will set admin text from the caption of instagram picture.
         var emailCounter =0;
-        var cursorTapMatrixUser = TapMatrixUser.find({});        
+        var cursorTapMatrixUser = UserHashMania.find({});        
         cursorTapMatrixUser.forEach(function(data){
             emailCounter++;
             if(data.email){

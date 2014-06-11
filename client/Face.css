@@ -1625,6 +1625,7 @@ h6 {}
 	height: 90%;
 	width: 14%;	
 	padding: 0.5%;
+	color: white;
 }
 .leadersface img{
 	height: 90%;
@@ -2480,6 +2481,7 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 {
 	float:none;
 	width: 100%;
+	color: white;
 }
 .eachLeaders img{
 	width: 100%;

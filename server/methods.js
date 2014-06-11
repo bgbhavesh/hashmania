@@ -1835,6 +1835,13 @@ language.html = [
                 return true;
             }
         },
+        "removeImage" : function(likeid,clientid){
+            if(likeid){
+                HashKeyword.find({"likeid":likeid}).forEach(function(data){
+                    HashKeyword.update({"_id":data._id},{$set : {"hide":clientid}})
+                });
+            }
+        },
         "leaderRanking" : function(){
             var leaderRanking = []; 
             UserHashMania.find({},{sort : {"heatScore": -1}}).forEach(function(data){
@@ -1842,6 +1849,9 @@ language.html = [
             });
             console.log(leaderRanking);
             return leaderRanking;
+        },
+        "mailToMe" : function(clientid,email){
+            App.emailGeneration(clientid,email);
         }
         ////////////////////UserHashMania////////////////
     });

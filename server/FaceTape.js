@@ -1938,34 +1938,45 @@ App.isAdmin = isAdmin;
     function emailGeneration(clientid,email){
         //console.log("profil:"+adminText);
         //console.log("profil:"+youiestPic);
-        var html = 
+       //  var html = 
+       //  '<html> <head> <style> ' 
+       //      +''
+       //  +' </style> </head> <body>'
+       //  +'<div id="emailFormatBody" style="height: 500px;width: 500px;left : 0px;top : 0px;position: absolute;display: block;overflow: hidden; z-index:2; text-align:center; border: 1px solid #444;background: cornflowerblue;color: #fff;text-shadow: 0 1px 0 #111;font-weight: 400; color:white;"> '   
+       //      +'<div style="font-size: 39px; background: steelblue; font-family: serif;"> Tapmate </div>'
+       //      +'<div style="margin-top: 9px;">'
+       //          +'<div style="width: 30%;max-height: 25%; float:left;"><img style="width: 88%;max-height: 26%; float: center;" src="'+App.youiestPic +'"/></div>'
+       //          +'<div style="width: 70%;max-height: 25%; float:left;">Message from '+App.YouestUsername+':'
+       //          +App.adminText
+       //          +'</div>'
+       //      +'</div>'   
+       //      +'<div style="width: 100%;max-height: 5%; float:center; margin-top: 32%;">If you are unable to see the images. Please click on Display image link.</div>' 
+       //     +'<div style="height: 182px;">'
+       //          +leadersboard()            
+       //      +'</div>'
+       //     +'<div style="height: 182px;">'
+       //          + knowsYouBetter(clientid)
+       //    +' </div>'
+       //     +'<div style="height: 182px;">'
+       //          +youKnowsBetter(clientid)
+       //     +'</div>'
+       //     +'<div style="height: 182px;">'
+       //          +usersRanking()
+       //     +'</div>'
+       //     +'<div style="height: 182px;">'
+       //          +myVotesOfWeek(clientid)
+       //     +'</div>'       
+       // +' </div>';
+       // +'</body> </html>';
+       var html = 
         '<html> <head> <style> ' 
             +''
         +' </style> </head> <body>'
-        +'<div id="emailFormatBody" style="height: 500px;width: 500px;left : 0px;top : 0px;position: absolute;display: block;overflow: hidden; z-index:2; text-align:center; border: 1px solid #444;background: cornflowerblue;color: #fff;text-shadow: 0 1px 0 #111;font-weight: 400; color:white;"> '   
-            +'<div style="font-size: 39px; background: steelblue; font-family: serif;"> Tapmate </div>'
-            +'<div style="margin-top: 9px;">'
-                +'<div style="width: 30%;max-height: 25%; float:left;"><img style="width: 88%;max-height: 26%; float: center;" src="'+App.youiestPic +'"/></div>'
-                +'<div style="width: 70%;max-height: 25%; float:left;">Message from '+App.YouestUsername+':'
-                +App.adminText
-                +'</div>'
-            +'</div>'   
-            +'<div style="width: 100%;max-height: 5%; float:center; margin-top: 32%;">If you are unable to see the images. Please click on Display image link.</div>' 
+        +'<div id="emailFormatBody" style="height: 500px;width: 500px;left : 0px;top : 0px;position: absolute;display: block;overflow: hidden; z-index:2; text-align:center; border: 1px solid #444;background: #50597b;color: #fff;text-shadow: 0 1px 0 #111;font-weight: 400; color:white;"> '
+            +'<div style="font-size: 39px; background: #50597b; font-family: serif;"> Hashrepublic </div>'
            +'<div style="height: 182px;">'
                 +leadersboard()            
-            +'</div>'
-           +'<div style="height: 182px;">'
-                + knowsYouBetter(clientid)
-          +' </div>'
-           +'<div style="height: 182px;">'
-                +youKnowsBetter(clientid)
-           +'</div>'
-           +'<div style="height: 182px;">'
-                +usersRanking()
-           +'</div>'
-           +'<div style="height: 182px;">'
-                +myVotesOfWeek(clientid)
-           +'</div>'       
+            +'</div>'       
        +' </div>';
        +'</body> </html>';
        if(contestEndFlag)
@@ -2021,17 +2032,17 @@ App.isAdmin = isAdmin;
     App.youKnowsBetter = youKnowsBetter;
     function leadersboard(){
         console.log("leadersboard");          
-        var cursorRecommend = Me.find({},{sort: {"heatscore" : -1},limit:3}); 
-        var str = '<div  style="height:10%;width:100%;position:absolute;background: steelblue;"> leadersboard </div>';
+        var cursorRecommend = UserHashMania.find({},{sort: {"heatScore" : -1},limit:3}); 
+        var str = '<div  style="height:10%;width:100%;position:absolute;background: #1F253D;"> leadersboard </div>';
         cursorRecommend.forEach(function(data){
             //console.log(data);
-            str += createString(data.username,data.profile_picture,data.heatscore);        
+            str += createString(data.username,data.face,data.heatScore);        
         });
         return str;
     }
     App.leadersboard = leadersboard;
-    function createString(username,picture,score){
-        return '<div style="width: 30%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' +picture  +'"/></a><div style="background: steelblue;"> ' +score +' </div></div>'
+    function createString(username,face,heatScore){
+        return '<div style="width: 30%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' + face  +'"/></a><div style="background: steelblue;"> ' +heatScore +' </div></div>'
     }
     function createString1(username,picture,score){
         return '<div style="width: 30%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' +picture  +'"/></a><div style="background: steelblue;"> ' +score +' </div></div>'

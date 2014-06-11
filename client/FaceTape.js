@@ -1118,11 +1118,12 @@ Meteor.documentReady = documentReady;
         // // $(".tapToShow").hide();
         // $('.tapToShow').show();
 
-        if ($("#surveybig").scrollTop() > 300) {
-            $('.leaderSection').hide();
-        } else {
-            $('.leaderSection').show();
-        }    
+        // if ($("#surveybig").scrollTop() > 300) {
+        //     $('.leaderSection').hide();
+        // } else {
+        //     $('.leaderSection').show();
+        // }    
+
     }
     
     function renderResults(data,loadMoreFlag,newerFlag){
@@ -1554,6 +1555,7 @@ Meteor.documentReady = documentReady;
                     // showSpecialPopup("commentingOverlay");
                     // currentCommenting
                     $("#commentInput").focus();
+                    $("#commentInput").select();
                     return;
                 }
                 else if(noComment.length>0){
@@ -1567,6 +1569,7 @@ Meteor.documentReady = documentReady;
                     // tapOnBigFeedSecond(null,currentvotes[i]);
                 }
                 $("#commentInput").focus();
+                $("#commentInput").select();
                 return;
             }            
         }
@@ -6457,7 +6460,7 @@ function bindEvents(){
         //     selectlang(currlang);
         // }               
         // checkFormAndTimer("first");
-        $("#surveybig").on("scrollstop",checkscroll);
+        $("#surveybig").on("scroll",checkscroll);
         window.localStorage.setItem("redirect",window.location);
         $("#Main").hammer().on("swiperight",swipeRight);
         $("#Main").hammer().on("swipeleft",swipeLeft);  

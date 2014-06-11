@@ -1976,9 +1976,6 @@ h6 {}
 #cross
 {
 	float: right;
-	padding: 2px;
-	padding-left: 3px;
-	font-size: 18px;
 	color: white;
 	/*background-color: #11a8ab;*/
 	/*margin-right: 4%;*/
@@ -2480,6 +2477,7 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 {
 	float:none;
 	width: 100%;
+	
 }
 .eachLeaders img{
 	width: 100%;

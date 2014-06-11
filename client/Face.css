@@ -140,10 +140,11 @@ body{
 .allLeaderSection{
 	display: block;
 	height: 9%;
-	position: absolute;
-	width: 15%;
+	position: fixed;
+	width: 14%;
 	z-index: 1;
-	top:8%;
+	top:10%;
+	left: 1.5%;
 }
 .leaderSection{
 	display: none;

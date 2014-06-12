@@ -769,8 +769,8 @@ function startup(){
 
 
         
-        if(!DebugFace)
-            Meteor.setTimeout(function(){checkNewImages();},500); 
+        // if(!DebugFace)
+        //     Meteor.setTimeout(function(){checkNewImages();},500); 
 }
 var HashUserRanking = {};
 function fontSizeOnStartUp(){

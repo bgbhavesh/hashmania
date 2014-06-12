@@ -274,8 +274,6 @@
 			<div id="leadersRank" style="font-size: small;top: 0%;position: absolute;left: 2%;">{{rank}}</div>
 			<div id="leadersPercentile" style="font-size: small;top: 0%;position: absolute;left: 47%;">{{percentile}}</div>
 		</div>
-		
-		
 	{{/each}} 
 </template>
 <template name="keyword">
@@ -428,8 +426,15 @@
 	  			{{> leadersboard}}
 	  		</div> -->
 	</div>
+<<<<<<< HEAD
+	<div class="leaderSection">
+			{{> leadersboard}}
+	</div>
+	<div id="surveybig" data-content="Hello, I am a pop-up." data-position="top" class="ui labeled vertical fluid  icon menu" style="">
+=======
 	
 	<div id="surveybig" class="ui labeled vertical fluid  icon menu" style="">
+>>>>>>> 65854ec1e2be91fbe8b692c5587759fe51c4deea
   		
   	</div>
   	<div class="leaderSection">

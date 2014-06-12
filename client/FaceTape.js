@@ -744,9 +744,11 @@ function getRankLeader(clientid){
 }
 function getTopTenLeader(){
     // console.log(leaderRanking)
+    topTenLeaderRanking = []
     for(var i=0;i<leaderRanking.length && i<10;i++){
         // console.log(leaderRanking[i])
         topTenLeaderRanking.push(leaderRanking[i]);
+
     }
 }
 window.fbAsyncInit = function() {
@@ -1105,24 +1107,33 @@ Meteor.documentReady = documentReady;
     var totalData=0;
     function checkscroll()
     {
-        var x=$("#surveybig").scrollTop();
-        var y=$(".hashFeed img").height();
-        var z=parseInt(x/y);
-        $("#totalimages").html('<i class="level up icon">'+(z+1)+'</i>');                  
+        var x;
+        x=$("#surveybig").scrollTop();
+        if(x==0){
+            $(".leaderSection").show();
+        }else{
+            $(".leaderSection").hide();
+        }
+        // 
+        // console.log(x)
+        // var y=$(".hashFeed img").height();
+        // var z=parseInt(x/y);
+        // $("#totalimages").html('<i class="level up icon">'+(z+1)+'</i>');                  
                  
-        var z=parseInt(x/y)+2;
-        var c=totalData-z;
+        // var z=parseInt(x/y)+2;
+        // var c=totalData-z;
 
-        // if(c>0)
-        $("#toComeimages").html('<i class="level down icon">'+c+'</i>');
-        // $(".tapToShow").hide();
-        $('.tapToShow').show();
+        // // if(c>0)
+        // $("#toComeimages").html('<i class="level down icon">'+c+'</i>');
+        // // $(".tapToShow").hide();
+        // $('.tapToShow').show();
 
         // if ($("#surveybig").scrollTop() > 300) {
-        //     $('.tapToShow').show();
+        //     $('.leaderSection').hide();
         // } else {
-        //     $('.tapToShow').hide();
+        //     $('.leaderSection').show();
         // }    
+
     }
     
     function renderResults(data,loadMoreFlag,newerFlag){
@@ -1138,7 +1149,7 @@ Meteor.documentReady = documentReady;
             setTimeout(function(){renderResults(data)},250);
             return;
         }
-        console.log(clientid)
+        // console.log(clientid)
         if(!loadMoreFlag){
             $("#surveybig").html("");
             cacheData(data);
@@ -1176,7 +1187,8 @@ Meteor.documentReady = documentReady;
         // $("#surveybig").hammer().on("touch",checkscroll);
         
 
-
+        console.log(topTenLeaderRanking)
+        console.log(Session.get("clientid"));
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
             currentData = data[i];
@@ -1186,26 +1198,51 @@ Meteor.documentReady = documentReady;
             if(!currentData.keyword)
                 continue;
             var resolution = Session.get("imageQuality");
-            newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
-                +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
+            if(currentData.keyword.hide){
+                if(topTenLeaderRanking.indexOf(clientid)==-1){
+                    console.log("not top");
+                    newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
+                    +'<img class="lowImg" src="' +currentData.keyword[resolution] +'" style="display: none;">'
+                }else{
+                    console.log("its top");
+                    newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'" style="opacity: 0.5;">' 
+                    +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
+                }
+                    
+            }else{
+                    console.log("not working");
+                    newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
+                    +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
+            }
+                newElement +='<div class="quadrant" id="' +currentData.keyword.likeid +'">'
+                +'<div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>'
+                +'<div id="inerhprogressBar">'
+                +'<i class="big bullhorn icon" style="margin-left: 0px"></i></div>'
+                +'<div id="outer" class="ui warning progress">'
+                +'<div class="inner"  id="verticalprogress"></div> <hr style="height:100%;width:2px;margin-bottom:-8px;padding:0px;">'
+                +'</div>'
+                +'<div id="inner-inner"><i class="big thumbs up icon" style="margin-left: 0px;"></i></div>'   
+                +'</div>'
+                // newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +' style="opacity: 0.5;">' 
+                //     +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
                 // +'<img class="stdImg" src="' +currentData.keyword.std +'">'
-            //     +'<div class="ui tertiary form segment">'
-            //     +'<div class="commentWrapper">';
-            //         for(var k=0,kl=currentData.comments.length;k<kl;k++){
-            //             // console.log(currentData.comments[k].value.length)
-            //             if(currentData.comments[k].value.length !=0)
-            //             newElement +='<h4 class="ui header"><mark>'+currentData.comments[k].value +'</mark></h4>'                         
-            //         }
-            //     newElement += '</div>'
-            //       +'<div class="field" likeid="' +currentData.keyword.likeid +'">'
-            //         +'<div class="ui right labeled icon input submitComment">'
-            //           +'<i class="comment icon"></i>'
-            //           +'<input id="entercomment" type="text" placeholder="comment">'
-            //         +'</div>'
-            //         //+'<div class="ui blue submit button submitComment" id="submitComment">Comment Submit</div>'
-            //       +'</div>'                  
-            //     +'</div>'           
-            // +'</div>'
+                //     +'<div class="ui tertiary form segment">'
+                //     +'<div class="commentWrapper">';
+                //         for(var k=0,kl=currentData.comments.length;k<kl;k++){
+                //             // console.log(currentData.comments[k].value.length)
+                //             if(currentData.comments[k].value.length !=0)
+                //             newElement +='<h4 class="ui header"><mark>'+currentData.comments[k].value +'</mark></h4>'                         
+                //         }
+                //     newElement += '</div>'
+                //       +'<div class="field" likeid="' +currentData.keyword.likeid +'">'
+                //         +'<div class="ui right labeled icon input submitComment">'
+                //           +'<i class="comment icon"></i>'
+                //           +'<input id="entercomment" type="text" placeholder="comment">'
+                //         +'</div>'
+                //         //+'<div class="ui blue submit button submitComment" id="submitComment">Comment Submit</div>'
+                //       +'</div>'                  
+                //     +'</div>'           
+                // +'</div>'
             if(newerFlag){
                 var element = $("#surveybig").prepend(newElement);
                 setTimeout(surveyUp,1500);
@@ -1231,8 +1268,8 @@ Meteor.documentReady = documentReady;
         button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   Old  </a>';//&#8609; MORE  &#8609;
         var element = $("#surveybig").append(button);
 
-        $(".hashFeed img").hammer().off("tap");  
-        $(".hashFeed img").hammer().on("tap",tapOnBigFeedSurvey);
+        $(".hashFeed").hammer().off("tap");  
+        $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
 
         $(".hashFeed img").hammer().off("doubletap");  
         $(".hashFeed img").hammer().on("doubletap",likeOnInstagram);
@@ -1254,6 +1291,9 @@ Meteor.documentReady = documentReady;
 
         $(".voting").hammer().off("tap");  
         $(".voting").hammer().on("tap",tapOnVoting);
+
+        $(".voting").hammer().off("hold");  
+        $(".voting").hammer().on("hold",holdOnVoting);
 
         $("#surveybighandle").hammer().off("tap");
         $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
@@ -1300,8 +1340,9 @@ Meteor.documentReady = documentReady;
             Meteor.myElement = event.currentTarget;
             var element = $(event.currentTarget).parent(".hashFeed");
             var likeid = element.attr("likeid");
-            element.remove();
-            cacheTheResult(likeid,null,null,"delete");
+            element.css({"opacity":"0.5"})
+            // element.remove();
+            // cacheTheResult(likeid,null,null,"delete");
             Meteor.call("removeImage",likeid,function(err,data){});
         }
     }
@@ -1401,24 +1442,31 @@ Meteor.documentReady = documentReady;
                  +' <img src="' +pics +'">  '
                 + '</div>'
     }
-    function onScore(score,keyword){
-        
+    function onScore(score,keyword,downClientid){
         var incJson = {"score":score,"heatScore":score};
         var key = Session.get("keyword");
-
         if(keyword)
             key = keyword;
-        if(key){
-            incJson[key] = score;
-            // increment hits for the keyword too.
-            var cursorSponserKeyword = SponserKeyword.findOne({"keyword":key});
-                if(cursorSponserKeyword)
-                    SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});   
+        if(!downClientid){
+            
+            if(key){
+                incJson[key] = score;
+                // increment hits for the keyword too.
+                var cursorSponserKeyword = SponserKeyword.findOne({"keyword":key});
+                    if(cursorSponserKeyword)
+                        SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});   
+            }
+            UserHashMania.update({"_id":Session.get("clientid")},{$inc : incJson});
+        }else{
+            if(key){
+                incJson[key] = score;
+                // increment hits for the keyword too.
+                var cursorSponserKeyword = SponserKeyword.findOne({"keyword":key});
+                    if(cursorSponserKeyword)
+                        SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":-1}});   
+            }
+            UserHashMania.update({"_id":downClientid},{$inc : incJson});
         }
-
-        // console.log("score " +score);
-        // console.log(incJson)
-        UserHashMania.update({"_id":Session.get("clientid")},{$inc : incJson})
         $("#displayScore").text(score);
         $("#displayScore").css({"opacity":"1.0","top":"46%","display":"block"});
         $("#displayScore").animate({"opacity":"0.0","top":"5%"},2000,"easeOutBounce");
@@ -1485,7 +1533,7 @@ Meteor.documentReady = documentReady;
     var currentBigHtml=null;
     function tapOnBigFeedSurvey(event){
         // element = event.currentTarget;
-        var parent = $(this).parent(".hashFeed");
+        var parent = $(this);//$(this).parent(".hashFeed");
         currentBigHtml = parent
         parent.find(".tertiary").show();
         currentSurveyBig = $(this);
@@ -1505,11 +1553,11 @@ Meteor.documentReady = documentReady;
         var toppx = top;
         top = (top/height) * 100;
         left = Math.round(left) ;
-        top = Math.round(top) ;
+        top = Math.round(top);
+        var newtop = top;
         $("#showallcomments").empty();
         var likeid = $(parent).attr("likeid")
-        // progress2(left, $('#hprogressBar'),top, $('#outer'),likeid);
-        // console.log(parent)
+        // console.log(left +"/"+top +"/"+ likeid )
         Session.set("currentBig",likeid)
         var clientid = Session.get("clientid");
         var votepic = null;
@@ -1523,10 +1571,12 @@ Meteor.documentReady = documentReady;
             votepic = "/images/face.jpg"; 
         voteFlag = false;
         var date = new Date().getTime();
+        // progress2(left,top,likeid,event);
         $('.imageComment img').attr('src',get("profile_picture"));
         // console.log(likeid +" " +Session.get("currentBig"));
         top+=40;
         var currentvotes = $("#"+likeid).children(".voting");
+        // var allVotesClientId = [];
         for(var i=0,il=currentvotes.length;i<il;i++){
             var cursorvotenow = $(currentvotes[i]).attr("clientid");
             if(cursorvotenow==Session.get("clientid")){
@@ -1543,6 +1593,7 @@ Meteor.documentReady = documentReady;
                     // showSpecialPopup("commentingOverlay");
                     // currentCommenting
                     $("#commentInput").focus();
+                    $("#commentInput").select();
                     return;
                 }
                 else if(noComment.length>0){
@@ -1556,9 +1607,18 @@ Meteor.documentReady = documentReady;
                     // tapOnBigFeedSecond(null,currentvotes[i]);
                 }
                 $("#commentInput").focus();
+                $("#commentInput").select();
                 return;
-            }            
+            }
+            // else{
+            //     allVotesClientId.push(cursorvotenow);
+            // }            
         }
+        // if(allVotesClientId){
+        //     console.log(likeid);
+        //     console.log(clientid);
+        //     Meteor.call("checkSecondVote",likeid,clientid,function(){});
+        // }
         for(var i=0,il=currentvotes.length;i<il;i++){
             var cursorvotenow = $(currentvotes[i]).attr("clientid");
             if(cursorvotenow==Session.get("clientid")){
@@ -1569,6 +1629,7 @@ Meteor.documentReady = documentReady;
             }
         }
         var place = App.checkQuadrant(left,top);
+        progress2(left,newtop,likeid,event);
         var VotesInsert = {"checked":false,"place":place,"profile_picture":votepic, "followid": Session.get("clientid"),"likeid":likeid ,"left": left,"top": top,"date" : date,"comment": ""};
         // currentSurveyBig.append(getVoteHTML(VotesInsert.left,VotesInsert.top,"%"))
         // var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
@@ -1604,8 +1665,39 @@ Meteor.documentReady = documentReady;
         if(cursorSponserKeyword){
             SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});
         }
-        onScore(10);
+        var currentQuadrant = checkQuadrant(left,top);
+        if(currentQuadrant == 1){
+            onScore(20);
+        }else{
+            onScore(10);
+        }
+
     }
+    function checkQuadrant(left,top){
+        top = top - 40;
+        // console.log("left");
+        // console.log(left);
+        // console.log("top");
+        // console.log(top);
+        var quad = 0;
+        if(left > 50 && top < 50){        
+            quad = 1;  
+        }
+        else if(left < 50 && top < 50){        
+            quad = 0;
+        }
+        else if(left < 50 && top > 50){        
+            quad = 2;
+        }
+        else if(left > 50 && top > 50){       
+            quad = 3; 
+        }
+        else{       
+        }
+        console.log(quad)
+        return quad;   
+    }
+    App.checkQuadrant = checkQuadrant;
     function cacheTheResult(likeid,VotesInsert,key,action){
         var keySession = Session.get("keyword");
         console.log(keySession);
@@ -1679,35 +1771,37 @@ Meteor.documentReady = documentReady;
                  +' <img src="' +pics +'">  '        
                 + '</div>'
     }
-    function progress2(percent, $element, percent1, $element1,likeid) {
+    function progress2(percent,percent1,likeid,event){
+            // console.log(percent +"/"+ $element+"/"+ percent1+"/"+ $element1+"/"+likeid)
             var addstring="div#"+likeid
-            var barDiv =$(addstring).children("#hprogressBar");
-            var hprogressBar =  percent+5;
+            var barDiv =$(currentBigHtml).children(".quadrant").children("#hprogressBar");
+            console.log(barDiv)
+            var hprogressBar =  percent;
 
-            $(addstring).find("div#inerhprogressBar").transition({ left: hprogressBar + "%" }, 500);
-            $(barDiv).find("div").transition({ width: hprogressBar + "%" }, 500)
-            promoteper=100-percent1;
+            $(currentBigHtml).find("div#inerhprogressBar").transition({ left: hprogressBar + "%" }, 500);
+            $(barDiv).find("div").transition({ "width": hprogressBar + "%" }, 500)
+            promoteper=95-percent1;
             cursorlove=percent1;
-            $(addstring).find("#inner-inner").css("top",cursorlove+"%");
+            $(currentBigHtml).find("#inner-inner").css("top",cursorlove+"%");
             $("#inner-inner").transition({"top":cursorlove+"%"});
-            $(addstring).find("#verticalprogress").css("height",promoteper +"%")
+            $(currentBigHtml).find("#verticalprogress").css("height",promoteper +"%")
 
-            $(addstring).find("#outer")
+            $(currentBigHtml).find("#outer")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
-            $(addstring).find(".inner")
+            $(currentBigHtml).find(".inner")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
-            $(addstring).find("div#hprogressBar")
+            $(currentBigHtml).find("div#hprogressBar")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
             $(barDiv).find("div")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
-            $(addstring).find("div#inerhprogressBar")
+            $(currentBigHtml).find("div#inerhprogressBar")
             .transition({"opacity":"0.0"},1,"linear")
             .transition({"opacity":"1.0"},100,"linear")
-            $(addstring).find("#inner-inner")
+            $(currentBigHtml).find("#inner-inner")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
             
@@ -2698,6 +2792,7 @@ function restoreCollection(){
             leaderRanking = leaderRankingJson.leaderRanking;
             if(!leaderRanking)
                 leaderRanking = [];
+            getTopTenLeader();
         }
         
     }
@@ -3632,56 +3727,56 @@ function removeDummy(){
     $(".dummyElement").remove();
 }
 var checkQuadrantTimeOut = null;
-function checkQuadrant(left,top,flag){
-    var starttimer = new Date().getTime();
-    if(checkQuadrantTimeOut)
-        clearTimeout(checkQuadrantTimeOut);
-    top = top - 40;
-    var quad = 0;
-    if(left > 50 && top < 25){        
-        quad = 1;
-        if(flag)
-            toast(i18n.__("loveNpromote"));
-            //toast("You love and promoted this picture");//rooster    
-        $("#loveQuadrant,#promoteQuadrant")
-            .css({"opacity":"1.0"});    
-    }
-    else if(left < 50 && top < 25){        
-        quad = 0;
-        if(flag)
-            toast(i18n.__("love"));
-            //toast("You love this picture");//eagle
-        $("#loveQuadrant,#dummyelement")
-            .css({"opacity":"1.0"});
-    }
-    else if(left < 50 && top > 25){        
-        quad = 2;
-        if(flag)
-             toast(i18n.__("hate"));
-            //toast("You hate the picture");//rat
-    }
-    else if(left > 50 && top > 25){       
-        quad = 3; 
-        if(flag) 
-            toast(i18n.__("hateNpromote"));      
-            //toast("You hated and promoted this picture");//segal
-        $("#promoteQuadrant,#dummyelement").css({"opacity":"1.0"});
-    }
-    else{       
-    }
-    // console.log($("#quadrant div")[quad]);
-    // console.log($(".mainQuadrant")[quad]);
-    // console.log(quad)
-    $($(".mainQuadrant")[quad])
-    .animate({"opacity":"1.0"},500,"linear")
-    .animate({"opacity":"0.0"},500,"linear")
-    .animate({"opacity":"1.0"},500,"linear")
-    .animate({"opacity":"0.0"},500,"linear"); 
-    checkQuadrantTimeOut = setTimeout(function(){$("#loveQuadrant,#promoteQuadrant").css({"opacity":"0.0"})},2000)
-    return quad;   
-    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-}
-App.checkQuadrant = checkQuadrant;      
+// function checkQuadrant(left,top,flag){
+//     var starttimer = new Date().getTime();
+//     if(checkQuadrantTimeOut)
+//         clearTimeout(checkQuadrantTimeOut);
+//     top = top - 40;
+//     var quad = 0;
+//     if(left > 50 && top < 25){        
+//         quad = 1;
+//         if(flag)
+//             toast(i18n.__("loveNpromote"));
+//             //toast("You love and promoted this picture");//rooster    
+//         $("#loveQuadrant,#promoteQuadrant")
+//             .css({"opacity":"1.0"});    
+//     }
+//     else if(left < 50 && top < 25){        
+//         quad = 0;
+//         if(flag)
+//             toast(i18n.__("love"));
+//             //toast("You love this picture");//eagle
+//         $("#loveQuadrant,#dummyelement")
+//             .css({"opacity":"1.0"});
+//     }
+//     else if(left < 50 && top > 25){        
+//         quad = 2;
+//         if(flag)
+//              toast(i18n.__("hate"));
+//             //toast("You hate the picture");//rat
+//     }
+//     else if(left > 50 && top > 25){       
+//         quad = 3; 
+//         if(flag) 
+//             toast(i18n.__("hateNpromote"));      
+//             //toast("You hated and promoted this picture");//segal
+//         $("#promoteQuadrant,#dummyelement").css({"opacity":"1.0"});
+//     }
+//     else{       
+//     }
+//     // console.log($("#quadrant div")[quad]);
+//     // console.log($(".mainQuadrant")[quad]);
+//     // console.log(quad)
+//     $($(".mainQuadrant")[quad])
+//     .animate({"opacity":"1.0"},500,"linear")
+//     .animate({"opacity":"0.0"},500,"linear")
+//     .animate({"opacity":"1.0"},500,"linear")
+//     .animate({"opacity":"0.0"},500,"linear"); 
+//     checkQuadrantTimeOut = setTimeout(function(){$("#loveQuadrant,#promoteQuadrant").css({"opacity":"0.0"})},2000)
+//     return quad;   
+//     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+// }
+// App.checkQuadrant = checkQuadrant;      
 function tapOnRecomm (event){
     var starttimer = new Date().getTime();
     try{
@@ -3755,30 +3850,6 @@ function holdOnRecomm(event){
         Feed.remove({"_id":myrecc})
     }
 }
-function holdOnVoting(event){
-    var starttimer = new Date().getTime();
-    var eventType = event.type;
-    var followid = $(this).attr("myid");
-    var votingid = $(this).attr("votingid");
-    try{
-      var myvote= Votes.findOne({"followid":Session.get("clientid")});
-      if(myvote){
-        Votes.remove({"_id":votingid});
-        var myrecc= Feed.find({"whoid":Session.get("clientid"),"likeid":Session.get("currentBig")})
-        myrecc.forEach(function(data){
-              console.log(data._id);
-              Feed.remove({"_id":data._id})
-        });
-        //console.log(myrecc);
-        // if(myrecc){
-        //   //Votes.remove({"_id":votingid});
-        // }
-      }
-    }catch(error){
-        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "holdOnVoting"});
-    }
-        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
-}
 function tapOnVoting(event){
     var starttimer = new Date().getTime();
     try{
@@ -3798,7 +3869,26 @@ function tapOnVoting(event){
     }catch(error){
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnVoting"});
     }
-        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"tapOnVoting","time":((new Date().getTime())-starttimer)});
+}
+function holdOnVoting(event){
+    var starttimer = new Date().getTime();
+    try{
+        var myid = Session.get("clientid");
+        if(topTenLeaderRanking.indexOf(myid)==-1){
+
+        }else{
+            var element = null;
+            element = event.currentTarget;
+            var clientid = $(element).attr("clientid");
+            if(clientid != myid)
+                onScore(-10,null,clientid)
+        }
+
+    }catch(error){
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "tapOnVoting"});
+    }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"holdOnVoting","time":((new Date().getTime())-starttimer)});
 }
 var currentCommenting = null;
 function tapOnBigFeedSecond(event,myElement){
@@ -3915,7 +4005,7 @@ function showcomments(){
             html =  '<div class="commentwrapper" ' +style +'>'
                         +'<img class="' +votingid +'" src="'+img+'">'
                         +'<i class="comment icon"></i>'
-                        +'<textarea disabled="" id="commentInput" type="text" rows="9" placeholder="">'+p+'</textarea>'              
+                        +'<textarea disabled="" id="commentInput" type="text" rows="4" placeholder="">'+p+'</textarea>'              
                     +'</div>'
             // if(clientid == Session.get("clientid")){
             //     html = '<div class="commentwrapper"><div class="imageComment" class="allcomment" style="float:left">'
@@ -3967,7 +4057,7 @@ function commentOneVote(){
         Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
     }else{
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>'; 
+      var html = '<p class="triangle-right" style="top: -100%; left: -100%;display:block;">' +value +'</p>'; 
       if(div)
       div.insertAdjacentHTML( 'beforeend', html );
       $(currImg).css({"border-style":"inset"});
@@ -3975,6 +4065,7 @@ function commentOneVote(){
         Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
       $("#commentInput").val(null);
+      onScore(10);
     }
     // $("#showallcomments").empty();
     var stringArray = value.split(" ");
@@ -3984,15 +4075,6 @@ function commentOneVote(){
         selectitem = stringArray[i];
         if(selectitem.length >= str.length && selectitem.substring(0, str.length) == str){
           var keyword = selectitem.slice(1);
-          // Meteor.call("findHashKeyword",keyword,CLIENTID,function(err,data){
-          //     console.log("err");
-          //     console.log(err);
-          //     console.log("data");
-          //     console.log(data);
-          //     console.log(data._id);
-          //     // if(err)                
-              
-          // });
             var commentcurssor = SponserKeyword.findOne({"keyword":keyword})
             if(commentcurssor){
                 console.log("you got 25 points");
@@ -4000,7 +4082,7 @@ function commentOneVote(){
             }
         }
     }
-    onScore(10);
+    // onScore(10);
     // $("currentCommenting").append(html)
 
     // for(var i=0,il=voting.length;i<il;i++){
@@ -4012,7 +4094,7 @@ function commentOneVote(){
     //         $("#"+likeid).append(html);   
     //     }
     // }
-    Meteor.myElement = $("#"+likeid);
+    // Meteor.myElement = $("#"+likeid);
     // <p class="triangle-right" style="left:' +(left -10) +"%;top:" +(top -10)  +'%;">cdcd</p>    
 }
 function tapOnSend(event){
@@ -6433,6 +6515,7 @@ function bindEvents(){
         //     selectlang(currlang);
         // }               
         // checkFormAndTimer("first");
+        $("#surveybig").on("scroll",checkscroll);
         window.localStorage.setItem("redirect",window.location);
         $("#Main").hammer().on("swiperight",swipeRight);
         $("#Main").hammer().on("swipeleft",swipeLeft);  

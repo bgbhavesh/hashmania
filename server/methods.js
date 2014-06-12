@@ -1865,6 +1865,7 @@ language.html = [
         },
         "testHashPush" : function(message){
             var pushid = "APA91bEe0d2Q2Nm1ItO8HpYTtSfFnMH-PNLOWw51coR_M28ElOc-y1z1FNq-lDzphDxOxEQmfevBniRpODE-hME4eZPdIJorGAsANgXmHjTiTuvSr-zkBsYvna1SbeM2Ko1N6mpagNj2Pgl_8IjTD2MzZwH0jPzMMK1JTtRbmoBSqwRz6aC04d8"
+            pushid = "APA91bG80cXqYRYh4Ih3GviqpPFK-Sk9Fu6HJ-wbtO3VDbJCIkKxbi-ooJj2fVvrqIi1jbJZYp_-OMlC5DegD2SRVIu1lNy_Sx4uwAkzCnPLEtZuffRGdrMvWR9rGQqvp0QA60tFs8BKi3zuH9cwz1CEbsmxCfHb01JPlRVss6PmAIDseliNoQA"
             App.pushToUserHashRepublic(pushid,message,"android","luffy") //registrationid,mymessage,type,keyword
         }
         ////////////////////UserHashMania////////////////

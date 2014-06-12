@@ -1032,6 +1032,15 @@ Meteor.documentReady = documentReady;
                 toast("Not a instagram user.");
         }
     });
+    Template.leadersboard.helpers({
+        "inside" : function(context,data){
+            console.log(this);
+            if(this[Session.get("keyword")])
+                return true;
+            else
+                return false;
+        }
+    });
     Template.leadersboard.eachlead = function(){
         var sortJson = {sort : {},limit:4};
         var key = Session.get("keyword");

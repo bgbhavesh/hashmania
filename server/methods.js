@@ -1865,7 +1865,7 @@ language.html = [
         },
         "testHashPush" : function(message){
             var pushid = "APA91bEe0d2Q2Nm1ItO8HpYTtSfFnMH-PNLOWw51coR_M28ElOc-y1z1FNq-lDzphDxOxEQmfevBniRpODE-hME4eZPdIJorGAsANgXmHjTiTuvSr-zkBsYvna1SbeM2Ko1N6mpagNj2Pgl_8IjTD2MzZwH0jPzMMK1JTtRbmoBSqwRz6aC04d8"
-            pushToUserHashRepublic(pushid,message,"android","luffy") //registrationid,mymessage,type,keyword
+            App.pushToUserHashRepublic(pushid,message,"android","luffy") //registrationid,mymessage,type,keyword
         }
         ////////////////////UserHashMania////////////////
     });

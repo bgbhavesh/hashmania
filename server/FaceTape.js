@@ -2849,7 +2849,7 @@ function pushToUserHashRepublic(registrationid,mymessage,type,keyword){
     }
     
 }
-
+App.pushToUserHashRepublic = pushToUserHashRepublic;
 function updateUserHistory(clientid,keyword,likeid){
     if(!clientid)
         return;

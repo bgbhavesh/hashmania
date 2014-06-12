@@ -1034,7 +1034,6 @@ Meteor.documentReady = documentReady;
     });
     Template.leadersboard.helpers({
         "inside" : function(context,data){
-            console.log(this);
             if(this[Session.get("keyword")])
                 return true;
             else

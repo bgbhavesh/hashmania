@@ -1,5 +1,6 @@
 echo $(pwd)
 
+git pull -u origin master
 
 rm bundle.tar.gz
 
@@ -40,7 +41,7 @@ cd app/bundle/
 export MONGO_URL='mongodb://hashrepublic:123456@kahana.mongohq.com:10093/HashRepublic'
 export ROOT_URL='http://128.199.196.222:3000'
 export PORT=3000
-export METEOR_SETTINGS=$(cat ../../HashRepublic/hashsettings.json)
+export METEOR_SETTINGS=$(cat /root/HashRepublic/HashRepublic/hashsettings.json)
 export MAIL_URL='smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587'
 pm2 flush
 pm2 start main.js

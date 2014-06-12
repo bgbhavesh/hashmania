@@ -725,18 +725,23 @@ function initilizaLanguage(){
     // }
 }
 function startup(){
+        process.env.MAIL_URL = 'smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587';
+
         pushUserEveryDayWrapper =  Meteor.bindEnvironment(function(){pushUserEveryDay();});
         initilizaLanguage();
-        fontSizeOnStartUp();
         if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
             DebugFace = true;
 
+       
+        setRankPercentileOnStart();
+        
         testingFunction();
         if(!DebugFace){
             Votes.find({"likeid":undefined}).forEach(function(data){console.log(data);Votes.remove({"_id":data._id})});
             
             fontSizeOnStartUp();
-            checkNewImages();
+
+            HashUserRanking = getHashUserRanking();
 
             var faqUrl= 'https://docs.google.com/forms/d/1oIoqFrz1F55Nc4i_v4IgSxmWbf9wLPTQGJrC3DyA-L8/viewform';
             faqdata = Meteor.http.get(faqUrl).content;
@@ -763,7 +768,12 @@ function startup(){
             checkContest();
 
 
-        process.env.MAIL_URL = 'smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587';
+        
+        if(!DebugFace){
+            Meteor.setTimeout(function(){checkNewImages();},500);
+            App.searchIntervalId = Meteor.setInterval(searchHashInterval,120000); 
+            // increase or decrease the interval counts depending on server loads.
+        }             
 }
 var HashUserRanking = {};
 function fontSizeOnStartUp(){
@@ -778,7 +788,6 @@ function fontSizeOnStartUp(){
         startCount++
     });
     var sortJson = null;
-    HashUserRanking = getHashUserRanking();
 }
 App.testNewUser = testNewUser;
 function getHashUserRanking(){
@@ -797,6 +806,16 @@ function getHashUserRanking(){
         })
     }
     return localHashUserRanking;
+}
+function setRankPercentileOnStart(){
+    var rank = 0;
+    var percentile = 0;
+    count = UserHashMania.find({}).count();
+    UserHashMania.find({},{sort : {"heatScore":-1},limit:4}).forEach(function(data){
+        percentile = ((count-rank)/count)*100;
+        UserHashMania.update({"_id":data._id},{$set :{"rank":rank+1,"percentile":percentile}});
+        rank++;
+    });
 }
 //////// Observers starts //////
 
@@ -1319,24 +1338,27 @@ App.isAdmin = isAdmin;
           }
           console.log("search ended");
         }
-        App.searchParser = searchParser;
-    function searchHashParser(myJson,tag,clientid){
-        console.log("searchHashParser start "+tag +" for client " +clientid)
-            var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
-            var insertCount = 0,globalCount =0;
-            
-            // console.log(DebugFace)
-            for(;;){
-                insertCount = 0;
-                var searchurl = "https://api.instagram.com/v1/tags/" +tag +"/media/recent?access_token="+TOKEN;
-                    var cursorSponserKeyword = SponserKeyword.findOne({"keyword":tag});
-                    if(cursorSponserKeyword)
-                    if(cursorSponserKeyword.next_url)              
-                        searchurl = cursorSponserKeyword.next_url;
 
-                    console.log(searchurl)   
-                    myJson = Meteor.http.get(searchurl);
-                    SponserKeyword.update({"_id":cursorSponserKeyword._id},{$set : {"next_url":myJson.data.pagination.next_url}});
+        App.searchParser = searchParser;
+        
+        App.searchFlag = {};
+        App.searchQueue = [];
+        App.searchIntervalId = null;
+    function searchHashInterval(){
+        
+        var searchJson = App.searchQueue.pop();
+        
+        if(!searchJson)
+            return;
+        
+        var searchurl = searchJson.url;
+        var tag = searchJson.keyword;
+        var insertCount = 0,globalCount = 0;
+        console.log("searchHashInterval URL : " +searchurl +" KEYWORD : " +tag);
+        myJson = Meteor.http.get(searchurl);
+        var cursorSponserKeyword = SponserKeyword.findOne({"keyword":tag});
+        App.searchQueue.push({url:myJson.data.pagination.next_url,"keyword":tag});
+        SponserKeyword.update({"_id":cursorSponserKeyword._id},{$set : {"next_url":myJson.data.pagination.next_url}});
 
 
                 myJson = myJson.data;
@@ -1347,7 +1369,7 @@ App.isAdmin = isAdmin;
                       
                     for(var i=0,il=data.length;i<il;i++){
                       //data[i]            //,"clientid":clientid
-                      console.log(data[i].link)
+                      // console.log(data[i].link)
                         var insert = {"type":"s","keyword":tag,"display":"y","likeid":data[i].id ,"standard":data[i].images.standard_resolution.url,"thumb":data[i].images.thumbnail.url,"low":data[i].images.low_resolution.url, "counts":data[i].likes.count,"voting":0,"link":data[i].link};
                       //   cursorSearch = Search.findOne({"likeid":insert.likeid,"userid": ids});
                       // if(!cursorSearch)
@@ -1378,19 +1400,38 @@ App.isAdmin = isAdmin;
                 else{
 
                 }  
-                console.log(insertCount)
-                if(insertCount == 0){
-                    break;
-                }
-                else{
-                    // pushTOAllUserHashRepublic(insertCount +" new pics on "+tag);
-                }
-                if(DebugFace)
-                    break;
-            }
+                // console.log(insertCount)
+                // if(insertCount == 0){
+                //     break;
+                // }
+                // else{
+                //     // pushTOAllUserHashRepublic(insertCount +" new pics on "+tag);
+                // }
+            
             if(globalCount !=0)
                 pushTOAllUserHashRepublic(globalCount +" new pics on "+tag,tag);
+            App.searchFlag[tag] = false;
+    }
+    function searchHashParser(myJson,tag,clientid){
+        // if(App.searchFlag[tag])
+        //     return;
+        App.searchFlag[tag] = true;
+        console.log("searchHashParser start "+tag +" for client " +clientid)
+            var access = "491204471.6bda857.939a75ea29d24eb19248b203f7527733"; 
+            var insertCount = 0,globalCount =0;
             
+            // console.log(DebugFace)
+            //for(;;){
+                insertCount = 0;
+                var searchurl = "https://api.instagram.com/v1/tags/" +tag +"/media/recent?access_token="+TOKEN;
+                    var cursorSponserKeyword = SponserKeyword.findOne({"keyword":tag});
+                    if(cursorSponserKeyword)
+                    if(cursorSponserKeyword.next_url)              
+                        searchurl = cursorSponserKeyword.next_url;
+
+                    console.log(searchurl);
+                    App.searchQueue.push({url:searchurl,"keyword":tag});
+            // }
         }
         App.searchHashParser = searchHashParser;
         function searchHashParserUrgent(myJson,tag,clientid){
@@ -2833,7 +2874,7 @@ function pushToUserHashRepublic(registrationid,mymessage,type,keyword){
     }
     
 }
-
+App.pushToUserHashRepublic = pushToUserHashRepublic;
 function updateUserHistory(clientid,keyword,likeid){
     if(!clientid)
         return;

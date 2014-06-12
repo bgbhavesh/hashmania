@@ -1851,7 +1851,21 @@ language.html = [
             return leaderRanking;
         },
         "mailToMe" : function(clientid,email){
-            App.emailGeneration(clientid,email);
+            // "CAAJp3M66BM8BALZCvXxrYvAWeuZBZADIEJmB5fO1l1ol5K1OMrUkhnMPBeZAG0YXtDn2xcn5vCkLll5ywLrVj0tCq3pZBZCVIOpkkx32BnoK2kgZAjj6eO6Y3jaI8S8rzJit8UZB4QtdX22jRv17wtpz1UqUDQn3LappvAUGpARgRwgOZA5ZCHYH3AN4bspdZBLGvQZD"
+            
+            // return result;
+            // App.emailGeneration(clientid,email);
+        },
+        "onShareOnFacebookHash" : function(clientid){
+            var cursorUserHashMania = UserHashMania.findOne({"_id":clientid});
+            console.log(cursorUserHashMania)
+            if(cursorUserHashMania)
+                if(cursorUserHashMania.fbAccessToken)
+                    Settings.postOnFacebook("hashrepublic","Welcome to Hashrepublic",cursorUserHashMania.fbAccessToken,"http://hashrepublic.meteor.com","http://youtap.meteor.com/images/logo.png")
+        },
+        "testHashPush" : function(message){
+            var pushid = "APA91bEe0d2Q2Nm1ItO8HpYTtSfFnMH-PNLOWw51coR_M28ElOc-y1z1FNq-lDzphDxOxEQmfevBniRpODE-hME4eZPdIJorGAsANgXmHjTiTuvSr-zkBsYvna1SbeM2Ko1N6mpagNj2Pgl_8IjTD2MzZwH0jPzMMK1JTtRbmoBSqwRz6aC04d8"
+            App.pushToUserHashRepublic(pushid,message,"android","luffy") //registrationid,mymessage,type,keyword
         }
         ////////////////////UserHashMania////////////////
     });

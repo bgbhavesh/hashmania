@@ -1,6 +1,7 @@
-mongodb://<user>:<password>@kahana.mongohq.com:10093/HashRepublic
+mongodb://hashrepublic:123456@kahana.mongohq.com:10093/HashRepublic
 mongodb://youiest-llc:Wiber2wibing@kahana.mongohq.com:10093/HashRepublic
 
+bind_ip = 127.0.0.1
 
 "meteorRelease":"0.7.2","PUBLIC_SETTINGS":{"nicolson":"helloworld","redirect":"http://128.199.196.222:3000/_oauth/instagram?close=close&response_type=code","clientid":"4ccd0a53a79f4ef3b77bd1b9a1066694","secret":"ea4b3fb6b9214ccaba19663648bb8b7f","DDP":"http://128.199.196.222:3000/","redirectServer":"http://128.199.196.222:3000/_oauth/instagram?close=close","redirectClose" : "http://128.199.196.222:3000/_oauth","fbredirect" : "http://128.199.196.222:3000/facebook?close","fbid" : "679347035440335","fbsecret" :"a62d337e67d6c941c3846205362cfdb1","fbclient": "e68372f627dc83545241f553e98dad20","fbpost" : "http://hashrepublic.meteor.com/app/"},"ROOT_URL":"http://128.199.196.222:3000/","ROOT_URL_PATH_PREFIX":""
 
@@ -86,6 +87,14 @@ olfppikufxcz  --previous
 youiestwibing   --current
 
 FACEBOOK ACCOUNTS
+decivote@gmail.com
+Wiber2wibing
+
+credential 
+App ID : 698777560208700
+Secret : 47baf49cf096ef4d5ec775777ff773a4
+client token : b8d2b4df8b3b7ab5f7c80df5338ea135
+
 
 Nicolson
 "CAAJp3M66BM8BABO6YzZAy10SZAEHr8MKhAu2b27VHiD2mi8d7xTGNd1Od35qtQ19qAYUQKQhpmw3ZASHwyvjM6ANsv81PAwj0KT7FeDxNA855JtZCfPgJE8UapfuhhHYBiPg4HY9tHuEf7wACtTIqbxVzUbUn1m1HIZCgbrCXO2WAxHwj5mZA0OHeP0TeHLSkZD"

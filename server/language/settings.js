@@ -160,3 +160,14 @@ Settings.decks = function(keyword,clientid){
     console.log("getResult ended " +keyword +" for client " +clientid +" " +result.length);
     return result;
 }
+
+Settings.postOnFacebook = function(clientid,message,token,bodylink,picture){
+    facebookfb.setAccessToken(token);
+    facebookfb.api('me/feed', 'post', { message: message,"link":bodylink,"picture":picture}, function (res) {
+      if(!res || res.error) {
+        console.log(!res ? 'error occurred' : res.error);
+        return;
+      }
+      console.log('Post Id: ' + res.id);
+    });
+}

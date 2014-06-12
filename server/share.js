@@ -98,9 +98,14 @@ App.facebook = function(query){
                 UserHashMania.update({"_id":cursorUserHashMania._id},{$set :facebookInfo});
                 var data = Meteor.http.get("https://graph.facebook.com/me", {
                     params: {access_token: facebookInfo.fbAccessToken}}).data;
-                var update = {"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name,"facebookLink":data.link}
+                console.log(data)
+                var update = {"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name}
                 console.log(update);
-                UserHashMania.update({"_id":cursorUserHashMania._id},{$set :update});                
+                UserHashMania.update({"_id":cursorUserHashMania._id},{$set :update});    
+                var facebookFace =getFacebookFace(data.id)            
+                update = {"facebookLink":facebookFace,"face":facebookFace}
+                UserHashMania.update({"_id":cursorUserHashMania._id},{$set :update}); 
+                
             }
 
 
@@ -177,3 +182,10 @@ function postOnFacebook(clientid,message){
 }
 
 App.postOnFacebook = postOnFacebook;
+
+function getFacebookFace(id){
+    var result = Meteor.http.get("http://graph.facebook.com/"+ +id +"/?fields=picture&type=large");
+        // var result = Meteor.http.get("http://www.facebook.com/profile.php?id=100000002030165");
+        console.log(result.data.picture.data.url)
+        return result.data.picture.data.url;
+}

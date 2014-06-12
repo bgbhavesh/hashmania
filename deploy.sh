@@ -4,7 +4,7 @@ echo $(pwd)
 rm bundle.tar.gz
 
 pm2 stop ../app/main.js
-
+pm2 kill
 rm -Rf ../app
 mkdir ../app
 

@@ -3,9 +3,9 @@ Package.describe({
 });
 
 Npm.depends({
-    "node-schedule" : "0.1.13"//,
+    "node-schedule" : "0.1.13",
     // 'paypal-rest-sdk': '0.6.3',
-    // "fb" : "0.6.2",
+    "fb" : "0.6.2",
     // "passport" : "0.2.0",
     // "passport-facebook" : "1.0.3",
     // "form-data" : "0.1.2",
@@ -30,7 +30,7 @@ Package.on_use(function (api) {
 	  if(api.export){
 		api.export("schedule","server");
 		// api.export("paypal","server");
-  //       api.export("facebookfb","server");
+        api.export("facebookfb","server");
   //       api.export("passport","server");
   //       api.export("facebook","server");
   //       api.export("querystring","server");

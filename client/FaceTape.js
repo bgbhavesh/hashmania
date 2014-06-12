@@ -6056,7 +6056,8 @@ function loginWithFacebook(){
     if(Session.get("phonegap")){
         display = "touch";
     }
-
+    if(!emailAuthFlag)
+        emailAuthFlag = Session.get("clientid");
     var loginUrl =                                                                       
         'https://www.facebook.com/dialog/oauth?client_id=' +Meteor.settings.public.fbid  +            
         '&redirect_uri=' + Meteor.settings.public.fbredirect +               
@@ -6545,6 +6546,7 @@ function bindEvents(){
             $("#guestLogin").css("display","none");
         });
         $("#shareApp").hammer().on("tap",onShare);
+        $("#shareAppOnFacebook").hammer().on("tap",onShareOnFacebook);
         $("#emptyCacheButtonMenu").hammer().on("tap",function(){
             cacheFlag = true;
             window.location.reload();
@@ -6605,6 +6607,17 @@ function bindEvents(){
                     searchHash();
                 }
             });
+            $("#sePassThankyou1").keyup(function(event){
+                if(event.keyCode == 13){
+                    $("#sePassThankyou2").focus();
+                }
+            });
+            $("#sePassThankyou2").keyup(function(event){
+                if(event.keyCode == 13){
+                    onLoginWithTapmate();
+                }
+            });
+            
             // $("#surveybig").on("scrollstop",onSurveyScroll)
         //  HASH MANIA  checkscroll
         // $("#surveybig").on("scrollstop",checkscroll)
@@ -6748,6 +6761,11 @@ function onShare(share){
     // else{
        window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com'); 
     // }    
+}
+function onShareOnFacebook(){
+    Meteor.call("onShareOnFacebookHash",Session.get("clientid"),function(err,data){
+        console.log(err);
+    })
 }
 function holdOnBigFeedSurvey(share){
     var myShareImage=$("div img").attr("src");

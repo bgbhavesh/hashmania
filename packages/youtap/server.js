@@ -1,6 +1,6 @@
 schedule = Npm.require('node-schedule');
 // paypal = Npm.require('paypal-rest-sdk');
-// facebookfb = Npm.require('fb');
+facebookfb = Npm.require('fb');
 // passport = Npm.require('passport');
 // facebook = Npm.require('passport-facebook');
 // querystring = Npm.require('querystring');

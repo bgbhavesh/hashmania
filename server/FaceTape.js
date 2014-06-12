@@ -725,18 +725,23 @@ function initilizaLanguage(){
     // }
 }
 function startup(){
+        process.env.MAIL_URL = 'smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587';
+
         pushUserEveryDayWrapper =  Meteor.bindEnvironment(function(){pushUserEveryDay();});
         initilizaLanguage();
-        fontSizeOnStartUp();
         if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
             DebugFace = true;
 
+       
+        setRankPercentileOnStart();
+        
         testingFunction();
         if(!DebugFace){
             Votes.find({"likeid":undefined}).forEach(function(data){console.log(data);Votes.remove({"_id":data._id})});
             
             fontSizeOnStartUp();
-            checkNewImages();
+
+            HashUserRanking = getHashUserRanking();
 
             var faqUrl= 'https://docs.google.com/forms/d/1oIoqFrz1F55Nc4i_v4IgSxmWbf9wLPTQGJrC3DyA-L8/viewform';
             faqdata = Meteor.http.get(faqUrl).content;
@@ -763,7 +768,9 @@ function startup(){
             checkContest();
 
 
-        process.env.MAIL_URL = 'smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587';
+        
+        if(!DebugFace)
+            Meteor.setTimeout(function(){checkNewImages();},500); 
 }
 var HashUserRanking = {};
 function fontSizeOnStartUp(){
@@ -778,7 +785,6 @@ function fontSizeOnStartUp(){
         startCount++
     });
     var sortJson = null;
-    HashUserRanking = getHashUserRanking();
 }
 App.testNewUser = testNewUser;
 function getHashUserRanking(){
@@ -797,6 +803,16 @@ function getHashUserRanking(){
         })
     }
     return localHashUserRanking;
+}
+function setRankPercentileOnStart(){
+    var rank = 0;
+    var percentile = 0;
+    count = UserHashMania.find({}).count();
+    UserHashMania.find({},{sort : {"heatScore":-1},limit:4}).forEach(function(data){
+        percentile = ((count-rank)/count)*100;
+        UserHashMania.update({"_id":data._id},{$set :{"rank":rank+1,"percentile":percentile}});
+        rank++;
+    });
 }
 //////// Observers starts //////
 

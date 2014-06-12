@@ -98,10 +98,14 @@ App.facebook = function(query){
                 UserHashMania.update({"_id":cursorUserHashMania._id},{$set :facebookInfo});
                 var data = Meteor.http.get("https://graph.facebook.com/me", {
                     params: {access_token: facebookInfo.fbAccessToken}}).data;
-                var facebookFace =getFacebookFace(data.id)
-                var update = {"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name,"facebookLink":facebookFace,"face":facebookFace}
+                console.log(data)
+                var update = {"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name}
                 console.log(update);
-                UserHashMania.update({"_id":cursorUserHashMania._id},{$set :update});                
+                UserHashMania.update({"_id":cursorUserHashMania._id},{$set :update});    
+                var facebookFace =getFacebookFace(data.id)            
+                update = {"facebookLink":facebookFace,"face":facebookFace}
+                UserHashMania.update({"_id":cursorUserHashMania._id},{$set :update}); 
+                
             }
 
 

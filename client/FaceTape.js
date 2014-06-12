@@ -1264,9 +1264,9 @@ Meteor.documentReady = documentReady;
                 $("#"+currentData.keyword.likeid).children(".tertiary").show();
             }
         }
-        $(".loadmore").remove();
-        button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   Old  </a>';//&#8609; MORE  &#8609;
-        var element = $("#surveybig").append(button);
+        // $(".loadmore").remove();
+        // button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   Old  </a>';//&#8609; MORE  &#8609;
+        // var element = $("#surveybig").append(button);
 
         $(".hashFeed").hammer().off("tap");  
         $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
@@ -1375,10 +1375,10 @@ Meteor.documentReady = documentReady;
     }
     function tapOnloadMoreImg(){
         console.log("tapOnloadMoreImg")
-        $("#loadMoreImg").css("display","none");
+        // $("#loadMoreImg").css("display","none");
 
         var loadMore = [];
-        console.log(moreRenderResults.length);
+        // console.log(moreRenderResults.length);
         var limit = $(".hashFeed").length;
         if(moreRenderResults == 0){
             // Meteor.call("getMoreResult",Session.get("keyword"),CLIENTID,limit,function(err,data){
@@ -1399,7 +1399,7 @@ Meteor.documentReady = documentReady;
         }
         
         
-        // console.log(moreRenderResults.length);
+        console.log(moreRenderResults.length);
         
         
     }

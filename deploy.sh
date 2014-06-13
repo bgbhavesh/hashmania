@@ -45,3 +45,8 @@ export METEOR_SETTINGS=$(cat /root/HashRepublic/HashRepublic/hashsettings.json)
 export MAIL_URL='smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587'
 pm2 flush
 pm2 start main.js
+
+cd ..
+cd ..
+cd HashRepublic
+

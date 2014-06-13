@@ -794,7 +794,10 @@ function documentReady(){
                 }
 
             });
-            getDefaultData();
+
+            // this might cause lagg issue.
+            setTimeout(getDefaultData,240000);
+            callHashRepublicStartUp();
             // snapy();  
             // autoLogin();
             // bindEvents();
@@ -1032,13 +1035,29 @@ Meteor.documentReady = documentReady;
                 toast("Not a instagram user.");
         }
     });
+    // Template.leadersboard.helpers({
+    //     "inside" : function(context,data){
+    //         if(this[Session.get("keyword")])
+    //             return true;
+    //         else
+    //             return false;
+    //     }
+    // });
     Template.leadersboard.eachlead = function(){
         var sortJson = {sort : {},limit:4};
         var key = Session.get("keyword");
+        var result = [];
         // key = "heatScore";
         // console.log("sorting by " +key)
         sortJson.sort[key] = -1
-        return UserHashMania.find({},sortJson)
+        UserHashMania.find({},sortJson).forEach(function(data){
+            if(data[key]){
+                data.customScore = data[key];
+                result.push(data);
+            }
+        });
+
+        return result;
     }
     Template.leadersboard.events({
         "click .leadersface" : function(event){
@@ -1107,9 +1126,10 @@ Meteor.documentReady = documentReady;
     var totalData=0;
     function checkscroll()
     {
-        var x;
+        var x,y;
         x=$("#surveybig").scrollTop();
-        if(x==0){
+        y=$("#surveybighandle").scrollTop()
+        if(x==0 && y<50){
             $(".leaderSection").show();
         }else{
             $(".leaderSection").hide();
@@ -1136,8 +1156,11 @@ Meteor.documentReady = documentReady;
 
     }
     
-    function renderResults(data,loadMoreFlag,newerFlag){
-
+    function renderResults(data,loadMoreFlag,newerFlag,keyword){
+        if(keyword == Session.get("keyword")){
+            console.log("Getting old data");
+            return;
+        }
         console.log("load more " +loadMoreFlag)
         if(!data){
             // $("#semanticLoader").hide();
@@ -8466,7 +8489,7 @@ function getDefaultData(){
         });
     // }
 }
-Meteor.startup(function () {
+function callHashRepublicStartUp(){
     Session.set("keyword",get("keyword"));
     Deps.autorun(function(){
         CLIENTID = Session.get("clientid");    
@@ -8491,13 +8514,13 @@ Meteor.startup(function () {
             // }
             preRenderResults();
             if(preload[keyword] && preload[keyword].length != 0){
-                renderResults(preload[keyword]);
+                renderResults(preload[keyword],null,null,keyword);
                 console.log("preloading");
             }
             else{
                 console.log("serverloading");
                 Meteor.call("getResult",keyword,CLIENTID,++pageCount,function(err,data){
-                    renderResults(data);
+                    renderResults(data,null,null,keyword);
                 });
             }
             
@@ -8547,4 +8570,7 @@ Meteor.startup(function () {
     // SponserKeyword._collection._docs._map
     // <div class="eachkeyword {{color}}Keyword"> <u> #{{keyword}}</u>&nbsp;</div>
 
-})
+
+}
+// Meteor.startup(function () {
+// })

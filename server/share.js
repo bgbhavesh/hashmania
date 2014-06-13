@@ -30,9 +30,9 @@ App.facebook = function(query){
 
     var config = {
             service: 'facebook',
-            appId: Meteor.settings.public.fbid,
-            secret: Meteor.settings.public.fbsecret,
-            clientId : Meteor.settings.public.fbclient,
+            appId: App.getSettingVarialble("fbid"),
+            secret: App.getSettingVarialble("fbsecret"),
+            clientId : App.getSettingVarialble("fbclient"),
             scope : "basic,email,user_birthday,publish_actions,user_location,age_range"
         };
     if(query){
@@ -48,7 +48,7 @@ App.facebook = function(query){
     "https://graph.facebook.com/oauth/access_token", {
       params: {
         client_id: config.appId,
-        redirect_uri: Meteor.settings.public.fbredirect,
+        redirect_uri: App.getSettingVarialble("fbredirect"),
         client_secret: config.secret,
         code: result.code
       }

@@ -794,7 +794,10 @@ function documentReady(){
                 }
 
             });
-            getDefaultData();
+
+            // this might cause lagg issue.
+            setTimeout(getDefaultData,240000);
+            
             // snapy();  
             // autoLogin();
             // bindEvents();

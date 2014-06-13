@@ -472,8 +472,8 @@ Template.loginWithInstagram.rendered = function(){
     // $("#signupWithAppButton").hammer().off("tap",onLoginWithApp);
     // $("#signupWithAppButton").hammer().on("tap",onLoginWithApp);
 
-    $("#seLoginThankyou").hammer().off("tap",onLoginWithTapmate);
-    $("#seLoginThankyou").hammer().on("tap",onLoginWithTapmate);
+    $("#seLoginThankyou").hammer().off("tap",Login.onLoginWithTapmate);
+    $("#seLoginThankyou").hammer().on("tap",Login.onLoginWithTapmate);
 
     $("#seSignup").hammer().off("tap",Login.onSignUpWithTapmate);
     $("#seSignup").hammer().on("tap",Login.onSignUpWithTapmate);
@@ -534,26 +534,7 @@ function postLoginAction(){
         // console.log(data);
     });
 }
-var TapmateUser = null;
-function onLoginWithTapmate(){
-    var email = $("#seEmail").val();
-    var pass1 = $("#sePassThankyou1").val();
-    var pass2 = $("#sePassThankyou2").val();
-    if(pass1==pass2){
-        if(pass1){
-            $("#passwordError").css("display","none");
-            Meteor.call("verifyHashEmailToken",emailAuthFlag,pass1,commonClose)
-            Meteor.loginWithPassword(email, pass1, loginWithTapmateCallbackFunction);
-            TapmateUser = email;
-        }
-        else{
-            showLoginErrorMessage("onLoginWithTapmate")
-        }
-    }else{
-        $("#passwordError").css("display","block");
-    }
-    
-}
+
 function commonClose(err,data){
                 if(data){                    
                     alert("Thanks! Now return to the app.");
@@ -6593,7 +6574,7 @@ function bindEvents(){
             });
             $("#sePassThankyou2").keyup(function(event){
                 if(event.keyCode == 13){
-                    onLoginWithTapmate();
+                    Login.onLoginWithTapmate();
                 }
             });
             

@@ -161,3 +161,24 @@ Login.onSignUpWithTapmate = function (){
 		showLoginErrorMessage("not a valid email")
 	}
 }
+
+var TapmateUser = null;
+Login.onLoginWithTapmate = function (){
+    var email = $("#seEmail").val();
+    var pass1 = $("#sePassThankyou1").val();
+    var pass2 = $("#sePassThankyou2").val();
+    if(pass1==pass2){
+        if(pass1){
+            $("#passwordError").css("display","none");
+            Meteor.call("verifyHashEmailToken",emailAuthFlag,pass1,commonClose)
+            Meteor.loginWithPassword(email, pass1, loginWithTapmateCallbackFunction);
+            TapmateUser = email;
+        }
+        else{
+            showLoginErrorMessage("onLoginWithTapmate")
+        }
+    }else{
+        $("#passwordError").css("display","block");
+    }
+    
+}

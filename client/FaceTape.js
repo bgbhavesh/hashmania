@@ -1032,13 +1032,29 @@ Meteor.documentReady = documentReady;
                 toast("Not a instagram user.");
         }
     });
+    // Template.leadersboard.helpers({
+    //     "inside" : function(context,data){
+    //         if(this[Session.get("keyword")])
+    //             return true;
+    //         else
+    //             return false;
+    //     }
+    // });
     Template.leadersboard.eachlead = function(){
         var sortJson = {sort : {},limit:4};
         var key = Session.get("keyword");
+        var result = [];
         // key = "heatScore";
         // console.log("sorting by " +key)
         sortJson.sort[key] = -1
-        return UserHashMania.find({},sortJson)
+        UserHashMania.find({},sortJson).forEach(function(data){
+            if(data[key]){
+                data.customScore = data[key];
+                result.push(data);
+            }
+        });
+
+        return result;
     }
     Template.leadersboard.events({
         "click .leadersface" : function(event){

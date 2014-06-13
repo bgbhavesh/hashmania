@@ -1210,7 +1210,7 @@ Meteor.documentReady = documentReady;
                 }
                     
             }else{
-                    console.log("not working");
+                    // console.log("not working");
                     newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
                     +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
             }

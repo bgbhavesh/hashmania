@@ -34,4 +34,3 @@ router
 iron-router
 handlebars-server
 browser-policy-framing
-facebook-sdk

@@ -22,101 +22,7 @@ if(window["App"] === undefined)
 
 
 
-// Oauth package
- Package.oauth.Oauth.showPopup =  function (url, callback, dimensions) {                          
-    var popup = openCenteredPopup(                                                  
-            url,                                                                          
-            (dimensions && dimensions.width) || 650,                                      
-            (dimensions && dimensions.height) || 331,null,callback                                      
-            );                                                                              
-        if(!Session.get("phonegap"))                                                    
-            var checkPopupOpen = setInterval(function() {                                   
-        try {  
-            // console.log("my show popup interval")                                                                       
-            var popupClosed = popup.closed || popup.closed === undefined;               
-        } catch (e) {                                                                 
-            return;                                                                     
-        }                                                                             
-        if (popupClosed) {                                                            
-            clearInterval(checkPopupOpen);                                              
-            loginOnceStateReady(null,callback);
-            //callback();                                                                 
-        }                                                                             
-    }, 100);                                                                        
-};                                                                                
-                                                                                  
-                                                                                  
-var openCenteredPopup = function(url, width, height,state,callback) {
-    state = callback;             
-    var screenX = typeof window.screenX !== 'undefined'                             
-    ? window.screenX : window.screenLeft;                                     
-    var screenY = typeof window.screenY !== 'undefined'                             
-    ? window.screenY : window.screenTop;                                      
-    var outerWidth = typeof window.outerWidth !== 'undefined'                       
-    ? window.outerWidth : document.body.clientWidth;                          
-    var outerHeight = typeof window.outerHeight !== 'undefined'                     
-    ? window.outerHeight : (document.body.clientHeight - 22);                 
-    var left = screenX + (outerWidth - width) / 2;                                  
-    var top = screenY + (outerHeight - height) / 2;                                 
-    var features = ('width=' + width + ',height=' + height +                        
-    ',left=' + left + ',top=' + top + ',scrollbars=yes');           
-    // console.log(callback)                                                                               
-    var newwindow = null;   
-    if(window['closewindow'])
-    window['closewindow'].close();                         
-    if(Session.get("phonegap")){ 
-        url = encodeURI(url);
-        // if(App.isAdmin(Session.get("clientid"))){
-        //   {
-        //       alert(url);
 
-        //   }
-        // }      
-        newwindow = window.open(url, '_blank', 'location=yes');
-    }
-    else{  
-        newwindow = window.open(url, '_black', features);
-    }
-    window["mystate"] = state;
-    window["mycallback"] = callback;
-    window['closewindow'] = newwindow;
-    window['closewindow'].addEventListener('loadstop', function(event) {   
-    if(event.url.indexOf(Meteor.settings.public.redirectClose) == 0){
-        window["itriggered"] = true;  
-        window['closewindow'].close();
-        window['closewindow'] = null;
-        // alert("loadstop")
-        loginOnceStateReady(null,callback);
-        // window["mytryLoginAfterPopupClosed"](window["mystate"],window["mycallback"]);           
-     }
-    });
-    window['closewindow'].addEventListener('loaderror', function(event) {             
-        window["itriggered"] = true;  
-        window['closewindow'].close();
-        window['closewindow'] = null;
-        // alert("loaderror")
-        loginOnceStateReady(null,callback);
-    });
-    window['closewindow'].addEventListener('exit', function(event) {
-        // window["mytryLoginAfterPopupClosed"](window["mystate"],window["mycallback"]);
-        // alert("exit")
-        window['closewindow'] = null;
-        loginOnceStateReady(null,callback);
-        window["itriggered"] = false;
-    });
-    if (newwindow.focus)                                                            
-    newwindow.focus();                                                            
-    return newwindow;                                                               
-};                                                                                
-
-Package.oauth.Oauth.initiateLogin = function (credentialToken, url, callback, dimensions) {     
-    Package.oauth.Oauth.showPopup(                                                                
-    url,                                                                          
-    _.bind(callback, null, credentialToken),                                      
-    dimensions                                                                    
-    );                                                                              
-}; 
-// Oauth ends
 
 
 // Reload package
@@ -476,6 +382,7 @@ Meteor.startup(function () {
         Session.set("clientid",null);
         
         //Session.set("clientid",insert.myid);
+
         Deps.autorun(function(){
             try{
                 if(Session.get("clientid")){
@@ -498,26 +405,26 @@ Meteor.startup(function () {
               catch(error){
                 console.log(error);
                 ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "clientid.autorun"});
-              }
- 
+              } 
         });
-        Deps.autorun(function () {
-            try{
-                actionArray = [];
-                Meteor.subscribe("votes",Session.get("currentBig"));
-                Meteor.subscribe("media", Session.get("currentBig"));
+
+        // Deps.autorun(function () {
+        //     try{
+        //         actionArray = [];
+        //         Meteor.subscribe("votes",Session.get("currentBig"));
+        //         Meteor.subscribe("media", Session.get("currentBig"));
                 
-                // Meteor.subscribe("commentreceive",Session.get("currentBig"));
-                Meteor.subscribe("recomm",Session.get("currentBig"),Session.get("clientid"));
-                Meteor.subscribe("recommtwo",Session.get("currentBig"),Session.get("clientid"));
-                Meteor.subscribe("groupvoterecommend",Session.get("clientid"),Session.get("currentBig"));
-            }
-            catch(error){
-                console.log(error);
-                ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "currentBig.autorun"});
-            }
+        //         // Meteor.subscribe("commentreceive",Session.get("currentBig"));
+        //         Meteor.subscribe("recomm",Session.get("currentBig"),Session.get("clientid"));
+        //         Meteor.subscribe("recommtwo",Session.get("currentBig"),Session.get("clientid"));
+        //         Meteor.subscribe("groupvoterecommend",Session.get("clientid"),Session.get("currentBig"));
+        //     }
+        //     catch(error){
+        //         console.log(error);
+        //         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "currentBig.autorun"});
+        //     }
             
-        });
+        // });
         document.addEventListener("deviceready",function(){
             try{
                 Session.set("phonegap",true);
@@ -568,11 +475,11 @@ Template.loginWithInstagram.rendered = function(){
     $("#seLoginThankyou").hammer().off("tap",onLoginWithTapmate);
     $("#seLoginThankyou").hammer().on("tap",onLoginWithTapmate);
 
-    $("#seSignup").hammer().off("tap",onSignUpWithTapmate);
-    $("#seSignup").hammer().on("tap",onSignUpWithTapmate);
+    $("#seSignup").hammer().off("tap",Login.onSignUpWithTapmate);
+    $("#seSignup").hammer().on("tap",Login.onSignUpWithTapmate);
 
-    $("#seLoginLogin").hammer().off("tap",onLoginWithHashRepublic);
-    $("#seLoginLogin").hammer().on("tap",onLoginWithHashRepublic);
+    $("#seLoginLogin").hammer().off("tap",Login.onLoginWithHashRepublic);
+    $("#seLoginLogin").hammer().on("tap",Login.onLoginWithHashRepublic);
 
     if(emailAuthFlag){
         $(".emailClass").hide();
@@ -597,27 +504,7 @@ Template.loginWithInstagram.rendered = function(){
     // $("#signupWithAppButton").hammer().on("tap",onSignupWithAppButton);
     // $("#loginWithAppCancelButton").hammer().on("tap",hideLoginForm);
 }
-function onLoginWithHashRepublic(){
-    var email = $("#seEmailLogin").val();
-    var password = $("#sePassLogin").val();
-    Meteor.call("loginWithHashRepublic",email,password,function(err,data){
-        if(data){
-            set("email",email);
-            set("clientid",email);
-            Session.set("clientid",email);
-            set("welcomeAlert",true);
-            set("profile_picture",data.face);
-            // Session.set("profile_picture",data.instagramFace)
-            set("password",password)
 
-        }
-        else{
-            $("#seErrorLogin").removeClass("ui ignored warning message").addClass("ui error message");
-            $("#errorMessage").text("Username or Password is Incorrect");
-            // $("#seErrorLogin").css("display","block");
-        }
-    })
-}
 function showSpecialPopup(id){
     console.log("show " +id)
     $("#"+id).show();
@@ -684,29 +571,7 @@ function welcomeAlertPopup(){
         $("#welcomePopUpBackground").show();
     }
 }
-function onSignUpWithTapmate(){
-      var email = $("#seEmail").val();
-      var pass = $("#sePass").val();
-      if(validateEmail(email)){
-          set("email",email);
-          set("clientid",email);
-          CLIENTID = email;
-          Session.set("clientid",email);
-          set("profile_picture","/images/face.jpg");
-          // Session.set("profile_picture","/images/face.jpg");
-          welcomeAlertPopup();
-          set("welcomeAlert",true);
-          // $("#seError").css("display","none");
-          // Accounts.createUser({"email":email,"password":pass}, loginWithTapmateCallbackFunction);
-          // TapmateUser = email;
-          Meteor.call("verifyHashEmail",email,function(){
-          
-          });
-      }
-      else{
-          showLoginErrorMessage("not a valid email")
-      }
-  }
+
 function convertEmail(email){
 
     email = email.toLowerCase();
@@ -1156,12 +1021,13 @@ Meteor.documentReady = documentReady;
 
     }
     
-    function renderResults(data,loadMoreFlag,newerFlag,keyword){
-        if(keyword == Session.get("keyword")){
-            console.log("Getting old data");
-            return;
-        }
-        console.log("load more " +loadMoreFlag)
+    function renderResults(data,loadMoreFlag,newerFlag,keywordArg){
+        // if(keywordArg != Session.get("keyword")){
+        //     console.log("Getting old data");
+        //     return;
+        // }
+        console.log("load more " +loadMoreFlag);
+        console.log(data)
         if(!data){
             // $("#semanticLoader").hide();
             return;
@@ -1169,10 +1035,11 @@ Meteor.documentReady = documentReady;
         var clientid = Session.get("clientid");
         $(".loading").show();
         if($("#surveybig").length == 0 && clientid == null && clientid == undefined){
-            setTimeout(function(){renderResults(data)},250);
+            setTimeout(function(){renderResults(data,loadMoreFlag,newerFlag,keywordArg)},250);
             return;
         }
-        // console.log(clientid)
+        console.log(clientid +" client o renderResults")
+        console.log(keywordArg +" keyword o renderResults")
         if(!loadMoreFlag){
             $("#surveybig").html("");
             cacheData(data);
@@ -6694,7 +6561,7 @@ function bindEvents(){
             $("#seEmail").keyup(function(event){
                 $(this).val(convertEmail($(this).val()));
                 if(event.keyCode == 13){
-                    onSignUpWithTapmate();
+                    Login.onSignUpWithTapmate();
                 }
             });
             $("#seEmailLogin").keyup(function(event){
@@ -6705,7 +6572,7 @@ function bindEvents(){
             });
              $("#sePassLogin").keyup(function(event){
                 if(event.keyCode == 13){
-                    onLoginWithHashRepublic();
+                    Login.onLoginWithHashRepublic();
                 }
             });
             $("#searchKeyword").keyup(function(event){
@@ -8508,8 +8375,8 @@ function callHashRepublicStartUp(){
             // }
             preRenderResults();
             if(preload[keyword] && preload[keyword].length != 0){
-                renderResults(preload[keyword],null,null,keyword);
                 console.log("preloading");
+                renderResults(preload[keyword],null,null,keyword);                
             }
             else{
                 console.log("serverloading");
@@ -8527,26 +8394,30 @@ function callHashRepublicStartUp(){
             $(".hashKeyword").html("");
         }
     })
-    SponserKeyword.find({}).observe({
-        "added" : function(first){
-            // React.renderComponent(
-            //     ExampleApplication({elapsed: first}),
-            //     document.getElementById('keywords')
-            // );
-        },
-        "changed" : function  (argument) {
-            // React.renderComponent(
-            //     ExampleApplication({elapsed: first}),
-            //     document.getElementById('keywords')
-            // );  
-        },
-        "removed" : function (first) {
-            // React.renderComponent(
-            //     ExampleApplication({elapsed: first}),
-            //     document.getElementById('keywords')
-            // );
-        }
-    });
+
+    // no longer using react.
+
+    // SponserKeyword.find({}).observe({
+    //     "added" : function(first){
+    //         // React.renderComponent(
+    //         //     ExampleApplication({elapsed: first}),
+    //         //     document.getElementById('keywords')
+    //         // );
+    //     },
+    //     "changed" : function  (argument) {
+    //         // React.renderComponent(
+    //         //     ExampleApplication({elapsed: first}),
+    //         //     document.getElementById('keywords')
+    //         // );  
+    //     },
+    //     "removed" : function (first) {
+    //         // React.renderComponent(
+    //         //     ExampleApplication({elapsed: first}),
+    //         //     document.getElementById('keywords')
+    //         // );
+    //     }
+    // });
+
     // var ExampleApplication = React.createClass({
     //     render: function() {
     //         var myCollection = [];

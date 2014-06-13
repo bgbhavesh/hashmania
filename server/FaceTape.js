@@ -1408,8 +1408,9 @@ App.isAdmin = isAdmin;
                 //     // pushTOAllUserHashRepublic(insertCount +" new pics on "+tag);
                 // }
             
-            if(globalCount !=0)
-                pushTOAllUserHashRepublic(globalCount +" new pics on "+tag,tag);
+            // Getting unlimted push
+            // if(globalCount !=0)
+            //     pushTOAllUserHashRepublic(globalCount +" new pics on "+tag,tag);
             App.searchFlag[tag] = false;
     }
     function searchHashParser(myJson,tag,clientid){

@@ -794,10 +794,7 @@ function documentReady(){
                 }
 
             });
-
-            // this might cause lagg issue.
-            setTimeout(getDefaultData,240000);
-            callHashRepublicStartUp();
+            getDefaultData();
             // snapy();  
             // autoLogin();
             // bindEvents();
@@ -1035,29 +1032,13 @@ Meteor.documentReady = documentReady;
                 toast("Not a instagram user.");
         }
     });
-    // Template.leadersboard.helpers({
-    //     "inside" : function(context,data){
-    //         if(this[Session.get("keyword")])
-    //             return true;
-    //         else
-    //             return false;
-    //     }
-    // });
     Template.leadersboard.eachlead = function(){
         var sortJson = {sort : {},limit:4};
         var key = Session.get("keyword");
-        var result = [];
         // key = "heatScore";
         // console.log("sorting by " +key)
         sortJson.sort[key] = -1
-        UserHashMania.find({},sortJson).forEach(function(data){
-            if(data[key]){
-                data.customScore = data[key];
-                result.push(data);
-            }
-        });
-
-        return result;
+        return UserHashMania.find({},sortJson)
     }
     Template.leadersboard.events({
         "click .leadersface" : function(event){
@@ -1126,10 +1107,9 @@ Meteor.documentReady = documentReady;
     var totalData=0;
     function checkscroll()
     {
-        var x,y;
+        var x;
         x=$("#surveybig").scrollTop();
-        y=$("#surveybighandle").scrollTop()
-        if(x==0 && y<50){
+        if(x==0){
             $(".leaderSection").show();
         }else{
             $(".leaderSection").hide();
@@ -1156,11 +1136,8 @@ Meteor.documentReady = documentReady;
 
     }
     
-    function renderResults(data,loadMoreFlag,newerFlag,keyword){
-        if(keyword == Session.get("keyword")){
-            console.log("Getting old data");
-            return;
-        }
+    function renderResults(data,loadMoreFlag,newerFlag){
+
         console.log("load more " +loadMoreFlag)
         if(!data){
             // $("#semanticLoader").hide();
@@ -1233,7 +1210,7 @@ Meteor.documentReady = documentReady;
                 }
                     
             }else{
-                    // console.log("not working");
+                    console.log("not working");
                     newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
                     +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
             }
@@ -8489,7 +8466,7 @@ function getDefaultData(){
         });
     // }
 }
-function callHashRepublicStartUp(){
+Meteor.startup(function () {
     Session.set("keyword",get("keyword"));
     Deps.autorun(function(){
         CLIENTID = Session.get("clientid");    
@@ -8514,13 +8491,13 @@ function callHashRepublicStartUp(){
             // }
             preRenderResults();
             if(preload[keyword] && preload[keyword].length != 0){
-                renderResults(preload[keyword],null,null,keyword);
+                renderResults(preload[keyword]);
                 console.log("preloading");
             }
             else{
                 console.log("serverloading");
                 Meteor.call("getResult",keyword,CLIENTID,++pageCount,function(err,data){
-                    renderResults(data,null,null,keyword);
+                    renderResults(data);
                 });
             }
             
@@ -8570,7 +8547,4 @@ function callHashRepublicStartUp(){
     // SponserKeyword._collection._docs._map
     // <div class="eachkeyword {{color}}Keyword"> <u> #{{keyword}}</u>&nbsp;</div>
 
-
-}
-// Meteor.startup(function () {
-// })
+})

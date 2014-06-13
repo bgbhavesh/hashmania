@@ -585,7 +585,7 @@ function getSettingVarialble(key){
 
     return null;
 }
-
+App.getSettingVarialble = getSettingVarialble;
 DebugFace = null;
 if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
     DebugFace = true;

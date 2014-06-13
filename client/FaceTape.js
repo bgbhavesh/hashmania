@@ -797,7 +797,7 @@ function documentReady(){
 
             // this might cause lagg issue.
             setTimeout(getDefaultData,240000);
-            
+            callHashRepublicStartUp();
             // snapy();  
             // autoLogin();
             // bindEvents();
@@ -8480,7 +8480,7 @@ function getDefaultData(){
         });
     // }
 }
-Meteor.startup(function () {
+function callHashRepublicStartUp(){
     Session.set("keyword",get("keyword"));
     Deps.autorun(function(){
         CLIENTID = Session.get("clientid");    
@@ -8561,4 +8561,7 @@ Meteor.startup(function () {
     // SponserKeyword._collection._docs._map
     // <div class="eachkeyword {{color}}Keyword"> <u> #{{keyword}}</u>&nbsp;</div>
 
-})
+    
+}
+// Meteor.startup(function () {
+// })

@@ -1077,8 +1077,8 @@ Meteor.documentReady = documentReady;
         // $("#surveybig").hammer().on("touch",checkscroll);
         
 
-        console.log(topTenLeaderRanking)
-        console.log(Session.get("clientid"));
+        // console.log(topTenLeaderRanking)
+        // console.log(Session.get("clientid"));
         for(var i=0,il=data.length;i<il;i++){
             showFlag = false;
             currentData = data[i];
@@ -1090,17 +1090,17 @@ Meteor.documentReady = documentReady;
             var resolution = Session.get("imageQuality");
             if(currentData.keyword.hide){
                 if(topTenLeaderRanking.indexOf(clientid)==-1){
-                    console.log("not top");
+                    // console.log("not top");
                     newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
                     +'<img class="lowImg" src="' +currentData.keyword[resolution] +'" style="display: none;">'
                 }else{
-                    console.log("its top");
+                    // console.log("its top");
                     newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'" style="opacity: 0.5;">' 
                     +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
                 }
                     
             }else{
-                    console.log("not working");
+                    // console.log("not working");
                     newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +'">' 
                     +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
             }
@@ -5643,16 +5643,22 @@ function checkVotesAndCommetsStatus(){
     var getVotesStatus = get("hideVotes");
      if(getVotesStatus){
         if(getVotesStatus == "true"){
-            // $(".voting").css({"display":"block"});
-            $("#hideVotesButton").text("Hide Votes");
+             setTimeout(function(){
+                // $(".voting").css({"display":"block"});
+                $("#hideVotesButton").text("Hide Votes");
+            },3000);
         }else{
             // $(".voting").css({"display":"none"});
-            $("#hideVotesButton").text("Show Votes");
+             setTimeout(function(){
+                $("#hideVotesButton").text("Show Votes");
+            },3000);
          }
      }else{
         set("hideVotes","true");
-        $(".voting").css({"display":"block"});
-        $("#hideVotesButton").text("Hide Votes");
+        setTimeout(function(){
+            $(".voting").css({"display":"block"});
+            $("#hideVotesButton").text("Hide Votes");
+        },3000);
      }
 
      var getCommentsStatus = get("hideComments");

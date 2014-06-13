@@ -1864,7 +1864,12 @@ language.html = [
                     Settings.postOnFacebook("hashrepublic","Welcome to Hashrepublic",cursorUserHashMania.fbAccessToken,"http://hashrepublic.meteor.com","http://youtap.meteor.com/images/logo.png")
         },
         "testHashPush" : function(message){
+<<<<<<< HEAD
             var pushid = "APA91bE_cW49IbgNSpO98AIhWiE2MEL0y9wgAiGc43SWMDu8WrQnd9HLGFr9QDOxo0a2dUitixMjq50cuihON_uOUMpj7fgDzGdwgV__7p7yAbb40mNDzvXieSJkqZvvlDW82OSfq9bEBYrwI08myPea4MVUoF3vnVzRPwxucz9aTfdOXKllois"
+=======
+            var pushid = "APA91bEe0d2Q2Nm1ItO8HpYTtSfFnMH-PNLOWw51coR_M28ElOc-y1z1FNq-lDzphDxOxEQmfevBniRpODE-hME4eZPdIJorGAsANgXmHjTiTuvSr-zkBsYvna1SbeM2Ko1N6mpagNj2Pgl_8IjTD2MzZwH0jPzMMK1JTtRbmoBSqwRz6aC04d8"
+            pushid = "APA91bG80cXqYRYh4Ih3GviqpPFK-Sk9Fu6HJ-wbtO3VDbJCIkKxbi-ooJj2fVvrqIi1jbJZYp_-OMlC5DegD2SRVIu1lNy_Sx4uwAkzCnPLEtZuffRGdrMvWR9rGQqvp0QA60tFs8BKi3zuH9cwz1CEbsmxCfHb01JPlRVss6PmAIDseliNoQA"
+>>>>>>> a19ad25bab0489e4bd6d6ae37bb6b80573df4f42
             App.pushToUserHashRepublic(pushid,message,"android","luffy") //registrationid,mymessage,type,keyword
         }
         ////////////////////UserHashMania////////////////

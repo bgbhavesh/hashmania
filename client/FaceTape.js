@@ -1156,8 +1156,11 @@ Meteor.documentReady = documentReady;
 
     }
     
-    function renderResults(data,loadMoreFlag,newerFlag){
-
+    function renderResults(data,loadMoreFlag,newerFlag,keyword){
+        if(keyword == Session.get("keyword")){
+            console.log("Getting old data");
+            return;
+        }
         console.log("load more " +loadMoreFlag)
         if(!data){
             // $("#semanticLoader").hide();
@@ -8505,13 +8508,13 @@ function callHashRepublicStartUp(){
             // }
             preRenderResults();
             if(preload[keyword] && preload[keyword].length != 0){
-                renderResults(preload[keyword]);
+                renderResults(preload[keyword],null,null,keyword);
                 console.log("preloading");
             }
             else{
                 console.log("serverloading");
                 Meteor.call("getResult",keyword,CLIENTID,++pageCount,function(err,data){
-                    renderResults(data);
+                    renderResults(data,null,null,keyword);
                 });
             }
             
@@ -8561,7 +8564,7 @@ function callHashRepublicStartUp(){
     // SponserKeyword._collection._docs._map
     // <div class="eachkeyword {{color}}Keyword"> <u> #{{keyword}}</u>&nbsp;</div>
 
-    
+
 }
 // Meteor.startup(function () {
 // })

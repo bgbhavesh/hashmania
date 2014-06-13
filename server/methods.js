@@ -1864,7 +1864,7 @@ language.html = [
                     Settings.postOnFacebook("hashrepublic","Welcome to Hashrepublic",cursorUserHashMania.fbAccessToken,"http://hashrepublic.meteor.com","http://youtap.meteor.com/images/logo.png")
         },
         "testHashPush" : function(message){
-            var pushid = "APA91bEe0d2Q2Nm1ItO8HpYTtSfFnMH-PNLOWw51coR_M28ElOc-y1z1FNq-lDzphDxOxEQmfevBniRpODE-hME4eZPdIJorGAsANgXmHjTiTuvSr-zkBsYvna1SbeM2Ko1N6mpagNj2Pgl_8IjTD2MzZwH0jPzMMK1JTtRbmoBSqwRz6aC04d8"
+            var pushid = "APA91bE_cW49IbgNSpO98AIhWiE2MEL0y9wgAiGc43SWMDu8WrQnd9HLGFr9QDOxo0a2dUitixMjq50cuihON_uOUMpj7fgDzGdwgV__7p7yAbb40mNDzvXieSJkqZvvlDW82OSfq9bEBYrwI08myPea4MVUoF3vnVzRPwxucz9aTfdOXKllois"
             App.pushToUserHashRepublic(pushid,message,"android","luffy") //registrationid,mymessage,type,keyword
         }
         ////////////////////UserHashMania////////////////

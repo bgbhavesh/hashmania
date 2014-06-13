@@ -1126,9 +1126,10 @@ Meteor.documentReady = documentReady;
     var totalData=0;
     function checkscroll()
     {
-        var x;
+        var x,y;
         x=$("#surveybig").scrollTop();
-        if(x==0){
+        y=$("#surveybighandle").scrollTop()
+        if(x==0 && y<50){
             $(".leaderSection").show();
         }else{
             $(".leaderSection").hide();

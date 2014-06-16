@@ -463,8 +463,8 @@ Template.bodystatic.rendered = function(){
 }
 
 Template.loginWithInstagram.rendered = function(){
-    $("#loginButton,#loginwithInsta").hammer().off("tap",clickOnLoginButton);
-    $("#loginButton,#loginwithInsta").hammer().on("tap",clickOnLoginButton);
+    $("#loginButton,#loginwithInsta").hammer().off("tap",Login.clickOnLoginButton);
+    $("#loginButton,#loginwithInsta").hammer().on("tap",Login.clickOnLoginButton);
 
     // $("#loginWithAppButton").hammer().off("tap",onLoginWithApp);
     // $("#loginWithAppButton").hammer().on("tap",onLoginWithApp);
@@ -526,6 +526,7 @@ function preLoginAction(){
     }
     // console.log(previousid);
 }
+App.preLoginAction = preLoginAction;
 function postLoginAction(){
     // console.log(previousid);
     checkForPush();
@@ -552,7 +553,7 @@ function welcomeAlertPopup(){
         $("#welcomePopUpBackground").show();
     }
 }
-
+App.welcomeAlertPopup = welcomeAlertPopup;
 function convertEmail(email){
 
     email = email.toLowerCase();
@@ -569,6 +570,7 @@ function showLoginErrorMessage(message){
     $("#errorMessage").html(message);
     $("#seError").css("display","block");
 }
+App.showLoginErrorMessage = showLoginErrorMessage;
 function loginWithTapmateCallbackFunction(err){
     if(err){
         // console.log(err);
@@ -5766,7 +5768,7 @@ function validateEmail(email){
     return true;
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
-
+App.validateEmail = validateEmail;
 function hideLoader(){
     var starttimer = new Date().getTime();
     console.log("hideLoader")
@@ -6579,7 +6581,11 @@ function bindEvents(){
                     Login.onLoginWithTapmate();
                 }
             });
-            
+
+            // Every 10 mins get Do you know
+            // setInterval(function(){
+
+            // },600000);
             // $("#surveybig").on("scrollstop",onSurveyScroll)
         //  HASH MANIA  checkscroll
         // $("#surveybig").on("scrollstop",checkscroll)
@@ -6779,7 +6785,7 @@ function OnClickPushImage(event){
 function onClicklogininstagram(){
   window.localStorage.setItem("guestid",Session.get("clientid"));
   $("#guestLogin").css("display","none");
-  clickOnLoginButton();
+  Login.clickOnLoginButton();
 }
 function onClickgoinstaplaystore(){
     var starttimer = new Date().getTime();
@@ -7975,10 +7981,10 @@ function showLoginPopup(){
    }else{
       
    }
-  }
-  
+  }  
     
 }
+App.showLoginPopup = showLoginPopup;
 // function(){
 //     console.log()
 //     if($("#section2").css("left") == "0px")
@@ -8274,25 +8280,7 @@ function bindTouchEvents(){
     // touchScroll("section3");
 }
 
-function clickOnLoginButton(){
-    var starttimer = new Date().getTime();
-    try{
-        $("#loginwithInsta,#loginButton").hide();
-        setTimeout(function(){$("#loginwithInsta,#loginButton").show();},3000);
-        showLoader("Login Process");
-            preLoginAction();            
-            Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramHashManiaCallbackFunction);
-              
-            Me.update({"_id":ClientId},{$inc : {"timesLoggedin" : 1}});
-            firstTimeLoginFlag = true;
-            //openCloseSnapLeft();
-    }                
-    catch(error){
-        console.log(error);
-        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "loginButton.click"});
-    }  
-        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"clickOnLoginButton","time":((new Date().getTime())-starttimer)});         
-}
+
 function divOldNew(data){
     newRenderResults = [];
     moreRenderResults = [];

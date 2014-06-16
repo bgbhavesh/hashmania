@@ -141,14 +141,14 @@ Login.onLoginWithHashRepublic = function(){
 Login.onSignUpWithTapmate = function (){
 	var email = $("#seEmail").val();
 	var pass = $("#sePass").val();
-	if(validateEmail(email)){
+	if(App.validateEmail(email)){
 		set("email",email);
 		set("clientid",email);
 		CLIENTID = email;
 		Session.set("clientid",email);
 		set("profile_picture","/images/face.jpg");
 		// Session.set("profile_picture","/images/face.jpg");
-		welcomeAlertPopup();
+		App.welcomeAlertPopup();
 		set("welcomeAlert",true);
 		// $("#seError").css("display","none");
 		// Accounts.createUser({"email":email,"password":pass}, loginWithTapmateCallbackFunction);
@@ -158,7 +158,7 @@ Login.onSignUpWithTapmate = function (){
 		});
 	}
 	else{
-		showLoginErrorMessage("not a valid email")
+		App.showLoginErrorMessage("not a valid email")
 	}
 }
 
@@ -175,10 +175,30 @@ Login.onLoginWithTapmate = function (){
             TapmateUser = email;
         }
         else{
-            showLoginErrorMessage("onLoginWithTapmate")
+            App.showLoginErrorMessage("onLoginWithTapmate")
         }
     }else{
         $("#passwordError").css("display","block");
     }
     
+}
+
+Login.clickOnLoginButton = function (){
+    var starttimer = new Date().getTime();
+    try{
+        $("#loginwithInsta,#loginButton").hide();
+        setTimeout(function(){$("#loginwithInsta,#loginButton").show();},3000);
+        App.showLoader("Login Process");
+            App.preLoginAction();            
+            Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramHashManiaCallbackFunction);
+              
+            Me.update({"_id":ClientId},{$inc : {"timesLoggedin" : 1}});
+            firstTimeLoginFlag = true;
+            //openCloseSnapLeft();
+    }                
+    catch(error){
+        console.log(error);
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "loginButton.click"});
+    }  
+        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"clickOnLoginButton","time":((new Date().getTime())-starttimer)});         
 }

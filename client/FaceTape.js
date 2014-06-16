@@ -82,7 +82,7 @@ Package.reload.Reload._reload = function () {                                   
 //     // $("body").css({"overflow-y": "scroll"});
 //     Session.set("profile",clientid);
 // }
-var emailAuthFlag = false;
+App.emailAuthFlag = false;
 Router.map(function () {
     
     this.route('home', {
@@ -95,7 +95,7 @@ Router.map(function () {
         template: 'body',
         data : function (){
             var emailtoken = this.params.emailtoken;
-            emailAuthFlag = emailtoken;
+            App.emailAuthFlag = emailtoken;
             window.localStorage.setItem("clientid","");
         }
 
@@ -481,7 +481,7 @@ Template.loginWithInstagram.rendered = function(){
     $("#seLoginLogin").hammer().off("tap",Login.onLoginWithHashRepublic);
     $("#seLoginLogin").hammer().on("tap",Login.onLoginWithHashRepublic);
 
-    if(emailAuthFlag){
+    if(App.emailAuthFlag){
         $(".emailClass").hide();
         $(".passwordClass").show();
 
@@ -545,6 +545,7 @@ function commonClose(err,data){
                     alert("something's not right")
                 }
             }
+App.commonClose = commonClose;
 function welcomeAlertPopup(){
     var welcomeflag = get("welcomeAlert");
     console.log(welcomeflag);
@@ -583,6 +584,7 @@ function loginWithTapmateCallbackFunction(err){
         autoLogin();
     }
 }
+App.loginWithTapmateCallbackFunction = loginWithTapmateCallbackFunction;
 function getRankLeader(clientid){
     for(var i=0,il=leaderRanking.length;i<il;i++){
         if(leaderRanking[i] == clientid)
@@ -6004,7 +6006,7 @@ function loginWithInstagramHashManiaCallbackFunction(err){
 
     }
     else{
-        Meteor.call("mergedMyFace",emailAuthFlag,Session.get("clientid"),function(){
+        Meteor.call("mergedMyFace",App.emailAuthFlag,Session.get("clientid"),function(){
             $(".hideAfterComplete").html("Now");
             console.log("here too")
         })
@@ -6019,12 +6021,12 @@ function loginWithFacebook(){
     if(Session.get("phonegap")){
         display = "touch";
     }
-    if(!emailAuthFlag)
-        emailAuthFlag = Session.get("clientid");
+    if(!App.emailAuthFlag)
+        App.emailAuthFlag = Session.get("clientid");
     var loginUrl =                                                                       
         'https://www.facebook.com/dialog/oauth?client_id=' +Meteor.settings.public.fbid  +            
         '&redirect_uri=' + Meteor.settings.public.fbredirect +               
-        '&display=' + display + '&scope=' + "email,publish_actions" + '&state=' + emailAuthFlag;
+        '&display=' + display + '&scope=' + "email,publish_actions" + '&state=' + App.emailAuthFlag;
     var fbloginpage = window.open(loginUrl,"_blank");
     fbloginpage.addEventListener('loadstop', function(event) {   
         if(event.url.indexOf(Meteor.settings.public.fbredirect) == 0){
@@ -6053,7 +6055,7 @@ function loginWithGoogle(){
 function loginWithGoogleCallbackFunction(err){
     console.log("loginWithGoogleCallbackFunction");
     console.log(err);
-    Meteor.call("mergedMyGoogleFace",emailAuthFlag,function(){
+    Meteor.call("mergedMyGoogleFace",App.emailAuthFlag,function(){
             $(".hideAfterComplete").html("Now");
         })
 }

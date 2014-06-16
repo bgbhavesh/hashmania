@@ -170,8 +170,8 @@ Login.onLoginWithTapmate = function (){
     if(pass1==pass2){
         if(pass1){
             $("#passwordError").css("display","none");
-            Meteor.call("verifyHashEmailToken",emailAuthFlag,pass1,commonClose)
-            Meteor.loginWithPassword(email, pass1, loginWithTapmateCallbackFunction);
+            Meteor.call("verifyHashEmailToken",App.emailAuthFlag,pass1,App.commonClose)
+            Meteor.loginWithPassword(email, pass1, App.loginWithTapmateCallbackFunction);
             TapmateUser = email;
         }
         else{

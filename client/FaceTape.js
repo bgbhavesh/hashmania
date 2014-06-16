@@ -6186,6 +6186,7 @@ function loginOnceStateReady(state,callback){
     }
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
+App.loginOnceStateReady = loginOnceStateReady;
 jQuery.fn.shake = function() {
     this.each(function(i) {
         $(this).css({ "position" : "relative" });

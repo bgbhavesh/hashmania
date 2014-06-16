@@ -16,7 +16,7 @@
         }                                                                             
         if (popupClosed) {                                                            
             clearInterval(checkPopupOpen);                                              
-            loginOnceStateReady(null,callback);
+            App.loginOnceStateReady(null,callback);
             //callback();                                                                 
         }                                                                             
     }, 100);                                                                        
@@ -63,7 +63,7 @@ var openCenteredPopup = function(url, width, height,state,callback) {
         window['closewindow'].close();
         window['closewindow'] = null;
         // alert("loadstop")
-        loginOnceStateReady(null,callback);
+        App.loginOnceStateReady(null,callback);
         // window["mytryLoginAfterPopupClosed"](window["mystate"],window["mycallback"]);           
      }
     });
@@ -72,13 +72,13 @@ var openCenteredPopup = function(url, width, height,state,callback) {
         window['closewindow'].close();
         window['closewindow'] = null;
         // alert("loaderror")
-        loginOnceStateReady(null,callback);
+        App.loginOnceStateReady(null,callback);
     });
     window['closewindow'].addEventListener('exit', function(event) {
         // window["mytryLoginAfterPopupClosed"](window["mystate"],window["mycallback"]);
         // alert("exit")
         window['closewindow'] = null;
-        loginOnceStateReady(null,callback);
+        App.loginOnceStateReady(null,callback);
         window["itriggered"] = false;
     });
     if (newwindow.focus)                                                            

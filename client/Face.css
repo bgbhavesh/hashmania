@@ -1892,6 +1892,11 @@ h6 {}
 #showallcomments{
 	background: rgb(37, 36, 77);
 }
+#errorMessage
+{
+	font-size: 0.8em;
+	text-align: center;
+}
 /*
 .triangle-right:after {
     content: "";

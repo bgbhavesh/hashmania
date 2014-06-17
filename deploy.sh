@@ -4,6 +4,7 @@ git pull -u origin master
 
 rm bundle.tar.gz
 
+rm -r ../appold
 mkdir ../appold
 meteor bundle bundle.tar.gz
 mv bundle.tar.gz ../appold/bundle.tar.gz

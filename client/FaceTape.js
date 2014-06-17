@@ -6342,7 +6342,9 @@ function autoSize(){
         $("body").css({"height":windowHeight,"width":windowWidth});
         // return;
         var adjustedWidth = 0;
-            adjustedWidth = (windowHeight / 4 ) * 2 ;
+            adjustedWidth = (windowHeight / 3 ) *2;
+        if(adjustedWidth*2 > windowHeight)
+            adjustedWidth = windowWidth/2
         if(windowWidth > windowHeight){
             Session.set("orientation","landscape");
             // adjustLeft = (adjustedWidth/2);

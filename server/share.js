@@ -184,8 +184,13 @@ function postOnFacebook(clientid,message){
 App.postOnFacebook = postOnFacebook;
 
 function getFacebookFace(id){
-    var result = Meteor.http.get("http://graph.facebook.com/"+ +id +"/?fields=picture&type=large");
+    //https://graph.facebook.com/redbull
+    var result = Meteor.http.get("https://graph.facebook.com/"+ +id +"/picture?type=normal&redirect=false");
         // var result = Meteor.http.get("http://www.facebook.com/profile.php?id=100000002030165");
-        console.log(result.data.picture.data.url)
-        return result.data.picture.data.url;
+        return result.data.data.url;
+        // console.log(result.data);
+        // console.log(result.data.picture.data.url)
+        // return result.data.picture.data.url;
 }
+
+App.getFacebookFace = getFacebookFace;

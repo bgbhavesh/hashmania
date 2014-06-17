@@ -1675,9 +1675,8 @@ Meteor.documentReady = documentReady;
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
             var findHight=$(currentBigHtml).height();
-            $(currentBigHtml).find(".inner").css({"background":"linear-gradient(to top,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) "+findHight/4+"px,rgba(95,196,134,0.4) "+findHight/4+"px,rgba(95,196,134,0.4) "+findHight/2+"px,rgba(254,199,57,0.4) "+findHight/2+"px,rgba(254,199,57,0.4) "+findHight/4*3+"px,rgba(253,48,71,0.4) "+findHight/4*3+"px,rgba(253,48,71,0.4) "+findHight+"px)"});
-            $(currentBigHtml).find("#hprogressBar div").css({"background":"linear-gradient(to right,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) "+findHight/4+"px,rgba(95,196,134,0.4) "+findHight/4+"px,rgba(95,196,134,0.4) "+findHight/2+"px,rgba(254,199,57,0.4) "+findHight/2+"px,rgba(254,199,57,0.4) "+findHight/4*3+"px,rgba(253,48,71,0.4) "+findHight/4*3+"px,rgba(253,48,71,0.4) "+findHight+"px)"});
-            
+            $(currentBigHtml).find(".inner").css({"background":"linear-gradient(to top,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight+"px)"});
+            $(currentBigHtml).find("#hprogressBar div").css({"background":"linear-gradient(to right,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight+"px)"});            
     }
 // ///////////////////////survey ends
 

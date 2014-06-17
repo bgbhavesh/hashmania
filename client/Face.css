@@ -143,7 +143,7 @@ body{
 	position: fixed;
 	width: 12%;
 	z-index: 1;
-	top:10%;
+	top:17%;
 	left: 1.5%;
 	margin: 0.5%;
 }
@@ -1933,7 +1933,7 @@ h6 {}
 }*/
 #NweImageAdded {
 	
-	bottom: 1%;
+	/*bottom: 1%;*/
 	left: 70%;
 	position: absolute;
 
@@ -1961,7 +1961,7 @@ h6 {}
 }
 #totalimages {
 	position: fixed;
-	bottom: 1%;
+	/*bottom: 1%;*/
 	left: 89%;	
 
 	background-color: rgba(50,50,100,0.7);
@@ -1974,7 +1974,7 @@ h6 {}
 }
 #toComeimages {
 	position: fixed;
-	bottom: 1%;
+	/*bottom: 1%;*/
 	left: 2%;
 
 	background-color: rgba(50,50,100,0.7);
@@ -1992,6 +1992,7 @@ h6 {}
 	width: auto;
 	background: linear-gradient(to bottom,  rgba(30,87,153,0.5) 0%,rgba(41,137,216,0.5) 50%,rgba(32,124,202,0.5) 50%,rgba(125,185,232,0.5) 100%); 
 	box-shadow: 1px 1px 5px black;
+	top: 95.5%;
 }
 
 .tapToShow :active{

@@ -6398,7 +6398,7 @@ function bindEvents(){
         //     selectlang(currlang);
         // }               
         // checkFormAndTimer("first");
-        $("#surveybig").on("scroll",checkscroll);
+        $("#surveybig").on("scrollstop",checkscroll);
         window.localStorage.setItem("redirect",window.location);
         $("#Main").hammer().on("swiperight",swipeRight);
         $("#Main").hammer().on("swipeleft",swipeLeft);  

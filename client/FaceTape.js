@@ -6334,12 +6334,12 @@ function checkdevice(){
 var autoSizeTimeOut = null;
 var adjustLeft = 0;
 function autoSize(){
-        // return
+        //return
         // inconsistent right now
         console.log("autoSize");
-        var windowHeight = $(window).height();
-        var windowWidth = $(window).width();
-        $("body").css({"height":windowHeight,"width":windowWidth});
+        var windowHeight = $("#bodyWrapper").height();//$(window).height();
+        var windowWidth = $("#bodyWrapper").width();//$(window).width();
+        $("#bodyWrapper").css({"height":windowHeight,"width":windowWidth});
         // return;
         var adjustedWidth = 0;
             adjustedWidth = (windowHeight / 3 ) *2;
@@ -6378,8 +6378,8 @@ function autoSize(){
         fitTextFunction();
         // if(Template.Section2)
         // Template.Section2.rendered();
-        if(Template.Section3)
-        Template.Section3.rendered();
+        // if(Template.Section3)
+        // Template.Section3.rendered();
         if(autoSizeTimeOut){
             return;
         }
@@ -6400,7 +6400,7 @@ function bindEvents(){
         //     selectlang(currlang);
         // }               
         // checkFormAndTimer("first");
-        $("#surveybig").on("scrollstop",checkscroll);
+        //$("#surveybig").on("scrollstop",checkscroll);
         window.localStorage.setItem("redirect",window.location);
         $("#Main").hammer().on("swiperight",swipeRight);
         $("#Main").hammer().on("swipeleft",swipeLeft);  
@@ -7047,11 +7047,14 @@ function getEmailButton(){
 function checkOptimized(){
     var imageQuality = Session.get("imageQuality");
     if(imageQuality == "low"){
-        document.getElementById('lowReso').className = 'blue ui button';
+        $("#lowReso").addClass("blue ui button");
+        // document.getElementById('lowReso').className = 'blue ui button';
     }else if(imageQuality == "standard"){
-        document.getElementById('MediumReso').className = 'blue ui button';
+        $("#MediumReso").addClass("blue ui button");
+        // document.getElementById('MediumReso').className = 'blue ui button';
     }else if(imageQuality == "thumb"){
-        document.getElementById('HighReso').className = 'blue ui button';
+        $("#HighReso").addClass("blue ui button");
+        // document.getElementById('HighReso').className = 'blue ui button';
     }else{
 
     }

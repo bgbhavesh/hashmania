@@ -30,7 +30,7 @@
 <div id="bodyWrapper">
 		{{> bodystatic}}
 		{{> main}}
-		{{> keyword}}
+		
  </div>
 <iframe id="hashFaqForm" src="https://docs.google.com/forms/d/1oIoqFrz1F55Nc4i_v4IgSxmWbf9wLPTQGJrC3DyA-L8/viewform">
 </iframe>
@@ -57,6 +57,7 @@
 <template name="main"> 
   <div id="Main">
 	{{> BeforeLogin}}
+	{{> keyword}}
   </div>
   <div id="displayScore">
   	
@@ -435,9 +436,9 @@
 	<div id="surveybig" class="ui labeled vertical fluid  icon menu" style="">
   		
   	</div>
-  	<div class="leaderSection">
+<!--   	<div class="leaderSection">
 			{{> leadersboard}}
-	</div>
+	</div> -->
 	<div id="NweImageAdded" class="tapToShow">NEW</div>
 	<div id="loadMoreImg" class="tapToShow  loadmore">OLD</div>
 	<div id="totalimages" class="tapToShow"><i class="level up icon"></i></div>

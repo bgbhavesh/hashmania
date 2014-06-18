@@ -1638,15 +1638,15 @@ h6 {}
 	position: relative;
 	float: left;
 	/*height: 90%;*/
-	width: 40px;	
+	width: 40px;
+	height: 40px;	
 	margin: 0.5%;
 	color: white;
 	z-index: 4;
 }
 .leadersface img{
-	height: 90%;
+	height: 100%;
 	width: 100%;
-	margin: 10%;
 	box-shadow: 1px -2px 4px black;
 }
 .hashFeed

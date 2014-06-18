@@ -10,6 +10,12 @@ en = {
 	"faq5"	:"Did you know the hashrepublic elects a president each sunday? That's right the citizen with the most points across all tags on sunday at midnight EST is elected President!",
 	"faq6"	: "Did you know that 'tagging' images on instagram raises your rank in a hashstate? Just type the #hashtag into a comment and our app will find it. And of course you get points for tagging and even more when people vote it up in the hashstate.",
 	"faq7"	:"Tell users when they download that instrcutions come in the form of push notifications. But also have a section in the meny where you can scroll through these tip of the day type messages.",
+	
+	"hashrepublicBefore24"	: "Hashrepublic heat results are ending in 24 hrs!",
+	"hashrepublicAfter24"	: "Tapmate heat results are in!  ending 3pm GMT",
+	"appName"	: "Hashrepublic",
+	"appEmail"	: "Tapmate <tapmate@youiest.com>",
+
 	"checkForRank" : function (){
 	    var currentKeywordArray = [];
 	    var winnerLooser = []

@@ -82,7 +82,7 @@ Package.reload.Reload._reload = function () {                                   
 //     // $("body").css({"overflow-y": "scroll"});
 //     Session.set("profile",clientid);
 // }
-var emailAuthFlag = false;
+App.emailAuthFlag = false;
 Router.map(function () {
     
     this.route('home', {
@@ -95,7 +95,7 @@ Router.map(function () {
         template: 'body',
         data : function (){
             var emailtoken = this.params.emailtoken;
-            emailAuthFlag = emailtoken;
+            App.emailAuthFlag = emailtoken;
             window.localStorage.setItem("clientid","");
         }
 
@@ -463,8 +463,8 @@ Template.bodystatic.rendered = function(){
 }
 
 Template.loginWithInstagram.rendered = function(){
-    $("#loginButton,#loginwithInsta").hammer().off("tap",clickOnLoginButton);
-    $("#loginButton,#loginwithInsta").hammer().on("tap",clickOnLoginButton);
+    $("#loginButton,#loginwithInsta").hammer().off("tap",Login.clickOnLoginButton);
+    $("#loginButton,#loginwithInsta").hammer().on("tap",Login.clickOnLoginButton);
 
     // $("#loginWithAppButton").hammer().off("tap",onLoginWithApp);
     // $("#loginWithAppButton").hammer().on("tap",onLoginWithApp);
@@ -481,7 +481,7 @@ Template.loginWithInstagram.rendered = function(){
     $("#seLoginLogin").hammer().off("tap",Login.onLoginWithHashRepublic);
     $("#seLoginLogin").hammer().on("tap",Login.onLoginWithHashRepublic);
 
-    if(emailAuthFlag){
+    if(App.emailAuthFlag){
         $(".emailClass").hide();
         $(".passwordClass").show();
 
@@ -526,6 +526,7 @@ function preLoginAction(){
     }
     // console.log(previousid);
 }
+App.preLoginAction = preLoginAction;
 function postLoginAction(){
     // console.log(previousid);
     checkForPush();
@@ -544,6 +545,7 @@ function commonClose(err,data){
                     alert("something's not right")
                 }
             }
+App.commonClose = commonClose;
 function welcomeAlertPopup(){
     var welcomeflag = get("welcomeAlert");
     console.log(welcomeflag);
@@ -552,7 +554,7 @@ function welcomeAlertPopup(){
         $("#welcomePopUpBackground").show();
     }
 }
-
+App.welcomeAlertPopup = welcomeAlertPopup;
 function convertEmail(email){
 
     email = email.toLowerCase();
@@ -569,6 +571,7 @@ function showLoginErrorMessage(message){
     $("#errorMessage").html(message);
     $("#seError").css("display","block");
 }
+App.showLoginErrorMessage = showLoginErrorMessage;
 function loginWithTapmateCallbackFunction(err){
     if(err){
         // console.log(err);
@@ -581,6 +584,7 @@ function loginWithTapmateCallbackFunction(err){
         autoLogin();
     }
 }
+App.loginWithTapmateCallbackFunction = loginWithTapmateCallbackFunction;
 function getRankLeader(clientid){
     for(var i=0,il=leaderRanking.length;i<il;i++){
         if(leaderRanking[i] == clientid)
@@ -1055,9 +1059,8 @@ Meteor.documentReady = documentReady;
         
         // $(".tapToShow").style.display = 'none';
         // $("#surveybig").hammer().off("touch",$('.tapToShow').hide());
-        // $("#surveybig").hammer().on("touch",checkscroll);
+        // $("#surzveybig").hammer().on("touch",checkscroll);
         
-
         // console.log(topTenLeaderRanking)
         // console.log(Session.get("clientid"));
         for(var i=0,il=data.length;i<il;i++){
@@ -1675,7 +1678,9 @@ Meteor.documentReady = documentReady;
             $(currentBigHtml).find("#inner-inner")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
-            $(currentBigHtml).find(".inner").css({"background":"linear-gradient(to top,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) 99px,rgba(95,196,134,0.4) 101px,rgba(95,196,134,0.4) 199px,rgba(254,199,57,0.4) 201px,rgba(254,199,57,0.4) 299px,rgba(253,48,71,0.4) 301px,rgba(253,48,71,0.4) 400px)"})
+            var findHight=$(currentBigHtml).height();
+            $(currentBigHtml).find(".inner").css({"background":"linear-gradient(to top,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight+"px)"});
+            $(currentBigHtml).find("#hprogressBar div").css({"background":"linear-gradient(to right,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight+"px)"});            
     }
 // ///////////////////////survey ends
 
@@ -5764,7 +5769,7 @@ function validateEmail(email){
     return true;
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
-
+App.validateEmail = validateEmail;
 function hideLoader(){
     var starttimer = new Date().getTime();
     console.log("hideLoader")
@@ -6000,7 +6005,7 @@ function loginWithInstagramHashManiaCallbackFunction(err){
 
     }
     else{
-        Meteor.call("mergedMyFace",emailAuthFlag,Session.get("clientid"),function(){
+        Meteor.call("mergedMyFace",App.emailAuthFlag,Session.get("clientid"),function(){
             $(".hideAfterComplete").html("Now");
             console.log("here too")
         })
@@ -6015,12 +6020,12 @@ function loginWithFacebook(){
     if(Session.get("phonegap")){
         display = "touch";
     }
-    if(!emailAuthFlag)
-        emailAuthFlag = Session.get("clientid");
+    if(!App.emailAuthFlag)
+        App.emailAuthFlag = Session.get("clientid");
     var loginUrl =                                                                       
         'https://www.facebook.com/dialog/oauth?client_id=' +Meteor.settings.public.fbid  +            
         '&redirect_uri=' + Meteor.settings.public.fbredirect +               
-        '&display=' + display + '&scope=' + "email,publish_actions" + '&state=' + emailAuthFlag;
+        '&display=' + display + '&scope=' + "email,publish_actions" + '&state=' + App.emailAuthFlag;
     var fbloginpage = window.open(loginUrl,"_blank");
     fbloginpage.addEventListener('loadstop', function(event) {   
         if(event.url.indexOf(Meteor.settings.public.fbredirect) == 0){
@@ -6049,7 +6054,7 @@ function loginWithGoogle(){
 function loginWithGoogleCallbackFunction(err){
     console.log("loginWithGoogleCallbackFunction");
     console.log(err);
-    Meteor.call("mergedMyGoogleFace",emailAuthFlag,function(){
+    Meteor.call("mergedMyGoogleFace",App.emailAuthFlag,function(){
             $(".hideAfterComplete").html("Now");
         })
 }
@@ -6182,6 +6187,7 @@ function loginOnceStateReady(state,callback){
     }
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
+App.loginOnceStateReady = loginOnceStateReady;
 jQuery.fn.shake = function() {
     this.each(function(i) {
         $(this).css({ "position" : "relative" });
@@ -6328,15 +6334,17 @@ function checkdevice(){
 var autoSizeTimeOut = null;
 var adjustLeft = 0;
 function autoSize(){
-        // return
+        //return
         // inconsistent right now
         console.log("autoSize");
-        var windowHeight = $(window).height();
-        var windowWidth = $(window).width();
-        $("body").css({"height":windowHeight,"width":windowWidth});
+        var windowHeight = $("#bodyWrapper").height();//$(window).height();
+        var windowWidth = $("#bodyWrapper").width();//$(window).width();
+        $("#bodyWrapper").css({"height":windowHeight,"width":windowWidth});
         // return;
         var adjustedWidth = 0;
-            adjustedWidth = (windowHeight / 4 ) * 2 ;
+            adjustedWidth = (windowHeight / 3 ) *2;
+        if(adjustedWidth*2 > windowHeight)
+            adjustedWidth = windowWidth/2
         if(windowWidth > windowHeight){
             Session.set("orientation","landscape");
             // adjustLeft = (adjustedWidth/2);
@@ -6370,8 +6378,8 @@ function autoSize(){
         fitTextFunction();
         // if(Template.Section2)
         // Template.Section2.rendered();
-        if(Template.Section3)
-        Template.Section3.rendered();
+        // if(Template.Section3)
+        // Template.Section3.rendered();
         if(autoSizeTimeOut){
             return;
         }
@@ -6392,7 +6400,7 @@ function bindEvents(){
         //     selectlang(currlang);
         // }               
         // checkFormAndTimer("first");
-        $("#surveybig").on("scroll",checkscroll);
+        //$("#surveybig").on("scrollstop",checkscroll);
         window.localStorage.setItem("redirect",window.location);
         $("#Main").hammer().on("swiperight",swipeRight);
         $("#Main").hammer().on("swipeleft",swipeLeft);  
@@ -6577,7 +6585,11 @@ function bindEvents(){
                     Login.onLoginWithTapmate();
                 }
             });
-            
+
+            // Every 10 mins get Do you know
+            // setInterval(function(){
+
+            // },600000);
             // $("#surveybig").on("scrollstop",onSurveyScroll)
         //  HASH MANIA  checkscroll
         // $("#surveybig").on("scrollstop",checkscroll)
@@ -6777,7 +6789,7 @@ function OnClickPushImage(event){
 function onClicklogininstagram(){
   window.localStorage.setItem("guestid",Session.get("clientid"));
   $("#guestLogin").css("display","none");
-  clickOnLoginButton();
+  Login.clickOnLoginButton();
 }
 function onClickgoinstaplaystore(){
     var starttimer = new Date().getTime();
@@ -7035,11 +7047,14 @@ function getEmailButton(){
 function checkOptimized(){
     var imageQuality = Session.get("imageQuality");
     if(imageQuality == "low"){
-        document.getElementById('lowReso').className = 'blue ui button';
+        $("#lowReso").addClass("blue ui button");
+        // document.getElementById('lowReso').className = 'blue ui button';
     }else if(imageQuality == "standard"){
-        document.getElementById('MediumReso').className = 'blue ui button';
+        $("#MediumReso").addClass("blue ui button");
+        // document.getElementById('MediumReso').className = 'blue ui button';
     }else if(imageQuality == "thumb"){
-        document.getElementById('HighReso').className = 'blue ui button';
+        $("#HighReso").addClass("blue ui button");
+        // document.getElementById('HighReso').className = 'blue ui button';
     }else{
 
     }
@@ -7973,10 +7988,10 @@ function showLoginPopup(){
    }else{
       
    }
-  }
-  
+  }  
     
 }
+App.showLoginPopup = showLoginPopup;
 // function(){
 //     console.log()
 //     if($("#section2").css("left") == "0px")
@@ -8272,25 +8287,7 @@ function bindTouchEvents(){
     // touchScroll("section3");
 }
 
-function clickOnLoginButton(){
-    var starttimer = new Date().getTime();
-    try{
-        $("#loginwithInsta,#loginButton").hide();
-        setTimeout(function(){$("#loginwithInsta,#loginButton").show();},3000);
-        showLoader("Login Process");
-            preLoginAction();            
-            Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramHashManiaCallbackFunction);
-              
-            Me.update({"_id":ClientId},{$inc : {"timesLoggedin" : 1}});
-            firstTimeLoginFlag = true;
-            //openCloseSnapLeft();
-    }                
-    catch(error){
-        console.log(error);
-        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "loginButton.click"});
-    }  
-        MethodTimer.insert({"clientid":Session.get("clientid"),"name":"clickOnLoginButton","time":((new Date().getTime())-starttimer)});         
-}
+
 function divOldNew(data){
     newRenderResults = [];
     moreRenderResults = [];

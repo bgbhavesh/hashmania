@@ -813,6 +813,7 @@ function setRankPercentileOnStart(){
     count = UserHashMania.find({}).count();
     UserHashMania.find({},{sort : {"heatScore":-1},limit:4}).forEach(function(data){
         percentile = ((count-rank)/count)*100;
+        percentile = Math.floor(percentile);
         UserHashMania.update({"_id":data._id},{$set :{"rank":rank+1,"percentile":percentile}});
         rank++;
     });

@@ -7901,7 +7901,7 @@ function closeSurvey(){
     notify("Hold image to share it.","information");
     // $(".leadersface").css({"display":"block"});
     $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
-    $(".leaderSection").transition({"top":"17%"});
+    $(".leaderSection").transition({"top":"15%"});
     $(".hashKeyword").css({"display":"block"});
     $('#updownarrow').addClass('huge sort descending icon');
     $('#updownarrow').css({"top": "43%"});

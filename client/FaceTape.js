@@ -1675,7 +1675,7 @@ Meteor.documentReady = documentReady;
             $(currentBigHtml).find("#inner-inner")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
-            
+            $(currentBigHtml).find(".inner").css({"background":"linear-gradient(to top,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) 99px,rgba(95,196,134,0.4) 101px,rgba(95,196,134,0.4) 199px,rgba(254,199,57,0.4) 201px,rgba(254,199,57,0.4) 299px,rgba(253,48,71,0.4) 301px,rgba(253,48,71,0.4) 400px)"})
     }
 // ///////////////////////survey ends
 

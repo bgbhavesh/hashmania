@@ -5757,6 +5757,8 @@ function showLoader(message){
       //loaderErrorTimeoutId = setTimeout(function(){$("#loaderError").show();},30000);
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
 }
+App.showLoader = showLoader;
+
 function validateEmail(email){
     var starttimer = new Date().getTime();
     var x=email;
@@ -6011,7 +6013,8 @@ function loginWithInstagramHashManiaCallbackFunction(err){
             console.log("here too")
         })
     }
-}                                                 
+}           
+App.loginWithInstagramHashManiaCallbackFunction = loginWithInstagramHashManiaCallbackFunction;                                      
 var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent); 
 var display = mobile ? 'touch' : 'popup';   
 function loginWithFacebook(){

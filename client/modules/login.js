@@ -190,10 +190,10 @@ Login.clickOnLoginButton = function (){
         setTimeout(function(){$("#loginwithInsta,#loginButton").show();},3000);
         App.showLoader("Login Process");
             App.preLoginAction();            
-            Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramHashManiaCallbackFunction);
+            Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},App.loginWithInstagramHashManiaCallbackFunction);
               
-            Me.update({"_id":ClientId},{$inc : {"timesLoggedin" : 1}});
-            firstTimeLoginFlag = true;
+            
+            // firstTimeLoginFlag = true;
             //openCloseSnapLeft();
     }                
     catch(error){

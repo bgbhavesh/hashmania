@@ -1190,14 +1190,15 @@ Meteor.documentReady = documentReady;
     }
     function surveyNewer () {
         newImageLogic();
+         $('.leaderSection').animate({scrollTop: 0}, 10);
     } 
     function surveyUp() {
       console.log("up");
-        $('#surveybig').animate({scrollTop: 0 }, 10);
+        $('.leaderSection').animate({scrollTop: 0}, 10);
     }
     function surveyDown() {
       console.log("down");
-        $('#surveybig').animate({scrollTop: 17000 }, 10);
+        $('.leaderSection').animate({scrollTop: 17000 }, 10);
     }
     function newImageLogic() {
         console.log("newImageLogic");
@@ -1205,7 +1206,7 @@ Meteor.documentReady = documentReady;
         Meteor.call("getNewData",Session.get("keyword"),CLIENTID,function(err,data){
             renderResults(data,true,true);
             $("#NweImageAdded").show();    
-                console.log(data.length)
+                
                 totalData=totalData+data.length;
         });
     }
@@ -1682,7 +1683,8 @@ Meteor.documentReady = documentReady;
             .transition({"opacity":"1.0"},100,"linear")
             var findHight=$(currentBigHtml).height();
             $(currentBigHtml).find(".inner").css({"background":"linear-gradient(to top,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight+"px)"});
-            $(currentBigHtml).find("#hprogressBar div").css({"background":"linear-gradient(to right,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight+"px)"});            
+            var findWidth=$(currentBigHtml).width();
+            $(currentBigHtml).find("#hprogressBar div").css({"background":"linear-gradient(to right,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) "+findWidth*2/9+"px,rgba(95,196,134,0.4) "+findWidth*2/9+"px,rgba(95,196,134,0.4) "+findWidth*4/9+"px,rgba(254,199,57,0.4) "+findWidth*4/9+"px,rgba(254,199,57,0.4) "+findWidth*2/9*3+"px,rgba(253,48,71,0.4) "+findWidth*2/9*3+"px,rgba(253,48,71,0.4) "+findWidth+"px)"});            
     }
 // ///////////////////////survey ends
 
@@ -6345,6 +6347,7 @@ function autoSize(){
         var windowWidth = $("#bodyWrapper").width();//$(window).width();
 
         $("#bodyWrapper").css({"height":windowHeight,"width":windowWidth});
+        $("#toComeimages").css({"left":windowWidth*2/100});
         $("#totalimages").css({"left":windowWidth*89/100});
         $("#loadMoreImg").css({"left":windowWidth*15/100});
         $("#NweImageAdded").css({"left":windowWidth*70/100});
@@ -7900,6 +7903,7 @@ function openSurvey(){
     $('#updownarrow').css({"top": "0%"});
     $(".leaderSection").transition({"top":"94%"});
     $(".tapToShow").hide();
+    $(".leaderSection .leadersface").hide();
     // $(".leadersface").css({"display":"none"});
     
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
@@ -7919,6 +7923,7 @@ function closeSurvey(){
     $('#updownarrow').css({"top": "28%"});
     $(".leaderSection").show();
     $(".tapToShow").show();
+    $(".leaderSection .leadersface").show();
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});

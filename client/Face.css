@@ -1922,53 +1922,13 @@ h6 {}
 	/*width: 20%;*/
 	/*margin-left: 40%;*/
 }
-/*
-#MoreNewImage
- {
-	position: fixed;
-	bottom: 70%;
-	left: 1%;
-	z-index: 2;
-	display: none;
-	width: 30px;
-	height: 30px;
-	padding: 0%;
-	padding-left: 3%;
-	padding-right: 3%;
-	width: auto;
-	background-color: rgba(7, 86, 152,0.7);
-	border-radius: 10em;
-	background-size: 100%;
-	font-size: 20px;
-	
-}*/
 #NweImageAdded {
-	background-color: rgba(50,50,100,0.7);
-	border-radius: 8px;
-	/*background-size: 100%;*/
-	font-size: 20px;
-	z-index: 4;
 }
 #loadMoreImg{
-	background-color: rgba(50,50,100,0.7);
-	border-radius: 8px;
-	/*background-size: 100%;*/
-	font-size: 20px;
-	z-index: 4;
 }
 #totalimages {
-	background-color: rgba(50,50,100,0.7);
-	border-radius: 8px;
-	/*background-size: 100%;*/
-	font-size: 20px;
-	z-index: 4;
 }
 #toComeimages {
-	background-color: rgba(50,50,100,0.7);
-	border-radius: 8px;
-	/*background-size: 100%;*/
-	font-size: 20px;
-	z-index: 4;
 }
 .tapToShow{
 	padding: 0;
@@ -1981,8 +1941,11 @@ h6 {}
 	text-align: center;
 	color: white;
 	position: absolute;
-
+	font-size: 20px;
 	display: none;
+	background-color: rgba(50,50,100,0.7);
+	border-radius: 8px;
+	z-index: 4;
 }
 
 .tapToShow :active{
@@ -2425,12 +2388,12 @@ mark{
 }
 .three
 {
-	left: px;
+	left: 0px;
 	background-color: rgba(6,54,95,.35);
 	-webkit-box-shadow: -1px 0 0 rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
 	-moz-box-shadow: -1px 0 0 rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
 	box-shadow: 1px 1px 1px rgba(255,255,255,.15),inset 0 0 1px rgba(6,54,95,.4),inset 1px 0 1px rgba(6,54,95,.4);
-	width: 9%;
+	width: 10%;
 	height: 100%;
 	top: 0%;
 }

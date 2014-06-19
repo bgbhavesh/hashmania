@@ -1193,7 +1193,7 @@ Meteor.documentReady = documentReady;
     } 
     function surveyUp() {
       console.log("up");
-        $('#surveybig').animate({scrollTop: 0 }, 10);
+        $('#surveybig').animate({scrollTop: 0}, 10);
     }
     function surveyDown() {
       console.log("down");
@@ -6342,6 +6342,7 @@ function autoSize(){
         var windowWidth = $("#bodyWrapper").width();//$(window).width();
 
         $("#bodyWrapper").css({"height":windowHeight,"width":windowWidth});
+        $("#toComeimages").css({"left":windowWidth*2/100});
         $("#totalimages").css({"left":windowWidth*89/100});
         $("#loadMoreImg").css({"left":windowWidth*15/100});
         $("#NweImageAdded").css({"left":windowWidth*70/100});
@@ -7894,6 +7895,7 @@ function openSurvey(){
     $('#updownarrow').css({"top": "0%"});
     $(".leaderSection").transition({"top":"94%"});
     $(".tapToShow").hide();
+    $(".leaderSection .leadersface").hide();
     // $(".leadersface").css({"display":"none"});
     
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
@@ -7913,6 +7915,7 @@ function closeSurvey(){
     $('#updownarrow').css({"top": "28%"});
     $(".leaderSection").show();
     $(".tapToShow").show();
+    $(".leaderSection .leadersface").show();
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});

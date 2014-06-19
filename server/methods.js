@@ -63,7 +63,7 @@ language.toast = {
     "termsandcondition"       :"<b><a href='https://www.docracy.com/0e2d355wq30/youiest-tapmate-privacy-policy?highlightComment=-1&startOnComments=false' target='_blank'> Terms and Conditions</a></b><p>By using our website you agree to be legally bound by these <a href='https://www.docracy.com/0e2d355wq30/youiest-tapmate-privacy-policy?highlightComment=-1&startOnComments=false' target='_blank'> Terms and Conditions</a>, which shall take effect immediately on your first use of our website. If you do not agree to be legally bound by all the following terms please do not access and/or use our website.</p><p>We may change these terms at any time by posting changes online. Please review these terms regularly to ensure you are aware of any changes made by us. Your continued use of our website after changes are posted means you agree to be legally bound by these terms as updated and/or amended.</p>",
     "I aggree"                : "I agree", 
     "sendMail"                :" Send Mail ",
-    "loginwithInsta"    :"<i class='italic icon'></i> Log in with Instagram",
+    "loginwithInsta"    :"<i class='instagram icon'></i> Log in with Instagram",
     "loginwithfb"       :"<i class='facebook sign icon'> </i> Log in with Facebook",
     "loginwithgoog"     :"<i class='google plus sign icon'></i> Log in with Google",
     "videotutorial"     :"<i class='video icon'></i>Video tutorial",

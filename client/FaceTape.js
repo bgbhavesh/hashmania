@@ -7881,12 +7881,14 @@ function onclickopencloseSurvey(){
 }
 
 function openSurvey(){
+  console.log("openSurvey");
     $("#surveybighandle").css({"top":"89%","background": "transparent","opacity": "1.0"});
-    $("#surveybig").transition({"top":"92%"});
+    // $("#surveybig").transition({"top":"92%"});
     $(".hashKeyword").css({"display":"none"});
     $('#updownarrow').css({"top": "0%"});
-    $(".leaderSection").hide();
+    $(".leaderSection").transition({"top":"94%"});
     $(".tapToShow").hide();
+    // $(".leadersface").css({"display":"none"});
     
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
     //$("#updownarrow").animate("class","huge sort ascending icon");
@@ -7895,9 +7897,11 @@ function openSurvey(){
 
 }
 function closeSurvey(){
+  console.log("openSurvey");
     notify("Hold image to share it.","information");
+    // $(".leadersface").css({"display":"block"});
     $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
-    $("#surveybig").transition({"top":"15%"});
+    $(".leaderSection").transition({"top":"15%"});
     $(".hashKeyword").css({"display":"block"});
     $('#updownarrow').addClass('huge sort descending icon');
     $('#updownarrow').css({"top": "43%"});

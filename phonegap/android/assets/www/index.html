@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <head>
+   <title>tittle</title>
+  <script type="text/javascript"> 
+      // to get things faster
+      
+
+      window.location = './youtap.meteor.com/index.html';
+
+
+      // window.location = "./facebook/index.html";
+      // window.location.href = "http://192.168.2.17:3000/"
+  </script>
+  <script type="text/javascript" src="./cordova-2.9.0.js"></script>
+  <!--
+  <script type="text/javascript" src="/statusbarnotification.js"></script>
+  <script type="text/javascript" src="/phonegap-websocket.js"></script>
+  
+  -->
+  <script type="text/javascript" charset="utf-8" src="./video.js"></script>
+  <script>   
+		//window.location = 'file:///android_asset/www/indexTestingChildBrowser.html';
+		
+    	// window.location = './localhost/index.html';	
+		//window.location = 'file:///android_asset/www/test/index.html';	
+		
+    // window.location = 'file:///android_asset/www/youtap.meteor.com/index.html';
+		
+    //window.location = 'file:///android_asset/www/localhost/index.html';
+    	//window.location = 'file:///android_asset/www/pushnotification/index.html';
+		//window.location = 'file:///android_asset/www/notify.meteor.com/index.html';		
+   		//window.location = 'http://instagrampackage.meteor.com';
+	   	//window.open("http://174.129.12.79:3000/", 'Login');
+	   	//window.location = 'http://youtap.meteor.com/';
+      // http://cdnbakmi.kaltura.com/p/346/sp/34600/serveFlavor/entryId/0_337gfbwa/v/1/flavorId/0_xrjjibkj/name/a.mp4
+   </script>
+  <body>
+    <video width="300" height="300" controls>
+        <source src="http://cdnbakmi.kaltura.com/p/346/sp/34600/serveFlavor/entryId/0_337gfbwa/v/1/flavorId/0_xrjjibkj/name/a.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+  <a href="http://instagrampackage.meteor.com">http://instagrampackage.meteor.com </a> <br>
+  <a href="http://youtap.meteor.com">http://instagrampackage.meteor.com </a> <br>
+  <a href="http://174.129.12.79:3000/">http://174.129.12.79:3000/ </a> <br>  
+  <input type="text" id="domain" value="malto:youiest@tapmate.com"/> <br>
+  <input type="button" id="button" onclick="onShareClick()"/>  
+  <input type="button" id="button" value="share" onclick="onShareClick()"/>  
+  <script>
+  var input = document.getElementById('domain')
+  	function onButtonClick(){
+      window.plugins.socialsharing.shareViaFacebook('Message via Facebook', null, null, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
+  		window.open("malto:youiest@tapmate.com");
+      // window.location = input.value;
+  	}
+    function onShareClick(){
+        alert("he called me");
+        
+        // window.plugins.socialsharing.shareViaFacebook('Message via Facebook', null, null, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
+    }
+    function onDeviceReady(){
+        // window.open("https://www.youtube.com/watch?v=Z24Uw2OHx6o", '_system');
+        // https://www.youtube.com/watch?v=Z24Uw2OHx6o
+        // alert(window.plugins.videoPlayer);
+        window.plugins.videoPlayer.play("file:///android_asset/www/vide/video.mp4")
+        window.plugins.videoPlayer.play("https://www.youtube.com/watch?v=Z24Uw2OHx6o");
+        // window.plugins.socialsharing.shareViaFacebook('Message via Facebook', null, null, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
+        // cordova.exec (null, null, "ExampleJSCommunicator", "buttonClicked", [which.id]);  // my first action
+    }
+    document.addEventListener('deviceready', onDeviceReady, false);
+    // window.globalfunction = globalfunction;
+    //alert(window.location.href);
+    function onNotificationAPN (event) {
+    if ( event.alert )
+    {
+        navigator.notification.alert(event.alert);
+    }
+
+    if ( event.sound )
+    {
+        var snd = new Media(event.sound);
+        snd.play();
+    }
+
+    if ( event.badge )
+    {
+        pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, event.badge);
+    }
+}
+// if ( device.platform == 'android' || device.platform == 'Android' )
+// {
+//     pushNotification.register(
+//         successHandler,
+//         errorHandler, {
+//             "senderID":"replace_with_sender_id",
+//             "ecb":"onNotificationGCM"
+//         });
+// }
+// else
+// {
+//     pushNotification.register(
+//         tokenHandler,
+//         errorHandler, {
+//             "badge":"true",
+//             "sound":"true",
+//             "alert":"true",
+//             "ecb":"onNotificationAPN"
+//         });
+// }
+// result contains any message sent from the plugin call
+function successHandler (result) {
+    alert('result = ' + result);
+}
+
+// result contains any error description text returned from the plugin call
+function errorHandler (error) {
+    alert('error = ' + error);
+}
+
+function tokenHandler (result) {
+    // Your iOS push server needs to know the token before it can push to this device
+    // here is where you might want to send it the token for later use.
+    alert('device token = ' + result);
+}
+// Android
+function onNotificationGCM(e) {
+    $("#app-status-ul").append('<li>EVENT -> RECEIVED:' + e.event + '</li>');
+
+    switch( e.event )
+    {
+    case 'registered':
+        if ( e.regid.length > 0 )
+        {
+            $("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
+            // Your GCM push server needs to know the regID before it can push to this device
+            // here is where you might want to send it the regID for later use.
+            console.log("regID = " + e.regid);
+        }
+    break;
+
+    case 'message':
+        // if this flag is set, this notification happened while we were in the foreground.
+        // you might want to play a sound to get the user's attention, throw up a dialog, etc.
+        if ( e.foreground )
+        {
+            alert("if e.foreground ")
+        }
+        else
+        {  // otherwise we were launched because the user touched a notification in the notification tray.
+            if ( e.coldstart )
+            {
+                alert("if coldstart")
+            }
+            else
+            {
+                alert("else coldstart")
+            }
+        }
+        alert('MESSAGE -> MSG: ' + e.payload.message)
+        alert('MESSAGE -> MSGCNT: ' + e.payload.msgcnt)
+        $("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
+        $("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
+    break;
+
+    case 'error':
+        $("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
+    break;
+
+    default:
+      alert('Unknown, an event was received and we do not know what it is')
+        $("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
+    break;
+  }
+}
+  </script>
+  </body> 
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>PhoneGap</title>
+  <script type="text/javascript" charset="utf-8" src="cordova-2.5.0.js"></script>
+  <!--<script type="text/javascript" charset="utf-8" src="cordova-2.3.0.js"></script>-->
+  <script type="text/javascript" charset="utf-8" src="childbrowser.js"></script>
+  <script type="text/javascript" charset="utf-8" src="statusbarnotification.js"></script> 
+  <script type="text/javascript" charset="utf-8" src="PushNotification.js"></script>
+  <script type="text/javascript" charset="utf-8" src="pushHelper.js"></script>   
+ </head>
+ <body>
+    <h1 onclick="myFunction()">Hello PhoneGap</h1>
+    <h1 onclick="myRegister()">Register Push</h1>
+    <h1 onclick="myGet()">Get Push</h1>
+ </body>
+ <script> 	
+ 	function myFunction(){
+ 		console.log("click"); 	
+ 		//window.open("http://www.google.com");
+ 		//window.plugins.childBrowser.showWebPage("http://www.google.com");
+ 		window.plugins.statusBarNotification.notify("Put your title here", "Put your message here");		
+ 	} 
+ 	function myRegister(){
+ 		console.log(pushNotification); 	
+ 		pushNotification.register(function(result){alert(result)}, function(result){alert(result);}, {"senderID":"422665837619", "ecb":"appPush.onNotificationGCM"});
+	}
+ 	function myGet(){
+ 		
+ 	} 
+	
+	function onResume(){
+	    foreground = true;
+	}
+	var pushNotification = window.plugins.pushNotification;
+ </script>
+</html>

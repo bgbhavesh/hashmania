@@ -6780,6 +6780,9 @@ function pushNotifiPopup(pushpic,pushmsg,pushlkid,pushKeyword){
     if(pushKeyword){
         Session.set("keyword",pushKeyword)
     }
+    if(pushmsg){
+      notify(pushmsg);
+    }
     // Old code
     // if(pushpic && pushmsg && pushlkid){
     //     // $("#pushnotificationimages").attr("src",pushpic);

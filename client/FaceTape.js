@@ -1190,14 +1190,15 @@ Meteor.documentReady = documentReady;
     }
     function surveyNewer () {
         newImageLogic();
+         $('.leaderSection').animate({scrollTop: 0}, 10);
     } 
     function surveyUp() {
       console.log("up");
-        $('#surveybig').animate({scrollTop: 0}, 10);
+        $('.leaderSection').animate({scrollTop: 0}, 10);
     }
     function surveyDown() {
       console.log("down");
-        $('#surveybig').animate({scrollTop: 17000 }, 10);
+        $('.leaderSection').animate({scrollTop: 17000 }, 10);
     }
     function newImageLogic() {
         console.log("newImageLogic");

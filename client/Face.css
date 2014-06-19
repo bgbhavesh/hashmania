@@ -196,8 +196,10 @@ body{
 #displayScore{
 	display: none;
 	position: absolute;
-	height: 6%;
+	/*height: 6%;
 	width: 10%;
+	*/
+	padding: 5px;
 	float: left;
 	top: 50%;
 	z-index: 20;

@@ -1192,9 +1192,11 @@ Meteor.documentReady = documentReady;
         newImageLogic();
     } 
     function surveyUp() {
+      console.log("up");
         $('#surveybig').animate({scrollTop: 0 }, 10);
     }
     function surveyDown() {
+      console.log("down");
         $('#surveybig').animate({scrollTop: 17000 }, 10);
     }
     function newImageLogic() {
@@ -1203,7 +1205,7 @@ Meteor.documentReady = documentReady;
         Meteor.call("getNewData",Session.get("keyword"),CLIENTID,function(err,data){
             renderResults(data,true,true);
             $("#NweImageAdded").show();    
-                // console.log(data.length)
+                console.log(data.length)
                 totalData=totalData+data.length;
         });
     }
@@ -2699,8 +2701,7 @@ function restoreIndividual(name){
                             followCollection = EJSON.parse(followCollection);
                             window[name]._collection.insert(followCollection);
                         } 
-                    }
-                    
+                    }                    
                 }
                 if(name == "Feed"){
                     checkOldData(oldCollectionArray)
@@ -6342,7 +6343,12 @@ function autoSize(){
         console.log("autoSize");
         var windowHeight = $("#bodyWrapper").height();//$(window).height();
         var windowWidth = $("#bodyWrapper").width();//$(window).width();
+
         $("#bodyWrapper").css({"height":windowHeight,"width":windowWidth});
+        $("#totalimages").css({"left":windowWidth*89/100});
+        $("#loadMoreImg").css({"left":windowWidth*15/100});
+        $("#NweImageAdded").css({"left":windowWidth*70/100});
+console.log("l;ll;l;l;l;l;ll;ll")
         // return;
         var adjustedWidth = 0;
             adjustedWidth = (windowHeight / 3 ) *2;
@@ -7907,7 +7913,7 @@ function closeSurvey(){
     $(".leaderSection").transition({"top":"15%"});
     $(".hashKeyword").css({"display":"block"});
     $('#updownarrow').addClass('huge sort descending icon');
-    $('#updownarrow').css({"top": "43%"});
+    $('#updownarrow').css({"top": "28%"});
     $(".leaderSection").show();
     $(".tapToShow").show();
     document.getElementById('updownarrow').className = ' huge sort descending icon';

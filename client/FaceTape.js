@@ -1042,7 +1042,7 @@ Meteor.documentReady = documentReady;
         var currentData = null;
         var showFlag = false;
         var upp=null;
-
+        
         // $(".tapToShow").remove();
         // upp ='<div id="back-top" class="tapToShow">new</div>'                  // New Images
         // var element = $("#surveybig").append(upp);
@@ -1091,11 +1091,11 @@ Meteor.documentReady = documentReady;
                 newElement +='<div class="quadrant" id="' +currentData.keyword.likeid +'">'
                 +'<div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>'
                 +'<div id="inerhprogressBar">'
-                +'<i class="big bullhorn icon" style="margin-left: 0px"></i></div>'
+                +'<i class="big bullhorn icon" style="margin-left: 0px"></i><mark>Promote</mark></div>'
                 +'<div id="outer" class="ui warning progress">'
                 +'<div class="inner"  id="verticalprogress"></div> <hr style="height:100%;width:2px;margin-bottom:-8px;padding:0px;">'
                 +'</div>'
-                +'<div id="inner-inner"><i class="big thumbs up icon" style="margin-left: 0px;"></i></div>'   
+                +'<div id="inner-inner"><i class="big thumbs up icon" style="margin-left: 0px;"></i><mark>Like</mark></div>'   
                 +'</div>'
                 // newElement = '<div id="' +currentData.keyword.likeid +'"class="hashFeed" likeid="' +currentData.keyword.likeid +'"  link="' + currentData.keyword.link +' style="opacity: 0.5;">' 
                 //     +'<img class="lowImg" src="' +currentData.keyword[resolution] +'">'
@@ -1141,6 +1141,9 @@ Meteor.documentReady = documentReady;
         // $(".loadmore").remove();
         // button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   Old  </a>';//&#8609; MORE  &#8609;
         // var element = $("#surveybig").append(button);
+
+        $("#inner-inner").hammer().on("tap",console.log("tapedon"));
+        $("#inner-inner").hammer().off("tap");  
 
         $(".hashFeed").hammer().off("tap");  
         $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
@@ -1654,13 +1657,19 @@ Meteor.documentReady = documentReady;
             var barDiv =$(currentBigHtml).children(".quadrant").children("#hprogressBar");
             console.log(barDiv)
             var hprogressBar =  percent;
-
             $(currentBigHtml).find("div#inerhprogressBar").transition({ left: hprogressBar + "%" }, 500);
             $(barDiv).find("div").transition({ "width": hprogressBar + "%" }, 500)
+            $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"1","left": hprogressBar+ "%",width:"60px"});
+            $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"0.0","left":"15%"},2000,"easeOutBounce");
+            
             promoteper=95-percent1;
             cursorlove=percent1;
+            $("#inner-inner mark").animate({"opacity":"1"});
             $(currentBigHtml).find("#inner-inner").css("top",cursorlove+"%");
             $("#inner-inner").transition({"top":cursorlove+"%"});
+            $(currentBigHtml).find("#inner-inner mark").animate({"opacity":"1","top":cursorlove+"%",width:"50px"});
+         
+            $(currentBigHtml).find("#inner-inner mark").animate({"opacity":"0.0","top":"5%"},2000,"easeOutBounce");
             $(currentBigHtml).find("#verticalprogress").css("height",promoteper +"%")
 
             $(currentBigHtml).find("#outer")
@@ -7910,7 +7919,7 @@ function openSurvey(){
 
 }
 function closeSurvey(){
-  console.log("openSurvey");
+  console.log("closeSurvey");
     notify("Hold image to share it.","information");
     // $(".leadersface").css({"display":"block"});
     $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});

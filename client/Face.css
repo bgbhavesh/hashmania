@@ -234,10 +234,12 @@ body{
 #surveybig{
 	/*top: 92%;*/
 	/*overflow-y: scroll;*/
-	/*height: 81%;*/
+	min-height: 98%;
+
 	margin-top: 0%;
 	width: 100%;
 	position: absolute;
+	overflow-x:hidden; 
 	/*border-top:#11a8ab 1px solid;*/
 	border-radius: 0px;
 	/*background: url(../images/hash_pattern.png) #111;*/
@@ -673,7 +675,7 @@ body{
 	position: absolute;
 	border-radius: 8px;
 	margin: 0px;
-	margin-left: 0.7%;
+	margin-left: 1%;
 	padding: 0px;
 	display: block;
 	/*background:url("images/patternX.png") #111;*/
@@ -1941,67 +1943,46 @@ h6 {}
 	
 }*/
 #NweImageAdded {
-	
-	/*bottom: 1%;*/
-	left: 70%;
-	position: absolute;
-
 	background-color: rgba(50,50,100,0.7);
 	border-radius: 8px;
-	background-size: 100%;
+	/*background-size: 100%;*/
 	font-size: 20px;
 	z-index: 4;
-	display: none;
-	color:white;
-	
 }
 #loadMoreImg{
-	bottom: 1%;
-	left: 15%;
-	position: absolute;
-
 	background-color: rgba(50,50,100,0.7);
 	border-radius: 8px;
-	background-size: 100%;
+	/*background-size: 100%;*/
 	font-size: 20px;
 	z-index: 4;
-	display: none;
-	color:white;
 }
 #totalimages {
-	position: fixed;
-	/*bottom: 1%;*/
-	left: 89%;	
-
 	background-color: rgba(50,50,100,0.7);
 	border-radius: 8px;
-	background-size: 100%;
+	/*background-size: 100%;*/
 	font-size: 20px;
 	z-index: 4;
-	display: none;
-	color:white;
 }
 #toComeimages {
-	position: fixed;
-	/*bottom: 1%;*/
-	left: 2%;
-
 	background-color: rgba(50,50,100,0.7);
 	border-radius: 8px;
-	background-size: 100%;
+	/*background-size: 100%;*/
 	font-size: 20px;
 	z-index: 4;
-	display: none;
-	color:white;
 }
 .tapToShow{
-	padding: 0%;
-	padding-left: 2%;
-	padding-right: 2%;	
+	padding: 0;
+	padding-left: 5px;
+	padding-right: 5px;	
 	width: auto;
 	background: linear-gradient(to bottom,  rgba(30,87,153,0.5) 0%,rgba(41,137,216,0.5) 50%,rgba(32,124,202,0.5) 50%,rgba(125,185,232,0.5) 100%); 
 	box-shadow: 1px 1px 5px black;
 	top: 95.5%;
+	text-align: center;
+	color: white;
+	position: absolute;
+
+	display: none;
 }
 
 .tapToShow :active{

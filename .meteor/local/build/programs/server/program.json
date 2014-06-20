@@ -1,0 +1,2137 @@
+{
+  "format": "javascript-image-pre1",
+  "arch": "os.osx.x86_64",
+  "load": [
+    {
+      "path": "packages/underscore.js",
+      "sourceMap": "packages/underscore.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/meteor.js",
+      "sourceMap": "packages/meteor.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/reload.js",
+      "sourceMap": "packages/reload.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/json.js",
+      "sourceMap": "packages/json.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/ejson.js",
+      "sourceMap": "packages/ejson.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/logging.js",
+      "node_modules": "npm/logging/main/node_modules",
+      "sourceMap": "packages/logging.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/routepolicy.js",
+      "sourceMap": "packages/routepolicy.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/htmljs.js",
+      "sourceMap": "packages/htmljs.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/jquery.js",
+      "sourceMap": "packages/jquery.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/deps.js",
+      "sourceMap": "packages/deps.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/random.js",
+      "sourceMap": "packages/random.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/ordered-dict.js",
+      "sourceMap": "packages/ordered-dict.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/id-map.js",
+      "sourceMap": "packages/id-map.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/geojson-utils.js",
+      "sourceMap": "packages/geojson-utils.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/minimongo.js",
+      "sourceMap": "packages/minimongo.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/observe-sequence.js",
+      "sourceMap": "packages/observe-sequence.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/ui.js",
+      "sourceMap": "packages/ui.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/spacebars.js",
+      "sourceMap": "packages/spacebars.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/html-tools.js",
+      "sourceMap": "packages/html-tools.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/minifiers.js",
+      "node_modules": "npm/minifiers/main/node_modules",
+      "sourceMap": "packages/minifiers.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/spacebars-compiler.js",
+      "sourceMap": "packages/spacebars-compiler.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/webapp.js",
+      "node_modules": "npm/webapp/main/node_modules",
+      "sourceMap": "packages/webapp.js.map",
+      "sourceMapRoot": "packages",
+      "assets": {
+        "boilerplate.html": "assets/packages/webapp/boilerplate.html"
+      }
+    },
+    {
+      "path": "packages/check.js",
+      "sourceMap": "packages/check.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/retry.js",
+      "sourceMap": "packages/retry.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/callback-hook.js",
+      "sourceMap": "packages/callback-hook.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/livedata.js",
+      "node_modules": "npm/livedata/main/node_modules",
+      "sourceMap": "packages/livedata.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/follower-livedata.js",
+      "sourceMap": "packages/follower-livedata.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/application-configuration.js",
+      "sourceMap": "packages/application-configuration.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/binary-heap.js",
+      "sourceMap": "packages/binary-heap.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/insecure.js",
+      "sourceMap": "packages/insecure.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/mongo-livedata.js",
+      "node_modules": "npm/mongo-livedata/main/node_modules",
+      "sourceMap": "packages/mongo-livedata.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/autoupdate.js",
+      "sourceMap": "packages/autoupdate.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/standard-app-packages.js",
+      "sourceMap": "packages/standard-app-packages.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/accounts-ui.js",
+      "sourceMap": "packages/accounts-ui.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/accounts-base.js",
+      "sourceMap": "packages/accounts-base.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/service-configuration.js",
+      "sourceMap": "packages/service-configuration.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/oauth.js",
+      "sourceMap": "packages/oauth.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/accounts-oauth.js",
+      "sourceMap": "packages/accounts-oauth.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/oauth2.js",
+      "sourceMap": "packages/oauth2.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/http.js",
+      "sourceMap": "packages/http.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/templating.js",
+      "sourceMap": "packages/templating.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/accounts-instagram.js",
+      "sourceMap": "packages/accounts-instagram.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/cordova.js",
+      "sourceMap": "packages/cordova.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/phonegap-push.js",
+      "node_modules": "npm/phonegap-push/main/node_modules",
+      "sourceMap": "packages/phonegap-push.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/collectionapi.js",
+      "sourceMap": "packages/collectionapi.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/language.js",
+      "sourceMap": "packages/language.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/page-js-ie-support.js",
+      "sourceMap": "packages/page-js-ie-support.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/coffeescript.js",
+      "sourceMap": "packages/coffeescript.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/user-status.js",
+      "sourceMap": "packages/user-status.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/youtap.js",
+      "node_modules": "npm/youtap/main/node_modules",
+      "sourceMap": "packages/youtap.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/semantic-ui.js",
+      "sourceMap": "packages/semantic-ui.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/oauth1.js",
+      "sourceMap": "packages/oauth1.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/srp.js",
+      "sourceMap": "packages/srp.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/email.js",
+      "node_modules": "npm/email/main/node_modules",
+      "sourceMap": "packages/email.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/accounts-password.js",
+      "sourceMap": "packages/accounts-password.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/reactive-dict.js",
+      "sourceMap": "packages/reactive-dict.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/iron-router.js",
+      "node_modules": "npm/iron-router/main/node_modules",
+      "sourceMap": "packages/iron-router.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/fast-render.js",
+      "node_modules": "npm/fast-render/main/node_modules",
+      "sourceMap": "packages/fast-render.js.map",
+      "sourceMapRoot": "packages",
+      "assets": {
+        "../../.meteor/packages": "assets/.meteor/packages",
+        "lib/server/inject_data.html": "assets/packages/fast-render/lib/server/inject_data.html",
+        "lib/server/inject_config.html": "assets/packages/fast-render/lib/server/inject_config.html"
+      }
+    },
+    {
+      "path": "packages/facebook.js",
+      "sourceMap": "packages/facebook.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/accounts-facebook.js",
+      "sourceMap": "packages/accounts-facebook.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/twitter.js",
+      "sourceMap": "packages/twitter.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/accounts-twitter.js",
+      "sourceMap": "packages/accounts-twitter.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/google.js",
+      "sourceMap": "packages/google.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/accounts-google.js",
+      "sourceMap": "packages/accounts-google.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/router.js",
+      "node_modules": "npm/router/main/node_modules",
+      "sourceMap": "packages/router.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/handlebars.js",
+      "sourceMap": "packages/handlebars.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/handlebars-server.js",
+      "node_modules": "npm/handlebars-server/main/node_modules",
+      "sourceMap": "packages/handlebars-server.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/browser-policy-common.js",
+      "sourceMap": "packages/browser-policy-common.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/browser-policy-framing.js",
+      "sourceMap": "packages/browser-policy-framing.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/session.js",
+      "sourceMap": "packages/session.js.map",
+      "sourceMapRoot": "packages"
+    },
+    {
+      "path": "packages/global-imports.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/behavior/api.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/behavior/colorize.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/behavior/form.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/behavior/state.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/test/packages/fast-render/lib/server/context.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/test/packages/fast-render/lib/server/fast_render.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/test/packages/fast-render/lib/server/inject.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/test/packages/fast-render/lib/server/iron_router_support.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/test/packages/fast-render/lib/server/utils.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/test/packages/fast-render/lib/vendor/cookies.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/test/packages/fast-render/lib/vendor/deepExtend.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/accordion.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/chatroom.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/checkbox.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/dimmer.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/dropdown.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/modal.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/nag.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/popup.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/rating.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/search.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/shape.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/sidebar.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/tab.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/transition.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/lib/semantic-ui/build/uncompressed/modules/video.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/lib/server/context.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/lib/server/fast_render.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/lib/server/inject.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/lib/server/iron_router_support.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/lib/server/utils.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/lib/vendor/cookies.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/lib/vendor/deepExtend.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/lib/server/route_controller.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/lib/server/router.js"
+    },
+    {
+      "path": "app/meteor/packages/accounts-instagram/lib/accounts_instagram.js"
+    },
+    {
+      "path": "app/meteor/packages/accounts-instagram/lib/instagram_client.js"
+    },
+    {
+      "path": "app/meteor/packages/accounts-instagram/lib/instagram_configuration.js"
+    },
+    {
+      "path": "app/meteor/packages/accounts-instagram/lib/instagram_server.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/lib/route.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/lib/route_controller.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/lib/router.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/lib/utils.js"
+    },
+    {
+      "path": "app/meteor/packages/router/lib/router_client.js"
+    },
+    {
+      "path": "app/meteor/packages/router/lib/router_common.js"
+    },
+    {
+      "path": "app/meteor/packages/router/lib/router_helpers.js"
+    },
+    {
+      "path": "app/meteor/packages/router/lib/router_server.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/PushNotification.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/buzz.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/childbrowser.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/cordova-1.5.0.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/cordova-2.3.0.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/cordova-2.4.0.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/cordova-2.5.0.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/cordova-2.7.0.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/cordova-2.8.0.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/easing.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/fastclick.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/fittext.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/hammer.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/intro.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/jquery.animate-enhanced.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/jquery.countdown.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/jquery.imageloader.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/jquery.plugin.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/jquery.transit.min.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/noty.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/pushHelper.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/scroll.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/snapy.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/statusbarnotification.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/touchscroll.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/tutorial.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/lib/websocket.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/youtap.meteor.com/semanticui/icons/packaged/javascript/semantic.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/youtap.meteor.com/semanticui/icons/packaged/javascript/semantic.min.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/test/packages/fast-render/package.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/old/server/route_controller_test.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/old/server/server_router_test.js"
+    },
+    {
+      "path": "app/meteor/packages/page-js-ie-support/page-js/examples/album/app.js"
+    },
+    {
+      "path": "app/meteor/packages/page-js-ie-support/page-js/examples/profile/app.js"
+    },
+    {
+      "path": "app/meteor/packages/page-js-ie-support/page-js/examples/query-string/app.js"
+    },
+    {
+      "path": "app/meteor/packages/page-js-ie-support/page-js/examples/query-string/query.js"
+    },
+    {
+      "path": "app/meteor/packages/page-js-ie-support/page-js/examples/server/app.js"
+    },
+    {
+      "path": "app/meteor/packages/page-js-ie-support/page-js/examples/state/app.js"
+    },
+    {
+      "path": "app/meteor/packages/page-js-ie-support/page-js/examples/transitions/app.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/examples/basic-jsx-external/build/example.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/examples/jquery-bootstrap/js/app.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/examples/jquery-bootstrap/thirdparty/bootstrap.min.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/examples/jquery-mobile/js/app.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/examples/requirejs/build/app.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/examples/requirejs/build/example-component.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/examples/shared/thirdparty/jquery.min.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/facebook/js/_config.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/facebook/js/auth.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/facebook/js/credits.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/facebook/js/feed.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/facebook/js/graph_api.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/facebook/js/requests.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/facebook/js/ui.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/youtap.meteor.com/intro/intro.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/youtap.meteor.com/language/i18n.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/youtap.meteor.com/language/jquery.i18n.min.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/youtap.meteor.com/language/package.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/youtap.meteor.com/language/sprintf.min.js"
+    },
+    {
+      "path": "app/meteor/packages/HTML5-History-API/HTML5-History-API/3.2.6/history.iegte8.js"
+    },
+    {
+      "path": "app/meteor/packages/HTML5-History-API/HTML5-History-API/3.2.6/history.iegte8.min.js"
+    },
+    {
+      "path": "app/meteor/packages/HTML5-History-API/HTML5-History-API/3.2.6/history.js"
+    },
+    {
+      "path": "app/meteor/packages/HTML5-History-API/HTML5-History-API/3.2.6/history.min.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/abap.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/actionscript.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/ada.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/asciidoc.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/assembly_x86.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/autohotkey.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/batchfile.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/c9search.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/c_cpp.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/clojure.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/cobol.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/coffee.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/coldfusion.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/csharp.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/css.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/curly.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/d.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/dart.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/diff.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/django.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/dot.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/ejs.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/erlang.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/forth.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/ftl.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/glsl.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/golang.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/groovy.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/haml.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/haskell.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/haxe.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/html.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/html_completions.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/html_ruby.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/ini.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/jade.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/java.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/javascript.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/json.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/jsoniq.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/jsp.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/jsx.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/julia.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/latex.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/less.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/liquid.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/lisp.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/livescript.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/logiql.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/lsl.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/lua.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/luapage.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/lucene.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/makefile.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/markdown.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/matlab.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/mushcode.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/mushcode_high_rules.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/mysql.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/nix.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/objectivec.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/ocaml.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/pascal.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/perl.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/pgsql.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/php.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/plain_text.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/powershell.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/prolog.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/properties.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/protobuf.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/python.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/r.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/rdoc.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/rhtml.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/ruby.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/rust.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/sass.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/scad.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/scala.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/scheme.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/scss.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/sh.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/snippets.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/sql.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/stylus.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/svg.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/tcl.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/tex.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/text.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/textile.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/toml.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/twig.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/typescript.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/vbscript.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/velocity.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/verilog.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/xml.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/xquery.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/snippets/yaml.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/exampledemo/example/example.js"
+    },
+    {
+      "path": "app/meteor/packages/blaze-layout/examples/simple/simple.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/examples/basic/iron-router-basic.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/examples/hooks/hooks.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/both/route.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/both/route_controller.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/both/router.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/both/utils.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/old/route_context_test.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/old/route_path_test.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/old/route_test.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/old/router_test.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/old/router_utils_test.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/server/router.js"
+    },
+    {
+      "path": "app/meteor/packages/page-js-ie-support/page-js/examples/index.js"
+    },
+    {
+      "path": "app/meteor/packages/page-js-ie-support/page-js/test/chai.js"
+    },
+    {
+      "path": "app/meteor/packages/page-js-ie-support/page-js/test/mocha.js"
+    },
+    {
+      "path": "app/meteor/packages/page-js-ie-support/page-js/test/page.js"
+    },
+    {
+      "path": "app/meteor/packages/page-js-ie-support/page-js/test/tests.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/dist/parsley-standalone.min.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/dist/parsley.es.min.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/dist/parsley.extend.min.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/dist/parsley.min.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/_messages.en.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.ar.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.ca.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.cs.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.cy.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.de.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.es.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.et.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.fa.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.fi.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.fr.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.he.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.hr.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.hu.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.id.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.is.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.it.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.ja.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.lt.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.mn.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.nl.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.no.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.pl.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.pt_br.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.ro.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.ru.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.sv.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.tr.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.ua.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.vn.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.zh_cn.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/i18n/messages.zh_tw.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/l10n/parsley.es.js"
+    },
+    {
+      "path": "app/meteor/packages/router/examples/app-with-layout/app-with-layout.js"
+    },
+    {
+      "path": "app/meteor/packages/router/examples/simple-auth-app/simple-auth-app.js"
+    },
+    {
+      "path": "app/meteor/packages/router/examples/simple-routed-app/simple-routed-app.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/examples/ballmer-peak/example.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/examples/basic-jsx-external/example.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/examples/basic-jsx-precompile/example.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/facebook/cdv-plugin-fb-connect.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/facebook/facebook-js-sdk.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/youtap.meteor.com/8f6ccf01775bc001367509564d67fd1e424ee557.js"
+    },
+    {
+      "path": "app/meteor/packages/HTML5-History-API/HTML5-History-API/history.iegte8.js"
+    },
+    {
+      "path": "app/meteor/packages/HTML5-History-API/HTML5-History-API/history.iegte8.min.js"
+    },
+    {
+      "path": "app/meteor/packages/HTML5-History-API/HTML5-History-API/history.js"
+    },
+    {
+      "path": "app/meteor/packages/HTML5-History-API/HTML5-History-API/history.min.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ace.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-chromevox.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-elastic_tabstops_lite.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-emmet.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-keybinding_menu.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-language_tools.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-modelist.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-old_ie.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-options.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-searchbox.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-settings_menu.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-spellcheck.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-split.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-static_highlight.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-statusbar.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-textarea.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-themelist.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/ext-whitespace.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/keybinding-emacs.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/keybinding-vim.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-abap.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-actionscript.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-ada.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-asciidoc.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-assembly_x86.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-autohotkey.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-batchfile.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-c9search.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-c_cpp.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-clojure.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-cobol.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-coffee.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-coldfusion.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-csharp.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-css.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-curly.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-d.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-dart.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-diff.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-django.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-dot.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-ejs.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-erlang.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-forth.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-ftl.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-glsl.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-golang.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-groovy.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-haml.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-haskell.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-haxe.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-html.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-html_completions.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-html_ruby.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-ini.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-jade.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-java.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-javascript.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-json.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-jsoniq.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-jsp.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-jsx.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-julia.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-latex.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-less.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-liquid.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-lisp.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-livescript.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-logiql.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-lsl.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-lua.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-luapage.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-lucene.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-makefile.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-markdown.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-matlab.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-mushcode.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-mushcode_high_rules.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-mysql.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-nix.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-objectivec.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-ocaml.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-pascal.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-perl.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-pgsql.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-php.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-plain_text.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-powershell.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-prolog.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-properties.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-protobuf.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-python.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-r.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-rdoc.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-rhtml.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-ruby.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-rust.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-sass.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-scad.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-scala.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-scheme.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-scss.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-sh.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-snippets.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-sql.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-stylus.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-svg.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-tcl.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-tex.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-text.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-textile.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-tmsnippet.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-toml.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-twig.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-typescript.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-vbscript.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-velocity.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-verilog.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-xml.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-xquery.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/mode-yaml.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-ambiance.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-chaos.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-chrome.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-clouds.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-clouds_midnight.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-cobalt.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-crimson_editor.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-dawn.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-dreamweaver.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-eclipse.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-github.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-idle_fingers.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-kr.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-merbivore.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-merbivore_soft.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-mono_industrial.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-monokai.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-pastel_on_dark.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-solarized_dark.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-solarized_light.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-terminal.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-textmate.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-tomorrow.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-tomorrow_night.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-tomorrow_night_blue.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-tomorrow_night_bright.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-tomorrow_night_eighties.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-twilight.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-vibrant_ink.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/theme-xcode.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/worker-coffee.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/worker-css.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/worker-javascript.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/worker-json.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/worker-lua.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/worker-php.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/ace/worker-xquery.js"
+    },
+    {
+      "path": "app/meteor/packages/cordova/plugin/meteor.cordova.js"
+    },
+    {
+      "path": "app/meteor/packages/handlebars-server/plugin/compile-handlebars.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/route.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/route_controller.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/router.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/test/test_helpers.js"
+    },
+    {
+      "path": "app/meteor/packages/minimongoid/example/minimongoid-example.js"
+    },
+    {
+      "path": "app/meteor/packages/page-js-ie-support/page-js/index.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/parsley.extend.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/parsleyjs/parsley.js"
+    },
+    {
+      "path": "app/meteor/packages/phonegap-push/deprecated/meteor-phonegap.js"
+    },
+    {
+      "path": "app/meteor/packages/phonegap-push/deprecated/phonegap.client.js"
+    },
+    {
+      "path": "app/meteor/packages/phonegap-push/plugin/meteor.cordova.push.js"
+    },
+    {
+      "path": "app/meteor/public/game/resource/hammer.js"
+    },
+    {
+      "path": "app/meteor/public/game/resource/jquery.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/build/JSXTransformer.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/build/react-with-addons.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/build/react-with-addons.min.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/build/react.js"
+    },
+    {
+      "path": "app/meteor/public/react-0.10.0/build/react.min.js"
+    },
+    {
+      "path": "app/meteor/public/semantic/javascript/semantic.js"
+    },
+    {
+      "path": "app/meteor/public/semantic/javascript/semantic.min.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/PushNotification.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/SocialSharing.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/cdv-plugin-fb-connect.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/childbrowser.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/cordova-2.5.0.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/cordova-2.7.0.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/cordova-2.9.0.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/facebook-js-sdk.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/jquery.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/phonegap-websocket.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/statusbarnotification.js"
+    },
+    {
+      "path": "app/phonegap/android/assets/www/video.js"
+    },
+    {
+      "path": "app/meteor/packages/HTML5-History-API/package.js"
+    },
+    {
+      "path": "app/meteor/packages/HTML5-History-API/settings.js"
+    },
+    {
+      "path": "app/meteor/packages/accounts-instagram/package.js"
+    },
+    {
+      "path": "app/meteor/packages/accounts-urls/package.js"
+    },
+    {
+      "path": "app/meteor/packages/accounts-urls/url_client.js"
+    },
+    {
+      "path": "app/meteor/packages/accounts-urls/url_server.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/editorSetup.js"
+    },
+    {
+      "path": "app/meteor/packages/ace-embed/package.js"
+    },
+    {
+      "path": "app/meteor/packages/blaze-layout/layout-test.js"
+    },
+    {
+      "path": "app/meteor/packages/blaze-layout/layout.js"
+    },
+    {
+      "path": "app/meteor/packages/blaze-layout/overrides.js"
+    },
+    {
+      "path": "app/meteor/packages/blaze-layout/package.js"
+    },
+    {
+      "path": "app/meteor/packages/collectionapi/collectionapi.js"
+    },
+    {
+      "path": "app/meteor/packages/collectionapi/package.js"
+    },
+    {
+      "path": "app/meteor/packages/cordova/cordova.client.js"
+    },
+    {
+      "path": "app/meteor/packages/cordova/cordova.client.notification.js"
+    },
+    {
+      "path": "app/meteor/packages/cordova/meteor.cordova.tests.js"
+    },
+    {
+      "path": "app/meteor/packages/cordova/package.js"
+    },
+    {
+      "path": "app/meteor/packages/deps-ext/deps_ext_tests.js"
+    },
+    {
+      "path": "app/meteor/packages/deps-ext/native_extensions.js"
+    },
+    {
+      "path": "app/meteor/packages/deps-ext/package.js"
+    },
+    {
+      "path": "app/meteor/packages/deps-ext/reactive_result.js"
+    },
+    {
+      "path": "app/meteor/packages/deps-ext/reactive_value.js"
+    },
+    {
+      "path": "app/meteor/packages/deps-ext/utils.js"
+    },
+    {
+      "path": "app/meteor/packages/facebook-sdk/package.js"
+    },
+    {
+      "path": "app/meteor/packages/facebook-sdk/sdk.js"
+    },
+    {
+      "path": "app/meteor/packages/fast-render/package.js"
+    },
+    {
+      "path": "app/meteor/packages/handlebars-server/handlebars.handlebars-server-tests-2.js"
+    },
+    {
+      "path": "app/meteor/packages/handlebars-server/handlebars.handlebars-server-tests.js"
+    },
+    {
+      "path": "app/meteor/packages/handlebars-server/handlebars-server-tests.js"
+    },
+    {
+      "path": "app/meteor/packages/handlebars-server/handlebars-server.js"
+    },
+    {
+      "path": "app/meteor/packages/handlebars-server/package.js"
+    },
+    {
+      "path": "app/meteor/packages/instagram/instagram_client.js"
+    },
+    {
+      "path": "app/meteor/packages/instagram/instagram_configure.js"
+    },
+    {
+      "path": "app/meteor/packages/instagram/instagram_server.js"
+    },
+    {
+      "path": "app/meteor/packages/instagram/package.js"
+    },
+    {
+      "path": "app/meteor/packages/iron-router/package.js"
+    },
+    {
+      "path": "app/meteor/packages/language/i18n.js"
+    },
+    {
+      "path": "app/meteor/packages/language/jquery.i18n.min.js"
+    },
+    {
+      "path": "app/meteor/packages/language/package.js"
+    },
+    {
+      "path": "app/meteor/packages/language/sprintf.min.js"
+    },
+    {
+      "path": "app/meteor/packages/marked/package.js"
+    },
+    {
+      "path": "app/meteor/packages/marked/template-integration.js"
+    },
+    {
+      "path": "app/meteor/packages/minimongoid/package.js"
+    },
+    {
+      "path": "app/meteor/packages/moment/export-moment.js"
+    },
+    {
+      "path": "app/meteor/packages/moment/package.js"
+    },
+    {
+      "path": "app/meteor/packages/page-js-ie-support/package.js"
+    },
+    {
+      "path": "app/meteor/packages/parsleyjs/package.js"
+    },
+    {
+      "path": "app/meteor/packages/phonegap-push/android.server.js"
+    },
+    {
+      "path": "app/meteor/packages/phonegap-push/ios.server.js"
+    },
+    {
+      "path": "app/meteor/packages/phonegap-push/package.js"
+    },
+    {
+      "path": "app/meteor/packages/phonegap-push/push.server.js"
+    },
+    {
+      "path": "app/meteor/packages/router/package.js"
+    },
+    {
+      "path": "app/meteor/packages/semantic-ui/package.js"
+    },
+    {
+      "path": "app/meteor/packages/service-configuration/package.js"
+    },
+    {
+      "path": "app/meteor/packages/service-configuration/service_configuration_common.js"
+    },
+    {
+      "path": "app/meteor/packages/underscore-string-latest/package.js"
+    },
+    {
+      "path": "app/meteor/packages/underscore-string-latest/post.js"
+    },
+    {
+      "path": "app/meteor/packages/underscore-string-latest/pre.js"
+    },
+    {
+      "path": "app/meteor/packages/user-status/package.js"
+    },
+    {
+      "path": "app/meteor/packages/user-status/user_status.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/JSXTransformer.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/package.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/react-with-addons.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/react.js"
+    },
+    {
+      "path": "app/meteor/packages/youtap/server.js"
+    },
+    {
+      "path": "app/meteor/private/accounts-oauth-helper/oauth_client.js"
+    },
+    {
+      "path": "app/meteor/private/accounts-oauth-helper/oauth_common.js"
+    },
+    {
+      "path": "app/meteor/private/accounts-oauth-helper/oauth_server.js"
+    },
+    {
+      "path": "app/meteor/private/accounts-oauth-helper/package.js"
+    },
+    {
+      "path": "app/meteor/private/accounts-oauth2-helper/oauth2_common.js"
+    },
+    {
+      "path": "app/meteor/private/accounts-oauth2-helper/oauth2_server.js"
+    },
+    {
+      "path": "app/meteor/private/accounts-oauth2-helper/oauth2_tests.js"
+    },
+    {
+      "path": "app/meteor/private/accounts-oauth2-helper/package.js"
+    },
+    {
+      "path": "app/meteor/public/bunny/hammer.js"
+    },
+    {
+      "path": "app/meteor/public/bunny/jquery.js"
+    },
+    {
+      "path": "app/meteor/public/bunny/pixi.js"
+    },
+    {
+      "path": "app/meteor/public/bunny/script.js"
+    },
+    {
+      "path": "app/meteor/public/intro/intro.js"
+    },
+    {
+      "path": "app/meteor/public/js/foundation.joyride.js"
+    },
+    {
+      "path": "app/meteor/public/js/foundation.js"
+    },
+    {
+      "path": "app/meteor/public/js/index.js"
+    },
+    {
+      "path": "app/meteor/public/js/jquery.hammer.min.js"
+    },
+    {
+      "path": "app/meteor/public/js/jquery.js"
+    },
+    {
+      "path": "app/meteor/public/js/jquery.mobile.custom.js"
+    },
+    {
+      "path": "app/meteor/public/js/json.js"
+    },
+    {
+      "path": "app/meteor/public/js/snap.js"
+    },
+    {
+      "path": "app/meteor/public/js/snapy.js"
+    },
+    {
+      "path": "app/meteor/public/js/tutorial.js"
+    },
+    {
+      "path": "app/meteor/public/react/JSXTransformer.js"
+    },
+    {
+      "path": "app/meteor/public/react/react-with-addons.js"
+    },
+    {
+      "path": "app/meteor/public/react/react.js"
+    },
+    {
+      "path": "app/meteor/server/handlebars/handlebars.admin.js"
+    },
+    {
+      "path": "app/meteor/server/handlebars/handlebars.app.js"
+    },
+    {
+      "path": "app/meteor/server/handlebars/handlebars.close.js"
+    },
+    {
+      "path": "app/meteor/server/handlebars/handlebars.faq.js"
+    },
+    {
+      "path": "app/meteor/server/handlebars/handlebars.hello.js"
+    },
+    {
+      "path": "app/meteor/server/handlebars/handlebars.profile.js"
+    },
+    {
+      "path": "app/meteor/server/handlebars/handlebars.survey.js"
+    },
+    {
+      "path": "app/meteor/server/language/ar.js"
+    },
+    {
+      "path": "app/meteor/server/language/en.js"
+    },
+    {
+      "path": "app/meteor/server/language/settings.js"
+    },
+    {
+      "path": "app/meteor/private/clientcompress.js"
+    },
+    {
+      "path": "app/meteor/public/config.default.js"
+    },
+    {
+      "path": "app/meteor/public/i18n.js"
+    },
+    {
+      "path": "app/meteor/public/jquery.hammer.min.js"
+    },
+    {
+      "path": "app/meteor/public/jquery.i18n.min.js"
+    },
+    {
+      "path": "app/meteor/public/jquery.i18n.properties-1.0.9.js"
+    },
+    {
+      "path": "app/meteor/public/snapy.js"
+    },
+    {
+      "path": "app/meteor/public/sprintf.min.js"
+    },
+    {
+      "path": "app/meteor/public/tutorial.js"
+    },
+    {
+      "path": "app/meteor/server/FaceTape.js"
+    },
+    {
+      "path": "app/meteor/server/methods.js"
+    },
+    {
+      "path": "app/meteor/server/publish.js"
+    },
+    {
+      "path": "app/meteor/server/share.js"
+    },
+    {
+      "path": "app/meteor/Face.js"
+    }
+  ]
+}

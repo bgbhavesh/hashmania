@@ -1,0 +1,51 @@
+{
+  "format": "unipackage-slice-pre1",
+  "noExports": true,
+  "packageVariables": [
+    {
+      "name": "EJSON"
+    },
+    {
+      "name": "MeteorCordova"
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "cordova"
+    },
+    {
+      "package": "test-helpers"
+    },
+    {
+      "package": "tinytest"
+    },
+    {
+      "package": "underscore"
+    },
+    {
+      "package": "ejson"
+    },
+    {
+      "package": "ordered-dict"
+    },
+    {
+      "package": "random"
+    },
+    {
+      "package": "deps"
+    }
+  ],
+  "resources": [
+    {
+      "type": "prelink",
+      "file": "tests.browser/packages/cordovatests.js",
+      "length": 100145,
+      "offset": 0,
+      "servePath": "/packages/cordova:tests.js",
+      "sourceMap": "tests.browser/packages/cordovatests.js.map"
+    }
+  ]
+}

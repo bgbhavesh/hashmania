@@ -1,0 +1,30 @@
+{
+  "format": "unipackage-slice-pre1",
+  "packageVariables": [
+    {
+      "name": "Cordova",
+      "export": true
+    },
+    {
+      "name": "context"
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "ejson"
+    }
+  ],
+  "resources": [
+    {
+      "type": "prelink",
+      "file": "browser/packages/cordova.js",
+      "length": 51950,
+      "offset": 0,
+      "servePath": "/packages/cordova.js",
+      "sourceMap": "browser/packages/cordova.js.map"
+    }
+  ]
+}

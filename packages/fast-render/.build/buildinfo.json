@@ -1,0 +1,66 @@
+{
+  "builtBy": "meteor/10",
+  "sliceDependencies": {
+    "browser.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/fast-render/package.js": "7269de97da2af60349378411bb6012121cbc5c0e",
+        "/Users/london/Desktop/hash18/.meteor/packages": "c5208495baf2cd82af229c051f23dd978e0b320e",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/vendor/cookies.js": "628af2af901d7e19cb847c57cf00cd47bf19dde0",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/vendor/deepExtend.js": "13963f789c7cda7bb987e1e9f1ba8d14f271131a",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/client/log.js": "266483956e95e5200300e0dd2b27793e3550704d",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/client/fast_render.js": "f989d7ebe1a3de222cac700f93efe0e9f5d57e05",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/client/ddp_update.js": "3e6155fa2373757846c54a74f72237fda262cde0",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/client/data_handler.js": "958887ec8c2f5e52a32ed7219e5272348939f26a",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/client/iron_router_support.js": "0b05c3cc99457e4c6d8f6888dab7b58779ff05a5",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/client/auth.js": "182b96695b477514a02c9fffde8118d99319e0a3"
+      },
+      "directories": []
+    },
+    "os.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/fast-render/package.js": "7269de97da2af60349378411bb6012121cbc5c0e",
+        "/Users/london/Desktop/hash18/.meteor/packages": "c5208495baf2cd82af229c051f23dd978e0b320e",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/server/inject_data.html": "72aceae42fbb54deaa945980a5bb3daf6594b26e",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/server/inject_config.html": "b29e5f834ea4e9e39c46b5360f150565f1e03c38",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/server/utils.js": "e2af5e4933cf45cd874cef1b5cdce168e7c86bd9",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/server/fast_render.js": "7a68628b6f0f03f2469e8b6295882738c0e17111",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/server/context.js": "f50012a82ad2e9f64e8ed993f9aaee6d74697c65",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/server/inject.js": "260157bf2d0d758cfeaae96c74e359d4e94222ac",
+        "/Users/london/Desktop/hash18/packages/fast-render/lib/server/iron_router_support.js": "9d81c4fb03dd00cb6b176b968ab3bb95f62134b4"
+      },
+      "directories": []
+    },
+    "tests.browser.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/fast-render/package.js": "7269de97da2af60349378411bb6012121cbc5c0e"
+      },
+      "directories": []
+    },
+    "tests.os.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/fast-render/package.js": "7269de97da2af60349378411bb6012121cbc5c0e"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/Users/london/Desktop/hash18/packages/fast-render/package.js": "7269de97da2af60349378411bb6012121cbc5c0e"
+    },
+    "directories": []
+  },
+  "pluginProviderPackages": {
+    "fast-render": "/Users/london/Desktop/hash18/packages/fast-render",
+    "meteor": "/Users/london/.meteor/packages/meteor/144d60bec6",
+    "underscore": "/Users/london/.meteor/packages/underscore/381c001cdc",
+    "deps": "/Users/london/.meteor/packages/deps/b379a68e0a",
+    "ejson": "/Users/london/.meteor/packages/ejson/e7d3378e9c",
+    "minimongo": "/Users/london/.meteor/packages/minimongo/25c78d4be7",
+    "livedata": "/Users/london/.meteor/packages/livedata/61355e7b4a",
+    "mongo-livedata": "/Users/london/.meteor/packages/mongo-livedata/0120179b5c",
+    "webapp": "/Users/london/.meteor/packages/webapp/a823e5e013",
+    "routepolicy": "/Users/london/.meteor/packages/routepolicy/3539d93107",
+    "accounts-base": "/Users/london/.meteor/packages/accounts-base/6700e65d7f"
+  },
+  "source": "/Users/london/Desktop/hash18/packages/fast-render"
+}

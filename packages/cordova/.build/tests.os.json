@@ -1,0 +1,38 @@
+{
+  "format": "unipackage-slice-pre1",
+  "noExports": true,
+  "packageVariables": [],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "tinytest"
+    },
+    {
+      "package": "underscore"
+    },
+    {
+      "package": "ejson"
+    },
+    {
+      "package": "ordered-dict"
+    },
+    {
+      "package": "random"
+    },
+    {
+      "package": "deps"
+    }
+  ],
+  "resources": [
+    {
+      "type": "prelink",
+      "file": "tests.os/packages/cordovatests.js",
+      "length": 0,
+      "offset": 0,
+      "servePath": "/packages/cordova:tests.js",
+      "sourceMap": "tests.os/packages/cordovatests.js.map"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "format": "unipackage-slice-pre1",
+  "packageVariables": [
+    {
+      "name": "localeFile"
+    },
+    {
+      "name": "dict"
+    },
+    {
+      "name": "args"
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    }
+  ],
+  "resources": [
+    {
+      "type": "prelink",
+      "file": "browser/packages/language.js",
+      "length": 10351,
+      "offset": 0,
+      "servePath": "/packages/language.js",
+      "sourceMap": "browser/packages/language.js.map"
+    }
+  ]
+}

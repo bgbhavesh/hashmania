@@ -1,0 +1,51 @@
+{
+  "builtBy": "meteor/10",
+  "sliceDependencies": {
+    "browser.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/cordova/package.js": "79556e3ec326ced66db967f961ed8a3201e080a4",
+        "/Users/london/Desktop/hash18/packages/cordova/cordova.client.js": "707ed5714aa9f3d16bb492da08a2434116dcb81b",
+        "/Users/london/Desktop/hash18/packages/cordova/cordova.client.notification.js": "6239c9f6a585140e0cf7f3096eda50fc6dda1e67"
+      },
+      "directories": []
+    },
+    "os.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/cordova/package.js": "79556e3ec326ced66db967f961ed8a3201e080a4"
+      },
+      "directories": []
+    },
+    "tests.browser.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/cordova/package.js": "79556e3ec326ced66db967f961ed8a3201e080a4",
+        "/Users/london/Desktop/hash18/packages/cordova/plugin/meteor.cordova.js": "8ef7a04df8ece449dca96d73142d6009e0d6789c",
+        "/Users/london/Desktop/hash18/packages/cordova/meteor.cordova.tests.js": "2c8b62cf6ed05b100c6db5a191de01c25c4ec005"
+      },
+      "directories": []
+    },
+    "tests.os.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/cordova/package.js": "79556e3ec326ced66db967f961ed8a3201e080a4"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/Users/london/Desktop/hash18/packages/cordova/package.js": "79556e3ec326ced66db967f961ed8a3201e080a4"
+    },
+    "directories": []
+  },
+  "pluginProviderPackages": {
+    "cordova": "/Users/london/Desktop/hash18/packages/cordova",
+    "meteor": "/Users/london/.meteor/packages/meteor/144d60bec6",
+    "ejson": "/Users/london/.meteor/packages/ejson/e7d3378e9c",
+    "test-helpers": "/Users/london/.meteor/packages/test-helpers/2f90e072c6",
+    "tinytest": "/Users/london/.meteor/packages/tinytest/7b76fff9b6",
+    "underscore": "/Users/london/.meteor/packages/underscore/381c001cdc",
+    "ordered-dict": "/Users/london/.meteor/packages/ordered-dict/a672da867b",
+    "random": "/Users/london/.meteor/packages/random/51ee2fa11e",
+    "deps": "/Users/london/.meteor/packages/deps/b379a68e0a"
+  },
+  "source": "/Users/london/Desktop/hash18/packages/cordova"
+}

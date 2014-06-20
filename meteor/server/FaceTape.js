@@ -764,14 +764,14 @@ function startup(){
             ContestID = Contest.insert({"countDownHours":0,"countDownMins":0,"countDownSecs":0});
        
         
-        if(DebugFace)
+        if(!DebugFace)
             checkContest();
 
 
         
-        if(DebugFace){
+        if(!DebugFace){
             Meteor.setTimeout(function(){checkNewImages();},500);
-            App.searchIntervalId = Meteor.setInterval(searchHashInterval,500); 
+            App.searchIntervalId = Meteor.setInterval(searchHashInterval,120000); 
             // increase or decrease the interval counts depending on server loads.
         }             
 }

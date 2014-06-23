@@ -6634,7 +6634,7 @@ function bindEvents(){
         autoSize();         
         i18n = {}; 
         language = {};
-        temporarylang();
+        // temporarylang();
     }
     catch(error){
         console.log(error);

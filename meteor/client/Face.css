@@ -187,7 +187,7 @@ body{
 }
 .bigmenu,.help{
 	text-align: left;
-	background-image: url(/images/plus.png);	
+	background-image: url(file:///android_assets/www/youtap.meteor.com/images/plus.png);	
 	background-size: 20px 20px;
 	background-repeat: no-repeat;
 	padding-left: 10%;
@@ -247,12 +247,12 @@ body{
 	overflow-x:hidden; 
 	/*border-top:#11a8ab 1px solid;*/
 	border-radius: 0px;
-	/*background: url(../images/hash_pattern.png) #111;*/
+	/*background: url(..file:///android_assets/www/youtap.meteor.com/images/hash_pattern.png) #111;*/
 	/*background: linear-gradient(to right,#50597b, #394264, #394264 , #50597b);*/
 	background-color: #50597b;
 }
 .menuarrow{
-	background-image: url(/images/menuarrow.png);
+	background-image: url(file:///android_assets/www/youtap.meteor.com/images/menuarrow.png);
 	height: 32px;
 	width: 32px;
 	position: absolute;
@@ -824,7 +824,7 @@ h6 {}
 	width: 50px;
 	position: absolute;
 	display: none;
-	background-image: url(/images/taping.png);
+	background-image: url(file:///android_assets/www/youtap.meteor.com/images/taping.png);
 	background-size: 100% 100%;
 	z-index: 5;
 }
@@ -1056,7 +1056,7 @@ h6 {}
 	height: 16px;
 	padding-right: 20px;
 	border-left-width: 5px;
-	background-image: url(/images/HashLogo.png);
+	background-image: url(file:///android_assets/www/youtap.meteor.com/images/HashLogo.png);
     position: absolute;
     left : 0%;
     bottom : 0%;
@@ -1195,10 +1195,10 @@ h6 {}
 }
 #hidecheckmark{
 	display: none;
-	background-image: url(/images/check.png);
+	background-image: url(file:///android_assets/www/youtap.meteor.com/images/check.png);
 }
 #showcheckmark{
-	background-image: url(/images/plusgroup.png);
+	background-image: url(file:///android_assets/www/youtap.meteor.com/images/plusgroup.png);
 }
 
 #showcheckmark,#hidecheckmark{
@@ -1726,7 +1726,7 @@ h6 {}
 	height: 10%;
 }
 .myloader{
-	background-image: url(/images/loader.gif);
+	background-image: url(file:///android_assets/www/youtap.meteor.com/images/loader.gif);
 	background-size: 100% 100%;
 	left: 45%;
 	line-height: 16px;
@@ -1736,7 +1736,7 @@ h6 {}
 	text-align: center;
 }
 .loading{
-	background-image: url(/images/loader.gif);
+	background-image: url(file:///android_assets/www/youtap.meteor.com/images/loader.gif);
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -1832,10 +1832,10 @@ h6 {}
 	color: white;
 }
 #likeButton{
-  background-image: url(/images/heart.png);
+  background-image: url(file:///android_assets/www/youtap.meteor.com/images/heart.png);
 }
 #followButton{
-	background-image: url(/images/F.png);
+	background-image: url(file:///android_assets/www/youtap.meteor.com/images/F.png);
 	z-index:7;
 }
 .sender{
@@ -1974,7 +1974,7 @@ h6 {}
 	height: 108px;
 	display: block;
 	margin-bottom: 7px;
-	background-im url(../images/taping.png) no-repeat 100%;
+	background-im url(..file:///android_assets/www/youtap.meteor.com/images/taping.png) no-repeat 100%;
 
 	
 	border-radius: 50%;
@@ -2045,7 +2045,7 @@ img{
 	position: absolute;
 	top: 20%;
 	position: absolute;
-	background-image: url(/images/face.jpg);
+	background-image: url(file:///android_assets/www/youtap.meteor.com/images/face.jpg);
 	background-size: 100% 100%;
 }
 #creatorProfile{
@@ -2441,7 +2441,7 @@ mark{
 	top: 9%;
 }
 .appname{
-	background-image:url(/images/hash_logo.png);
+	background-image:url(file:///android_assets/www/youtap.meteor.com/images/hash_logo.png);
 	background-size: 60% 100%;
 	background-repeat: no-repeat;
 	left: 35%;
@@ -2456,7 +2456,7 @@ mark{
 	top: 0px;
 	height: 95%;
 	width: 10%;
-	background-image: url(/images/logo.png);
+	background-image: url(file:///android_assets/www/youtap.meteor.com/images/logo.png);
 	background-size: 100% 100%;
  	
    	margin-left: 1%
@@ -2475,7 +2475,7 @@ mark{
 	border-bottom:3px solid #FD3047;	
 }
 /*.tapmateLogo{
-	background-image: url(/images/logo.png);
+	background-image: url(file:///android_assets/www/youtap.meteor.com/images/logo.png);
 	position: absolute;
 	height: 100%;
 	width: 100%;

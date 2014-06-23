@@ -1659,17 +1659,17 @@ Meteor.documentReady = documentReady;
             var hprogressBar =  percent;
             $(currentBigHtml).find("div#inerhprogressBar").transition({ left: hprogressBar + "%" }, 500);
             $(barDiv).find("div").transition({ "width": hprogressBar + "%" }, 500)
-            $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"1","left": hprogressBar+ "%",width:"60px"});
-            $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"0.0","top":"5%"},2000,"easeOutBounce");
+            $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"1","left": hprogressBar+ "%",width:"50px"});
+            $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"0.0","top":"5%"},2000);
             
             promoteper=95-percent1;
             cursorlove=percent1;
             $("#inner-inner mark").animate({"opacity":"1"});
             $(currentBigHtml).find("#inner-inner").css("top",cursorlove+"%");
             $("#inner-inner").transition({"top":cursorlove+"%"});
-            $(currentBigHtml).find("#inner-inner mark").animate({"opacity":"1","top":cursorlove+"%",width:"50px"});
+            $(currentBigHtml).find("#inner-inner mark").animate({"opacity":"1","top":cursorlove+"%",width:"30px"});
          
-            $(currentBigHtml).find("#inner-inner mark").animate({"opacity":"0.0","top":"5%"},2000,"easeOutBounce");
+            $(currentBigHtml).find("#inner-inner mark").animate({"opacity":"0.0","top":"5%"},2000);
             $(currentBigHtml).find("#verticalprogress").css("height",promoteper +"%")
 
             $(currentBigHtml).find("#outer")

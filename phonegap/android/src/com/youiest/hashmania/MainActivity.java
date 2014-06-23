@@ -14,34 +14,33 @@ public class MainActivity extends DroidGap  {
     protected WebView webView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
-    	final Intent intent = getIntent();
-    	final String args=intent.getDataString();
-    	if(args == null)
-    	{
-    		Log.w("Nicolson", "First");
-    	  //super.loadUrl("file:///android_asset/www/index.html");
-    	} else
-    	{
-    		Log.w("Nicolson", "Second");
-    	  //super.loadUrl("file:///android_asset/www/index.html?args=" + args.split("//")[1]);
-    	}
     	super.onCreate(savedInstanceState);
         super.init();
         jSInterface = new JavascriptInterface(this, appView);
         appView.addJavascriptInterface(jSInterface, "JICls");
-
+        final Intent intent = getIntent();
+        final String args=intent.getDataString();
+        if(args == null)
+        {
+        	Log.d("hasten", "null");
+          super.loadUrl("file:///android_asset/www/index.html");
+        } else
+        {
+        	Log.d("hasten", args);
+          super.loadUrl("file:///android_asset/www/index.html?args=" + args.split("//")[1]);
+        }
          //setContentView(R.layout.activity_main);
-        Log.d("LMLC", "check savedInstanceState");
-        //  if(savedInstanceState == null || savedInstanceState.isEmpty())
-        //{
+        Log.d("hasten", "check savedInstanceState");
+          if(savedInstanceState == null || savedInstanceState.isEmpty())
+        {
            super.loadUrl("file:///android_asset/www/index.html");
            Log.d("LMLC", "super.loadUrl");
-        //}
-         //else
-          //{
-          // this.appView.restoreState(savedInstanceState);
-         //  Log.d("LMLC", "After Restoring the state");
-        //}
+        }
+          else
+          {
+           this.appView.restoreState(savedInstanceState);
+           Log.d("LMLC", "After Restoring the state");
+        }
     }
     @Override
     protected void onSaveInstanceState(Bundle outState)

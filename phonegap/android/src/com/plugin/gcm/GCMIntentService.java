@@ -31,7 +31,7 @@ import android.util.Log;
 
 @SuppressLint("NewApi")
 public class GCMIntentService extends GCMBaseIntentService {
-	List<String> events= new ArrayList<String>();
+	public static List<String> events= new ArrayList<String>();
 	public static final int NOTIFICATION_ID = 237;
 	private static final String TAG = "GCMIntentService";
 	
@@ -68,6 +68,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	@Override
 	public void onUnregistered(Context context, String regId) {
 		Log.d(TAG, "onUnregistered - regId: " + regId);
+		
 	}
 
 	@Override
@@ -109,7 +110,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 		NotificationCompat.Builder mBuilder =
 			new NotificationCompat.Builder(context)
 				.setDefaults(Notification.DEFAULT_ALL)
-				.setSmallIcon(R.drawable.ic_launcher)
+				.setSmallIcon(R.drawable.hashlogo)
 				.setWhen(System.currentTimeMillis())
 				.setContentTitle(extras.getString("title"))
 				.setTicker(extras.getString("title"))
@@ -117,43 +118,26 @@ public class GCMIntentService extends GCMBaseIntentService {
 				.setLargeIcon(bitmap);
 
 		String message = extras.getString("message");
-		if (message != null) {
-			mBuilder.setContentText(message);
-			//mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));
-//			events.add(extras.getString("message"));
-			events.add(message);
-		} else {
-			mBuilder.setContentText("<missing message content>");
-		}
-//
-		String msgcnt = extras.getString("msgcnt");
-		if (msgcnt != null) {
-			//mBuilder.setNumber(Integer.parseInt(msgcnt));
-			mBuilder.setNumber(events.size());
-		}
-		
-		///////////////////////////////////////////////////
 		NotificationCompat.InboxStyle inboxStyle =  new NotificationCompat.InboxStyle();
-//		String[] events = new String[6];
-		// Sets a title for the Inbox style big view
-		inboxStyle.setBigContentTitle(extras.getString("title"));
-		//inboxStyle.setSummaryText(extras.getString("title"));
-		// Moves events into the big view
-		for (int i=0; i < events.size(); i++) {
-			//inboxStyle.addLine(extras.getString("message"));
-			inboxStyle.addLine(events.get(i));
+		if (message != null) {
+			events.add(message);
 		}
-		// Moves the big view style object into the notification object.
+		inboxStyle.setBigContentTitle(extras.getString("title"));
+		Log.i("hasten", Integer.toString(events.size()));
+		for (int i=0; i < events.size(); i++) {
+			inboxStyle.addLine(events.get(i));
+			Log.i("hasten", events.get(i));
+			Log.i("hasten", Integer.toString(i));
+		}
 		mBuilder.setStyle(inboxStyle);
-		// Issue the notification here.
-		//////////////////////////////////////////////
-		
 		mNotificationManager.notify((String) appName, NOTIFICATION_ID, mBuilder.build());
 	}
 	
 	public static void cancelNotification(Context context)
 	{
+		
 		Log.i("Push", "cancelNotification");
+		events.clear();
 		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		mNotificationManager.cancel((String)getAppName(context), NOTIFICATION_ID);	
 	}

@@ -1149,9 +1149,7 @@ Meteor.documentReady = documentReady;
         // button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   Old  </a>';//&#8609; MORE  &#8609;
         // var element = $("#surveybig").append(button);
 
-        $("#inner-inner").hammer().on("tap",console.log("tapedon"));
-        $("#inner-inner").hammer().off("tap");  
-
+       
         $(".hashFeed").hammer().off("tap");  
         $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
 
@@ -7907,7 +7905,7 @@ function randomGame(){
  */
 
 /////////////////GAMESECTION//////////////
-var snapTopFlag = true;
+var snapTopFlag = false;
 function onclickopencloseSurvey(){
     // console.log(snapTopFlag)
     if(snapTopFlag){ 
@@ -7924,13 +7922,13 @@ function openSurvey(){
   console.log("openSurvey");
     $("#surveybighandle").css({"top":"89%","background": "transparent","opacity": "1.0"});
     // $("#surveybig").transition({"top":"92%"});
-    $(".hashKeyword").css({"display":"none"});
-    $('#updownarrow').css({"top": "0%"});
+    $(".hashKeyword").transition({"display":"none"});
+    $('#updownarrow').transition({"top": "0%"});
     $(".leaderSection").transition({"top":"94%"});
     $(".tapToShow").hide();
     $(".leaderSection .leadersface").hide();
     // $(".leadersface").css({"display":"none"});
-    
+    console.log("hit up");
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
     //$("#updownarrow").animate("class","huge sort ascending icon");
     //$("#surveybighandle").css({"z-index":"4"});
@@ -7941,11 +7939,11 @@ function closeSurvey(){
   console.log("closeSurvey");
     notify("Hold sentiment to share it.","information");
     // $(".leadersface").css({"display":"block"});
-    $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
+    $("#surveybighandle").transition({"top":"0%","background": "black","opacity": "0.5"});
     $(".leaderSection").transition({"top":"15%"});
-    $(".hashKeyword").css({"display":"block"});
+    $(".hashKeyword").transition({"display":"block"});
     $('#updownarrow').addClass('huge sort descending icon');
-    $('#updownarrow').css({"top": "28%"});
+    $('#updownarrow').transition({"top": "28%"});
     $(".leaderSection").show();
     $(".tapToShow").show();
     $(".leaderSection .leadersface").show();

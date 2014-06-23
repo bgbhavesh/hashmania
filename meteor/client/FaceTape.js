@@ -1067,15 +1067,15 @@ Meteor.documentReady = documentReady;
             showFlag = false;
             currentData = data[i];
             // console.log(currentData.keyword.std)
+            if(!currentData)
+                continue;
             if(currentData.countNew){
-              console.log("currentData"+currentData.total)
-              console.log("currentData"+currentData.countNew)
+              // console.log("currentData"+currentData.total)
+              // console.log("currentData"+currentData.countNew)
               $("#NweImageAdded").text("New "+currentData.countNew);
               var oldcount = currentData.total - currentData.countNew;
               $("#loadMoreImg").text("Old "+oldcount);
             }
-            if(!currentData)
-                continue;
             if(!currentData.keyword)
                 continue;
             var resolution = Session.get("imageQuality");
@@ -6370,7 +6370,7 @@ function autoSize(){
         $("#toComeimages").css({"left":windowWidth*2/100});
         $("#totalimages").css({"left":windowWidth*89/100});
         $("#loadMoreImg").css({"left":windowWidth*15/100});
-        $("#NweImageAdded").css({"left":windowWidth*70/100});
+        $("#NweImageAdded").css({"right":windowWidth*15/100});
 
         // return;
         var adjustedWidth = 0;

@@ -1,0 +1,36 @@
+# Meteor packages used by this project, one per line.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+standard-app-packages
+insecure
+accounts-ui
+accounts-oauth
+oauth
+oauth2
+http
+templating
+random
+accounts-instagram
+cordova
+phonegap-push
+collectionapi
+language
+page-js-ie-support
+service-configuration
+user-status
+youtap
+semantic-ui
+oauth1
+accounts-password
+livedata
+fast-render
+email
+accounts-facebook
+accounts-twitter
+accounts-google
+router
+iron-router
+handlebars-server
+browser-policy-framing

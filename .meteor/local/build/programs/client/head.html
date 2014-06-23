@@ -1,0 +1,407 @@
+<title>AceEditor Example App</title>
+<title>simple</title>
+<title>iron-router-basic</title>
+<title>hooks</title>
+<title>app-with-layout</title>
+<title>simple-auth-app</title>
+<title>simple-routed-app</title>
+<title>minimongoid-example</title>
+<style type="text/css">
+        #tutorial{
+            zoom : 30%;
+            height: 100%;
+            width: 100%;
+            left : 0px;
+            top : 0px;
+            position: relative;
+            overflow: hidden;
+
+            border: 1px solid #444 /*{a-body-border}*/;
+            background: #E5E5E5 /*{a-body-background-color}*/;
+            color: #808080 /*{a-body-color}*/;
+            text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #111 /*{a-body-shadow-color}*/;
+            font-weight: normal;
+            text-align: center;
+            background-color: none;
+            background: none;
+            z-index: 3;
+            display: block;    
+        }
+        #tutorialSec1Text, #tutorialSec2Text, #tutorialSec3Text, #tutorialSec4 div div{
+            position : absolute;
+            text-align: center;
+            width: 100%;
+        }
+        #tutorialSec1{
+            height:10%;
+            position: relative;
+            width:100%;
+            background-color: #E5E5E5;
+            opacity: 1.0;
+        }
+        #loveQuadrant{
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            font-size: 50px;
+            padding-top: 15%;
+            display: none;  
+            padding-left: 35%;
+        }
+        #promoteQuadrant{
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            left: 50%;
+            font-size: 30px;
+            padding-top: 25%;
+            padding-left: 20%;
+            display: none;
+        }
+        #speed{
+            height:30%;
+            position: relative;
+            width:100%;
+            background-color: #E5E5E5;
+            opacity: 1.0;
+        }
+        #speed div{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            opacity: 0.0;
+        }
+        #speed div img{
+            float: left;
+            position: relative;
+            width: 25%;
+            height: 100%;
+        }
+        #tutorialSec2{
+            height:15%;
+            position: relative;
+            width:100%;
+            background-color: #E5E5E5;
+            opacity: 1.0;
+        }
+        #lovemessage{
+            position: absolute;
+            left: 45%;
+        }
+        #promotemessage{    
+            position: absolute;
+            right: 0px;
+        }
+        .redmessage{
+            color: red;
+            font-size: 25;
+        }
+        #tutorialSec3{
+            height:15%;
+            position: relative;
+            width:100%;
+            background-color: #E5E5E5;
+            opacity: 1.0;
+        }
+        #tutorialSec4{
+            height:60%;
+            position: relative;
+            width:100%;
+            background-color: #E5E5E5;
+            opacity: 1.0;
+        }
+        .gameQuadrant{
+          position: relative;
+          width : 50%;
+          height: 50%;
+          float: left;
+          opacity: 0.0;
+        }
+
+        .gameQuadrant img{
+            height: 100%;
+            width: 100%;
+        }
+        #tutorialSec4 div div{
+            background-color: transparent;
+            width: 100%;
+            position: absolute;
+            bottom: 0px;
+            height: auto;
+        }
+    </style>
+    <script type="text/javascript" src="../resource/jquery.js"></script>
+    <script type="text/javascript" src="../resource/hammer.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            /////////////////GAMESECTION//////////////
+
+            var GameStartFlag = false;
+            var GameSpeed = 1500;
+            var GameIntervalId = null;
+            var nextQuadrantGameId = null;
+            var GameRandomNumber = -1;
+            var GameCheckRandomNumber = -1
+            var GameTotalCount = 0;
+            var GameHitCount = 0;
+            var GameMissCount = 0;
+            var GameTimeCount = 1;
+            var GameVibrate = null;
+            var GameRunningFlag = false;
+            var GamePrevRandomNumber = -1;
+            var GameResetTimeoutId = null;
+            function startGameSetup(){
+                // return;
+                $("#tutorialSec1Text").html("Game started! <br>Tap the below picture to get points!");
+                $("#tutorial").css({"opacity": "1.0","display": "block"});
+                $("#tutorialSec4 div").hammer().on("tap",gameTapOnPic);
+                $("#tutorialSec4 div").css({"display":"block","opacity":"0.0"});
+                $("#tutorialSec2 div").css({"opacity":"0.8"});
+                
+                $("#tutorialLogo").css({"width":$("#tutorialLogo").css("height")});
+                //not trying this for now.
+                //try{
+                   // vibrateBinding();
+                // }
+                // catch(e){
+                //     startGame();
+                // }
+                //$("#gamePrompt").show();
+                // toast("Game starts..!");
+                // startGameInterval = setInterval(startGame,2000);
+                // setTimeout(startGame,2000)
+                startGame();
+            }
+
+            // function gamePrompt(){
+            //     //$("#gamePrompt").hide();
+                
+            // }
+            function startGame(){
+                // clearInterval(startGameInterval);
+                console.log("startgame");
+                GameIntervalId = setInterval(runGame,1000);
+                GameIntervalToStop = setInterval(checkToStopGame,5000);
+                setTimeout(stopGame,20000);
+                nextQuadrantGameId = 1;
+                nextQuadrantGame();
+            }
+            function checkToStopGame () {
+               // if(!GameIntervalId)
+               //     return;
+               var imagesrc = $(".bigFeed img").attr("src");
+                   if(typeof(imagesrc) == "string"){
+                        if(imagesrc.length > 10){
+                           stopGame();
+                           // console.log("finish");
+                           // var currtime=GameTimeCount;
+                           // var acttime=5-currtime;
+                           // var stopgametimeat=acttime*1000+300;
+                           // if(currtime<5){
+                           //  setTimeout(stopGame,stopgametimeat);
+                           // }
+                           // https://trello.com/c/hoboMeJ9/332-game-score-is-getting-reset
+                           // else{
+                           //  stopGame();
+                           // }
+                           //GameStopFlag = true;
+                           //console.log(currtime+""+acttime)
+                           // if(GameTimeCount>5){
+                           // }
+                           //onClickGlobalFeed("game");
+                       }
+                   }       
+                   
+            }
+
+            // function startGame(){
+            //     GameIntervalId = setInterval(runGame,1000);
+            //     GameIntervalToStop = setInterval(checkToStopGame,5000);
+            //     setTimeout(stopGame,20000);
+            //     nextQuadrantGameId = 1;
+            //     nextQuadrantGame();
+            // }
+
+            function stopGame(){    
+                var avg = GameTimeCount / GameHitCount; 
+                if(!GameHitCount)
+                    avg = 0; 
+                avg = avg.toFixed(2);
+                    //https://trello.com/c/vfUxWIc9/294-don-t-allow-triple-taps-in-game
+                    $("#tutorialSec1Text").html("You got " +GameHitCount +" pts <br> in " +GameTimeCount +" seconds! <br> Thats an average time of " +avg +"."); 
+                    GameStartFlag = GameTotalCount = GameHitCount = GameMissCount = GameTimeCount = 0;
+                    setTimeout(function(){
+                        $("#tutorial").css({"display": "none"});
+                    },3000);
+                    
+                clearInterval(GameIntervalId);
+                clearTimeout(nextQuadrantGameId);
+                clearInterval(GameIntervalToStop);
+                
+                GameIntervalId = null;
+                nextQuadrantGameId = null;
+                GameIntervalId = null;    
+                $("#tutorialSec4 div").hammer().off("tap",gameTapOnPic);
+                $("#tutorialSec4 div").css({"display":"block","opacity":"1.0"}); 
+            }
+            function resetSpeed(){
+                $("#hateSpeed").css({"opacity":"0.0"});
+                $("#loveSpeed").css({"opacity":"0.0"});
+                $("#loveSpeed img").css({"opacity":"0.0"});
+                $("#hateSpeed img").css({"opacity":"0.0"});
+                $("#loveQuadrant").css({"opacity":"0.0"});
+                $("#promoteQuadrant").css({"opacity":"0.0"});
+            }
+            function currentNumberWithCSS(number,cssJSON){    
+                // if(number == 0)
+                //     $("#lovemessage").css(cssJSON);
+                // else if(number ==1)
+                //     $("#lovemessage,#promotemessage").css(cssJSON);    
+                // else if(number ==3)
+                //     $("#promotemessage").css(cssJSON);
+                // else{}
+                // switch(number){
+                //     case '0':            
+                //         $("#lovemessage").addClass("redmessage");
+                //     break;            
+                //     case '1':            
+                //         $("#lovemessage,#promotemessage").addClass("redmessage");
+                //     break;       
+                //     case '3':             
+                //         $("#promotemessage").addClass("redmessage");
+                //     break;
+                // } 
+                clearTimeout(GameResetTimeoutId);   
+                resetSpeed();
+                switch(number){
+                    case '0':                        
+                        $("#loveSpeed").css({"opacity":"0.6"});            
+                        $("#loveSpeed img:first-child").css({"opacity":"0.6"});
+                        $("#loveQuadrant").css({"opacity":"1.0"});
+                    break;            
+                    case '1':            
+                        $("#loveSpeed").css({"opacity":"0.6"});            
+                        $("#loveSpeed img").css({"opacity":"0.6"});
+                        $("#promoteQuadrant").css({"opacity":"1.0"});
+                    break;
+                    case '2':            
+                        $("#hateSpeed").css({"opacity":"0.6"});            
+                        $("#hateSpeed img:first-child").css({"opacity":"0.6"});            
+                    break;       
+                    case '3':             
+                        $("#hateSpeed").css({"opacity":"0.6"});            
+                        $("#hateSpeed img").css({"opacity":"0.6"});
+                        $("#promoteQuadrant").css({"opacity":"1.0"});
+                    break;
+                } 
+            }
+            function nextQuadrantGame (){
+                // console.log("nextQuadrantGame");
+                GameRunningFlag = true;
+                if(!nextQuadrantGameId)
+                    return;
+                GameRandomNumber = randomGame(); 
+                if(GamePrevRandomNumber == GameRandomNumber){
+                    nextQuadrantGame();
+                    return;
+                }
+                GameCheckRandomNumber = GamePrevRandomNumber = GameRandomNumber;
+
+                var localRandomNumber = GameRandomNumber;  //more accuracy
+                //console.log($("#" +localRandomNumber +"Q"));
+                $("#lovemessage,#promotemessage").css({"opacity":"1.0"});   
+                $("#" +localRandomNumber +"Q")
+                    .css({"opacity":"5.0"});        
+                        
+                    GameTotalCount++;
+            }
+            function runGame(){
+                GameTimeCount++; 
+                    // console.log(GameTimeCount);
+                $("#tutorialSec1Text").html(GameTimeCount +" | " +GameHitCount);   
+            }
+            function gameTapOnPic(event){
+                var currentNumber = $(this).attr("count");
+                if(currentNumber == GameCheckRandomNumber){
+                    //console.log("hit");
+                    currentNumberWithCSS(currentNumber)
+                    //$("#" +currentNumber +"message").css();
+                    GameHitCount++;
+                    // GameVibrate(500);
+                    var localRandomNumber = GameCheckRandomNumber;
+                    GameRandomNumber = -1;
+                    // flashSpeed(localRandomNumber);
+                    $("#tutorialSec1Text").html(GameTimeCount +" | " +GameHitCount); 
+                    setTimeout(function(){
+                                        $("#" +localRandomNumber +"Q").css({"opacity":"0.0"});
+                                        // $("#lovemessage,#promotemessage").removeClass("redmessage");                           
+                                    },200);
+                    GameResetTimeoutId = setTimeout(resetSpeed,800);
+                        nextQuadrantGameId = setTimeout(nextQuadrantGame,150);
+                }
+                else{
+                   //console.log("miss"); 
+                   GameMissCount++;
+                }
+            }
+            // function flashSpeed(number){
+            //     console.log(number);
+            // }
+            function randomGame(){
+                var random = 0;
+                random = Math.floor((Math.random()*10)%4);
+                //console.log(random);
+                return random;
+            }
+            // Meteor.randomFunction = randomGame;        
+            // Meteor.startGame = startGame;    
+            // Meteor.stopGame = stopGame;
+            // Meteor.startGameSetup = startGameSetup;    
+             
+
+            /////////////////GAMESECTION//////////////
+            startGameSetup();
+        });
+    </script>
+<title>Hash Republic</title>  
+	<!-- Cordova Plugins -->
+	<!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />-->
+	<meta name="viewport" content="height=device-height, width=device-width, user-scalable=no" />
+	<!-- Meta Tag For BlackBerry Events -->
+	<meta name="touch-event-mode" content="native=false, native=disable, native=no" />
+	<link rel="shortcut icon" type="image/png" href="/images/logo.png"/> 
+	<!-- YOUIEST LLC CONFIDENTIAL
+	
+	[2013] - [2014] Youiest LLC
+	All Rights Reserved.
+	NOTICE: All information contained herein is, and remains
+	the property of Youiest LLC and its suppliers,
+	if any. The intellectual and technical concepts contained
+	herein are proprietary to Youiest LLC
+	and its suppliers and may be covered by U.S. and Foreign Patents,
+	patents in process, and are protected by trade secret or copyright law.
+	Dissemination of this information or reproduction of this material
+	is strictly forbidden unless prior written permission is obtained
+	from Youiest LLC. -->
+	<meta name="description" content="HashRepublic is an Instagram TM guessing game. How well do your friends know you?  Find out with this new game!  In Tapmate you guess reactions to fashions, memes, celebrities or whatever else you like on Instagram.">
+<title>Hash Republic</title>  
+	<!-- Cordova Plugins -->
+	<!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />-->
+	<meta name="viewport" content="height=device-height, width=device-width, user-scalable=no" />
+	<!-- Meta Tag For BlackBerry Events -->
+	<meta name="touch-event-mode" content="native=false, native=disable, native=no" />
+	<link rel="shortcut icon" type="image/png" href="/images/logo.png"/> 
+	<!-- YOUIEST LLC CONFIDENTIAL
+	
+	[2013] - [2014] Youiest LLC
+	All Rights Reserved.
+	NOTICE: All information contained herein is, and remains
+	the property of Youiest LLC and its suppliers,
+	if any. The intellectual and technical concepts contained
+	herein are proprietary to Youiest LLC
+	and its suppliers and may be covered by U.S. and Foreign Patents,
+	patents in process, and are protected by trade secret or copyright law.
+	Dissemination of this information or reproduction of this material
+	is strictly forbidden unless prior written permission is obtained
+	from Youiest LLC. -->
+	<meta name="description" content="HashRepublic is an Instagram TM guessing game. How well do your friends know you?  Find out with this new game!  In Tapmate you guess reactions to fashions, memes, celebrities or whatever else you like on Instagram.">

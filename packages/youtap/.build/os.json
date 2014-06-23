@@ -1,0 +1,29 @@
+{
+  "format": "unipackage-slice-pre1",
+  "packageVariables": [
+    {
+      "name": "schedule",
+      "export": true
+    },
+    {
+      "name": "facebookfb",
+      "export": true
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    }
+  ],
+  "node_modules": "npm/node_modules",
+  "resources": [
+    {
+      "type": "prelink",
+      "file": "os/packages/youtap.js",
+      "length": 13567,
+      "offset": 0,
+      "servePath": "/packages/youtap.js",
+      "sourceMap": "os/packages/youtap.js.map"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "format": "unipackage-slice-pre1",
+  "packageVariables": [
+    {
+      "name": "FastRender",
+      "export": true
+    },
+    {
+      "name": "Utils"
+    },
+    {
+      "name": "Context"
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "minimongo"
+    },
+    {
+      "package": "livedata"
+    },
+    {
+      "package": "mongo-livedata"
+    },
+    {
+      "package": "ejson"
+    },
+    {
+      "package": "underscore"
+    },
+    {
+      "package": "webapp"
+    },
+    {
+      "package": "routepolicy"
+    },
+    {
+      "package": "accounts-base"
+    },
+    {
+      "package": "iron-router",
+      "weak": true
+    }
+  ],
+  "node_modules": "npm/node_modules",
+  "resources": [
+    {
+      "type": "asset",
+      "file": "os/.meteor/packages",
+      "length": 550,
+      "offset": 0,
+      "servePath": "/.meteor/packages",
+      "path": "../../.meteor/packages"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/fast-render/lib/server/inject_data.html",
+      "length": 136,
+      "offset": 0,
+      "servePath": "/packages/fast-render/lib/server/inject_data.html",
+      "path": "lib/server/inject_data.html"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/fast-render/lib/server/inject_config.html",
+      "length": 85,
+      "offset": 0,
+      "servePath": "/packages/fast-render/lib/server/inject_config.html",
+      "path": "lib/server/inject_config.html"
+    },
+    {
+      "type": "prelink",
+      "file": "os/packages/fast-render.js",
+      "length": 56066,
+      "offset": 0,
+      "servePath": "/packages/fast-render.js",
+      "sourceMap": "os/packages/fast-render.js.map"
+    }
+  ]
+}

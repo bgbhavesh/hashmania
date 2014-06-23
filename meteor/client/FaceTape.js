@@ -1067,6 +1067,13 @@ Meteor.documentReady = documentReady;
             showFlag = false;
             currentData = data[i];
             // console.log(currentData.keyword.std)
+            if(currentData.countNew){
+              console.log("currentData"+currentData.total)
+              console.log("currentData"+currentData.countNew)
+              $("#NweImageAdded").text("New "+currentData.countNew);
+              var oldcount = currentData.total - currentData.countNew;
+              $("#loadMoreImg").text("Old "+oldcount);
+            }
             if(!currentData)
                 continue;
             if(!currentData.keyword)
@@ -1660,7 +1667,7 @@ Meteor.documentReady = documentReady;
             $(currentBigHtml).find("div#inerhprogressBar").transition({ left: hprogressBar + "%" }, 500);
             $(barDiv).find("div").transition({ "width": hprogressBar + "%" }, 500)
             $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"1","left": hprogressBar+ "%",width:"60px"});
-            $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"0.0","left":"15%"},2000,"easeOutBounce");
+            $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"0.0","top":"5%"},2000,"easeOutBounce");
             
             promoteper=95-percent1;
             cursorlove=percent1;
@@ -2526,6 +2533,8 @@ Meteor.documentReady = documentReady;
                 Meteor.call("findHashKeyword",tempKeyword,CLIENTID,function(err,data){
                                
                 });
+                $("#NweImageAdded").text("NEW");
+                $("#loadMoreImg").text("OLD");
                 saveCurrentToPrevious();
                 Session.set("keyword",tempKeyword);
                 closeSurvey();
@@ -6278,6 +6287,8 @@ function searchHash(){
             toast("Searching keyword " +searchKeyword +" complete.")
         }
     });
+    $("#NweImageAdded").text("NEW");
+    $("#loadMoreImg").text("OLD");
     $("#searchKeyword").val('');    
     openSurvey();
 //   var keyword = Session.get("searchKeyword");
@@ -6360,7 +6371,7 @@ function autoSize(){
         $("#totalimages").css({"left":windowWidth*89/100});
         $("#loadMoreImg").css({"left":windowWidth*15/100});
         $("#NweImageAdded").css({"left":windowWidth*70/100});
-console.log("l;ll;l;l;l;l;ll;ll")
+
         // return;
         var adjustedWidth = 0;
             adjustedWidth = (windowHeight / 3 ) *2;
@@ -7923,7 +7934,7 @@ function openSurvey(){
 }
 function closeSurvey(){
   console.log("closeSurvey");
-    notify("Hold image to share it.","information");
+    notify("Hold sentiment to share it.","information");
     // $(".leadersface").css({"display":"block"});
     $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
     $(".leaderSection").transition({"top":"15%"});

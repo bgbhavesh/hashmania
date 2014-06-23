@@ -1,0 +1,423 @@
+
+<head> 
+    <style type="text/css">
+        #tutorial{
+            zoom : 30%;
+            height: 100%;
+            width: 100%;
+            left : 0px;
+            top : 0px;
+            position: relative;
+            overflow: hidden;
+
+            border: 1px solid #444 /*{a-body-border}*/;
+            background: #E5E5E5 /*{a-body-background-color}*/;
+            color: #808080 /*{a-body-color}*/;
+            text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #111 /*{a-body-shadow-color}*/;
+            font-weight: normal;
+            text-align: center;
+            background-color: none;
+            background: none;
+            z-index: 3;
+            display: block;    
+        }
+        #tutorialSec1Text, #tutorialSec2Text, #tutorialSec3Text, #tutorialSec4 div div{
+            position : absolute;
+            text-align: center;
+            width: 100%;
+        }
+        #tutorialSec1{
+            height:10%;
+            position: relative;
+            width:100%;
+            background-color: #E5E5E5;
+            opacity: 1.0;
+        }
+        #loveQuadrant{
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            font-size: 50px;
+            padding-top: 15%;
+            display: none;  
+            padding-left: 35%;
+        }
+        #promoteQuadrant{
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            left: 50%;
+            font-size: 30px;
+            padding-top: 25%;
+            padding-left: 20%;
+            display: none;
+        }
+        #speed{
+            height:30%;
+            position: relative;
+            width:100%;
+            background-color: #E5E5E5;
+            opacity: 1.0;
+        }
+        #speed div{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            opacity: 0.0;
+        }
+        #speed div img{
+            float: left;
+            position: relative;
+            width: 25%;
+            height: 100%;
+        }
+        #tutorialSec2{
+            height:15%;
+            position: relative;
+            width:100%;
+            background-color: #E5E5E5;
+            opacity: 1.0;
+        }
+        #lovemessage{
+            position: absolute;
+            left: 45%;
+        }
+        #promotemessage{    
+            position: absolute;
+            right: 0px;
+        }
+        .redmessage{
+            color: red;
+            font-size: 25;
+        }
+        #tutorialSec3{
+            height:15%;
+            position: relative;
+            width:100%;
+            background-color: #E5E5E5;
+            opacity: 1.0;
+        }
+        #tutorialSec4{
+            height:60%;
+            position: relative;
+            width:100%;
+            background-color: #E5E5E5;
+            opacity: 1.0;
+        }
+        .gameQuadrant{
+          position: relative;
+          width : 50%;
+          height: 50%;
+          float: left;
+          opacity: 0.0;
+        }
+
+        .gameQuadrant img{
+            height: 100%;
+            width: 100%;
+        }
+        #tutorialSec4 div div{
+            background-color: transparent;
+            width: 100%;
+            position: absolute;
+            bottom: 0px;
+            height: auto;
+        }
+    </style>
+    <script type="text/javascript" src="../resource/jquery.js"></script>
+    <script type="text/javascript" src="../resource/hammer.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            /////////////////GAMESECTION//////////////
+
+            var GameStartFlag = false;
+            var GameSpeed = 1500;
+            var GameIntervalId = null;
+            var nextQuadrantGameId = null;
+            var GameRandomNumber = -1;
+            var GameCheckRandomNumber = -1
+            var GameTotalCount = 0;
+            var GameHitCount = 0;
+            var GameMissCount = 0;
+            var GameTimeCount = 1;
+            var GameVibrate = null;
+            var GameRunningFlag = false;
+            var GamePrevRandomNumber = -1;
+            var GameResetTimeoutId = null;
+            function startGameSetup(){
+                // return;
+                $("#tutorialSec1Text").html("Game started! <br>Tap the below picture to get points!");
+                $("#tutorial").css({"opacity": "1.0","display": "block"});
+                $("#tutorialSec4 div").hammer().on("tap",gameTapOnPic);
+                $("#tutorialSec4 div").css({"display":"block","opacity":"0.0"});
+                $("#tutorialSec2 div").css({"opacity":"0.8"});
+                
+                $("#tutorialLogo").css({"width":$("#tutorialLogo").css("height")});
+                //not trying this for now.
+                //try{
+                   // vibrateBinding();
+                // }
+                // catch(e){
+                //     startGame();
+                // }
+                //$("#gamePrompt").show();
+                // toast("Game starts..!");
+                // startGameInterval = setInterval(startGame,2000);
+                // setTimeout(startGame,2000)
+                startGame();
+            }
+
+            // function gamePrompt(){
+            //     //$("#gamePrompt").hide();
+                
+            // }
+            function startGame(){
+                // clearInterval(startGameInterval);
+                console.log("startgame");
+                GameIntervalId = setInterval(runGame,1000);
+                GameIntervalToStop = setInterval(checkToStopGame,5000);
+                setTimeout(stopGame,20000);
+                nextQuadrantGameId = 1;
+                nextQuadrantGame();
+            }
+            function checkToStopGame () {
+               // if(!GameIntervalId)
+               //     return;
+               var imagesrc = $(".bigFeed img").attr("src");
+                   if(typeof(imagesrc) == "string"){
+                        if(imagesrc.length > 10){
+                           stopGame();
+                           // console.log("finish");
+                           // var currtime=GameTimeCount;
+                           // var acttime=5-currtime;
+                           // var stopgametimeat=acttime*1000+300;
+                           // if(currtime<5){
+                           //  setTimeout(stopGame,stopgametimeat);
+                           // }
+                           // https://trello.com/c/hoboMeJ9/332-game-score-is-getting-reset
+                           // else{
+                           //  stopGame();
+                           // }
+                           //GameStopFlag = true;
+                           //console.log(currtime+""+acttime)
+                           // if(GameTimeCount>5){
+                           // }
+                           //onClickGlobalFeed("game");
+                       }
+                   }       
+                   
+            }
+
+            // function startGame(){
+            //     GameIntervalId = setInterval(runGame,1000);
+            //     GameIntervalToStop = setInterval(checkToStopGame,5000);
+            //     setTimeout(stopGame,20000);
+            //     nextQuadrantGameId = 1;
+            //     nextQuadrantGame();
+            // }
+
+            function stopGame(){    
+                var avg = GameTimeCount / GameHitCount; 
+                if(!GameHitCount)
+                    avg = 0; 
+                avg = avg.toFixed(2);
+                    //https://trello.com/c/vfUxWIc9/294-don-t-allow-triple-taps-in-game
+                    $("#tutorialSec1Text").html("You got " +GameHitCount +" pts <br> in " +GameTimeCount +" seconds! <br> Thats an average time of " +avg +"."); 
+                    GameStartFlag = GameTotalCount = GameHitCount = GameMissCount = GameTimeCount = 0;
+                    setTimeout(function(){
+                        $("#tutorial").css({"display": "none"});
+                    },3000);
+                    
+                clearInterval(GameIntervalId);
+                clearTimeout(nextQuadrantGameId);
+                clearInterval(GameIntervalToStop);
+                
+                GameIntervalId = null;
+                nextQuadrantGameId = null;
+                GameIntervalId = null;    
+                $("#tutorialSec4 div").hammer().off("tap",gameTapOnPic);
+                $("#tutorialSec4 div").css({"display":"block","opacity":"1.0"}); 
+            }
+            function resetSpeed(){
+                $("#hateSpeed").css({"opacity":"0.0"});
+                $("#loveSpeed").css({"opacity":"0.0"});
+                $("#loveSpeed img").css({"opacity":"0.0"});
+                $("#hateSpeed img").css({"opacity":"0.0"});
+                $("#loveQuadrant").css({"opacity":"0.0"});
+                $("#promoteQuadrant").css({"opacity":"0.0"});
+            }
+            function currentNumberWithCSS(number,cssJSON){    
+                // if(number == 0)
+                //     $("#lovemessage").css(cssJSON);
+                // else if(number ==1)
+                //     $("#lovemessage,#promotemessage").css(cssJSON);    
+                // else if(number ==3)
+                //     $("#promotemessage").css(cssJSON);
+                // else{}
+                // switch(number){
+                //     case '0':            
+                //         $("#lovemessage").addClass("redmessage");
+                //     break;            
+                //     case '1':            
+                //         $("#lovemessage,#promotemessage").addClass("redmessage");
+                //     break;       
+                //     case '3':             
+                //         $("#promotemessage").addClass("redmessage");
+                //     break;
+                // } 
+                clearTimeout(GameResetTimeoutId);   
+                resetSpeed();
+                switch(number){
+                    case '0':                        
+                        $("#loveSpeed").css({"opacity":"0.6"});            
+                        $("#loveSpeed img:first-child").css({"opacity":"0.6"});
+                        $("#loveQuadrant").css({"opacity":"1.0"});
+                    break;            
+                    case '1':            
+                        $("#loveSpeed").css({"opacity":"0.6"});            
+                        $("#loveSpeed img").css({"opacity":"0.6"});
+                        $("#promoteQuadrant").css({"opacity":"1.0"});
+                    break;
+                    case '2':            
+                        $("#hateSpeed").css({"opacity":"0.6"});            
+                        $("#hateSpeed img:first-child").css({"opacity":"0.6"});            
+                    break;       
+                    case '3':             
+                        $("#hateSpeed").css({"opacity":"0.6"});            
+                        $("#hateSpeed img").css({"opacity":"0.6"});
+                        $("#promoteQuadrant").css({"opacity":"1.0"});
+                    break;
+                } 
+            }
+            function nextQuadrantGame (){
+                // console.log("nextQuadrantGame");
+                GameRunningFlag = true;
+                if(!nextQuadrantGameId)
+                    return;
+                GameRandomNumber = randomGame(); 
+                if(GamePrevRandomNumber == GameRandomNumber){
+                    nextQuadrantGame();
+                    return;
+                }
+                GameCheckRandomNumber = GamePrevRandomNumber = GameRandomNumber;
+
+                var localRandomNumber = GameRandomNumber;  //more accuracy
+                //console.log($("#" +localRandomNumber +"Q"));
+                $("#lovemessage,#promotemessage").css({"opacity":"1.0"});   
+                $("#" +localRandomNumber +"Q")
+                    .css({"opacity":"5.0"});        
+                        
+                    GameTotalCount++;
+            }
+            function runGame(){
+                GameTimeCount++; 
+                    // console.log(GameTimeCount);
+                $("#tutorialSec1Text").html(GameTimeCount +" | " +GameHitCount);   
+            }
+            function gameTapOnPic(event){
+                var currentNumber = $(this).attr("count");
+                if(currentNumber == GameCheckRandomNumber){
+                    //console.log("hit");
+                    currentNumberWithCSS(currentNumber)
+                    //$("#" +currentNumber +"message").css();
+                    GameHitCount++;
+                    // GameVibrate(500);
+                    var localRandomNumber = GameCheckRandomNumber;
+                    GameRandomNumber = -1;
+                    // flashSpeed(localRandomNumber);
+                    $("#tutorialSec1Text").html(GameTimeCount +" | " +GameHitCount); 
+                    setTimeout(function(){
+                                        $("#" +localRandomNumber +"Q").css({"opacity":"0.0"});
+                                        // $("#lovemessage,#promotemessage").removeClass("redmessage");                           
+                                    },200);
+                    GameResetTimeoutId = setTimeout(resetSpeed,800);
+                        nextQuadrantGameId = setTimeout(nextQuadrantGame,150);
+                }
+                else{
+                   //console.log("miss"); 
+                   GameMissCount++;
+                }
+            }
+            // function flashSpeed(number){
+            //     console.log(number);
+            // }
+            function randomGame(){
+                var random = 0;
+                random = Math.floor((Math.random()*10)%4);
+                //console.log(random);
+                return random;
+            }
+            // Meteor.randomFunction = randomGame;        
+            // Meteor.startGame = startGame;    
+            // Meteor.stopGame = stopGame;
+            // Meteor.startGameSetup = startGameSetup;    
+             
+
+            /////////////////GAMESECTION//////////////
+            startGameSetup();
+        });
+    </script>
+</head>
+<body>
+
+        <div id="tutorial"> 
+                <div id="closeTutorialButton"> </div>
+                <!-- <div id="tutorialLogo"> </div> -->
+                <div id="tutorialSec1">
+                    <div id="tutorialSec1Text"> 
+                    
+                   
+                    </div> 
+                </div>
+                <!-- <div id="tutorialSec2">            
+                        <div id="lovemessage"> Love </div>
+                </div>
+                <div id="tutorialSec3">
+                    <div id="promotemessage"> Promote </div>
+                </div> -->
+                <div id="speed"> 
+                	<div id="loveSpeed"> 
+                		<img src="/images/love/love1.png" style="height:25%;width:15%;margin-left:10%;top:75%;"/>
+                		<img src="/images/love/love2.png" style="height:50%;top:50%;"/>
+                		<img src="/images/love/love3.png" style="height:75%;top:25%;"/>
+                		<img src="/images/love/love4.png" style="height:100%"/> 
+                	</div>
+                	<div id="hateSpeed"> 
+                		<img src="/images/hate/hate1.png" style="height:25%;width:15%;margin-left:10%;top:75%;" /> 
+                		<img src="/images/hate/hate2.png" style="height:50%;top:50%;"/>
+                		<img src="/images/hate/hate3.png" style="height:75%;top:25%;"/>
+                		<img src="/images/hate/hate4.png" style="height:100%"/>
+                	</div>
+                </div>
+                <div id="tutorialSec4">
+                    <div id="loveQuadrant"> LOVE </div>
+                    <div id="promoteQuadrant"> P<br>R<br>O<br>M<br>O<br>T<br>E<br> </div> 
+                    <div id="0Q" count="0" class="gameQuadrant"> 
+                        <div> 
+                        LOVE the image SILENTLY
+                        </div> 
+                      <img src="/images/eagle.png">        
+                    </div>
+                    <div id="1Q" count="1" class="gameQuadrant"> 
+                        <div> 
+                        LOVE the image STRONGLY
+                        </div> 
+                        <img src="/images/rooster.png">        
+                    </div>
+                    <div id="2Q" count="2" class="gameQuadrant"> 
+                        <div> 
+                        HATE the image SILENTLY
+                        </div>
+                        <img src="/images/mouse.png">           
+                
+                    </div>
+                    <div id="3Q" count="3" class="gameQuadrant"> 
+                        <div> 
+                        HATE the image STRONGLY
+                        </div> 
+                        <img src="/images/seagul.png">
+                    </div>        
+                </div>
+
+            </div>
+</body>

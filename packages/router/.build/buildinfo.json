@@ -1,0 +1,61 @@
+{
+  "builtBy": "meteor/10",
+  "sliceDependencies": {
+    "browser.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/router/package.js": "0622d777f05d846e611c55b2d5cf4fe5771797b3",
+        "/Users/london/Desktop/hash18/packages/router/lib/router_client.js": "5667b86b515452629161bcb6cf7f42362c33fa06",
+        "/Users/london/Desktop/hash18/packages/router/lib/router_helpers.js": "7df107d35ba74fa226375f011ea49ac79c3c4c45",
+        "/Users/london/Desktop/hash18/packages/router/lib/router_common.js": "98dbbbde3bc3b6ee06a5414bb257ce5b04bfebe5",
+        "/Users/london/Desktop/hash18/packages/page-js-ie-support/package.js": "6362114403a5c2460ea5ac9d5932ae0ce6c9aa05"
+      },
+      "directories": []
+    },
+    "os.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/router/package.js": "0622d777f05d846e611c55b2d5cf4fe5771797b3",
+        "/Users/london/Desktop/hash18/packages/router/lib/router_server.js": "a4e1dd38ed3bdd0b361597a671c766fa0f070bdb",
+        "/Users/london/Desktop/hash18/packages/router/lib/router_common.js": "98dbbbde3bc3b6ee06a5414bb257ce5b04bfebe5"
+      },
+      "directories": []
+    },
+    "tests.browser.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/router/package.js": "0622d777f05d846e611c55b2d5cf4fe5771797b3",
+        "/Users/london/Desktop/hash18/packages/router/tests/router_client_tests.js": "88ecbf3d54fa7b8d1145e67da200664b0c819300",
+        "/Users/london/Desktop/hash18/packages/router/tests/router_common_tests.js": "7d2c9e96a2a62a2893294f46133f8eadc00ddeee"
+      },
+      "directories": []
+    },
+    "tests.os.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/router/package.js": "0622d777f05d846e611c55b2d5cf4fe5771797b3",
+        "/Users/london/Desktop/hash18/packages/router/tests/router_server_tests.js": "d26131ec1ace47f3d3775510ce7e0a660a0402e9",
+        "/Users/london/Desktop/hash18/packages/router/tests/router_common_tests.js": "7d2c9e96a2a62a2893294f46133f8eadc00ddeee"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/Users/london/Desktop/hash18/packages/router/package.js": "0622d777f05d846e611c55b2d5cf4fe5771797b3"
+    },
+    "directories": []
+  },
+  "pluginProviderPackages": {
+    "router": "/Users/london/Desktop/hash18/packages/router",
+    "meteor": "/Users/london/.meteor/packages/meteor/144d60bec6",
+    "deps": "/Users/london/.meteor/packages/deps/b379a68e0a",
+    "startup": "/Users/london/.meteor/packages/startup/170e69b24f",
+    "templating": "/Users/london/.meteor/packages/templating/42a3d93d83",
+    "handlebars": "/Users/london/.meteor/packages/handlebars/854145b50a",
+    "page-js-ie-support": "/Users/london/Desktop/hash18/packages/page-js-ie-support",
+    "underscore": "/Users/london/.meteor/packages/underscore/381c001cdc",
+    "webapp": "/Users/london/.meteor/packages/webapp/a823e5e013",
+    "test-helpers": "/Users/london/.meteor/packages/test-helpers/2f90e072c6",
+    "tinytest": "/Users/london/.meteor/packages/tinytest/7b76fff9b6",
+    "session": "/Users/london/.meteor/packages/session/c0c589d932",
+    "http": "/Users/london/.meteor/packages/http/db56644ab0"
+  },
+  "source": "/Users/london/Desktop/hash18/packages/router"
+}

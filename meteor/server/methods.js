@@ -1667,12 +1667,22 @@ language.html = [
                         ar++;
                     }
                     else{
-                        firstResult[fr] = {};
-                        firstResult[fr].keyword = data
-                        firstResult[fr].votes = votes;
-                        firstResult[fr].comments = comments;
-                        firstResult[fr].likeid = data.likeid
-                        fr++;
+                        if(fr!=0){
+                            // console.log("firstResult knkj")
+                            firstResult[fr] = {};
+                            firstResult[fr].keyword = data
+                            firstResult[fr].votes = votes;
+                            firstResult[fr].comments = comments;
+                            firstResult[fr].likeid = data.likeid
+                            fr++;
+                        }
+                        if(fr==0){
+                                var countNew = HashKeyword.find(findJson,{limit:10}).count();
+                                firstResult[fr] = {};
+                                firstResult[fr].total = count
+                                firstResult[fr].countNew = countNew;
+                                fr++;
+                        }
                     }
                     App.updateUserHistory(clientid,keyword,data.likeid);
                 }

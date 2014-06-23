@@ -1,0 +1,45 @@
+{
+  "format": "unipackage-slice-pre1",
+  "noExports": true,
+  "packageVariables": [
+    {
+      "name": "InsecureLogin"
+    },
+    {
+      "name": "__coffeescriptShare"
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "user-status"
+    },
+    {
+      "package": "accounts-base"
+    },
+    {
+      "package": "accounts-password"
+    },
+    {
+      "package": "coffeescript"
+    },
+    {
+      "package": "test-helpers"
+    },
+    {
+      "package": "tinytest"
+    }
+  ],
+  "resources": [
+    {
+      "type": "prelink",
+      "file": "tests.os/packages/user-statustests.js",
+      "length": 11876,
+      "offset": 0,
+      "servePath": "/packages/user-status:tests.js",
+      "sourceMap": "tests.os/packages/user-statustests.js.map"
+    }
+  ]
+}

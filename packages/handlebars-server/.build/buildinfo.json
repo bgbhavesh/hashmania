@@ -1,0 +1,53 @@
+{
+  "builtBy": "meteor/10",
+  "sliceDependencies": {
+    "browser.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/handlebars-server/package.js": "68f6f640179c1fdb7c1cb9bce15a1fcb13689e35",
+        "/Users/london/Desktop/hash18/packages/handlebars-server/plugin/compile-handlebars.js": "04366bcaa113fc442fbc8f9d20c4b2bb1bef71e4"
+      },
+      "directories": []
+    },
+    "os.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/handlebars-server/package.js": "68f6f640179c1fdb7c1cb9bce15a1fcb13689e35",
+        "/Users/london/Desktop/hash18/packages/handlebars-server/handlebars-server.js": "5b0d5485bd1592a34ce8a9104a175a0bd12f66ae",
+        "/Users/london/Desktop/hash18/packages/handlebars-server/plugin/compile-handlebars.js": "04366bcaa113fc442fbc8f9d20c4b2bb1bef71e4"
+      },
+      "directories": []
+    },
+    "tests.browser.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/handlebars-server/package.js": "68f6f640179c1fdb7c1cb9bce15a1fcb13689e35",
+        "/Users/london/Desktop/hash18/packages/handlebars-server/plugin/compile-handlebars.js": "04366bcaa113fc442fbc8f9d20c4b2bb1bef71e4"
+      },
+      "directories": []
+    },
+    "tests.os.json": {
+      "files": {
+        "/Users/london/Desktop/hash18/packages/handlebars-server/package.js": "68f6f640179c1fdb7c1cb9bce15a1fcb13689e35",
+        "/Users/london/Desktop/hash18/packages/handlebars-server/handlebars-server-tests.handlebars": "93d948aa9f6539391e952e963014a5c708b8acd2",
+        "/Users/london/Desktop/hash18/packages/handlebars-server/handlebars-server-tests-2.handlebars": "c143e975c8768345a6ff5a02eb7570bdb4a74490",
+        "/Users/london/Desktop/hash18/packages/handlebars-server/handlebars-server-tests.js": "337f74b4f9438181418812b24df750f643a9a242",
+        "/Users/london/Desktop/hash18/packages/handlebars-server/plugin/compile-handlebars.js": "04366bcaa113fc442fbc8f9d20c4b2bb1bef71e4"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/Users/london/Desktop/hash18/packages/handlebars-server/package.js": "68f6f640179c1fdb7c1cb9bce15a1fcb13689e35",
+      "/Users/london/Desktop/hash18/packages/handlebars-server/plugin/compile-handlebars.js": "04366bcaa113fc442fbc8f9d20c4b2bb1bef71e4"
+    },
+    "directories": []
+  },
+  "pluginProviderPackages": {
+    "handlebars": "/Users/london/.meteor/packages/handlebars/854145b50a",
+    "handlebars-server": "/Users/london/Desktop/hash18/packages/handlebars-server",
+    "meteor": "/Users/london/.meteor/packages/meteor/144d60bec6",
+    "underscore": "/Users/london/.meteor/packages/underscore/381c001cdc",
+    "tinytest": "/Users/london/.meteor/packages/tinytest/7b76fff9b6",
+    "test-helpers": "/Users/london/.meteor/packages/test-helpers/2f90e072c6"
+  },
+  "source": "/Users/london/Desktop/hash18/packages/handlebars-server"
+}

@@ -1,0 +1,35 @@
+{
+  "format": "unipackage-slice-pre1",
+  "packageVariables": [
+    {
+      "name": "Handlebars",
+      "export": true
+    },
+    {
+      "name": "OriginalHandlebars",
+      "export": true
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "handlebars"
+    },
+    {
+      "package": "underscore"
+    }
+  ],
+  "node_modules": "npm/node_modules",
+  "resources": [
+    {
+      "type": "prelink",
+      "file": "os/packages/handlebars-server.js",
+      "length": 1054,
+      "offset": 0,
+      "servePath": "/packages/handlebars-server.js",
+      "sourceMap": "os/packages/handlebars-server.js.map"
+    }
+  ]
+}

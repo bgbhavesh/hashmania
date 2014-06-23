@@ -1669,7 +1669,7 @@ Meteor.documentReady = documentReady;
             $(barDiv).find("div").transition({ "width": hprogressBar + "%" }, 500)
             // $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"1","left": hprogressBar+ "%"});
             $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"1"},5000);
-            $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"0.0"},5000);
+            $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"0.0","display":"none"},5000);
             
             promoteper=95-percent1;
             cursorlove=percent1;
@@ -1680,7 +1680,7 @@ Meteor.documentReady = documentReady;
             // $(currentBigHtml).find("#inner-inner mark").animate({"opacity":"1","top":cursorlove+"%"});
          
             $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"1"},5000);
-            $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"0.0"},5000);
+            $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"0.0","display":"none"},5000);
 
             
 

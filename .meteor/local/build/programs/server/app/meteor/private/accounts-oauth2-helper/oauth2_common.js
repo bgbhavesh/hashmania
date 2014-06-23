@@ -1,3 +1,0 @@
-(function(){Accounts.oauth2 = {};
-
-})();

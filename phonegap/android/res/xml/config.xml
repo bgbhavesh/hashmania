@@ -31,10 +31,10 @@
     <access origin=".*"/>
 
     <!-- <content src="http://mysite.com/myapp.html" /> for external pages -->
-    <content src="index.html" />
+    <content src="youtap.meteor.com/index.html" />
 
     <log level="DEBUG"/>
-    <preference name="useBrowserHistory" value="true" />
+    <preference name="useBrowserHistory" value="false" />
     <preference name="exit-on-suspend" value="false" />
     <content src="http://hashrepublic.meteor.com/"/>
 <plugins>

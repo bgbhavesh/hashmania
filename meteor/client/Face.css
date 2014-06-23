@@ -335,6 +335,7 @@ body{
 	padding: 0px;
 }
 .inner{
+	color: white;
      width: 7px;
     height: 50%;
     overflow: hidden;

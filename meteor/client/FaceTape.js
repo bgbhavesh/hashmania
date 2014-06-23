@@ -1666,8 +1666,8 @@ Meteor.documentReady = documentReady;
             $(currentBigHtml).find("div#inerhprogressBar").transition({ left: hprogressBar + "%" }, 500);
             $(barDiv).find("div").transition({ "width": hprogressBar + "%" }, 500)
             // $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"1","left": hprogressBar+ "%"});
-            $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"1"},5000);
-            $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"0.0","display":"none"},5000);
+            $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"1"},4000);
+            $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"0.0","display":"none"},8000);
             
             promoteper=95-percent1;
             cursorlove=percent1;
@@ -1677,8 +1677,8 @@ Meteor.documentReady = documentReady;
             $(currentBigHtml).find("#verticalprogress").css("height",promoteper +"%")
             // $(currentBigHtml).find("#inner-inner mark").animate({"opacity":"1","top":cursorlove+"%"});
          
-            $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"1"},5000);
-            $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"0.0","display":"none"},5000);
+            $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"1"},4000);
+            $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"0.0","display":"none"},8000);
 
             
 
@@ -3903,9 +3903,9 @@ function showcomments(){
             //         +'<div id="cross" style=""><strong>x</strong></div>'
             //     +'</div>';
             html =  '<div class="commentwrapper" ' +style +'>'
-                        +'<img class="' +votingid +'" src="'+img+'">'
-                        +'<i class="comment icon"></i>'
-                        +'<textarea disabled="" id="commentInput" type="text" rows="4" placeholder="">'+p+'</textarea>'              
+                  +'<textarea style="border-radius:3px;float:right; margin-left:10%" disabled="" id="commentInput" type="text" rows="4" placeholder="">'+p+'</textarea>'              
+                  +'<img style="border-radius:3px;float:right" class="' +votingid +'" src="'+img+'">'
+                  +'<i class="comment icon"></i>'
                     +'</div>'
             // if(clientid == Session.get("clientid")){
             //     html = '<div class="commentwrapper"><div class="imageComment" class="allcomment" style="float:left">'

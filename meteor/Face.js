@@ -32,3 +32,12 @@ Meteor.startup(function () {
 	if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
 		DebugFace = true;
 })
+
+log = null;
+
+if(DebugFace){
+	log = function () { console.log.apply(console, arguments); };
+}
+else{
+	log = function () { console.log.apply(console, arguments); };//put something else here.
+}

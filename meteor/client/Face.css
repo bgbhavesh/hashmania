@@ -1056,7 +1056,7 @@ h6 {}
 	height: 16px;
 	padding-right: 20px;
 	border-left-width: 5px;
-	background-image: url(/images/feedicon.png);
+	background-image: url(/images/HashLogo.png);
     position: absolute;
     left : 0%;
     bottom : 0%;
@@ -2353,6 +2353,15 @@ mark{
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.3), inset 0 1px 10px #fff;
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.3), inset 0 1px 10px #fff;
 }
+.wave{
+	 -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+    left: calc(100% - 102px);
+    background: yellow;
+}
 .header{
 	text-align: right;
 	font-size: 30px;
@@ -2432,7 +2441,7 @@ mark{
 	top: 9%;
 }
 .appname{
-	background-image:url(/images/hashrepublic.png);
+	background-image:url(/images/hash_logo.png);
 	background-size: 60% 100%;
 	background-repeat: no-repeat;
 	left: 35%;
@@ -2447,7 +2456,7 @@ mark{
 	top: 0px;
 	height: 95%;
 	width: 10%;
-	background-image: url(/images/logo.png);
+	background-image: url(/images/HashLogo.png);
 	background-size: 100% 100%;
  	
    	margin-left: 1%

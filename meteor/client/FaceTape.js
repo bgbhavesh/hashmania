@@ -6763,7 +6763,7 @@ function onShare(share){
     //     window.plugins.socialsharing.shareViaSMS("Tapmate, Check this out Tapmate is out! It's cool!", null /* see the note below */, function(msg) {}, function(msg) {});
     // }
     // else{
-       window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", "http://youtap.meteor.com/images/logo.png", 'http://tapmate.youiest.com'); 
+       window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", "http://youtap.meteor.com/images/HashLogo.png", 'http://tapmate.youiest.com'); 
     // }    
 }
 function onShareOnFacebook(){

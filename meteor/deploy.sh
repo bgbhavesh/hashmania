@@ -1,6 +1,13 @@
+#ssh root@128.199.196.222
+#youiestwibing
+
 echo $(pwd)
 
+cd ..
+
 git pull -u origin master
+
+cd meteor
 
 MONGO_URL='mongodb://hashrepublic:123456@kahana.mongohq.com:10093/HashRepublic'
 ROOT_URL='http://128.199.196.222:3000'

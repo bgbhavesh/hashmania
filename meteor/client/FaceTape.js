@@ -6370,7 +6370,7 @@ function autoSize(){
         $("#toComeimages").css({"left":windowWidth*2/100});
         $("#totalimages").css({"left":windowWidth*89/100});
         $("#loadMoreImg").css({"left":windowWidth*15/100});
-        $("#NweImageAdded").css({"left":windowWidth*70/100});
+        $("#NweImageAdded").css({"right":windowWidth*15/100});
 
         // return;
         var adjustedWidth = 0;

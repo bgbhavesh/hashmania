@@ -1098,7 +1098,7 @@ Meteor.documentReady = documentReady;
                 newElement +='<div class="quadrant" id="' +currentData.keyword.likeid +'">'
                 +'<div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>'
                 +'<div id="inerhprogressBar">'
-                +'<i class="big bullhorn icon" style="margin-left: 0px"></i><mark>Promote</mark></div>'
+                +'<i class="big bullhorn icon" style="margin-left: 0px"></i><mark>Share</mark></div>'
                 +'<div id="outer" class="ui warning progress">'
                 +'<div class="inner"  id="verticalprogress"></div> <hr style="height:100%;width:2px;margin-bottom:-8px;padding:0px;">'
                 +'</div>'
@@ -1149,9 +1149,7 @@ Meteor.documentReady = documentReady;
         // button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   Old  </a>';//&#8609; MORE  &#8609;
         // var element = $("#surveybig").append(button);
 
-        $("#inner-inner").hammer().on("tap",console.log("tapedon"));
-        $("#inner-inner").hammer().off("tap");  
-
+       
         $(".hashFeed").hammer().off("tap");  
         $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
 
@@ -1356,7 +1354,7 @@ Meteor.documentReady = documentReady;
         }
         $("#displayScore").text(score);
         $("#displayScore").css({"opacity":"1.0","top":"46%","display":"block"});
-        $("#displayScore").animate({"opacity":"0.0","top":"5%"},2000,"easeOutBounce");
+        $("#displayScore").animate({"opacity":"0.0","top":"0%"},2000,"easeOutBounce");
     }
     /*
 
@@ -1664,20 +1662,25 @@ Meteor.documentReady = documentReady;
             var barDiv =$(currentBigHtml).children(".quadrant").children("#hprogressBar");
             console.log(barDiv)
             var hprogressBar =  percent;
+
             $(currentBigHtml).find("div#inerhprogressBar").transition({ left: hprogressBar + "%" }, 500);
             $(barDiv).find("div").transition({ "width": hprogressBar + "%" }, 500)
-            $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"1","left": hprogressBar+ "%",width:"50px"});
-            $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"0.0","top":"5%"},2000);
+            // $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"1","left": hprogressBar+ "%"});
+            $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"1"},5000);
+            $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"0.0","display":"none"},5000);
             
             promoteper=95-percent1;
             cursorlove=percent1;
             $("#inner-inner mark").animate({"opacity":"1"});
             $(currentBigHtml).find("#inner-inner").css("top",cursorlove+"%");
             $("#inner-inner").transition({"top":cursorlove+"%"});
-            $(currentBigHtml).find("#inner-inner mark").animate({"opacity":"1","top":cursorlove+"%",width:"30px"});
-         
-            $(currentBigHtml).find("#inner-inner mark").animate({"opacity":"0.0","top":"5%"},2000);
             $(currentBigHtml).find("#verticalprogress").css("height",promoteper +"%")
+            // $(currentBigHtml).find("#inner-inner mark").animate({"opacity":"1","top":cursorlove+"%"});
+         
+            $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"1"},5000);
+            $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"0.0","display":"none"},5000);
+
+            
 
             $(currentBigHtml).find("#outer")
             .transition({"opacity":"0.0"},500,"linear")
@@ -6290,7 +6293,7 @@ function searchHash(){
     $("#NweImageAdded").text("NEW");
     $("#loadMoreImg").text("OLD");
     $("#searchKeyword").val('');    
-    openSurvey();
+    onclickopencloseSurvey();
 //   var keyword = Session.get("searchKeyword");
 //   console.log(keyword);
 //   if(!keyword){
@@ -7902,7 +7905,7 @@ function randomGame(){
  */
 
 /////////////////GAMESECTION//////////////
-var snapTopFlag = true;
+var snapTopFlag = false;
 function onclickopencloseSurvey(){
     // console.log(snapTopFlag)
     if(snapTopFlag){ 
@@ -7914,9 +7917,8 @@ function onclickopencloseSurvey(){
     // if(!resume)
     // snapTopFlag = !snapTopFlag;
 }
-
 function openSurvey(){
-  console.log("openSurvey");
+  console.log("closeSurvey");
     $("#surveybighandle").css({"top":"89%","background": "transparent","opacity": "1.0"});
     // $("#surveybig").transition({"top":"92%"});
     $(".hashKeyword").css({"display":"none"});
@@ -7932,9 +7934,10 @@ function openSurvey(){
     snapTopFlag = false;
 
 }
+
 function closeSurvey(){
-  console.log("closeSurvey");
-    notify("Hold sentiment to share it.","information");
+  console.log("openSurvey");
+    notify("Hold image to share it.","information");
     // $(".leadersface").css({"display":"block"});
     $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
     $(".leaderSection").transition({"top":"15%"});

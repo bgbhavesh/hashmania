@@ -1,5 +1,0 @@
-(function(){// request
-// response
-// next
-
-})();

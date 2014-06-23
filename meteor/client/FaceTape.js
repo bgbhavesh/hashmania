@@ -1098,7 +1098,7 @@ Meteor.documentReady = documentReady;
                 newElement +='<div class="quadrant" id="' +currentData.keyword.likeid +'">'
                 +'<div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>'
                 +'<div id="inerhprogressBar">'
-                +'<i class="big bullhorn icon" style="margin-left: 0px"></i><mark>Promote</mark></div>'
+                +'<i class="big bullhorn icon" style="margin-left: 0px"></i><mark>Share</mark></div>'
                 +'<div id="outer" class="ui warning progress">'
                 +'<div class="inner"  id="verticalprogress"></div> <hr style="height:100%;width:2px;margin-bottom:-8px;padding:0px;">'
                 +'</div>'
@@ -1354,7 +1354,7 @@ Meteor.documentReady = documentReady;
         }
         $("#displayScore").text(score);
         $("#displayScore").css({"opacity":"1.0","top":"46%","display":"block"});
-        $("#displayScore").animate({"opacity":"0.0","top":"5%"},2000,"easeOutBounce");
+        $("#displayScore").animate({"opacity":"0.0","top":"0%"},2000,"easeOutBounce");
     }
     /*
 
@@ -6293,7 +6293,7 @@ function searchHash(){
     $("#NweImageAdded").text("NEW");
     $("#loadMoreImg").text("OLD");
     $("#searchKeyword").val('');    
-    openSurvey();
+    onclickopencloseSurvey();
 //   var keyword = Session.get("searchKeyword");
 //   console.log(keyword);
 //   if(!keyword){
@@ -7917,33 +7917,33 @@ function onclickopencloseSurvey(){
     // if(!resume)
     // snapTopFlag = !snapTopFlag;
 }
-
 function openSurvey(){
-  console.log("openSurvey");
+  console.log("closeSurvey");
     $("#surveybighandle").css({"top":"89%","background": "transparent","opacity": "1.0"});
     // $("#surveybig").transition({"top":"92%"});
-    $(".hashKeyword").transition({"display":"none"});
-    $('#updownarrow').transition({"top": "0%"});
+    $(".hashKeyword").css({"display":"none"});
+    $('#updownarrow').css({"top": "0%"});
     $(".leaderSection").transition({"top":"94%"});
     $(".tapToShow").hide();
     $(".leaderSection .leadersface").hide();
     // $(".leadersface").css({"display":"none"});
-    console.log("hit up");
+    
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
     //$("#updownarrow").animate("class","huge sort ascending icon");
     //$("#surveybighandle").css({"z-index":"4"});
     snapTopFlag = false;
 
 }
+
 function closeSurvey(){
-  console.log("closeSurvey");
-    notify("Hold sentiment to share it.","information");
+  console.log("openSurvey");
+    notify("Hold image to share it.","information");
     // $(".leadersface").css({"display":"block"});
-    $("#surveybighandle").transition({"top":"0%","background": "black","opacity": "0.5"});
+    $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
     $(".leaderSection").transition({"top":"15%"});
-    $(".hashKeyword").transition({"display":"block"});
+    $(".hashKeyword").css({"display":"block"});
     $('#updownarrow').addClass('huge sort descending icon');
-    $('#updownarrow').transition({"top": "28%"});
+    $('#updownarrow').css({"top": "28%"});
     $(".leaderSection").show();
     $(".tapToShow").show();
     $(".leaderSection .leadersface").show();

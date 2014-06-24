@@ -7,6 +7,7 @@ Npm.depends({
     // 'paypal-rest-sdk': '0.6.3',
     "fb" : "0.6.2",
     "googleapis" : "0.7.0",
+    "google-drive" : "0.0.6"
     // "passport" : "0.2.0",
     // "passport-facebook" : "1.0.3",
     // "form-data" : "0.1.2",

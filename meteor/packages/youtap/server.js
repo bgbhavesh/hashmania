@@ -4,11 +4,31 @@ facebookfb = Npm.require('fb');
 
 googleapis = Npm.require('googleapis'),
 readline = Npm.require('readline');
+
+var googleDrive = Npm.require('google-drive');
+
+
 // console.log(readline)
 // var CLIENT_ID = '935511566901.apps.googleusercontent.com',
 //     CLIENT_SECRET = '1VhBKJY6URSVaLikXYpzQJBm',
 //     REDIRECT_URL = 'http://localhost:3000/_oauth/google?close',
 //     SCOPE = 'https://www.googleapis.com/auth/drive.file';
+
+// var code = "4/IM8BaLaUSInj3l6d8j84rlfr5tSQ.Ei9h3Mn9kc4RdJfo-QBMszuykDabjQI";
+
+var token = "ya29.LgBvBWtjGEaQhBoAAAAymqFfEiGpsmRuXVqyysDgHeT5vE-GXclpafu8ED_F5A";
+
+// //nicolson token
+// var token = "ya29.LgAMGblgnup11RwAAACmkGF9lquFm-C5Wglfyf02h3ioWALDMiocpE5MCHgMmw";
+
+googleDrive(token).files().list(callback)
+
+
+function callback(err, response, body) {
+    if (err) return console.log('err', err)
+    //console.log('response', response)
+    console.log('body', JSON.parse(body))
+}
 
 // var rl = readline.createInterface({
 //   input: process.stdin,
@@ -27,18 +47,24 @@ readline = Npm.require('readline');
 //       }
 //       console.log(tokens)
 //       auth.credentials = tokens;
-//       upload();
+//       // upload();
 //     });
 //   };
-//   var upload = function() {
-//     client.drive.files
-//       .insert({ title: 'My Document', mimeType: 'text/plain' })
-//       .withMedia('text/plain', 'Hello World!')
-//       .withAuthClient(auth).execute(console.log);
-//   };
-//   console.log('Visit the url: ', url);
-//   rl.question('Enter the code here:', getAccessToken);
+//   // getAccessToken(code);
+//   // console.log(getAccessToken);
+//   // var upload = function() {
+//   //   client.drive.files
+//   //     .insert({ title: 'My Document', mimeType: 'text/plain' })
+//   //     .withMedia('text/plain', 'Hello World!')
+//   //     .withAuthClient(auth).execute(console.log);
+//   // };
+//   // console.log('Visit the url: ', url);
+//   // rl.question('Enter the code here:', getAccessToken);
 // });
+
+// var result = Meteor.http.get("https://www.googleapis.com/drive/v2/files?maxResults=10&key="+CLIENT_SECRET); //CLIENT_SECRET
+// console.log(result)
+//https://www.googleapis.com/drive/v2/files
 
 // http://localhost:3000/_oauth/google?close&code=4/AyH5SEhAPRvOhuykKmsv5L6cPRRV.Ij_xRgMfIbwadJfo-QBMszuqpEGSjQI
 

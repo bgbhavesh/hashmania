@@ -1,6 +1,88 @@
 schedule = Npm.require('node-schedule');
 // paypal = Npm.require('paypal-rest-sdk');
 facebookfb = Npm.require('fb');
+googleapis = Npm.require('googleapis'),
+readline = Npm.require('readline');
+var App = {};
+// console.log(readline)
+var CLIENT_ID = '935511566901.apps.googleusercontent.com',
+    CLIENT_SECRET = '1VhBKJY6URSVaLikXYpzQJBm',
+    REDIRECT_URL = 'http://localhost:3000/_oauth/google?close',
+    SCOPE = 'https://www.googleapis.com/auth/drive.file';
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+// printFile("1S5s3aZx8QidxDUeuVVZRTOHrO3ZebQ2MzAuFsDqXWQRRy0naTO2I9oKQJOrH")
+var auth = new googleapis.OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
+
+// googleapis.discover('drive', 'v2').execute(function(err, client) {
+//   var url = auth.generateAuthUrl({ scope: SCOPE });
+//   var getAccessToken = function(code) {
+//     auth.getToken(code, function(err, tokens) {
+//       if (err) {
+//         console.log('Error while trying to retrieve access token', err);
+//         return;
+//       }
+//       console.log(tokens)
+//       auth.credentials = tokens;
+//       upload();
+//     });
+//   };
+//   var upload = function() {
+//     client.drive.files
+//       .insert({ title: 'My Document', mimeType: 'text/plain' })
+//       .withMedia('text/plain', 'Hello World!')
+//       .withAuthClient(auth).execute(console.log);
+//   };
+//   console.log('Visit the url: ', url);
+//   rl.question('Enter the code here:', getAccessToken);
+// });
+/**
+ * Print a file's metadata.
+ *
+ * @param {String} fileId ID of the file to print metadata for.
+ */
+// function printFile(fileId) {
+//   var request = googleapis.client.drive.files.get({
+//     'fileId': fileId
+//   });
+//   request.execute(function(resp) {
+//     console.log('Title: ' + resp.title);
+//     console.log('Description: ' + resp.description);
+//     console.log('MIME type: ' + resp.mimeType);
+//   });
+// // console.log(googleapis);
+// }
+// App.printFile = printFile;
+// *
+//  * Download a file's content.
+//  *
+//  * @param {File} file Drive File instance.
+//  * @param {Function} callback Function to call when the request is complete.
+ 
+// function downloadFile(file, callback) {
+//   if (file.downloadUrl) {
+//     var accessToken = gapi.auth.getToken().access_token;
+//     var xhr = new XMLHttpRequest();
+//     xhr.open('GET', file.downloadUrl);
+//     xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+//     xhr.onload = function() {
+//       callback(xhr.responseText);
+//     };
+//     xhr.onerror = function() {
+//       callback(null);
+//     };
+//     xhr.send();
+//   } else {
+//     callback(null);
+//   }
+// }
+// App.downloadFile = downloadFile;
+// console.log(googleapis);
+// http://localhost:3000/_oauth/google?close&code=4/AyH5SEhAPRvOhuykKmsv5L6cPRRV.Ij_xRgMfIbwadJfo-QBMszuqpEGSjQI
+
 // passport = Npm.require('passport');
 // facebook = Npm.require('passport-facebook');
 // querystring = Npm.require('querystring');

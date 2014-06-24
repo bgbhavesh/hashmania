@@ -18,6 +18,7 @@ __meteor_runtime_config__ = {"meteorRelease":"0.7.2","PUBLIC_SETTINGS":{"nicolso
   	<script type="text/javascript" src="8f6ccf01775bc001367509564d67fd1e424ee557.js"></script>
 	<script>
 		Meteor.startup(function () {
+			//alert(window.location.href);
 			Session.set("phonegap",true);
             Session.set("device","android");
 			console.log("phonegap triggered");

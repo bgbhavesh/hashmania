@@ -1,14 +1,18 @@
 schedule = Npm.require('node-schedule');
 // paypal = Npm.require('paypal-rest-sdk');
 facebookfb = Npm.require('fb');
+
 googleapis = Npm.require('googleapis'),
 readline = Npm.require('readline');
-var App = {};
+
+var googleDrive = Npm.require('google-drive');
+
+
 // console.log(readline)
-var CLIENT_ID = '935511566901.apps.googleusercontent.com',
-    CLIENT_SECRET = '1VhBKJY6URSVaLikXYpzQJBm',
-    REDIRECT_URL = 'http://localhost:3000/_oauth/google?close',
-    SCOPE = 'https://www.googleapis.com/auth/drive.file';
+// var CLIENT_ID = '935511566901.apps.googleusercontent.com',
+//     CLIENT_SECRET = '1VhBKJY6URSVaLikXYpzQJBm',
+//     REDIRECT_URL = 'http://localhost:3000/_oauth/google?close',
+//     SCOPE = 'https://www.googleapis.com/auth/drive.file';
 
 var rl = readline.createInterface({
   input: process.stdin,
@@ -16,6 +20,27 @@ var rl = readline.createInterface({
 });
 // printFile("1S5s3aZx8QidxDUeuVVZRTOHrO3ZebQ2MzAuFsDqXWQRRy0naTO2I9oKQJOrH")
 var auth = new googleapis.OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
+
+var token = "ya29.LgBvBWtjGEaQhBoAAAAymqFfEiGpsmRuXVqyysDgHeT5vE-GXclpafu8ED_F5A";
+
+// //nicolson token
+// var token = "ya29.LgAMGblgnup11RwAAACmkGF9lquFm-C5Wglfyf02h3ioWALDMiocpE5MCHgMmw";
+
+googleDrive(token).files().list(callback)
+
+
+function callback(err, response, body) {
+    if (err) return console.log('err', err)
+    //console.log('response', response)
+    console.log('body', JSON.parse(body))
+}
+
+// var rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout
+// });
+
+// var auth = new googleapis.OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
 // googleapis.discover('drive', 'v2').execute(function(err, client) {
 //   var url = auth.generateAuthUrl({ scope: SCOPE });
@@ -27,60 +52,25 @@ var auth = new googleapis.OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 //       }
 //       console.log(tokens)
 //       auth.credentials = tokens;
-//       upload();
+//       // upload();
 //     });
 //   };
-//   var upload = function() {
-//     client.drive.files
-//       .insert({ title: 'My Document', mimeType: 'text/plain' })
-//       .withMedia('text/plain', 'Hello World!')
-//       .withAuthClient(auth).execute(console.log);
-//   };
-//   console.log('Visit the url: ', url);
-//   rl.question('Enter the code here:', getAccessToken);
+//   // getAccessToken(code);
+//   // console.log(getAccessToken);
+//   // var upload = function() {
+//   //   client.drive.files
+//   //     .insert({ title: 'My Document', mimeType: 'text/plain' })
+//   //     .withMedia('text/plain', 'Hello World!')
+//   //     .withAuthClient(auth).execute(console.log);
+//   // };
+//   // console.log('Visit the url: ', url);
+//   // rl.question('Enter the code here:', getAccessToken);
 // });
-/**
- * Print a file's metadata.
- *
- * @param {String} fileId ID of the file to print metadata for.
- */
-// function printFile(fileId) {
-//   var request = googleapis.client.drive.files.get({
-//     'fileId': fileId
-//   });
-//   request.execute(function(resp) {
-//     console.log('Title: ' + resp.title);
-//     console.log('Description: ' + resp.description);
-//     console.log('MIME type: ' + resp.mimeType);
-//   });
-// // console.log(googleapis);
-// }
-// App.printFile = printFile;
-// *
-//  * Download a file's content.
-//  *
-//  * @param {File} file Drive File instance.
-//  * @param {Function} callback Function to call when the request is complete.
- 
-// function downloadFile(file, callback) {
-//   if (file.downloadUrl) {
-//     var accessToken = gapi.auth.getToken().access_token;
-//     var xhr = new XMLHttpRequest();
-//     xhr.open('GET', file.downloadUrl);
-//     xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-//     xhr.onload = function() {
-//       callback(xhr.responseText);
-//     };
-//     xhr.onerror = function() {
-//       callback(null);
-//     };
-//     xhr.send();
-//   } else {
-//     callback(null);
-//   }
-// }
-// App.downloadFile = downloadFile;
-// console.log(googleapis);
+
+// var result = Meteor.http.get("https://www.googleapis.com/drive/v2/files?maxResults=10&key="+CLIENT_SECRET); //CLIENT_SECRET
+// console.log(result)
+//https://www.googleapis.com/drive/v2/files
+
 // http://localhost:3000/_oauth/google?close&code=4/AyH5SEhAPRvOhuykKmsv5L6cPRRV.Ij_xRgMfIbwadJfo-QBMszuqpEGSjQI
 
 // passport = Npm.require('passport');

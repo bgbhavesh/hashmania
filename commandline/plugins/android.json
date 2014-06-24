@@ -1,0 +1,64 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "config.xml": {
+            "/*": {
+                "<access origin=\"https://m.facebook.com\" />": 1,
+                "<access origin=\"https://graph.facebook.com\" />": 1,
+                "<access origin=\"https://api.facebook.com\" />": 1,
+                "<access origin=\"https://*.fbcdn.net\" />": 1,
+                "<access origin=\"https://*.akamaihd.net\" />": 1,
+                "<feature name=\"org.apache.cordova.facebook.Connect\"><param name=\"android-package\" value=\"org.apache.cordova.facebook.ConnectPlugin\" /></feature>": 1
+            }
+        },
+        "res/xml/config.xml": {
+            "/*": {
+                "<feature name=\"PushPlugin\"><param name=\"android-package\" value=\"com.plugin.gcm.PushPlugin\" /></feature>": 1,
+                "<feature name=\"SocialSharing\"><param name=\"android-package\" value=\"nl.xservices.plugins.SocialSharing\" /></feature>": 1,
+                "<feature name=\"VideoPlayer\"><param name=\"android-package\" value=\"com.dawsonloudon.videoplayer.VideoPlayer\" /></feature>": 1,
+                "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>": 1
+            }
+        },
+        "AndroidManifest.xml": {
+            "/manifest": {
+                "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />": 1,
+                "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />": 1,
+                "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />": 1,
+                "<uses-permission android:name=\"android.permission.VIBRATE\" />": 1,
+                "<uses-permission android:name=\"com.google.android.c2dm.permission.RECEIVE\" />": 1,
+                "<permission android:name=\"com.youiest.tapmatrix.permission.C2D_MESSAGE\" android:protectionLevel=\"signature\" />": 1,
+                "<uses-permission android:name=\"com.youiest.tapmatrix.permission.C2D_MESSAGE\" />": 1,
+                "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />": 1
+            },
+            "/manifest/application": {
+                "<activity android:name=\"com.plugin.gcm.PushHandlerActivity\" />": 1,
+                "<receiver android:name=\"com.plugin.gcm.CordovaGCMBroadcastReceiver\" android:permission=\"com.google.android.c2dm.permission.SEND\"><intent-filter><action android:name=\"com.google.android.c2dm.intent.RECEIVE\" /><action android:name=\"com.google.android.c2dm.intent.REGISTRATION\" /><category android:name=\"com.youiest.tapmatrix\" /></intent-filter></receiver>": 1,
+                "<service android:name=\"com.plugin.gcm.GCMIntentService\" />": 1
+            },
+            "/*": {
+                "<uses-permission android:name=\"android.permission.INTERNET\" />": 1
+            }
+        }
+    },
+    "installed_plugins": {
+        "com.phonegap.plugins.facebookconnect": {
+            "PACKAGE_NAME": "com.youiest.tapmatrix"
+        },
+        "com.phonegap.plugins.PushPlugin": {
+            "PACKAGE_NAME": "com.youiest.tapmatrix"
+        },
+        "nl.x-services.plugins.socialsharing": {
+            "PACKAGE_NAME": "com.youiest.tapmatrix"
+        },
+        "com.dawsonloudon.videoplayer": {
+            "PACKAGE_NAME": "com.youiest.tapmatrix"
+        },
+        "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "com.youiest.tapmatrix"
+        }
+    },
+    "dependent_plugins": {}
+}

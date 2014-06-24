@@ -1305,13 +1305,15 @@ Meteor.documentReady = documentReady;
             if(topTenLeaderRanking.indexOf(clientid)==-1){
                 return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'" style="border-style: inset;">  '  
-                  +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
+                  // +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                   +'</div>'
+                  +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'
             }else{
                 return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'" style="border-style: inset;">  '  
-                  +'<p class="triangle-right" style="top: -100%; left: -100%;display:block;">' +comment +'</p>'      
+                  // +'<p class="triangle-right" style="top: -100%; left: -100%;display:block;">' +comment +'</p>'      
                   +'</div>'
+                  +'<p class="triangle-right" style="top: 100%; left: 100%;">' +comment +'</p>'
             }
             
           }
@@ -1415,6 +1417,8 @@ Meteor.documentReady = documentReady;
         input.val("");
         onScore(10);
     }
+    var currentTop=null;
+    var currentLeft=null;
     var currentBigHtml=null;
     function tapOnBigFeedSurvey(event){
         // element = event.currentTarget;
@@ -1433,6 +1437,7 @@ Meteor.documentReady = documentReady;
         var bigheight = $(".quadrant").height();          
         var left = (x/width) * 100;
         var top = (y/height) * 100; 
+
         var leftpx = x;
         top = y - offset.top;
         var toppx = top;
@@ -1459,7 +1464,11 @@ Meteor.documentReady = documentReady;
         // progress2(left,top,likeid,event);
         $('.imageComment img').attr('src',get("profile_picture"));
         // console.log(likeid +" " +Session.get("currentBig"));
+        currentTop=top-15;
         top+=40;
+        
+        currentLeft=left;
+        console.log(currentTop+"/*/"+currentLeft);
         var currentvotes = $("#"+likeid).children(".voting");
         // var allVotesClientId = [];
         for(var i=0,il=currentvotes.length;i<il;i++){
@@ -3898,7 +3907,7 @@ function showcomments(){
     var div = $("#showallcomments")[0];
     // console.log(div)
     for(var i=0,il=votes.length;i<il;i++){
-        p = $(votes[i]).find("p").text();
+        p = $(votes[i]).parent().find("p").text();
         var clientid = $(votes[i]).attr("clientid");
         var votingid = $(votes[i]).attr("votingid");
         img = $(votes[i]).children("img").attr("src");
@@ -3958,26 +3967,29 @@ function commentOneVote(){
     var CLIENTID = Session.get("clientid");
     // var clientid = $("#commentingOverlay").attr("clientid");
     // var voting = $("#"+likeid).children(".voting");
-    var p = $(currentCommenting).find("p");
+    var p = $(currentCommenting).parent().find("p");
     var currImg = $(currentCommenting).find("img");
     var div = currentCommenting;
     var votingid = $(div).attr("votingid");
     // $(currentCommenting).css({"display":"block"});
     // console.log(currentCommenting);
+    // var left = $(this).offset().left;
+    // var top = $(this).offset().top;
 
+    // console.log(left+"***"+top)
     if(!value || value=="")
       return;
     if(p.length>0 ){
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>';
+      var html = '<p class="triangle-right" style="top: '+currentTop+'%; left: '+currentLeft+'%;z-index:1">' +value +'</p>';
       $(currImg).css({"border-style":"inset"});
       $(p).text(value); 
       if(votingid){
         Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
     }else{
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;display:block;">' +value +'</p>'; 
+      var html = '<p class="triangle-right" style="top:'+currentTop+'%; left: '+currentLeft+'%;display:block;z-index:1">' +value +'</p>'; 
       if(div)
-      div.insertAdjacentHTML( 'beforeend', html );
+      div.insertAdjacentHTML( 'afterend', html );
       $(currImg).css({"border-style":"inset"});
       if(votingid){
         Votes.update({"_id":votingid},{$set :{"comment":value}});

@@ -648,6 +648,7 @@ function documentReady(){
             // this might cause lagg issue.
             setTimeout(getDefaultData,240000);
             callHashRepublicStartUp();
+            set("hideComments","true");
             // snapy();  
             // autoLogin();
             // bindEvents();
@@ -5592,6 +5593,10 @@ var languageArray = [
                         ["sp","Spanish"],
                         ["ur","Urdu"]
                     ]
+function onClickGoogleDocs(){
+    var emailurl = "https://drivenotepad.appspot.com/app?state=%7B%22ids%22:%5B%220B4U5ka8K3zEIV3FvMHV5d1hxZGM%22%5D,%22action%22:%22open%22";
+    window.open(emailurl, '_system');
+}
 function onClicklanguageButton(){
     var starttimer = new Date().getTime();
     for(var i=0,il=languageArray.length-1;i<il;i++){
@@ -6498,6 +6503,7 @@ function bindEvents(){
         $("#aboutUsButton").hammer().on("tap",onClickAboutUsButton);
         $("#feedbackButton").hammer().on("tap",onClickfeedbackButton);
         $("#languageButton").hammer().on("tap",onClicklanguageButton);
+        $("#googleDocs").hammer().on("tap",onClickGoogleDocs);
         $("#languageBackground").hammer().on("tap",onSetLang);
         $("#AggrementAccept").hammer().on("tap",onClickAggAcceptButton);
         $("#AggrementDeny").hammer().on("tap",onClickAggDenyButton);

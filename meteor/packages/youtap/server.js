@@ -37,7 +37,7 @@ googleapis.discover('drive', 'v2').execute(function(err, client) {
       .withAuthClient(auth).execute(console.log);
   };
   console.log('Visit the url: ', url);
-  rl.question('Enter the code here:', getAccessToken);
+  // rl.question('Enter the code here:', getAccessToken);
 });
 
 // http://localhost:3000/_oauth/google?close&code=4/AyH5SEhAPRvOhuykKmsv5L6cPRRV.Ij_xRgMfIbwadJfo-QBMszuqpEGSjQI

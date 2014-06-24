@@ -23,7 +23,12 @@ Meteor.myJSON = myJSON;
 //     REDIRECT_URL = 'http://localhost:3000/_oauth/google?close',
 //     SCOPE = 'https://www.googleapis.com/auth/drive.file';
 
-// var code = "4/IM8BaLaUSInj3l6d8j84rlfr5tSQ.Ei9h3Mn9kc4RdJfo-QBMszuykDabjQI";
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+// printFile("1S5s3aZx8QidxDUeuVVZRTOHrO3ZebQ2MzAuFsDqXWQRRy0naTO2I9oKQJOrH")
+var auth = new googleapis.OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
 var token = "ya29.LgA-89vfHefyIx8AAADg5Bo2DK65t7bSHtX6-4cSm853bXSg11WmPUIjlgFFAA";
 var id = "11LDy_Bfw4AL-5h8Lylrkj-jXRkqzGO3O7J2WLgXd14Y";

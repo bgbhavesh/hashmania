@@ -30,7 +30,7 @@ modifyReload();
 var providers = [];
 function modifyReload(){
     var reloading = false;                                                                       // 117
-Package.reload.Reload._reload = function () {                                                               // 118
+Package.reload.Reload._reload = function () {                                                  // 118
     if (reloading)                                                                             // 119
         return;                                                                                  // 120
     reloading = true;                                                                          // 121
@@ -442,6 +442,15 @@ Meteor.startup(function () {
                     checkForPush();
                 // }
                 Me.update({"_id":Session.get("clientid")},{$inc:{"autologin":1,"yautologin":1,"mautologin":1,"wautologin":1,"dautologin":1}});
+                ///////////////////////fb account//////////////
+                // alert('My code 1.');
+                // FB.init({ 
+                //   appId: "698777560208700", 
+                //   nativeInterface: CDV.FB, 
+                //   useCachedDialogs: false 
+                // });
+                // document.getElementById('data').innerHTML = "";
+                ///////////////////////fb account/////////////////
             }
             catch(error){
                 console.log(error);
@@ -601,13 +610,13 @@ function getTopTenLeader(){
 
     }
 }
-window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '679347035440335',
-      status     : true,
-      xfbml      : true
-    });
-  };
+// window.fbAsyncInit = function() {
+//     FB.init({
+//       appId      : '698777560208700',
+//       status     : true,
+//       xfbml      : true
+//     });
+//   };
 function documentReady(){
 
             // autoLogin();
@@ -648,6 +657,7 @@ function documentReady(){
             // this might cause lagg issue.
             setTimeout(getDefaultData,240000);
             callHashRepublicStartUp();
+            set("hideComments","true");
             // snapy();  
             // autoLogin();
             // bindEvents();
@@ -1305,13 +1315,15 @@ Meteor.documentReady = documentReady;
             if(topTenLeaderRanking.indexOf(clientid)==-1){
                 return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'" style="border-style: inset;">  '  
-                  +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
+                  // +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                   +'</div>'
+                  +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'
             }else{
                 return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'" style="border-style: inset;">  '  
-                  +'<p class="triangle-right" style="top: -100%; left: -100%;display:block;">' +comment +'</p>'      
+                  // +'<p class="triangle-right" style="top: -100%; left: -100%;display:block;">' +comment +'</p>'      
                   +'</div>'
+                  +'<p class="triangle-right" style="top: 100%; left: 100%;">' +comment +'</p>'
             }
             
           }
@@ -1415,6 +1427,8 @@ Meteor.documentReady = documentReady;
         input.val("");
         onScore(10);
     }
+    var currentTop=null;
+    var currentLeft=null;
     var currentBigHtml=null;
     function tapOnBigFeedSurvey(event){
         // element = event.currentTarget;
@@ -1433,6 +1447,7 @@ Meteor.documentReady = documentReady;
         var bigheight = $(".quadrant").height();          
         var left = (x/width) * 100;
         var top = (y/height) * 100; 
+
         var leftpx = x;
         top = y - offset.top;
         var toppx = top;
@@ -1459,7 +1474,11 @@ Meteor.documentReady = documentReady;
         // progress2(left,top,likeid,event);
         $('.imageComment img').attr('src',get("profile_picture"));
         // console.log(likeid +" " +Session.get("currentBig"));
+        currentTop=top-15;
         top+=40;
+        
+        currentLeft=left;
+        console.log(currentTop+"/*/"+currentLeft);
         var currentvotes = $("#"+likeid).children(".voting");
         // var allVotesClientId = [];
         for(var i=0,il=currentvotes.length;i<il;i++){
@@ -3898,7 +3917,7 @@ function showcomments(){
     var div = $("#showallcomments")[0];
     // console.log(div)
     for(var i=0,il=votes.length;i<il;i++){
-        p = $(votes[i]).find("p").text();
+        p = $(votes[i]).parent().find("p").text();
         var clientid = $(votes[i]).attr("clientid");
         var votingid = $(votes[i]).attr("votingid");
         img = $(votes[i]).children("img").attr("src");
@@ -3951,31 +3970,36 @@ function voteOnComment(event){
     Votes.update({"_id":votingid},{$inc : {"hits":1}});
 }
 function commentOneVote(){
+  // var left = $(this).offset().left;
     hideSpecialPopup("commentingOverlay");
     var value = $("#commentInput").val();
     var likeid = $("#commentingOverlay").attr("likeid");
     var CLIENTID = Session.get("clientid");
     // var clientid = $("#commentingOverlay").attr("clientid");
     // var voting = $("#"+likeid).children(".voting");
-    var p = $(currentCommenting).find("p");
+    var p = $(currentCommenting).parent().find("p");
     var currImg = $(currentCommenting).find("img");
     var div = currentCommenting;
     var votingid = $(div).attr("votingid");
     // $(currentCommenting).css({"display":"block"});
     // console.log(currentCommenting);
+    // var left = $(this).offset().left;
+    // var top = $(this).offset().top;
+
+    // console.log(left+"***"+top)
     if(!value || value=="")
       return;
     if(p.length>0 ){
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>';
+      var html = '<p class="triangle-right" style="top: '+currentTop+'%; left: '+currentLeft+'%;z-index:1">' +value +'</p>';
       $(currImg).css({"border-style":"inset"});
       $(p).text(value); 
       if(votingid){
         Votes.update({"_id":votingid},{$set :{"comment":value}});
       }
     }else{
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;display:block;">' +value +'</p>'; 
+      var html = '<p class="triangle-right" style="top:'+currentTop+'%; left: '+currentLeft+'%;display:block;z-index:1">' +value +'</p>'; 
       if(div)
-      div.insertAdjacentHTML( 'beforeend', html );
+      div.insertAdjacentHTML( 'afterend', html );
       $(currImg).css({"border-style":"inset"});
       if(votingid){
         Votes.update({"_id":votingid},{$set :{"comment":value}});
@@ -5611,6 +5635,42 @@ var languageArray = [
                         ["sp","Spanish"],
                         ["ur","Urdu"]
                     ]
+function onClickGoogleDocs(){
+    // var emailurl = "https://drivenotepad.appspot.com/app?state=%7B%22ids%22:%5B%220B4U5ka8K3zEIV3FvMHV5d1hxZGM%22%5D,%22action%22:%22open%22";
+    // window.open(emailurl, '_system');
+    // download_url = file['https://docs.google.com/uc?authuser=0&id=0BwWGVIzsPbsaTUFFLTczYzQ3YjJjLTYxNmItNDEwYy05ZWIzLTcyYTgxZWJiODEzYQ&export=download']['application/pdf'];
+    // Meteor.call("callLangage",function(err,data){})
+    // gapi.client.setApiKey('935511566901.apps.googleusercontent.com');
+    // gapi.client.load('urlshortener', 'v1', makeRequest);
+    printFile("1S5s3aZx8QidxDUeuVVZRTOHrO3ZebQ2MzAuFsDqXWQRRy0naTO2I9oKQJOrH")
+}
+function printFile(fileId) {
+  var request = gapi.client.drive.files.get({
+    'fileId': fileId
+  });
+  request.execute(function(resp) {
+    console.log('Title: ' + resp.title);
+    console.log('Description: ' + resp.description);
+    console.log('MIME type: ' + resp.mimeType);
+  });
+// console.log(googleapis);
+}
+function appendResults(text) {
+  // var results = document.getElementById('results');
+  // results.appendChild(document.createElement('P'));
+  // results.appendChild(document.createTextNode(text));
+  console.log(text)
+}
+
+function makeRequest() {
+  var request = gapi.client.urlshortener.url.get({
+    'shortUrl': 'http://goo.gl/fbsS'
+  });
+  request.execute(function(response) {
+    appendResults(response.longUrl);
+  });
+}
+
 function onClicklanguageButton(){
     var starttimer = new Date().getTime();
     for(var i=0,il=languageArray.length-1;i<il;i++){
@@ -6049,7 +6109,7 @@ function loginWithInstagramHashManiaCallbackFunction(err){
     else{
         Meteor.call("mergedMyFace",App.emailAuthFlag,Session.get("clientid"),function(){
             $(".hideAfterComplete").html("Now");
-            console.log("here too")
+            console.log("here too");
         })
     }
 }           
@@ -6531,6 +6591,7 @@ function bindEvents(){
         $("#aboutUsButton").hammer().on("tap",onClickAboutUsButton);
         $("#feedbackButton").hammer().on("tap",onClickfeedbackButton);
         $("#languageButton").hammer().on("tap",onClicklanguageButton);
+        $("#googleDocs").hammer().on("tap",onClickGoogleDocs);
         $("#languageBackground").hammer().on("tap",onSetLang);
         $("#AggrementAccept").hammer().on("tap",onClickAggAcceptButton);
         $("#AggrementDeny").hammer().on("tap",onClickAggDenyButton);
@@ -6806,10 +6867,90 @@ function onShare(share){
     // }    
 }
 function onShareOnFacebook(){
-    Meteor.call("onShareOnFacebookHash",Session.get("clientid"),function(err,data){
-        console.log(err);
-    })
+    // Meteor.call("onShareOnFacebookHash",Session.get("clientid"),function(err,data){
+    //     console.log(err);
+    // })
+    login();
 }
+// FB.Event.subscribe('auth.login', function(response) {
+//     console.log('login event:' + JSON.stringify(response));
+// });
+
+// function me() {
+
+//       FB.api('/me?fields=picture,name,email', function(user) {
+//             console.log('response from facebook: ' + JSON.stringify(user));
+//             var profilePictureUrl = '';
+//             if (user.picture.data) {
+//               profilePictureUrl = user.picture.data.url;
+//             } else {
+//               profilePictureUrl = user.picture;
+//             }
+//             console.log('userId: ' + user.id);
+//             console.log('name: ' + user.name);
+//             console.log('email: ' + user.email);
+//             console.log('picture url: ' + profilePictureUrl);
+//             alert(user.email);
+//             alert(user.name);
+//             // $('#log').html('Welcome:' + user.name);
+
+//         });
+// }
+
+// function logout() {
+//     FB.logout(function(response) {
+//         console.log('logout response:' + JSON.stringify(response));
+//         alert('logged out');
+//     });
+// }
+
+// function login() {
+//     FB.login( function(response) {
+              
+//        if (response.authResponse) {
+//             //alert('logged in now');
+//             console.log('login response:' + response.authResponse);
+//             me();
+//        } else {
+//             //alert('not logged in on login');
+//             console.log('login response:' + response.error);
+//        }
+//        },
+//        { scope: "email" }
+//        );
+// }
+
+// function askForWritePerm() {
+//     FB.login(
+//        function(response) {
+        
+//          if (response.authResponse) {
+//               //alert('logged in now');
+//               console.log('login response:' + response.authResponse);
+//               // me();
+//          } else {
+//               //alert('not logged in on login');
+//               console.log('login response:' + response.error);
+//          }
+//        },
+//        { scope: "publish_actions" } 
+//        );
+// }
+
+
+// function facebookWallPost() {
+//     console.log('Debug 1');
+//   var params = {
+//       method: 'feed',
+//       name: 'Facebook Dialogs',
+//       link: 'https://developers.facebook.com/docs/reference/dialogs/',
+//       picture: 'http://fbrell.com/f8.jpg',
+//       caption: 'Reference Documentation',
+//       description: 'Dialogs provide a simple, consistent interface for applications to interface with users.'
+//     };
+//   console.log(params);
+//     FB.ui(params, function(obj) { console.log(obj);});
+// }
 function holdOnBigFeedSurvey(share){
     var myShareImage=$("div img").attr("src");
     if(Session.get("phonegap")){

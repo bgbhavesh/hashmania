@@ -28,6 +28,8 @@ Package.on_use(function (api) {
 	api.add_files('lib/jquery.countdown.css', 'client');
 	api.add_files('lib/jquery.countdown.js', 'client');
 	api.add_files('lib/noty.js', 'client');
+	// api.add_files('cdv-plugin-fb-connect.js', 'client');
+	// api.add_files('facebook-js-sdk.js', 'client');
 	
 	  if(api.export){
 		api.export("schedule","server");

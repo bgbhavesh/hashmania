@@ -1135,7 +1135,7 @@ Meteor.documentReady = documentReady;
                 if(currentData.votes[j].followid == clientid){
                     showFlag = true;
                 }
-                
+                // this only one time
                 appendVotesManuallyHash(currentData.keyword.likeid,currentData.votes[j])
             }
             $("#"+currentData.keyword.likeid).children(".tertiary").hide();
@@ -1476,9 +1476,19 @@ Meteor.documentReady = documentReady;
                     showcomments();
                     tapOnBigFeedSecond(null,currentvotes[i]);
                     // showSpecialPopup("commentingOverlay");
-                    // currentCommenting
-                    $("#commentInput").focus();
-                    $("#commentInput").select();
+                    // currentCommenting     
+                    SetFocusDelay();               
+                    function SetFocusDelay()
+                    {
+                      for (var start = 1; start < 5; start++)
+                      setTimeout(function ()
+                        {
+                        $("#commentInput").focus();
+                        
+                      }, 1000 * start);
+                    }
+                      
+                                          
                     return;
                 }
                 else if(noComment.length>0){
@@ -1491,8 +1501,8 @@ Meteor.documentReady = documentReady;
                     showSpecialPopup("commentingOverlay");
                     // tapOnBigFeedSecond(null,currentvotes[i]);
                 }
-                $("#commentInput").focus();
-                $("#commentInput").select();
+                $("#commentInput").focus().delay(5000);
+                $("#commentInput").select().delay(5000);
                 return;
             }
             // else{
@@ -1685,21 +1695,27 @@ Meteor.documentReady = documentReady;
             $(currentBigHtml).find("#outer")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
+
             $(currentBigHtml).find(".inner")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
+
             $(currentBigHtml).find("div#hprogressBar")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
+
             $(barDiv).find("div")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
+
             $(currentBigHtml).find("div#inerhprogressBar")
             .transition({"opacity":"0.0"},1,"linear")
             .transition({"opacity":"1.0"},100,"linear")
+
             $(currentBigHtml).find("#inner-inner")
             .transition({"opacity":"0.0"},500,"linear")
             .transition({"opacity":"1.0"},100,"linear")
+            
             var findHight=$(currentBigHtml).height();
             $(currentBigHtml).find(".inner").css({"background":"linear-gradient(to top,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight+"px)"});
             var findWidth=$(currentBigHtml).width();
@@ -3793,7 +3809,7 @@ function holdOnVoting(event){
 var currentCommenting = null;
 function tapOnBigFeedSecond(event,myElement){
     var starttimer = new Date().getTime();
-    //console.log(event);
+    console.log(event);
     try{
         var element = null;
         if(myElement)
@@ -3811,7 +3827,7 @@ function tapOnBigFeedSecond(event,myElement){
         $("#commentingOverlay").attr("clientid",clientid);
         var p = $(currentCommenting).find("p").text();
         if(p){
-            $("#commentInput").val(p);
+            //$("#commentInput").val(p); // to show the message in the upper textarea commentInput
         }else{
             $("#commentInput").val("");
         }
@@ -3903,8 +3919,8 @@ function showcomments(){
             //         +'<div id="cross" style=""><strong>x</strong></div>'
             //     +'</div>';
             html =  '<div class="commentwrapper" ' +style +'>'
-                  +'<textarea style="border-radius:3px;float:right; margin-left:10%" disabled="" id="commentInput" type="text" rows="4" placeholder="">'+p+'</textarea>'              
-                  +'<img style="border-radius:3px;float:right" class="' +votingid +'" src="'+img+'">'
+                  +'<textarea style="border-radius:3px;float:right; margin-left:5%;margin-right:1%;" disabled="" id="commentInput" type="text" rows="4" placeholder="">'+p+'</textarea>'              
+                  +'<img style="border-radius:3px;float:left" class="' +votingid +'" src="'+img+'">'
                   +'<i class="comment icon"></i>'
                     +'</div>'
             // if(clientid == Session.get("clientid")){
@@ -3947,9 +3963,9 @@ function commentOneVote(){
     var votingid = $(div).attr("votingid");
     // $(currentCommenting).css({"display":"block"});
     // console.log(currentCommenting);
-    if(!value)
+    if(!value || value=="")
       return;
-    if(p.length>0){
+    if(p.length>0 ){
       var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>';
       $(currImg).css({"border-style":"inset"});
       $(p).text(value); 
@@ -6275,8 +6291,10 @@ function replaceSpace(keyword){
 function searchHash(){
     var starttimer = new Date().getTime();
     var searchKeyword = $("#searchKeyword").val();
-    searchKeyword = searchKeyword.replace(" ","")
+    searchKeyword = searchKeyword.replace(" ","");
+    searchKeyword = searchKeyword.replace(" ","");
     Session.set("keyword",searchKeyword)
+
     if(!searchKeyword){
         toast(i18n.__("enterKeyword"));
         //toast("Please enter some keywords.")
@@ -6618,6 +6636,12 @@ function bindEvents(){
             $("#sePassThankyou2").keyup(function(event){
                 if(event.keyCode == 13){
                     Login.onLoginWithTapmate();
+                }
+            });
+            $("#commentInput").keyup(function(event){
+                if(event.keyCode == 13){
+                  console.log("entered")
+                    commentOneVote();
                 }
             });
 
@@ -7937,7 +7961,7 @@ function openSurvey(){
 
 function closeSurvey(){
   console.log("openSurvey");
-    notify("Hold image to share it.","information");
+    notify("Hold sentiment to share it.","information");
     // $(".leadersface").css({"display":"block"});
     $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
     $(".leaderSection").transition({"top":"15%"});

@@ -195,7 +195,7 @@
 	  <div id="invitefriends"><b>Invite Friends</b></div>
 	  <div class="menu">
 		  <a id="invfacebook" class="item"> <i class="facebook icon"></i> Facebook </a>
-		  <a id="invgoogle" class="item"><i class="google plus icon"></i> Google Plus </a>
+		  <a id="loginwithgoog" class="item"><i class="google plus icon"></i> Google Plus </a>
 		  <a id="invtwitter" class="item"><i class="twitter icon"></i> Twitter </a>
 		  <a id="invmail" class="item"><i class="mail icon"></i> Email </a>
 
@@ -271,9 +271,9 @@
 	{{#each eachlead}}
 		<div class="leadersface">  
 			<img src="{{face}}"/>
-			<div id="leadersScore" style="font-size: small;top: 63%;position: absolute;left: 20%;">{{heatScore}}</div>
-			<div id="leadersRank" style="font-size: small;top: 0%;position: absolute;left: 2%;">{{rank}}</div>
-			<div id="leadersPercentile" style="font-size: small;top: 0%;position: absolute;left: 47%;">{{percentile}}</div>
+			<div id="leadersScore" style="font-size: small;top: 63%;position: absolute;left: 20%;display:none">{{heatScore}}</div>
+			<div id="leadersRank" style="font-size: small;top: 0%;position: absolute;left: 2%;display:none">{{rank}}</div>
+			<div id="leadersPercentile" style="font-size: small;top: 0%;position: absolute;left: 47%;display:none">{{percentile}}</div>
 		</div>
 		
 		
@@ -396,9 +396,9 @@
 		
 		<div class="leadersface">  
 			<img src="{{face}}"/>
-			<div id="leadersScore" style="font-size: small;top: 63%;position: absolute;left: 20%;">{{customScore}}</div>
-			<div id="leadersRank" style="font-size: small;top: 0%;position: absolute;left: 2%;">{{rank}}</div>
-			<div id="leadersPercentile" style="font-size: small;top: 0%;position: absolute;left: 47%;">{{percentile}}</div>
+			<div id="leadersScore" style="font-size: small;top: 63%;position: absolute;left: 20%;display:none">{{customScore}}</div>
+			<div id="leadersRank" style="font-size: small;top: 0%;position: absolute;left: 2%;display:none">{{rank}}</div>
+			<div id="leadersPercentile" style="font-size: small;top: 0%;position: absolute;left: 47%;display:none">{{percentile}}</div>
 		</div>
 		
 		
@@ -459,7 +459,7 @@
 			<img src="">
 		</div>
 			<div class="ui right labeled icon input submitComment">
-				<textarea id="commentInput" type="text" rows="4"  placeholder="Enter Comment"></textarea>
+				<textarea id="commentInput" type="text" rows="7"  placeholder="Enter Comment"></textarea>
 			</div>
 			<div id="cross" style=""><i class="remove icon"></i>
 		</div>

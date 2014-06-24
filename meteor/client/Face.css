@@ -1953,7 +1953,7 @@ h6 {}
 	font-size: 20px;
 	display: none;
 	background-color: rgba(50,50,100,0.7);
-	border-radius: 8px;
+	border-radius: 3px;
 	z-index: 4;
 }
 

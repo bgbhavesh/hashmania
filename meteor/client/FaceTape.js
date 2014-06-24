@@ -30,7 +30,7 @@ modifyReload();
 var providers = [];
 function modifyReload(){
     var reloading = false;                                                                       // 117
-Package.reload.Reload._reload = function () {                                                               // 118
+Package.reload.Reload._reload = function () {                                                  // 118
     if (reloading)                                                                             // 119
         return;                                                                                  // 120
     reloading = true;                                                                          // 121
@@ -3951,6 +3951,7 @@ function voteOnComment(event){
     Votes.update({"_id":votingid},{$inc : {"hits":1}});
 }
 function commentOneVote(){
+  // var left = $(this).offset().left;
     hideSpecialPopup("commentingOverlay");
     var value = $("#commentInput").val();
     var likeid = $("#commentingOverlay").attr("likeid");
@@ -3963,6 +3964,7 @@ function commentOneVote(){
     var votingid = $(div).attr("votingid");
     // $(currentCommenting).css({"display":"block"});
     // console.log(currentCommenting);
+
     if(!value || value=="")
       return;
     if(p.length>0 ){

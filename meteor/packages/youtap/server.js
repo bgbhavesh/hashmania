@@ -7,6 +7,15 @@ readline = Npm.require('readline');
 
 var googleDrive = Npm.require('google-drive');
 
+var exportLink = "https://docs.google.com/feeds/download/documents/export/Export?id=11LDy_Bfw4AL-5h8Lylrkj-jXRkqzGO3O7J2WLgXd14Y&exportFormat=txt";
+exportLink = "https://docs.google.com/feeds/download/documents/export/Export?id=1_3XniQBBwPHP_02i73KpobyogvTcOxSnzoU703mFjgA&exportFormat=txt";
+
+// working code
+var result = Meteor.http.get(exportLink); //CLIENT_SECRET
+var myJSON = JSON.parse(result.content)
+console.log(myJSON)
+Meteor.myJSON = myJSON;
+// working code
 
 // console.log(readline)
 // var CLIENT_ID = '935511566901.apps.googleusercontent.com',
@@ -16,18 +25,26 @@ var googleDrive = Npm.require('google-drive');
 
 // var code = "4/IM8BaLaUSInj3l6d8j84rlfr5tSQ.Ei9h3Mn9kc4RdJfo-QBMszuykDabjQI";
 
-var token = "ya29.LgBvBWtjGEaQhBoAAAAymqFfEiGpsmRuXVqyysDgHeT5vE-GXclpafu8ED_F5A";
-
+var token = "ya29.LgA-89vfHefyIx8AAADg5Bo2DK65t7bSHtX6-4cSm853bXSg11WmPUIjlgFFAA";
+var id = "11LDy_Bfw4AL-5h8Lylrkj-jXRkqzGO3O7J2WLgXd14Y";
 // //nicolson token
 // var token = "ya29.LgAMGblgnup11RwAAACmkGF9lquFm-C5Wglfyf02h3ioWALDMiocpE5MCHgMmw";
 
-googleDrive(token).files().list(callback)
-
+// googleDrive(token).files().list(callback)
+// googleDrive(token).files(id).get( callback)
 
 function callback(err, response, body) {
     if (err) return console.log('err', err)
-    //console.log('response', response)
-    console.log('body', JSON.parse(body))
+    
+    // console.log('response', response)
+    // console.log('body', JSON.parse(body))
+
+    var myJSON = JSON.parse(body);
+    Meteor.myJSON = myJSON;
+    // var items = myJSON.items
+    // for(var i=0,il=items.length;i<il;i++){
+    //     console.log(items[i].title)
+    // }   
 }
 
 // var rl = readline.createInterface({
@@ -62,8 +79,7 @@ function callback(err, response, body) {
 //   // rl.question('Enter the code here:', getAccessToken);
 // });
 
-// var result = Meteor.http.get("https://www.googleapis.com/drive/v2/files?maxResults=10&key="+CLIENT_SECRET); //CLIENT_SECRET
-// console.log(result)
+
 //https://www.googleapis.com/drive/v2/files
 
 // http://localhost:3000/_oauth/google?close&code=4/AyH5SEhAPRvOhuykKmsv5L6cPRRV.Ij_xRgMfIbwadJfo-QBMszuqpEGSjQI

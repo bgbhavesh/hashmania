@@ -6089,9 +6089,21 @@ function loginWithFacebook(){
 }
 // https://www.facebook.com/dialog/oauth?client_id=679347035440335&redirect_uri=http://localhost:3000/facebook?close&display=popup&scope=email&state=GEm5wJLmwqoWdXa3z
 Meteor.facebook = loginWithFacebook
+var googleScope = [
+                    'https://www.googleapis.com/auth/userinfo.profile'
+                  ];
+                  
+                  // 'https://www.googleapis.com/auth/drive.file',
+                  //   "https://www.googleapis.com/auth/drive",
+                  //   "https://www.googleapis.com/auth/drive.apps.readonly",
+                  //   "https://www.googleapis.com/auth/drive.readonly",
+                  //   "https://www.googleapis.com/auth/drive.readonly.metadata",
+                  //   "https://www.googleapis.com/auth/drive.install",
+                  //   "https://www.googleapis.com/auth/drive.appdata",
+                  //   "https://www.googleapis.com/auth/drive.scripts"
 function loginWithGoogle(){
     console.log("loginWithGoogle")
-    Meteor.loginWithGoogle({requestPermissions:'https://www.googleapis.com/auth/userinfo.profile',requestOfflineToken:true},loginWithGoogleCallbackFunction);
+    Meteor.loginWithGoogle({requestPermissions:googleScope,requestOfflineToken:true},loginWithGoogleCallbackFunction);
 }
 
 function loginWithGoogleCallbackFunction(err){

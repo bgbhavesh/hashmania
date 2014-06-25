@@ -17,11 +17,11 @@ console.log(myJSON)
 Meteor.myJSON = myJSON;
 // working code
 
-// console.log(readline)
-// var CLIENT_ID = '935511566901.apps.googleusercontent.com',
-//     CLIENT_SECRET = '1VhBKJY6URSVaLikXYpzQJBm',
-//     REDIRECT_URL = 'http://localhost:3000/_oauth/google?close',
-//     SCOPE = 'https://www.googleapis.com/auth/drive.file';
+console.log(readline)
+var CLIENT_ID = '935511566901.apps.googleusercontent.com',
+    CLIENT_SECRET = '1VhBKJY6URSVaLikXYpzQJBm',
+    REDIRECT_URL = 'http://localhost:3000/_oauth/google?close',
+    SCOPE = 'https://www.googleapis.com/auth/drive.file';
 
 var rl = readline.createInterface({
   input: process.stdin,

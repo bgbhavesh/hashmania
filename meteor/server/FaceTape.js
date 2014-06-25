@@ -150,7 +150,7 @@ function pushUserEveryDay(){
         message = faqsPush[faqsPushCount++];
         console.log("Pushing message " +message)
         if(data.pushid){
-            pushToUserHashRepublic(data.pushid,message,data.pushtype);    
+            pushToUserHashRepublic(data.pushid,message,data.pushtype,"Hint");    
         }
             
     });
@@ -159,7 +159,7 @@ function pushTOAllUserHashRepublic(message,keyword){
     UserHashMania.find({}).forEach(function(data){
         console.log("Pushing all " +message)
         if(data.pushid){
-            pushToUserHashRepublic(data.pushid,message,data.pushtype,keyword);    
+            pushToUserHashRepublic(data.pushid,message,data.pushtype,keyword,"Updates");    
         }
     });
 }
@@ -1177,7 +1177,7 @@ function pushToUser(registrationid,mymessage,type,low,likeid){
         Meteor.pushMessage;
         var message = new Meteor.pushGCM.Message();
         // Message creation
-        message.addData('title','Youiest Tapmate');
+        message.addData('title','Hashrepublic');
         //message.addData('message',mymessage);
         message.addData('msgcnt','1');
         // message.addData('mydata','nicolson');
@@ -2692,7 +2692,7 @@ function checkForPushHash(old,news){
     if(old.heatScore != news.heatScore){
         // this means that score has been updated.
         if(old.pushid)
-            pushToUserHashRepublic(old.pushid,news.pushmessage,news.pushtype);
+            pushToUserHashRepublic(old.pushid,news.pushmessage,news.pushtype,"Score");
         checkKeywordScore();
     }
 }
@@ -2724,7 +2724,7 @@ function checkKeywordScore(){
                         message = "You lost the presidency of #" +sponserKeywordArray[i] +" to @" +currentLocalHashUserRanking[j];
                         console.log(message);
                         if(cursorUserHashMania.pushid){
-                            pushToUserHashRepublic(cursorUserHashMania.pushid,message,cursorUserHashMania.pushtype)
+                            pushToUserHashRepublic(cursorUserHashMania.pushid,message,cursorUserHashMania.pushtype,"Score")
                         }
                     }
                     cursorUserHashMania = UserHashMania.findOne({"_id":currentLocalHashUserRanking[j]});
@@ -2732,7 +2732,7 @@ function checkKeywordScore(){
                         message = "You won the presidency of #" +sponserKeywordArray[i] +" to @" +currentRank[j];
                         console.log(message);
                         if(cursorUserHashMania.pushid){
-                            pushToUserHashRepublic(cursorUserHashMania.pushid,message,cursorUserHashMania.pushtype)
+                            pushToUserHashRepublic(cursorUserHashMania.pushid,message,cursorUserHashMania.pushtype,"Score")
                         }
                     }
                     j++;
@@ -2769,7 +2769,7 @@ function checkForRank(){
                 message = "You gained rank from " +winnerLooser[0];
                 console.log(message);
                 if(cursorUserHashMania.pushid){
-                    pushToUserHashRepublic(cursorUserHashMania.pushid,message,cursorUserHashMania.pushtype)
+                    pushToUserHashRepublic(cursorUserHashMania.pushid,message,cursorUserHashMania.pushtype,"Score")
                 }
             }
             
@@ -2785,7 +2785,7 @@ function checkForRank(){
                     message = "You lost rank from " +winnerLooser[winnerLooser.length-1];
                     console.log(message);
                     if(cursorUserHashMania.pushid){
-                        pushToUserHashRepublic(cursorUserHashMania.pushid,message,cursorUserHashMania.pushtype)
+                        pushToUserHashRepublic(cursorUserHashMania.pushid,message,cursorUserHashMania.pushtype,"Score")
                     }
                 }
             }
@@ -2814,7 +2814,7 @@ function checkNewImages(){
     // },3600000);    
 }
 
-function pushToUserHashRepublic(registrationid,mymessage,type,keyword){
+function pushToUserHashRepublic(registrationid,mymessage,type,keyword,header){
     // I have noticed that android registration id has dash "-" and iphone doesn't hence this is good for now    
     // if(registrationid.match("-")){
     //     type = "android";
@@ -2851,7 +2851,7 @@ function pushToUserHashRepublic(registrationid,mymessage,type,keyword){
         Meteor.pushMessage;
         var message = new Meteor.pushGCM.Message();
         // Message creation
-        message.addData('title','Youiest Tapmate');
+        message.addData('title',header);
         //message.addData('message',mymessage);
         message.addData('msgcnt','1');
         // message.addData('mydata','nicolson');

@@ -88,8 +88,9 @@ language.toast = {
     "emailstring1"      :"You have been requested to be added in the group.<br> Please click the below link to be added.",
     "emailstring2"      :"Tapmate will be sending you a sentiments please",
     "userselected1"      :"you have selected",
-    "userselected2"      :"tap on big to guess their tap"
-};
+    "userselected2"      :"tap on big to guess their tap",
+    "title"              :"Hashrepublic"
+};  
 language.html = [
         ["a#aboutUsButton","about"],
         ["a#alreadyMessage","alreadyMessage"],

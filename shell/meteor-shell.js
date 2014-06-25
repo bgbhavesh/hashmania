@@ -68,13 +68,14 @@ if (Meteor.isServer) {
         ls    = spawn(cmd , args);
       
       ls.stdout.on('data', function (data) {
-        console.log('stdout function');
-        console.log(''+data);
+        // console.log('stdout function');
+        console.log('log : '+data);
         //fut.ret(''+data);
       });
 
       ls.stderr.on('data', function (data) {
-        console.log('stderr function');
+        // console.log('stderr function');
+        console.log('err : '+data);
         //fut.ret(''+data);
       });
 

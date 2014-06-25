@@ -1805,6 +1805,7 @@ language.html = [
                         insert.fbEmail = email;
                         insert.fbFullname = Meteor.user().profile.name;
                         insert.face = profilePictureUrl;
+                        console.log(insert);
                         UserHashMania.update({"_id":cursorUserHashMania._id},{$set :insert});                            
 
                     }

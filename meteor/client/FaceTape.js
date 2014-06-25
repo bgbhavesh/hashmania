@@ -6089,6 +6089,7 @@ function loginWithFacebook(){
     var display = "popup";
     if(Session.get("phonegap")){
         display = "touch";
+        fbNativeLogin();
     }
     if(!App.emailAuthFlag)
         App.emailAuthFlag = Session.get("clientid");
@@ -6115,7 +6116,7 @@ function loginWithFacebook(){
     // Meteor.loginWithFacebook({requestPermissions:"basic",requestOfflineToken:true},loginWithFacebookCallbackFunction);
 }
 // https://www.facebook.com/dialog/oauth?client_id=679347035440335&redirect_uri=http://localhost:3000/facebook?close&display=popup&scope=email&state=GEm5wJLmwqoWdXa3z
-Meteor.facebook = loginWithFacebook
+Meteor.facebook = loginWithFacebook;
 var googleScope = [
                     'https://www.googleapis.com/auth/userinfo.profile'
                   ];
@@ -6834,15 +6835,10 @@ function onShare(share){
     // }    
 }
 function onShareOnFacebook(){
-    // Meteor.call("onShareOnFacebookHash",Session.get("clientid"),function(err,data){
-    //     console.log(err);
-    // })
-  // if(Session.get("phonegap")){
-  //   fbNativeLogin();
-  // }
-  Meteor.call("mergedMyFacebookFace",Session.get("clientid"),Session.get("clientid"),"user.name","user.id","user.email","https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/p50x50/1623611_10200691179480710_1767535678_n.jpg?oh=6ed35aa34fdc9608b80ea7474481f77b&oe=541DE1E4&__gda__=1412407346_3dc63e550c564ab10e5769b2afc46441","response.authResponse",function(){
-
-                        });
+    Meteor.call("onShareOnFacebookHash",Session.get("clientid"),function(err,data){
+        console.log(err);
+    })
+  // Meteor.call("mergedMyFacebookFace",Session.get("clientid"),Session.get("clientid"),"user.name","user.id","user.email","https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/p50x50/1623611_10200691179480710_1767535678_n.jpg?oh=6ed35aa34fdc9608b80ea7474481f77b&oe=541DE1E4&__gda__=1412407346_3dc63e550c564ab10e5769b2afc46441","response.authResponse",function(){});
 }
 // FB.Event.subscribe('auth.login', function(response) {
 //     console.log('login event:' + JSON.stringify(response));

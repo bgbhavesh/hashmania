@@ -873,7 +873,7 @@ Meteor.documentReady = documentReady;
     }
     
     sizeLeaderboard = function(){
-        console.log("Template.allLeadersboard");
+        // console.log("Template.allLeadersboard");
         $(".leadersface").width($(".leadersface").height());
     }
     Template.allLeadersboard.rendered  = Template.leadersboard.rendered = sizeLeaderboard
@@ -1012,7 +1012,7 @@ Meteor.documentReady = documentReady;
         //     return;
         // }
         console.log("load more " +loadMoreFlag);
-        console.log(data)
+        // console.log(data)
         if(!data){
             // $("#semanticLoader").hide();
             return;
@@ -1042,7 +1042,9 @@ Meteor.documentReady = documentReady;
         var currentData = null;
         var showFlag = false;
         var upp=null;
-        
+        var brforeloginwidth=$("#beforeLogin").width()/100;//CREATE ERROR
+        var brforeloginheight=$("#beforeLogin").height()/100;//CREATE ERROR
+        $(".allLeaderSection").css({"width":brforeloginwidth*12,"height":brforeloginwidth*9,"top":brforeloginheight*15,"left": brforeloginwidth*1.5});  
         // $(".tapToShow").remove();
         // upp ='<div id="back-top" class="tapToShow">new</div>'                  // New Images
         // var element = $("#surveybig").append(upp);
@@ -1284,18 +1286,19 @@ Meteor.documentReady = documentReady;
         }
         
         
-        console.log(moreRenderResults.length);
+        // console.log(moreRenderResults.length);
         
         
     }
 
     function appendVotesManuallyHash(id,currentVote){
         var local = currentVote;
+        // console.log(currentVote);
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
-        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment))
+        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment,local.commenttop,local.commentleft))
     }
-    function getVoteHTMLHash(left,top,size,pics,id,clientid,comment){
+    function getVoteHTMLHash(left,top,size,pics,id,clientid,comment,ctop,cleft){
         if(pics=="undefined")pics="../images/face.jpg";
       if(!comment){
             return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
@@ -1307,24 +1310,25 @@ Meteor.documentReady = documentReady;
                   +'<img src="' +pics +'" style="border-style: inset;">  '  
                   // +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                   +'</div>'
-                  +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'
+                  +'<p class="triangle-right" style="top: '+ctop+'%; left: '+cleft+'%;">' +comment +'</p>'//need to work on it
             }else{
                 return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'" style="border-style: inset;">  '  
                   // +'<p class="triangle-right" style="top: -100%; left: -100%;display:block;">' +comment +'</p>'      
                   +'</div>'
-                  +'<p class="triangle-right" style="top: 100%; left: 100%;">' +comment +'</p>'
+                  +'<p class="triangle-right" style="top: '+ctop+'%; left: '+cleft+'%;">' +comment +'</p>'//need to work on it
             }
             
           }
     }
     function appendOnlyVotesManuallyHash(id,currentVote){
         var local = currentVote;
+        console.log(local.commentleft+'*-*');
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
-        $("#"+id).append(getOnlyVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment))
+        $("#"+id).append(getOnlyVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment,local.commenttop,local.commentleft))
     }
-    function getOnlyVoteHTMLHash(left,top,size,pics,id,clientid,comment){
+    function getOnlyVoteHTMLHash(left,top,size,pics,id,clientid,comment,ctop,cleft){
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                  +' <img src="' +pics +'">  '
                 + '</div>'
@@ -1468,7 +1472,7 @@ Meteor.documentReady = documentReady;
         top+=40;
         
         currentLeft=left;
-        console.log(currentTop+"/*/"+currentLeft);
+        // console.log(currentTop+"/*/"+currentLeft);
         var currentvotes = $("#"+likeid).children(".voting");
         // var allVotesClientId = [];
         for(var i=0,il=currentvotes.length;i<il;i++){
@@ -1510,8 +1514,6 @@ Meteor.documentReady = documentReady;
                     showSpecialPopup("commentingOverlay");
                     // tapOnBigFeedSecond(null,currentvotes[i]);
                 }
-                $("#commentInput").focus().delay(5000);
-                $("#commentInput").select().delay(5000);
                 return;
             }
             // else{
@@ -1534,7 +1536,7 @@ Meteor.documentReady = documentReady;
         }
         var place = App.checkQuadrant(left,top);
         progress2(left,newtop,likeid,event);
-        var VotesInsert = {"checked":false,"place":place,"profile_picture":votepic, "followid": Session.get("clientid"),"likeid":likeid ,"left": left,"top": top,"date" : date,"comment": ""};
+        var VotesInsert = {"checked":false,"place":place,"profile_picture":votepic, "followid": Session.get("clientid"),"likeid":likeid ,"left": left,"top": top,"date" : date,"comment": "","commenttop": "","commentleft": ""};
         // currentSurveyBig.append(getVoteHTML(VotesInsert.left,VotesInsert.top,"%"))
         // var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
         // var bigFeed = $(".voting")
@@ -1598,7 +1600,7 @@ Meteor.documentReady = documentReady;
         }
         else{       
         }
-        console.log(quad)
+        // console.log(quad)
         return quad;   
     }
     App.checkQuadrant = checkQuadrant;
@@ -1685,8 +1687,8 @@ Meteor.documentReady = documentReady;
             $(currentBigHtml).find("div#inerhprogressBar").transition({ left: hprogressBar + "%" }, 500);
             $(barDiv).find("div").transition({ "width": hprogressBar + "%" }, 500)
             // $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"1","left": hprogressBar+ "%"});
-            $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"1"},4000);
-            $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"0.0","display":"none"},8000);
+            // $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"1"},4000);
+            $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"0.0"},8000);
             
             promoteper=95-percent1;
             cursorlove=percent1;
@@ -1696,8 +1698,8 @@ Meteor.documentReady = documentReady;
             $(currentBigHtml).find("#verticalprogress").css("height",promoteper +"%")
             // $(currentBigHtml).find("#inner-inner mark").animate({"opacity":"1","top":cursorlove+"%"});
          
-            $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"1"},4000);
-            $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"0.0","display":"none"},8000);
+            // $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"1"},4000);
+            $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"0.0"},8000);
 
             
 
@@ -3816,9 +3818,9 @@ function holdOnVoting(event){
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"holdOnVoting","time":((new Date().getTime())-starttimer)});
 }
 var currentCommenting = null;
-function tapOnBigFeedSecond(event,myElement){
+function tapOnBigFeedSecond(event,myElement){ // this will just open the commentcommentingoverlay
     var starttimer = new Date().getTime();
-    console.log(event);
+    
     try{
         var element = null;
         if(myElement)
@@ -3973,18 +3975,15 @@ function commentOneVote(){
     var votingid = $(div).attr("votingid");
     // $(currentCommenting).css({"display":"block"});
     // console.log(currentCommenting);
-    // var left = $(this).offset().left;
-    // var top = $(this).offset().top;
-
-    // console.log(left+"***"+top)
     if(!value || value=="")
       return;
     if(p.length>0 ){
       var html = '<p class="triangle-right" style="top: '+currentTop+'%; left: '+currentLeft+'%;z-index:1">' +value +'</p>';
       $(currImg).css({"border-style":"inset"});
       $(p).text(value); 
+      console.log(currentTop)
       if(votingid){
-        Votes.update({"_id":votingid},{$set :{"comment":value}});
+        Votes.update({"_id":votingid},{$set :{"comment":value,"commenttop":currentTop,"commentleft":currentLeft}});
       }
     }else{
       var html = '<p class="triangle-right" style="top:'+currentTop+'%; left: '+currentLeft+'%;display:block;z-index:1">' +value +'</p>'; 
@@ -3992,7 +3991,7 @@ function commentOneVote(){
       div.insertAdjacentHTML( 'afterend', html );
       $(currImg).css({"border-style":"inset"});
       if(votingid){
-        Votes.update({"_id":votingid},{$set :{"comment":value}});
+        Votes.update({"_id":votingid},{$set :{"comment":value,"commenttop":currentTop,"commentleft":currentLeft}});
       }
       $("#commentInput").val(null);
       onScore(10);

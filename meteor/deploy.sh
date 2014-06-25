@@ -3,6 +3,10 @@
 
 echo $(pwd)
 
+cd $home
+cd HashRepublic
+cd HashRepublic
+cd meteor
 cd ..
 
 git pull -u origin master

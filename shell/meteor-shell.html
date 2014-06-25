@@ -18,9 +18,11 @@
 
 <template name="buffer">
   <div id="buffer">
+    {{#each logs}}
     <pre>
-{{ output }}
+      {{log}}
     </pre>
+    {{/each}}
   </div>
 </template>
 

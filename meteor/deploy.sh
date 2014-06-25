@@ -20,7 +20,11 @@ METEOR_SETTINGS=$(cat /root/HashRepublic/HashRepublic/meteor/hashsettings.json)
 MAIL_URL='smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587'
 APP_NAME="HashRepublic"
 
+echo "bundling"
+
 rm bundle.tar.gz
+
+echo "extracting"
 
 rm -r ../../appold
 mkdir ../../appold
@@ -35,6 +39,9 @@ mv bundle.tar.gz ../../appold/bundle.tar.gz
 #mv bundle.tar.gz ../app/bundle.tar.gz
 
 #meteor bundle ../app/bundle.tar.gz
+
+echo "installing fibers"
+
 cd ..
 cd ..
 cd appold
@@ -58,11 +65,16 @@ rm -Rf app/
 mv appold/ app
 cd app/bundle/
 
+echo "settings environment varaible"
+
 export MONGO_URL=$MONGO_URL
 export ROOT_URL=$ROOT_URL
 export PORT=$PORT
 export METEOR_SETTINGS="$METEOR_SETTINGS"
 export MAIL_URL=$MAIL_URL
+
+echo "starting app"
+
 pm2 flush
 pm2 start main.js
 

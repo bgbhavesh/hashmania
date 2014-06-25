@@ -4,22 +4,21 @@
 echo $(pwd)
 
 cd $home
-cd Shell
-cd Shell
-
-cd shell
+cd HashRepublic
+cd HashRepublic
+cd meteor
 cd ..
 
 git pull -u origin master
 
-cd shell
+cd meteor
 
-MONGO_URL='mongodb://localhost/shell'
-ROOT_URL='http://128.199.196.222:8000'
-PORT=8000
+MONGO_URL='mongodb://hashrepublic:123456@kahana.mongohq.com:10093/HashRepublic'
+ROOT_URL='http://128.199.196.222:3000'
+PORT=3000
 METEOR_SETTINGS=$(cat /root/HashRepublic/HashRepublic/meteor/hashsettings.json)
 MAIL_URL='smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587'
-APP_NAME="Shell"
+APP_NAME="HashRepublic"
 
 echo "bundling"
 
@@ -60,10 +59,10 @@ cd ..
 cd ..
 
 echo $(pwd)
-pm2 stop shell
+pm2 stop ../app/main.js
 #pm2 kill
-rm -Rf ./app/
-mv appold/ ./app
+rm -Rf app/
+mv appold/ app
 cd app/bundle/
 
 echo "settings environment varaible"
@@ -77,10 +76,10 @@ export MAIL_URL=$MAIL_URL
 echo "starting app"
 
 pm2 flush
-pm2 start main.js --name shell
+pm2 start main.js
 
 cd ..
 cd ..
-cd Shell
-cd shell
+cd HashRepublic
+cd meteor
 

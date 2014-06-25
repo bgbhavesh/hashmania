@@ -3,6 +3,10 @@
 
 echo $(pwd)
 
+cd $home
+cd HashRepublic
+cd HashRepublic
+cd meteor
 cd ..
 
 git pull -u origin master
@@ -57,7 +61,7 @@ cd app/bundle/
 export MONGO_URL=$MONGO_URL
 export ROOT_URL=$ROOT_URL
 export PORT=$PORT
-export METEOR_SETTINGS=$METEOR_SETTINGS
+export METEOR_SETTINGS="$METEOR_SETTINGS"
 export MAIL_URL=$MAIL_URL
 pm2 flush
 pm2 start main.js

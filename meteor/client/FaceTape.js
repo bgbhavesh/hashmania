@@ -442,6 +442,15 @@ Meteor.startup(function () {
                     checkForPush();
                 // }
                 Me.update({"_id":Session.get("clientid")},{$inc:{"autologin":1,"yautologin":1,"mautologin":1,"wautologin":1,"dautologin":1}});
+                ///////////////////////fb account//////////////
+                // alert('My code 1.');
+                // FB.init({ 
+                //   appId: "698777560208700", 
+                //   nativeInterface: CDV.FB, 
+                //   useCachedDialogs: false 
+                // });
+                // document.getElementById('data').innerHTML = "";
+                ///////////////////////fb account/////////////////
             }
             catch(error){
                 console.log(error);
@@ -601,13 +610,13 @@ function getTopTenLeader(){
 
     }
 }
-window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '679347035440335',
-      status     : true,
-      xfbml      : true
-    });
-  };
+// window.fbAsyncInit = function() {
+//     FB.init({
+//       appId      : '698777560208700',
+//       status     : true,
+//       xfbml      : true
+//     });
+//   };
 function documentReady(){
 
             // autoLogin();
@@ -648,6 +657,7 @@ function documentReady(){
             // this might cause lagg issue.
             setTimeout(getDefaultData,240000);
             callHashRepublicStartUp();
+            set("hideComments","true");
             // snapy();  
             // autoLogin();
             // bindEvents();
@@ -5624,6 +5634,42 @@ var languageArray = [
                         ["sp","Spanish"],
                         ["ur","Urdu"]
                     ]
+function onClickGoogleDocs(){
+    // var emailurl = "https://drivenotepad.appspot.com/app?state=%7B%22ids%22:%5B%220B4U5ka8K3zEIV3FvMHV5d1hxZGM%22%5D,%22action%22:%22open%22";
+    // window.open(emailurl, '_system');
+    // download_url = file['https://docs.google.com/uc?authuser=0&id=0BwWGVIzsPbsaTUFFLTczYzQ3YjJjLTYxNmItNDEwYy05ZWIzLTcyYTgxZWJiODEzYQ&export=download']['application/pdf'];
+    // Meteor.call("callLangage",function(err,data){})
+    // gapi.client.setApiKey('935511566901.apps.googleusercontent.com');
+    // gapi.client.load('urlshortener', 'v1', makeRequest);
+    printFile("1S5s3aZx8QidxDUeuVVZRTOHrO3ZebQ2MzAuFsDqXWQRRy0naTO2I9oKQJOrH")
+}
+function printFile(fileId) {
+  var request = gapi.client.drive.files.get({
+    'fileId': fileId
+  });
+  request.execute(function(resp) {
+    console.log('Title: ' + resp.title);
+    console.log('Description: ' + resp.description);
+    console.log('MIME type: ' + resp.mimeType);
+  });
+// console.log(googleapis);
+}
+function appendResults(text) {
+  // var results = document.getElementById('results');
+  // results.appendChild(document.createElement('P'));
+  // results.appendChild(document.createTextNode(text));
+  console.log(text)
+}
+
+function makeRequest() {
+  var request = gapi.client.urlshortener.url.get({
+    'shortUrl': 'http://goo.gl/fbsS'
+  });
+  request.execute(function(response) {
+    appendResults(response.longUrl);
+  });
+}
+
 function onClicklanguageButton(){
     var starttimer = new Date().getTime();
     for(var i=0,il=languageArray.length-1;i<il;i++){
@@ -6062,7 +6108,7 @@ function loginWithInstagramHashManiaCallbackFunction(err){
     else{
         Meteor.call("mergedMyFace",App.emailAuthFlag,Session.get("clientid"),function(){
             $(".hideAfterComplete").html("Now");
-            console.log("here too")
+            console.log("here too");
         })
     }
 }           
@@ -6102,9 +6148,21 @@ function loginWithFacebook(){
 }
 // https://www.facebook.com/dialog/oauth?client_id=679347035440335&redirect_uri=http://localhost:3000/facebook?close&display=popup&scope=email&state=GEm5wJLmwqoWdXa3z
 Meteor.facebook = loginWithFacebook
+var googleScope = [
+                    'https://www.googleapis.com/auth/userinfo.profile'
+                  ];
+                  
+                  // 'https://www.googleapis.com/auth/drive.file',
+                  //   "https://www.googleapis.com/auth/drive",
+                  //   "https://www.googleapis.com/auth/drive.apps.readonly",
+                  //   "https://www.googleapis.com/auth/drive.readonly",
+                  //   "https://www.googleapis.com/auth/drive.readonly.metadata",
+                  //   "https://www.googleapis.com/auth/drive.install",
+                  //   "https://www.googleapis.com/auth/drive.appdata",
+                  //   "https://www.googleapis.com/auth/drive.scripts"
 function loginWithGoogle(){
     console.log("loginWithGoogle")
-    Meteor.loginWithGoogle({requestPermissions:'https://www.googleapis.com/auth/userinfo.profile',requestOfflineToken:true},loginWithGoogleCallbackFunction);
+    Meteor.loginWithGoogle({requestPermissions:googleScope,requestOfflineToken:true},loginWithGoogleCallbackFunction);
 }
 
 function loginWithGoogleCallbackFunction(err){
@@ -6532,6 +6590,7 @@ function bindEvents(){
         $("#aboutUsButton").hammer().on("tap",onClickAboutUsButton);
         $("#feedbackButton").hammer().on("tap",onClickfeedbackButton);
         $("#languageButton").hammer().on("tap",onClicklanguageButton);
+        $("#googleDocs").hammer().on("tap",onClickGoogleDocs);
         $("#languageBackground").hammer().on("tap",onSetLang);
         $("#AggrementAccept").hammer().on("tap",onClickAggAcceptButton);
         $("#AggrementDeny").hammer().on("tap",onClickAggDenyButton);
@@ -6807,10 +6866,90 @@ function onShare(share){
     // }    
 }
 function onShareOnFacebook(){
-    Meteor.call("onShareOnFacebookHash",Session.get("clientid"),function(err,data){
-        console.log(err);
-    })
+    // Meteor.call("onShareOnFacebookHash",Session.get("clientid"),function(err,data){
+    //     console.log(err);
+    // })
+    login();
 }
+// FB.Event.subscribe('auth.login', function(response) {
+//     console.log('login event:' + JSON.stringify(response));
+// });
+
+// function me() {
+
+//       FB.api('/me?fields=picture,name,email', function(user) {
+//             console.log('response from facebook: ' + JSON.stringify(user));
+//             var profilePictureUrl = '';
+//             if (user.picture.data) {
+//               profilePictureUrl = user.picture.data.url;
+//             } else {
+//               profilePictureUrl = user.picture;
+//             }
+//             console.log('userId: ' + user.id);
+//             console.log('name: ' + user.name);
+//             console.log('email: ' + user.email);
+//             console.log('picture url: ' + profilePictureUrl);
+//             alert(user.email);
+//             alert(user.name);
+//             // $('#log').html('Welcome:' + user.name);
+
+//         });
+// }
+
+// function logout() {
+//     FB.logout(function(response) {
+//         console.log('logout response:' + JSON.stringify(response));
+//         alert('logged out');
+//     });
+// }
+
+// function login() {
+//     FB.login( function(response) {
+              
+//        if (response.authResponse) {
+//             //alert('logged in now');
+//             console.log('login response:' + response.authResponse);
+//             me();
+//        } else {
+//             //alert('not logged in on login');
+//             console.log('login response:' + response.error);
+//        }
+//        },
+//        { scope: "email" }
+//        );
+// }
+
+// function askForWritePerm() {
+//     FB.login(
+//        function(response) {
+        
+//          if (response.authResponse) {
+//               //alert('logged in now');
+//               console.log('login response:' + response.authResponse);
+//               // me();
+//          } else {
+//               //alert('not logged in on login');
+//               console.log('login response:' + response.error);
+//          }
+//        },
+//        { scope: "publish_actions" } 
+//        );
+// }
+
+
+// function facebookWallPost() {
+//     console.log('Debug 1');
+//   var params = {
+//       method: 'feed',
+//       name: 'Facebook Dialogs',
+//       link: 'https://developers.facebook.com/docs/reference/dialogs/',
+//       picture: 'http://fbrell.com/f8.jpg',
+//       caption: 'Reference Documentation',
+//       description: 'Dialogs provide a simple, consistent interface for applications to interface with users.'
+//     };
+//   console.log(params);
+//     FB.ui(params, function(obj) { console.log(obj);});
+// }
 function holdOnBigFeedSurvey(share){
     var myShareImage=$("div img").attr("src");
     if(Session.get("phonegap")){

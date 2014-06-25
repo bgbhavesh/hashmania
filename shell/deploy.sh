@@ -24,7 +24,7 @@ echo "bundling"
 
 rm bundle.tar.gz
 
-echo "extracting"
+
 
 rm -r ../../appold
 mkdir ../../appold
@@ -32,7 +32,7 @@ meteor bundle bundle.tar.gz
 mv bundle.tar.gz ../../appold/bundle.tar.gz
 
 
-
+echo "extracting"
 
 #meteor bundle bundle.tar.gz
 

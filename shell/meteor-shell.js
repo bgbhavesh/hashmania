@@ -28,7 +28,7 @@ if (Meteor.isClient) {
         console.log('exec: '+cmd );
         Meteor.call('cmd', cmd, function (err, data) {
           $('#cmd').val('');
-          Session.set('output', data );
+          // Session.set('output', data );
         });
       }
     }

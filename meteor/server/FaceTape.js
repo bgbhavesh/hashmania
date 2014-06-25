@@ -2438,6 +2438,8 @@ function accountsSetup(){
     // Accounts.loginServiceConfiguration.remove({
     //     service: 'facebook'
     // });
+   
+
     
     var cursorServiceGoogle = Accounts.loginServiceConfiguration.findOne({"service": "google"});
     if(!cursorServiceGoogle){

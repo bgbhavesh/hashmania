@@ -5635,41 +5635,9 @@ var languageArray = [
                         ["ur","Urdu"]
                     ]
 function onClickGoogleDocs(){
-    // var emailurl = "https://drivenotepad.appspot.com/app?state=%7B%22ids%22:%5B%220B4U5ka8K3zEIV3FvMHV5d1hxZGM%22%5D,%22action%22:%22open%22";
-    // window.open(emailurl, '_system');
-    // download_url = file['https://docs.google.com/uc?authuser=0&id=0BwWGVIzsPbsaTUFFLTczYzQ3YjJjLTYxNmItNDEwYy05ZWIzLTcyYTgxZWJiODEzYQ&export=download']['application/pdf'];
-    // Meteor.call("callLangage",function(err,data){})
-    // gapi.client.setApiKey('935511566901.apps.googleusercontent.com');
-    // gapi.client.load('urlshortener', 'v1', makeRequest);
-    printFile("1S5s3aZx8QidxDUeuVVZRTOHrO3ZebQ2MzAuFsDqXWQRRy0naTO2I9oKQJOrH")
+    var emailurl = "https://docs.google.com/document/d/1_3XniQBBwPHP_02i73KpobyogvTcOxSnzoU703mFjgA/edit?usp=sharing";
+    window.open(emailurl, '_system');
 }
-function printFile(fileId) {
-  var request = gapi.client.drive.files.get({
-    'fileId': fileId
-  });
-  request.execute(function(resp) {
-    console.log('Title: ' + resp.title);
-    console.log('Description: ' + resp.description);
-    console.log('MIME type: ' + resp.mimeType);
-  });
-// console.log(googleapis);
-}
-function appendResults(text) {
-  // var results = document.getElementById('results');
-  // results.appendChild(document.createElement('P'));
-  // results.appendChild(document.createTextNode(text));
-  console.log(text)
-}
-
-function makeRequest() {
-  var request = gapi.client.urlshortener.url.get({
-    'shortUrl': 'http://goo.gl/fbsS'
-  });
-  request.execute(function(response) {
-    appendResults(response.longUrl);
-  });
-}
-
 function onClicklanguageButton(){
     var starttimer = new Date().getTime();
     for(var i=0,il=languageArray.length-1;i<il;i++){
@@ -6869,7 +6837,9 @@ function onShareOnFacebook(){
     // Meteor.call("onShareOnFacebookHash",Session.get("clientid"),function(err,data){
     //     console.log(err);
     // })
-    login();
+  if(Session.get("phonegap")){
+    fbNativeLogin();
+  }
 }
 // FB.Event.subscribe('auth.login', function(response) {
 //     console.log('login event:' + JSON.stringify(response));

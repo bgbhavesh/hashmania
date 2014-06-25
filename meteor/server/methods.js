@@ -1792,23 +1792,21 @@ language.html = [
             }
         },
         "mergedMyFacebookFace" : function(emailtoken,clientid,username,userid,email,profilePictureUrl,authResponse){
+            console.log("mergedMyFacebookFace");
             var cursorUserHashMania = UserHashMania.findOne({"emailtoken":emailtoken});
-            if(clientid)
+            if(clientid){
                 cursorUserHashMania = UserHashMania.findOne({"_id":clientid});
+            }
             if(cursorUserHashMania){
-                if(Meteor.user()){
                         var insert = {}
                         insert.fbID = userid;
                         insert.fbUsername = username;
                         insert.fbToken = authResponse;
                         insert.fbFace = profilePictureUrl;
                         insert.fbEmail = email;
-                        insert.fbFullname = Meteor.user().profile.name;
+                        insert.fbFullname = username;
                         insert.face = profilePictureUrl;
-                        console.log(insert);
                         UserHashMania.update({"_id":cursorUserHashMania._id},{$set :insert});                            
-
-                    }
                 return true;
             }
             else{
@@ -1830,7 +1828,6 @@ language.html = [
                             insert.googleFullname = Meteor.user().services.google.name;
                             insert.username = Meteor.user().services.google.name;
                             insert.face = Meteor.user().services.google.picture
-                            console.log(insert)
                             UserHashMania.update({"_id":cursorUserHashMania._id},{$set :insert});                            
                         }
 

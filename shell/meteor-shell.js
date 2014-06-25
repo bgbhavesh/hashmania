@@ -70,15 +70,15 @@ if (Meteor.isServer) {
       ls.stdout.on('data', function (data) {
         console.log('stdout function');
         console.log(''+data);
-        fut.ret(''+data);
+        //fut.ret(''+data);
       });
 
       ls.stderr.on('data', function (data) {
         console.log('stderr function');
-        fut.ret(''+data);
+        //fut.ret(''+data);
       });
 
-      return fut.wait();
+      //return fut.wait();
     }
   });
 } // end server

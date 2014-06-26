@@ -88,8 +88,9 @@ language.toast = {
     "emailstring1"      :"You have been requested to be added in the group.<br> Please click the below link to be added.",
     "emailstring2"      :"Tapmate will be sending you a sentiments please",
     "userselected1"      :"you have selected",
-    "userselected2"      :"tap on big to guess their tap"
-};
+    "userselected2"      :"tap on big to guess their tap",
+    "title"              :"Hashrepublic"
+};  
 language.html = [
         ["a#aboutUsButton","about"],
         ["a#alreadyMessage","alreadyMessage"],
@@ -1791,22 +1792,21 @@ language.html = [
             }
         },
         "mergedMyFacebookFace" : function(emailtoken,clientid,username,userid,email,profilePictureUrl,authResponse){
+            console.log("mergedMyFacebookFace");
             var cursorUserHashMania = UserHashMania.findOne({"emailtoken":emailtoken});
-            if(clientid)
+            if(clientid){
                 cursorUserHashMania = UserHashMania.findOne({"_id":clientid});
+            }
             if(cursorUserHashMania){
-                if(Meteor.user()){
                         var insert = {}
                         insert.fbID = userid;
                         insert.fbUsername = username;
                         insert.fbToken = authResponse;
                         insert.fbFace = profilePictureUrl;
                         insert.fbEmail = email;
-                        insert.fbFullname = Meteor.user().profile.name;
+                        insert.fbFullname = username;
                         insert.face = profilePictureUrl;
                         UserHashMania.update({"_id":cursorUserHashMania._id},{$set :insert});                            
-
-                    }
                 return true;
             }
             else{
@@ -1828,7 +1828,6 @@ language.html = [
                             insert.googleFullname = Meteor.user().services.google.name;
                             insert.username = Meteor.user().services.google.name;
                             insert.face = Meteor.user().services.google.picture
-                            console.log(insert)
                             UserHashMania.update({"_id":cursorUserHashMania._id},{$set :insert});                            
                         }
 

@@ -444,13 +444,13 @@ Meteor.startup(function () {
                 Me.update({"_id":Session.get("clientid")},{$inc:{"autologin":1,"yautologin":1,"mautologin":1,"wautologin":1,"dautologin":1}});
                 ///////////////////////fb account//////////////
                 // alert('My code 1.');
-                // FB.init({
-                //   appId: "698777560208700",
-                //   nativeInterface: CDV.FB,
-                //   useCachedDialogs: false
+                // FB.init({ 
+                //   appId: "698777560208700", 
+                //   nativeInterface: CDV.FB, 
+                //   useCachedDialogs: false 
                 // });
                 // document.getElementById('data').innerHTML = "";
-                ///////////////////////fb account/////////////////  
+                ///////////////////////fb account/////////////////
             }
             catch(error){
                 console.log(error);
@@ -778,7 +778,6 @@ Meteor.documentReady = documentReady;
     // Template.header.rendered = function(){
     //     setTimeout(checkScoreToast,1000);
     // }
-
     Template.server.rendered = function(){
         $("#status").hammer().off("tap");
         $("#status").hammer().on("tap",tapOnConnection);
@@ -1023,7 +1022,7 @@ Meteor.documentReady = documentReady;
         //     return;
         // }
         console.log("load more " +loadMoreFlag);
-        console.log(data)
+        // console.log(data)
         if(!data){
             // $("#semanticLoader").hide();
             return;
@@ -1301,13 +1300,14 @@ Meteor.documentReady = documentReady;
         }
         
         
-        console.log(moreRenderResults.length);
+        // console.log(moreRenderResults.length);
         
         
     }
 
     function appendVotesManuallyHash(id,currentVote){
         var local = currentVote;
+        // console.log(currentVote);
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment,local.commenttop,local.commentleft))
@@ -1345,9 +1345,6 @@ Meteor.documentReady = documentReady;
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         $("#"+id).append(getOnlyVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment,local.commenttop,local.commentleft))
     }
-
-
-
     function getOnlyVoteHTMLHash(left,top,size,pics,id,clientid,comment,ctop,cleft){
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                  +' <img src="' +pics +'">  '
@@ -1461,8 +1458,8 @@ Meteor.documentReady = documentReady;
         var bigheight = $(".quadrant").height();          
         var left = (x/width) * 100;
         var top = (y/height) * 100; 
-        var leftpx = x;
 
+        var leftpx = x;
         top = y - offset.top;
         var toppx = top;
         top = (top/height) * 100;
@@ -1490,9 +1487,9 @@ Meteor.documentReady = documentReady;
         // console.log(likeid +" " +Session.get("currentBig"));
         currentTop=top+5;
         top+=40;
-
+        
         currentLeft=left;
-
+        // console.log(currentTop+"/*/"+currentLeft);
         var currentvotes = $("#"+likeid).children(".voting");
         // var allVotesClientId = [];
         for(var i=0,il=currentvotes.length;i<il;i++){
@@ -1622,7 +1619,7 @@ Meteor.documentReady = documentReady;
         }
         else{       
         }
-        console.log(quad)
+        // console.log(quad)
         return quad;   
     }
     App.checkQuadrant = checkQuadrant;
@@ -1710,7 +1707,7 @@ Meteor.documentReady = documentReady;
             $(barDiv).find("div").transition({ "width": hprogressBar + "%" }, 500)
             // $(currentBigHtml).find("#inerhprogressBar mark").animate({"opacity":"1","left": hprogressBar+ "%"});
             // $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"1"},4000);
-            $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"0.0","display":"none"},8000);
+            $(currentBigHtml).find("#inerhprogressBar mark").transition({"opacity":"0.0"},8000);
             
             promoteper=95-percent1;
             cursorlove=percent1;
@@ -1721,7 +1718,7 @@ Meteor.documentReady = documentReady;
             // $(currentBigHtml).find("#inner-inner mark").animate({"opacity":"1","top":cursorlove+"%"});
          
             // $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"1"},4000);
-            $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"0.0","display":"none"},8000);
+            $(currentBigHtml).find("#inner-inner mark").transition({"opacity":"0.0"},8000);
 
             
 
@@ -3840,9 +3837,9 @@ function holdOnVoting(event){
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"holdOnVoting","time":((new Date().getTime())-starttimer)});
 }
 var currentCommenting = null;
-function tapOnBigFeedSecond(event,myElement){
+function tapOnBigFeedSecond(event,myElement){ // this will just open the commentcommentingoverlay
     var starttimer = new Date().getTime();
-    console.log(event);
+    
     try{
         var element = null;
         if(myElement)
@@ -4022,7 +4019,7 @@ function commentOneVote(){
         div.insertAdjacentHTML( 'beforeend', html );
       $(currImg).css({"border-style":"inset"});
       if(votingid){
-        Votes.update({"_id":votingid},{$set :{"comment":value}});
+        Votes.update({"_id":votingid},{$set :{"comment":value,"commenttop":currentTop,"commentleft":currentLeft}});
       }
       $("#commentInput").val(null);
       onScore(10);
@@ -5658,7 +5655,7 @@ var languageArray = [
 function onClickGoogleDocs(){
     var emailurl = "https://docs.google.com/document/d/1_3XniQBBwPHP_02i73KpobyogvTcOxSnzoU703mFjgA/edit?usp=sharing";
     window.open(emailurl, '_system');
-  }                    
+}
 function onClicklanguageButton(){
     var starttimer = new Date().getTime();
     for(var i=0,il=languageArray.length-1;i<il;i++){
@@ -6110,6 +6107,7 @@ function loginWithFacebook(){
     var display = "popup";
     if(Session.get("phonegap")){
         display = "touch";
+        fbNativeLogin();
     }
     if(!App.emailAuthFlag)
         App.emailAuthFlag = Session.get("clientid");
@@ -6136,19 +6134,19 @@ function loginWithFacebook(){
     // Meteor.loginWithFacebook({requestPermissions:"basic",requestOfflineToken:true},loginWithFacebookCallbackFunction);
 }
 // https://www.facebook.com/dialog/oauth?client_id=679347035440335&redirect_uri=http://localhost:3000/facebook?close&display=popup&scope=email&state=GEm5wJLmwqoWdXa3z
-Meteor.facebook = loginWithFacebook
+Meteor.facebook = loginWithFacebook;
 var googleScope = [
-                      'https://www.googleapis.com/auth/userinfo.profile'
-                    ];
-                    
-                    // 'https://www.googleapis.com/auth/drive.file',
-                    //   "https://www.googleapis.com/auth/drive",
-                    //   "https://www.googleapis.com/auth/drive.apps.readonly",
-                    //   "https://www.googleapis.com/auth/drive.readonly",
-                    //   "https://www.googleapis.com/auth/drive.readonly.metadata",
-                    //   "https://www.googleapis.com/auth/drive.install",
-                    //   "https://www.googleapis.com/auth/drive.appdata",
-                    //   "https://www.googleapis.com/auth/drive.scripts"
+                    'https://www.googleapis.com/auth/userinfo.profile'
+                  ];
+                  
+                  // 'https://www.googleapis.com/auth/drive.file',
+                  //   "https://www.googleapis.com/auth/drive",
+                  //   "https://www.googleapis.com/auth/drive.apps.readonly",
+                  //   "https://www.googleapis.com/auth/drive.readonly",
+                  //   "https://www.googleapis.com/auth/drive.readonly.metadata",
+                  //   "https://www.googleapis.com/auth/drive.install",
+                  //   "https://www.googleapis.com/auth/drive.appdata",
+                  //   "https://www.googleapis.com/auth/drive.scripts"
 function loginWithGoogle(){
     console.log("loginWithGoogle")
     Meteor.loginWithGoogle({requestPermissions:googleScope,requestOfflineToken:true},loginWithGoogleCallbackFunction);
@@ -6855,12 +6853,10 @@ function onShare(share){
     // }    
 }
 function onShareOnFacebook(){
-    // Meteor.call("onShareOnFacebookHash",Session.get("clientid"),function(err,data){
-    //     console.log(err);
-    // })
-    if(Session.get("phonegap")){
-      fbNativeLogin();
-    }
+    Meteor.call("onShareOnFacebookHash",Session.get("clientid"),function(err,data){
+        console.log(err);
+    })
+  // Meteor.call("mergedMyFacebookFace",Session.get("clientid"),Session.get("clientid"),"user.name","user.id","user.email","https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/p50x50/1623611_10200691179480710_1767535678_n.jpg?oh=6ed35aa34fdc9608b80ea7474481f77b&oe=541DE1E4&__gda__=1412407346_3dc63e550c564ab10e5769b2afc46441","response.authResponse",function(){});
 }
 function holdOnBigFeedSurvey(share){
     var myShareImage=$("div img").attr("src");

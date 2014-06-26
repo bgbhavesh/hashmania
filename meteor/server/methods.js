@@ -1,5 +1,6 @@
 language = {};
 language.toast = {};
+// {
 //     "gamestart"     :"Game starts..!",
 //     "regCalled"     :"Register called",
 //     "enterKeyword"      :"Please enter some keywords.",

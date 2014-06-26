@@ -1,4 +1,4 @@
-f	/* CSS declarations go here */
+/* CSS declarations go here */
 /*
 YOUIEST LLC CONFIDENTIAL
 
@@ -693,6 +693,16 @@ body{
 	        box-shadow: 0 0 10px 1px  #111;
 
 
+}
+.notificationBar{
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 10%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	font-size: 20px;
+	color: #11a8ab;
 }
 /*#keywordPopup
 {

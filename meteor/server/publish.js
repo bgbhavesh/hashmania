@@ -40,6 +40,16 @@
             ErrorUpdate.insert(insert);
         }
     });
+    Meteor.publish("topnotification",function(){
+        try{
+            return TopNotification.find({},{sort : {"date": -1},limit:1});
+        }
+        catch(error){
+            var insert = {"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"topnotification"};
+            console.log(insert);
+            ErrorUpdate.insert(insert);
+        }
+    });
     Meteor.publish(null,function(){
         try{
             return SponserKeyword.find({});

@@ -154,6 +154,7 @@ Feed =  new Meteor.Collection("feed");
 // GroundDB(Feed);
 // Search = new Meteor.Collection("search");
 SponserKeyword = new Meteor.Collection("sponserkeyword");
+TopNotification = new Meteor.Collection("topnotification")
 ErrorUpdate = new Meteor.Collection("error");
 // MiniGame = new Meteor.Collection("minigame");
 TapmateNotification = new Meteor.Collection("notification");
@@ -218,6 +219,7 @@ Meteor.suscribeMeteor = suscribeMeteor;
 function suscribeMeteor(ClientId){
     Meteor.subscribe("keyword");
     Meteor.subscribe("leadersboard");
+    Meteor.subscribe("topnotification");
 }
 ////chat feature/////////
 // Deps.autorun(function(){
@@ -1054,8 +1056,8 @@ Meteor.documentReady = documentReady;
         var upp=null;
         var brforeloginwidth=$("#beforeLogin").width()/100;//CREATE ERROR
         var brforeloginheight=$("#beforeLogin").height()/100;//CREATE ERROR
-        $(".allLeaderSection").css({"width":brforeloginwidth*12,"height":brforeloginwidth*9,"top":brforeloginheight*15,"left": brforeloginwidth*1.5});  
-       
+        $(".allLeaderSection").css({"width":brforeloginwidth*12,"height":brforeloginwidth*9,"top":brforeloginheight*25,"left": brforeloginwidth*1.5});  
+        $("#keywords").css({"top":brforeloginheight*8});
         $("#status").width(brforeloginheight*6);
         $("#status").height(brforeloginheight*6);
         // $(".tapToShow").remove();    1058        
@@ -1572,11 +1574,16 @@ Meteor.documentReady = documentReady;
         //     
         // } 
         // else{
-                currentMoveVote = Votes.insert(VotesInsert);
-                VotesInsert._id = currentMoveVote;
-                console.log(VotesInsert._id);
-                cacheTheResult(likeid,VotesInsert,"votes");
-                appendOnlyVotesManuallyHash(likeid,VotesInsert);
+        currentMoveVote = Votes.insert(VotesInsert);
+        // console.log(VotesInsert);
+        cacheTheResult(likeid,VotesInsert,"votes");
+        appendOnlyVotesManuallyHash(likeid,VotesInsert);
+        VotesInsert._id = currentMoveVote;
+        var currentImage = $(currentBigHtml).children(".lowImg").attr("src");
+        var notifyInsert = {"type":"vote","likeid":likeid,"followid": Session.get("clientid"),"ref_id":VotesInsert._id,"date" : new Date(),"profile_picture":get("profile_picture"),"currentImage":currentImage};
+        var topid = TopNotification.insert(notifyInsert);
+        console.log(currentImage);
+        // console.log(topid);
         // }
         // if(!existvotes){
             //     console.log("already exist")
@@ -2557,6 +2564,15 @@ Meteor.documentReady = documentReady;
     Template.keyword.eachkeyword = function(){
         try{
             return SponserKeyword.find({},{sort : {"hits": -1}});            
+        }
+        catch(error){
+            console.log(error);
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "Template.keyword.eachkeyword"});
+        }
+    }
+    Template.keyword.eachnotify = function(){
+        try{
+            return TopNotification.find({},{sort : {"date": -1},limit:1});            
         }
         catch(error){
             console.log(error);
@@ -4006,7 +4022,7 @@ function commentOneVote(){
       
         
       if(votingid){
-        Votes.update({"_id":votingid},{$set :{"comment":value}});
+        var VotesInsert = Votes.update({"_id":votingid},{$set :{"comment":value}});
         
       }
     }else{
@@ -4019,11 +4035,14 @@ function commentOneVote(){
         div.insertAdjacentHTML( 'beforeend', html );
       $(currImg).css({"border-style":"inset"});
       if(votingid){
-        Votes.update({"_id":votingid},{$set :{"comment":value,"commenttop":currentTop,"commentleft":currentLeft}});
+        var VotesInsert = Votes.update({"_id":votingid},{$set :{"comment":value,"commenttop":currentTop,"commentleft":currentLeft}});
       }
       $("#commentInput").val(null);
       onScore(10);
     }
+    var currentImage = $(currentBigHtml).children(".lowImg").attr("src");
+    var notifyInsert = {"type":"comment","likeid":likeid,"followid": Session.get("clientid"),"ref_id":VotesInsert,"date" :  new Date(),"profile_picture":get("profile_picture"),"currentImage":currentImage};
+    var topid = TopNotification.insert(notifyInsert);
     // $("#showallcomments").empty();
     var stringArray = value.split(" ");
     var selectitem = null;

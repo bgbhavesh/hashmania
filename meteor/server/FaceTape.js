@@ -620,6 +620,7 @@ Media =  new Meteor.Collection("media");
 // Search = new Meteor.Collection("search");
 ErrorUpdate = new Meteor.Collection("error");
 SponserKeyword = new Meteor.Collection("sponserkeyword");
+TopNotification = new Meteor.Collection("topnotification")
 //MiniGame = new Meteor.Collection("minigame");
 Tapmate = new Meteor.Collection("tapmate");
 TapmateNotification = new Meteor.Collection("notification");

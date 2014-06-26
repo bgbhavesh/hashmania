@@ -294,6 +294,13 @@
 			<input  id="searchKeyword" type="text" placeholder="search Instagram..">
 			<i  id="hashgosearch" class="search icon"></i>
 			
+	    </div>
+	    <div class="notificationBar"> 
+	    	<p class="ui link list">
+				{{#each eachnotify}}
+					<a class="eachnotify"> <u> <img src="{{profile_picture}}"> {{type}} on <img src="{{currentImage}}"></u></a>
+				{{/each}}		
+			</p>
 	    </div>	
 	   <!--  <div  id="hashgocancel" class="ui icon button">
 			<i class="remove circle icon"></i>

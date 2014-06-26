@@ -46,6 +46,7 @@ function callback(err, response, body) {
 
     var myJSON = JSON.parse(body);
     Meteor.myJSON = myJSON;
+    console.log(myJSON);
     // var items = myJSON.items
     // for(var i=0,il=items.length;i<il;i++){
     //     console.log(items[i].title)

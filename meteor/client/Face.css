@@ -694,6 +694,9 @@ body{
 
 
 }
+.notificationBar img{
+	height: 10%;
+}
 .notificationBar{
 	display: block;
 	position: absolute;
@@ -703,6 +706,7 @@ body{
 	overflow-y: scroll;
 	font-size: 20px;
 	color: #11a8ab;
+	vertical-align:text-top;
 }
 /*#keywordPopup
 {
@@ -2542,6 +2546,8 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 {
 	float:none;
 	width: 100%;	
+	height: 100%;
+	margin-top: -10%;
 }
 .eachLeaders img{
 	width: 100%;
@@ -2664,9 +2670,16 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 }
 .kingImage1{
 	position: absolute;
-	top: 0px;
-	left: 0px;
+	top: -3px;
+	left: -1px;
 	display: block;
+	width:50%;
+	transform:rotate(-30deg);
+	-webkit-transform:rotate(-30deg);
+	box-shadow: none;
+}
+.kingImage1 img{
+	box-shadow: none;
 }
 /*  */
 /*//////////font-family: //*/

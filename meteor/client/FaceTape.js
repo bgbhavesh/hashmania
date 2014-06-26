@@ -1056,10 +1056,16 @@ Meteor.documentReady = documentReady;
         var upp=null;
         var brforeloginwidth=$("#beforeLogin").width()/100;//CREATE ERROR
         var brforeloginheight=$("#beforeLogin").height()/100;//CREATE ERROR
-        $(".allLeaderSection").css({"width":brforeloginwidth*12,"height":brforeloginwidth*9,"top":brforeloginheight*25,"left": brforeloginwidth*1.5});  
+        $(".allLeaderSection").css({"width":brforeloginwidth*12,"height":brforeloginwidth*12,"top":brforeloginheight*25,"left": brforeloginwidth*1.5});  
        
         $("#status").width(brforeloginheight*6);
         $("#status").height(brforeloginheight*6);
+        
+        $("#keywords").css({"top":brforeloginheight*9}); 
+        
+        // $(".notificationBar img").height(brforeloginheight*8);
+        // $(".notificationBar img").width(brforeloginheight*8);
+
         // $(".tapToShow").remove();    1058        
         // $(".tapToShow").remove();
         // upp ='<div id="back-top" class="tapToShow">new</div>'                  // New Images

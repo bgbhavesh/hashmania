@@ -94,9 +94,10 @@ Digital Ocean :
 eliasmoosman@gmail.com 
 youiestwibing 
 
+ssh root@128.199.196.222 'bash -s' < deploy.sh
+
 ssh root@128.199.196.222
-olfppikufxcz  --previous
-youiestwibing   --current
+youiestwibing
 
 FACEBOOK ACCOUNTS
 decivote@gmail.com

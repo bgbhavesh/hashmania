@@ -958,10 +958,12 @@ h6 {}
     left: 5%;
     margin-top: -175px;
 }
+#loginsignupform .button{
+ 	width:80%;
+ 	margin:1%;
+ }
 #loginsignupform .field{
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-top: 2%;
+    margin: 2%;
 }
 #form{
 	position: absolute;

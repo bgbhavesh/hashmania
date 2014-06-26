@@ -775,7 +775,8 @@ function startup(){
             App.searchIntervalId = Meteor.setInterval(searchHashInterval,60000*5); 
             // increase or decrease the interval counts depending on server loads.
         }  
-        fetchLanguageFromDrive();  
+        if(!DebugFace)
+            fetchLanguageFromDrive();  
 }
 function fetchLanguageFromDrive(){
     console.log("fetchLanguageFromDrive");

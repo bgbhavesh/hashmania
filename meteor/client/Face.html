@@ -82,8 +82,10 @@
 	<div id="welcomePopUpBackground"></div>
 	<div id="welcomePopUp" class="ui inverted segment"> <br>
 		<div id="pushtext">Welcome to HashRepublic!</div>
-		Facehash gets you on the map as an expert on a hash tag. Pick one and start tapping the sentiments. 
-		The game is simple. Have fun!<br><br>
+		Facehash gets you on the map as an expert on a hash tag. <br>
+		Pick one and start tapping the sentiments. <br>
+		The game is simple. <br>
+		Have fun!<br><br>
 		<div id="hideWelcomePopUp" class="tiny circular ui button">ok</div><br><br>
 	</div>
 
@@ -414,7 +416,7 @@
 <template name="leadersboard">
 	{{#each eachlead}}
 		
-		<div class="leadersface">  
+		<div class="leadersface" style="display:none">  
 			<img src="{{face}}"/>
 			<div id="leadersScore" style="font-size: small;top: 63%;position: absolute;left: 20%;display:none">{{customScore}}</div>
 			<div id="leadersRank" style="font-size: small;top: 0%;position: absolute;left: 2%;display:none">{{rank}}</div>
@@ -605,8 +607,7 @@
 <template name="perbig">
 	<div class="bigFeed bigSecondFeed" likeid="{{likeid}}"> 
 	     
-		<img src="{{low}}">
-	  
+		<img src="{{low}}">	  
 		<div class="quadrant" id="{{likeid}}">
 			<div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>
 			<div id="inerhprogressBar">

@@ -1054,7 +1054,7 @@ Meteor.documentReady = documentReady;
         var upp=null;
         var brforeloginwidth=$("#beforeLogin").width()/100;//CREATE ERROR
         var brforeloginheight=$("#beforeLogin").height()/100;//CREATE ERROR
-        $(".allLeaderSection").css({"width":brforeloginwidth*12,"height":brforeloginwidth*9,"top":brforeloginheight*15,"left": brforeloginwidth*1.5});  
+        $(".allLeaderSection").css({"width":brforeloginwidth*12,"height":brforeloginwidth*9,"top":brforeloginheight*25,"left": brforeloginwidth*1.5});  
        
         $("#status").width(brforeloginheight*6);
         $("#status").height(brforeloginheight*6);
@@ -1226,10 +1226,10 @@ Meteor.documentReady = documentReady;
     }
     function newImageLogic() {
         console.log("newImageLogic");
-        $("#NweImageAdded").hide();
+        $("#NweImageAdded").css("color","black");
         Meteor.call("getNewData",Session.get("keyword"),CLIENTID,function(err,data){
             renderResults(data,true,true);
-            $("#NweImageAdded").show();    
+            $("#NweImageAdded").css("color","white");    
                 
                 totalData=totalData+data.length;
         });
@@ -8009,7 +8009,7 @@ function openSurvey(){
     $('#updownarrow').css({"top": "0%"});
     $(".leaderSection").transition({"top":"94%"});
     $(".tapToShow").hide();
-    $(".leaderSection .leadersface").hide();
+    $(".leaderSection .leadersface").css({"display":"none"});
     // $(".leadersface").css({"display":"none"});
     
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
@@ -8030,7 +8030,7 @@ function closeSurvey(){
     $('#updownarrow').css({"top": "28%"});
     $(".leaderSection").show();
     $(".tapToShow").show();
-    $(".leaderSection .leadersface").show();
+    $(".leaderSection .leadersface").css({"display":"block"});
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});

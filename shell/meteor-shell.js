@@ -58,14 +58,14 @@ if (Meteor.isServer) {
   var stderr = function (data) {
         // console.log('stderr function');
         message = 'err : '+data
-        console.log(message);
-
+        //console.log(message);
+        Log.insert({log : message})
         // fut.ret(''+data);
       }
   var stdout = function (data) {
         // console.log('stdout function');
         message = 'log : '+data
-        console.log(message);
+        //console.log(message);
         Log.insert({log : message})
         // fut.ret(''+data);
       }
@@ -98,11 +98,16 @@ if (Meteor.isServer) {
       // var fut = new Future();
 
       var spawn = Npm.require('child_process').spawn;
+      
       if (args.length == 0)
         ls    = spawn(cmd);
       else
         ls    = spawn(cmd , args);
-      
+      try{
+      }
+      catch(err){
+        console.log(err);
+      }
       ls.stdout.on('data', stdoutWrapper);
 
       ls.stderr.on('data',stderrWrapper);

@@ -2646,6 +2646,17 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 }
 /*   CHAT ENDS    */
 
+/*  */
+.kingImage{
+	display: none;
+}
+.kingImage1{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: block;
+}
+/*  */
 /*//////////font-family: //*/
 /*@font-face
 {

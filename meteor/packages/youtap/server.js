@@ -5,6 +5,9 @@ facebookfb = Npm.require('fb');
 googleapis = Npm.require('googleapis'),
 readline = Npm.require('readline');
 
+
+/*
+//blocked until further notice
 var googleDrive = Npm.require('google-drive');
 
 var exportLink = "https://docs.google.com/feeds/download/documents/export/Export?id=11LDy_Bfw4AL-5h8Lylrkj-jXRkqzGO3O7J2WLgXd14Y&exportFormat=txt";
@@ -51,6 +54,8 @@ function callback(err, response, body) {
     //     console.log(items[i].title)
     // }   
 }
+*/
+
 
 // var rl = readline.createInterface({
 //   input: process.stdin,

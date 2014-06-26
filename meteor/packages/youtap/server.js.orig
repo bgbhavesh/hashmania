@@ -51,6 +51,19 @@ exportLink = "https://docs.google.com/feeds/download/documents/export/Export?id=
 //     // console.log('response', response)
 //     // console.log('body', JSON.parse(body))
     
+<<<<<<< HEAD
+    // console.log('response', response)
+    // console.log('body', JSON.parse(body))
+
+    var myJSON = JSON.parse(body);
+    Meteor.myJSON = myJSON;
+    console.log(myJSON);
+    // var items = myJSON.items
+    // for(var i=0,il=items.length;i<il;i++){
+    //     console.log(items[i].title)
+    // }   
+}
+=======
 //     var myJSON = JSON.parse(body);
 //     console.log(myJSON);
 //     Meteor.myJSON = myJSON;
@@ -61,6 +74,7 @@ exportLink = "https://docs.google.com/feeds/download/documents/export/Export?id=
 // }
 
 
+>>>>>>> a9a4b09a684954f9a336dce1ec852832b089cdbf
 
 // var rl = readline.createInterface({
 //   input: process.stdin,

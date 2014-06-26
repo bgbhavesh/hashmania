@@ -9,7 +9,8 @@ cd HashRepublic
 cd meteor
 cd ..
 
-git pull -u origin master
+git fetch --all
+git reset --hard origin/master
 
 cd meteor
 

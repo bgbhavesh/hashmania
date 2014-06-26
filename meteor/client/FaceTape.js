@@ -1232,6 +1232,9 @@ Meteor.documentReady = documentReady;
       console.log("down");
         $('.leaderSection').animate({scrollTop: 17000 }, 10);
     }
+    function updateNewData(){
+        
+    }
     function newImageLogic() {
         console.log("newImageLogic");
         $("#NweImageAdded").css("color","black");
@@ -4972,6 +4975,7 @@ function onPause(){
     foreground = false;
     saveCollection();
     clearInterval(locatationIntervalId);
+    updateNewData();
     //window.plugins.statusBarNotification.notify("Youiest/Tapmate", "your app is in background will receive notification");
 }
 function onResume(){

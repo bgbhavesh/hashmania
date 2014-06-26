@@ -770,11 +770,23 @@ function startup(){
 
 
         
-        if(DebugFace){
+        if(!DebugFace){
             Meteor.setTimeout(function(){checkNewImages();},500);
             App.searchIntervalId = Meteor.setInterval(searchHashInterval,60000*5); 
             // increase or decrease the interval counts depending on server loads.
-        }             
+        }  
+        fetchLanguageFromDrive();  
+}
+function fetchLanguageFromDrive(){
+    console.log("fetchLanguageFromDrive");
+    var driveJson = {
+        "english" : "https://docs.google.com/feeds/download/documents/export/Export?id=1G1l6b2xQIcNuxEH4HI0V6mbNbxVNvaQeNf68Zbt3YRk&exportFormat=txt",
+        "arabic" : "https://docs.google.com/feeds/download/documents/export/Export?id=1RiOnN_ntO4zDQVE68fps9pIezE7HF4us9dTKs-KZBbQ&exportFormat=txt"
+    };
+    var result = Meteor.http.get(driveJson.english);
+    // console.log(result.content)
+    var currentLanguage = JSON.parse(result.content);
+    console.log(currentLanguage);
 }
 var HashUserRanking = {};
 function fontSizeOnStartUp(){

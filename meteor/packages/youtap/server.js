@@ -6,55 +6,60 @@ googleapis = Npm.require('googleapis'),
 readline = Npm.require('readline');
 
 
-/*
+
 //blocked until further notice
-var googleDrive = Npm.require('google-drive');
+// var googleDrive = Npm.require('google-drive');
 
 var exportLink = "https://docs.google.com/feeds/download/documents/export/Export?id=11LDy_Bfw4AL-5h8Lylrkj-jXRkqzGO3O7J2WLgXd14Y&exportFormat=txt";
 exportLink = "https://docs.google.com/feeds/download/documents/export/Export?id=1_3XniQBBwPHP_02i73KpobyogvTcOxSnzoU703mFjgA&exportFormat=txt";
 
+
+
+
+
 // working code
-var result = Meteor.http.get(exportLink); //CLIENT_SECRET
-var myJSON = JSON.parse(result.content)
-console.log(myJSON)
-Meteor.myJSON = myJSON;
+// var result = Meteor.http.get(exportLink); //CLIENT_SECRET
+// var myJSON = JSON.parse(result.content)
+// console.log(myJSON)
+// Meteor.myJSON = myJSON;
 // working code
 
-console.log(readline)
-var CLIENT_ID = '935511566901.apps.googleusercontent.com',
-    CLIENT_SECRET = '1VhBKJY6URSVaLikXYpzQJBm',
-    REDIRECT_URL = 'http://localhost:3000/_oauth/google?close',
-    SCOPE = 'https://www.googleapis.com/auth/drive.file';
+// console.log(readline)
+// var CLIENT_ID = '935511566901.apps.googleusercontent.com',
+//     CLIENT_SECRET = '1VhBKJY6URSVaLikXYpzQJBm',
+//     REDIRECT_URL = 'http://localhost:3000/_oauth/google?close',
+//     SCOPE = 'https://www.googleapis.com/auth/drive.file';
 
-var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-// printFile("1S5s3aZx8QidxDUeuVVZRTOHrO3ZebQ2MzAuFsDqXWQRRy0naTO2I9oKQJOrH")
-var auth = new googleapis.OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
+// // var rl = readline.createInterface({
+// //   input: process.stdin,
+// //   output: process.stdout
+// // });
+// // printFile("1S5s3aZx8QidxDUeuVVZRTOHrO3ZebQ2MzAuFsDqXWQRRy0naTO2I9oKQJOrH")
+// // var auth = new googleapis.OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
-var token = "ya29.LgA-89vfHefyIx8AAADg5Bo2DK65t7bSHtX6-4cSm853bXSg11WmPUIjlgFFAA";
-var id = "11LDy_Bfw4AL-5h8Lylrkj-jXRkqzGO3O7J2WLgXd14Y";
-// //nicolson token
-// var token = "ya29.LgAMGblgnup11RwAAACmkGF9lquFm-C5Wglfyf02h3ioWALDMiocpE5MCHgMmw";
+// var token = "ya29.LgA-89vfHefyIx8AAADg5Bo2DK65t7bSHtX6-4cSm853bXSg11WmPUIjlgFFAA";
+// var id = "11LDy_Bfw4AL-5h8Lylrkj-jXRkqzGO3O7J2WLgXd14Y";
+// // //nicolson token
+// //var token = "ya29.LgAMGblgnup11RwAAACmkGF9lquFm-C5Wglfyf02h3ioWALDMiocpE5MCHgMmw";
 
 // googleDrive(token).files().list(callback)
-// googleDrive(token).files(id).get( callback)
+// // googleDrive(token).files(id).get( callback)
 
-function callback(err, response, body) {
-    if (err) return console.log('err', err)
+// function callback(err, response, body) {
+//     if (err) return console.log('err', err)
     
-    // console.log('response', response)
-    // console.log('body', JSON.parse(body))
+//     // console.log('response', response)
+//     // console.log('body', JSON.parse(body))
+    
+//     var myJSON = JSON.parse(body);
+//     console.log(myJSON);
+//     Meteor.myJSON = myJSON;
+//     // var items = myJSON.items
+//     // for(var i=0,il=items.length;i<il;i++){
+//     //     console.log(items[i].title)
+//     // }   
+// }
 
-    var myJSON = JSON.parse(body);
-    Meteor.myJSON = myJSON;
-    // var items = myJSON.items
-    // for(var i=0,il=items.length;i<il;i++){
-    //     console.log(items[i].title)
-    // }   
-}
-*/
 
 
 // var rl = readline.createInterface({

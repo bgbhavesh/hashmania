@@ -1,7 +1,7 @@
 Core = {};
 Core.renderResults = function (data,loadMoreFlag,newerFlag){
 
-        console.log("load more " +loadMoreFlag)
+        console.log("load more *****" +loadMoreFlag)
         if(!data){
             return;
         }

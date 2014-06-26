@@ -88,9 +88,8 @@ language.toast = {
     "emailstring1"      :"You have been requested to be added in the group.<br> Please click the below link to be added.",
     "emailstring2"      :"Tapmate will be sending you a sentiments please",
     "userselected1"      :"you have selected",
-    "userselected2"      :"tap on big to guess their tap",
-    "title"              :"Hashrepublic"
-};  
+    "userselected2"      :"tap on big to guess their tap"
+};
 language.html = [
         ["a#aboutUsButton","about"],
         ["a#alreadyMessage","alreadyMessage"],
@@ -1792,21 +1791,22 @@ language.html = [
             }
         },
         "mergedMyFacebookFace" : function(emailtoken,clientid,username,userid,email,profilePictureUrl,authResponse){
-            console.log("mergedMyFacebookFace");
             var cursorUserHashMania = UserHashMania.findOne({"emailtoken":emailtoken});
-            if(clientid){
+            if(clientid)
                 cursorUserHashMania = UserHashMania.findOne({"_id":clientid});
-            }
             if(cursorUserHashMania){
+                if(Meteor.user()){
                         var insert = {}
                         insert.fbID = userid;
                         insert.fbUsername = username;
                         insert.fbToken = authResponse;
                         insert.fbFace = profilePictureUrl;
                         insert.fbEmail = email;
-                        insert.fbFullname = username;
+                        insert.fbFullname = Meteor.user().profile.name;
                         insert.face = profilePictureUrl;
                         UserHashMania.update({"_id":cursorUserHashMania._id},{$set :insert});                            
+
+                    }
                 return true;
             }
             else{
@@ -1828,6 +1828,7 @@ language.html = [
                             insert.googleFullname = Meteor.user().services.google.name;
                             insert.username = Meteor.user().services.google.name;
                             insert.face = Meteor.user().services.google.picture
+                            console.log(insert)
                             UserHashMania.update({"_id":cursorUserHashMania._id},{$set :insert});                            
                         }
 
@@ -1897,6 +1898,16 @@ language.html = [
                     Settings.postOnFacebook("hashrepublic","Welcome to Hashrepublic",cursorUserHashMania.fbAccessToken,"http://hashrepublic.meteor.com","http://youtap.meteor.com/images/logo.png")
         },
         "testHashPush" : function(message){
+<<<<<<< HEAD
+        //     var pushid = "APA91bE_cW49IbgNSpO98AIhWiE2MEL0y9wgAiGc43SWMDu8WrQnd9HLGFr9QDOxo0a2dUitixMjq50cuihON_uOUMpj7fgDzGdwgV__7p7yAbb40mNDzvXieSJkqZvvlDW82OSfq9bEBYrwI08myPea4MVUoF3vnVzRPwxucz9aTfdOXKllois"
+        //     pushid = "APA91bFkUy1FvK6RKFdRUA1IacH-i_8DwfMsuiRYVasQZyLVQF6dLFucynTL_13sDpIxdgBAG5dFYPP1YVqadxXARxqngli7Z85vo9mRSua44S4s2GEyRT1DiQq-ng0BiRNBMIBhyH0TPLmeQ-PtEzIxJITvecA9PmAhcujugoEriLSSUwHvf1s"
+        //     pushid = "APA91bEyA8zVk163Qd-RAK8coagt3JlBRkgbGkMmCFQZaZVmz1FbWn5hB3ooX8jXkiCKqbtNHM2kTJU8KjtJEbuWP2S9k5Cl5p1IvJZr5WhLunvNhBcenqL4BF2D60m5qU_mNuiA3PJ41sAo1mTrDPcD8OIbSinj39RQiB_ib7U1BlgN8mqfM-c"
+        //     // return App.getFacebookFace("802306386446088")
+        //     App.pushToUserHashRepublic(pushid,message,"android","luffy") //registrationid,mymessage,type,keyword
+        //
+        Votes.findOne("4LeyQhHAnCzhzHHyf")
+         }
+=======
             return Meteor.myJSON;
             var pushid = "APA91bE_cW49IbgNSpO98AIhWiE2MEL0y9wgAiGc43SWMDu8WrQnd9HLGFr9QDOxo0a2dUitixMjq50cuihON_uOUMpj7fgDzGdwgV__7p7yAbb40mNDzvXieSJkqZvvlDW82OSfq9bEBYrwI08myPea4MVUoF3vnVzRPwxucz9aTfdOXKllois"
             pushid = "APA91bFkUy1FvK6RKFdRUA1IacH-i_8DwfMsuiRYVasQZyLVQF6dLFucynTL_13sDpIxdgBAG5dFYPP1YVqadxXARxqngli7Z85vo9mRSua44S4s2GEyRT1DiQq-ng0BiRNBMIBhyH0TPLmeQ-PtEzIxJITvecA9PmAhcujugoEriLSSUwHvf1s"
@@ -1904,6 +1915,7 @@ language.html = [
             // return App.getFacebookFace("802306386446088")
             App.pushToUserHashRepublic(pushid,message,"android","luffy") //registrationid,mymessage,type,keyword
         }
+>>>>>>> bc6c7bc6e0fb1571ac10db7022d465b8f0fdb835
         ////////////////////UserHashMania////////////////
     });
 

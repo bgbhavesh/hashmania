@@ -1057,7 +1057,11 @@ Meteor.documentReady = documentReady;
         var brforeloginwidth=$("#beforeLogin").width()/100;//CREATE ERROR
         var brforeloginheight=$("#beforeLogin").height()/100;//CREATE ERROR
         $(".allLeaderSection").css({"width":brforeloginwidth*12,"height":brforeloginwidth*9,"top":brforeloginheight*25,"left": brforeloginwidth*1.5});  
+<<<<<<< HEAD
+        $("#keywords").css({"top":brforeloginheight*8});
+=======
        
+>>>>>>> c8142d6569be4040e25d499ab934f471e5e6406a
         $("#status").width(brforeloginheight*6);
         $("#status").height(brforeloginheight*6);
         // $(".tapToShow").remove();    1058        

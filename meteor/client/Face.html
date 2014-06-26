@@ -82,8 +82,10 @@
 	<div id="welcomePopUpBackground"></div>
 	<div id="welcomePopUp" class="ui inverted segment"> <br>
 		<div id="pushtext">Welcome to HashRepublic!</div>
-		Facehash gets you on the map as an expert on a hash tag. Pick one and start tapping the sentiments. 
-		The game is simple. Have fun!<br><br>
+		Facehash gets you on the map as an expert on a hash tag. <br>
+		Pick one and start tapping the sentiments. <br>
+		The game is simple. <br>
+		Have fun!<br><br>
 		<div id="hideWelcomePopUp" class="tiny circular ui button">ok</div><br><br>
 	</div>
 
@@ -295,6 +297,13 @@
 			<input  id="searchKeyword" type="text" placeholder="search Instagram..">
 			<i  id="hashgosearch" class="search icon"></i>
 			
+	    </div>
+	    <div class="notificationBar"> 
+	    	<p class="ui link list">
+				{{#each eachnotify}}
+					<a class="eachnotify"> <u> <img src="{{profile_picture}}"> {{type}} on <img src="{{currentImage}}"></u></a>
+				{{/each}}		
+			</p>
 	    </div>	
 	   <!--  <div  id="hashgocancel" class="ui icon button">
 			<i class="remove circle icon"></i>
@@ -343,9 +352,27 @@
 				<div id="errorMessage" class="header">We noticed some issues</div>
 			</div>
 			<div id="seLoginLogin" class="ui blue submit button">Login with Password</div>
-				<div id="orID" class="ui horizontal divider">
-		      Or
-		    </div>
+			<br>OR
+				<div id="orID" class="ui horizontal divider"></div>
+
+		      <div id="loginButtonWithInstagram" class="ui instagram button loginButton">
+				  <i class="instagram icon"></i>
+				  Login With Instagram
+			</div>
+			<br>
+			OR <br>
+			<div id="loginButtonWithFacebook" class="ui facebook button loginButton">
+				  <i class="facebook icon"></i>
+				  Login With Facebook
+			</div>
+			<br>
+			OR <br>
+			<div id="loginButtonWithGooglePlus" class="ui google plus button loginButton">
+				  <i class="google plus icon"></i>
+				  Login With Google+
+			</div>
+			<br>
+			OR
 		    <div class="ui ignored warning message">
 		      <p>Enter logging and password.</p>
 		    </div>
@@ -396,7 +423,7 @@
 <template name="leadersboard">
 	{{#each eachlead}}
 		
-		<div class="leadersface">  
+		<div class="leadersface" style="display:none">  
 			<img src="{{face}}"/>
 			<div id="leadersScore" style="font-size: small;top: 63%;position: absolute;left: 20%;display:none">{{customScore}}</div>
 			<div id="leadersRank" style="font-size: small;top: 0%;position: absolute;left: 2%;display:none">{{rank}}</div>
@@ -587,8 +614,7 @@
 <template name="perbig">
 	<div class="bigFeed bigSecondFeed" likeid="{{likeid}}"> 
 	     
-		<img src="{{low}}">
-	  
+		<img src="{{low}}">	  
 		<div class="quadrant" id="{{likeid}}">
 			<div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>
 			<div id="inerhprogressBar">
@@ -606,7 +632,9 @@
 <template name="srvyvotes"> 
   {{#each votes}}
 		<div class="voting" style="left : {{left}}%;top:{{top}}%;" myid="{{followid}}" votingid="{{_id}}">
-		  <img src="{{profile_picture}}">          
+		  <img src="{{profile_picture}}">   
+
 		</div>
+		
   {{/each}}
 </template>

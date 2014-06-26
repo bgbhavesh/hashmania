@@ -809,6 +809,10 @@ h6 {}
 }
 #keywords p{
 	text-align: justify;
+	word-spacing:5px;
+	
+    line-height: 2;
+
 }
 #eachkeyword{
 	position: relative;

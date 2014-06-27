@@ -18,9 +18,21 @@ cd meteor
 
 echo "bundling"
 
-rm bundle.tar.gz
+if [ -f "bundle.tar.gz" ]
+then
+	rm bundle.tar.gz
+else
+	echo "bundle.tar.gz not found."
+fi
 
-rm -r ../../appold
+if [ -d "../../appold" ]
+then
+	rm -r ../../appold
+else
+	echo "appold not found."
+fi
+
+#rm -r ../../appold
 mkdir ../../appold
 meteor bundle bundle.tar.gz
 mv bundle.tar.gz ../../appold/bundle.tar.gz

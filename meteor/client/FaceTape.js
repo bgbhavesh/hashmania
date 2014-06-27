@@ -6695,17 +6695,21 @@ function bindEvents(){
             $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
 
             $("#seEmail").keyup(function(event){
-                $(this).val(convertEmail($(this).val()));
+                
                 if(event.keyCode == 13){
                     Login.onSignUpWithTapmate();
                 }
             });
+            $("#seEmail").blur(onKeyBlur);
+
             $("#seEmailLogin").keyup(function(event){
-                $(this).val(convertEmail($(this).val()));
+                
                 if(event.keyCode == 13){
                     $("#sePassLogin").focus()
                 }
             });
+            $("#seEmailLogin").blur(onKeyBlur);
+            
              $("#sePassLogin").keyup(function(event){
                 if(event.keyCode == 13){
                     Login.onLoginWithHashRepublic();
@@ -6728,7 +6732,6 @@ function bindEvents(){
             });
             $("#commentInput").keyup(function(event){
                 if(event.keyCode == 13){
-                  console.log("entered")
                     commentOneVote();
                 }
             });
@@ -6756,6 +6759,9 @@ function bindEvents(){
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "bindEvents"});
     }
     //MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+}
+function onKeyBlur(){
+    $(this).val(convertEmail($(this).val()));    
 }
 function changeResolutionToLow(){
     Session.set("imageQuality","thumb");

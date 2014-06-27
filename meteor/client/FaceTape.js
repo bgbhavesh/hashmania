@@ -6162,6 +6162,23 @@ function loginWithFacebook(){
     //     }
     // Meteor.loginWithFacebook({requestPermissions:"basic",requestOfflineToken:true},loginWithFacebookCallbackFunction);
 }
+Meteor.facebookCallbackFunction = function(user){
+    console.log('response from facebook: ' + JSON.stringify(user));
+    var profilePictureUrl = '';
+    if (user.picture.data) {
+      profilePictureUrl = user.picture.data.url;
+    } else {
+      profilePictureUrl = user.picture;
+    }
+    Meteor.call("mergedMyFacebookFace",
+                App.emailAuthFlag,
+                Session.get("clientid"),
+                user.name,user.id,
+                user.email,
+                profilePictureUrl,
+                response.authResponse,
+                function(){});
+}
 // https://www.facebook.com/dialog/oauth?client_id=679347035440335&redirect_uri=http://localhost:3000/facebook?close&display=popup&scope=email&state=GEm5wJLmwqoWdXa3z
 Meteor.facebook = loginWithFacebook;
 var googleScope = [

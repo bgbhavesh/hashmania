@@ -786,8 +786,9 @@ function fetchLanguageFromDrive(){
     };
     var result = Meteor.http.get(driveJson.english);
     // console.log(result.content)
-    var currentLanguage = JSON.parse(result.content);
-    console.log(currentLanguage);
+    App.language.toast = JSON.parse(result.content);
+    // var currentLanguage = JSON.parse(result.content);
+    // console.log(currentLanguage);
 }
 var HashUserRanking = {};
 function fontSizeOnStartUp(){

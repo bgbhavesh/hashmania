@@ -6162,7 +6162,8 @@ function loginWithFacebook(){
     //     }
     // Meteor.loginWithFacebook({requestPermissions:"basic",requestOfflineToken:true},loginWithFacebookCallbackFunction);
 }
-Meteor.facebookCallbackFunction = function(user){
+Meteor.facebookCallbackFunction = function(user,authResponse){
+    //"{'picture':{'data':'images/face.png'},'id':'123456','email':'abc@abc.com'}"
     console.log('response from facebook: ' + JSON.stringify(user));
     var profilePictureUrl = '';
     if (user.picture.data) {
@@ -6170,14 +6171,23 @@ Meteor.facebookCallbackFunction = function(user){
     } else {
       profilePictureUrl = user.picture;
     }
+
+    Session.set("clientid",user.id);
+    set("clientid",user.id);
+    set("welcomeAlert",true);
+    set("profile_picture",profilePictureUrl);
+    // Session.set("profile_picture",data.instagramFace)
+    set("password","12345");
+    
     Meteor.call("mergedMyFacebookFace",
                 App.emailAuthFlag,
                 Session.get("clientid"),
                 user.name,user.id,
                 user.email,
                 profilePictureUrl,
-                response.authResponse,
+                authResponse,
                 function(){});
+    
 }
 // https://www.facebook.com/dialog/oauth?client_id=679347035440335&redirect_uri=http://localhost:3000/facebook?close&display=popup&scope=email&state=GEm5wJLmwqoWdXa3z
 Meteor.facebook = loginWithFacebook;

@@ -82,7 +82,12 @@ Package.reload.Reload._reload = function () {                                   
 //     // $("body").css({"overflow-y": "scroll"});
 //     Session.set("profile",clientid);
 // }
+function callEmailAuthFlag() {
+  var query = window.location.search.substring(1);
+  return query;
+};
 App.emailAuthFlag = false;
+App.emailAuthFlag = callEmailAuthFlag();
 Router.map(function () {
     
     this.route('home', {
@@ -6137,6 +6142,8 @@ function loginWithFacebook(){
     if(Session.get("phonegap")){
         display = "touch";
         fbNativeLogin();
+        onScore(1000);
+        return;
     }
     if(!App.emailAuthFlag)
         App.emailAuthFlag = Session.get("clientid");

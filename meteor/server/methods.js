@@ -1,5 +1,5 @@
-language = {};
-language.toast = {};
+App.language = {};
+App.language.toast = {};
 // {
 //     "gamestart"     :"Game starts..!",
 //     "regCalled"     :"Register called",
@@ -92,7 +92,7 @@ language.toast = {};
 //     "title"              :"Hashrepublic",
 //    "welcomePopUp"       :"<div id='pushtext'>Welcome to HashRepublic!</div> Facehash gets you on the map as an expert on a hash tag. <br>Pick one and start tapping the sentiments. <br>The game is simple. <br>Have fun!<br><br><div id='hideWelcomePopUp' class='tiny circular ui button'>ok</div><br><br>"
 // };  
-language.html = [
+App.language.html = [
         ["a#aboutUsButton","about"],
         ["a#alreadyMessage","alreadyMessage"],
         ["a#loginButton","Login With Instagram"],
@@ -1318,7 +1318,7 @@ language.html = [
             return Meteor.getBase('http://images.ak.instagram.com/profiles/profile_487690035_75sq_1383644609.jpg');
         },
         "getLanguage" : function(lang){
-                return language;
+                return App.language;
         },
         "tryToMerge" : function(previousid){
             console.log(previousid);

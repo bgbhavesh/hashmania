@@ -82,7 +82,11 @@ Package.reload.Reload._reload = function () {                                   
 //     // $("body").css({"overflow-y": "scroll"});
 //     Session.set("profile",clientid);
 // }
+function getArguments(){
+    return "adfs";
+}
 App.emailAuthFlag = false;
+App.emailAuthFlag = getArguments();
 Router.map(function () {
     
     this.route('home', {

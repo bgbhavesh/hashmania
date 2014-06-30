@@ -1,5 +1,5 @@
-language = {};
-language.toast = {};
+App.language = {};
+App.language.toast = {};
 // {
 //     "gamestart"     :"Game starts..!",
 //     "regCalled"     :"Register called",
@@ -92,7 +92,7 @@ language.toast = {};
 //     "title"              :"Hashrepublic",
 //    "welcomePopUp"       :"<div id='pushtext'>Welcome to HashRepublic!</div> Facehash gets you on the map as an expert on a hash tag. <br>Pick one and start tapping the sentiments. <br>The game is simple. <br>Have fun!<br><br><div id='hideWelcomePopUp' class='tiny circular ui button'>ok</div><br><br>"
 // };  
-language.html = [
+App.language.html = [
         ["a#aboutUsButton","about"],
         ["a#alreadyMessage","alreadyMessage"],
         ["a#loginButton","Login With Instagram"],
@@ -1318,7 +1318,7 @@ language.html = [
             return Meteor.getBase('http://images.ak.instagram.com/profiles/profile_487690035_75sq_1383644609.jpg');
         },
         "getLanguage" : function(lang){
-                return language;
+                return App.language;
         },
         "tryToMerge" : function(previousid){
             console.log(previousid);
@@ -1717,6 +1717,103 @@ language.html = [
             // console.log(result);
             console.log("getNewData ended " +keyword +" for client " +clientid +" " +result.length);
             return result;
+        },
+        "getNewDataPreload" : function(keyword,clientid){
+            console.log("getNewDataPreload started " +keyword +" for client " +clientid);
+            var result = [],keywordArray = [];
+            var i = result.length;
+            var deckFlag = false;
+            var alreadyResult = [],ar=0,firstResult = [],fr=0;
+            var count = HashKeyword.find({"keyword":keyword}).count();
+            var cursorHashHistory = HashHistory.findOne({"_id":clientid});
+            if(cursorHashHistory)
+                if(cursorHashHistory[keyword])
+                    if(cursorHashHistory[keyword].length)
+                        keywordArray = cursorHashHistory[keyword]
+            console.log(count)
+            if(count < 10)
+                App.searchHashParserUrgent(null,keyword,clientid); 
+            var findJson = {};
+            findJson.likeid = {$nin : keywordArray};
+            findJson.keyword = keyword;
+            // console.log(findJson)
+            HashKeyword.find(findJson,{limit:30}).forEach(function(data){
+                deckFlag = false;
+                
+                // marked as dead image
+                if(!data.remove){
+                   var votes = [],comments = [];
+                    Votes.find({"likeid":data.likeid}).forEach(function(data){
+                        if(data.followid == clientid)
+                            deckFlag = true;
+                        votes.push(data);
+                    });
+                    HashComment.find({"likeid":data.likeid}).forEach(function(data){
+                        comments.push(data);
+                    });
+                    if(deckFlag){
+                        alreadyResult[ar] = {};
+                        alreadyResult[ar].keyword = data
+                        alreadyResult[ar].votes = votes;
+                        alreadyResult[ar].comments = comments;
+                        alreadyResult[ar].likeid = data.likeid
+                        ar++;
+                    }
+                    else{
+                        if(fr!=0){
+                            // console.log("firstResult knkj")
+                            firstResult[fr] = {};
+                            firstResult[fr].keyword = data
+                            firstResult[fr].votes = votes;
+                            firstResult[fr].comments = comments;
+                            firstResult[fr].likeid = data.likeid
+                            fr++;
+                        }
+                        if(fr==0){
+                                var countNew = HashKeyword.find(findJson,{limit:10}).count();
+                                firstResult[fr] = {};
+                                firstResult[fr].total = count
+                                firstResult[fr].countNew = countNew;
+                                fr++;
+                        }
+                    }
+                    // App.updateUserHistory(clientid,keyword,data.likeid);
+                }
+            });
+            // old way
+            // console.log(alreadyResult);
+            // console.log(firstResult);
+            var j=0,k=0;
+            for(var i=0,il=alreadyResult.length;i<alreadyResult.length && i<firstResult.length;i++){
+                if(i%2){
+                    result.push(alreadyResult[j++]);
+                }
+                else{
+                    result.push(firstResult[k++]);
+                }
+            }
+            for(var jl=alreadyResult.length;j<jl;j++){
+                result.push(alreadyResult[j++]);
+            }
+            for(var kl=firstResult.length;k<kl;k++){
+                result.push(firstResult[k++]);
+            }
+                // result[i] = {};
+                // result[i].keyword = data;
+                
+                // result[i].votes = votes;
+                // result[i].comments = comments;
+                // i++;
+            // console.log(result);
+            console.log("getNewDataPreload ended " +keyword +" for client " +clientid +" " +result.length);
+            return result;
+        },
+        "getNewDataUpdates" : function(keyword,clientid,likeidArray){
+            this.unblock();
+            for(var i=0,il=likeidArray.length;i<il;i++){
+                App.updateUserHistory(clientid,keyword,likeidArray[i]);    
+            }            
+            return true;
         },
         "verifyHashEmail" : function(email){
             

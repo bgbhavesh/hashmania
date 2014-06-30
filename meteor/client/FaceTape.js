@@ -82,11 +82,12 @@ Package.reload.Reload._reload = function () {                                   
 //     // $("body").css({"overflow-y": "scroll"});
 //     Session.set("profile",clientid);
 // }
-function getArguments(){
-    return "adfs";
-}
+function callEmailAuthFlag() {
+  var query = window.location.search.substring(1);
+  return query;
+};
 App.emailAuthFlag = false;
-App.emailAuthFlag = getArguments();
+App.emailAuthFlag = callEmailAuthFlag();
 Router.map(function () {
     
     this.route('home', {
@@ -1218,11 +1219,49 @@ Meteor.documentReady = documentReady;
         $("#toComeimages").hammer().off("tap");
         $("#toComeimages").hammer().on("tap",surveyDown);
         
+        $("#testButton").hammer().off("tap");
+        $("#testButton").hammer().on("tap",renderNewFechtedData);
+
         // checkscroll();
          
         // $(".tertiary").hide();        
 
         // $("#semanticLoader").hide();
+        getNewImagesForThisKeyword();
+    }
+    App.fetchNewData = {};
+    function getNewImagesForThisKeyword(){
+        var keyword = Session.get("keyword");
+        var clientid = Session.get("clientid");
+        console.log("getNewDataPreload " +" " +clientid +" " +keyword);
+        setTimeout(function(){
+            Meteor.call("getNewDataPreload",keyword,clientid,function(err,data){
+                App.fetchNewData = {};
+                App.fetchNewData[keyword] = data;
+                console.log(data)
+            });
+        },500);
+    }
+    function renderNewFechtedData(){
+        var likeidArray = [];
+        var keyword = Session.get("keyword");
+        var clientid = Session.get("clientid");
+
+        var data = App.fetchNewData[keyword];
+        if(!data)
+            return;
+        console.log("renderNewFechtedData " +" " +clientid +" " +keyword)
+        console.log(data);
+        renderResults(data,false,true);
+        var currentLikeid = null;
+        for(var i=0,il=data.length;i<il;i++){
+            var currentLikeid = data[i].likeid;
+            if(currentLikeid)
+                likeidArray.push(currentLikeid);
+        }
+        Meteor.call("getNewDataUpdates",
+        keyword,clientid,likeidArray,
+        function(err,data){});
     }
     function surveyNewer () {
         newImageLogic();
@@ -6141,6 +6180,8 @@ function loginWithFacebook(){
     if(Session.get("phonegap")){
         display = "touch";
         fbNativeLogin();
+        onScore(1000);
+        return;
     }
     if(!App.emailAuthFlag)
         App.emailAuthFlag = Session.get("clientid");

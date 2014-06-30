@@ -237,11 +237,6 @@ Game.renderResults = function (data,loadMoreFlag,newerFlag,keywordArg){
         $("#testButton").hammer().off("tap");
         $("#testButton").hammer().on("tap",Game.renderNewFechtedData);
 
-        // checkscroll();
-         
-        // $(".tertiary").hide();        
-
-        // $("#semanticLoader").hide();
         Game.getNewImagesForThisKeyword();
     }
 
@@ -254,9 +249,8 @@ Game.getNewImagesForThisKeyword = function (){
         console.log("getNewDataPreload " +" " +clientid +" " +keyword);
         setTimeout(function(){
             Meteor.call("getNewDataPreload",keyword,clientid,function(err,data){
-                App.fetchNewData = {};
+                //App.fetchNewData = {};
                 App.fetchNewData[keyword] = data;
-                //console.log(data)
             });
         },500);
     }

@@ -1155,7 +1155,7 @@ Meteor.documentReady = documentReady;
                 // +'</div>'
             if(newerFlag){
                 var element = $("#surveybig").prepend(newElement);
-                setTimeout(surveyUp,1500);
+               
             }else{
                 var element = $("#surveybig").append(newElement); 
             }
@@ -1178,6 +1178,7 @@ Meteor.documentReady = documentReady;
         // button ='<a class="ui button hover loadmore" id="loadMoreImg" style=" color:white; background-color: rgb(80, 90, 122);" >   Old  </a>';//&#8609; MORE  &#8609;
         // var element = $("#surveybig").append(button);
 
+        setTimeout(surveyUp,500);
        
         $(".hashFeed").hammer().off("tap");  
         $(".hashFeed").hammer().on("tap",tapOnBigFeedSurvey);
@@ -1233,6 +1234,8 @@ Meteor.documentReady = documentReady;
     function getNewImagesForThisKeyword(){
         var keyword = Session.get("keyword");
         var clientid = Session.get("clientid");
+        if(!(keyword && clientid))
+            return;
         console.log("getNewDataPreload " +" " +clientid +" " +keyword);
         setTimeout(function(){
             Meteor.call("getNewDataPreload",keyword,clientid,function(err,data){

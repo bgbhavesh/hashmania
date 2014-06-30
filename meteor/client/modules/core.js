@@ -387,3 +387,8 @@ Core.holdOnVoting = function (event){
 	    }
 	    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"holdOnVoting","time":((new Date().getTime())-starttimer)});
 	}
+
+// as per trello 44
+Core.showFaceWithAnimation = function(){
+
+}

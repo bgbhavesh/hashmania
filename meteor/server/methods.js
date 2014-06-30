@@ -1809,7 +1809,8 @@ App.language.html = [
             return result;
         },
         "getNewDataUpdates" : function(keyword,clientid,likeidArray){
-            this.unblock();
+            //this.unblock();
+            // console.log(likeidArray)
             for(var i=0,il=likeidArray.length;i<il;i++){
                 App.updateUserHistory(clientid,keyword,likeidArray[i]);    
             }            

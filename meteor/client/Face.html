@@ -274,8 +274,30 @@
 	{{#each eachlead}}
 		<div class="leadersface">  
 			<img src="{{face}}"/>
-			<div id="leadersScore" style="font-size: small;top: 63%;position: absolute;left: 20%;display:none">{{heatScore}}</div>
-			<div id="leadersRank" style="font-size: small;top: 0%;position: absolute;left: 2%;display:none">{{rank}}</div>
+
+			<div class="leadersFaceInfo" >
+				<img src="{{face}}"/>
+				<div class="leaderRapper">
+					<div class="leadersFaceName">HESTON</div>
+					<div class="leadersFaceScore">
+						<div id="leadersRank" style="top: 0%;right: 0%;display:none">{{rank}}</div>
+						<div id="leadersScore" style="bottom: 0%;rigth: 0%;display:none">
+							{{heatScore}}
+						</div>
+					</div>
+					<!-- <div class="leadersFaceInfoimg" ><img src="{{face}}"/>
+					</div>				
+					<div class="leadersFaceInfoDetails">
+					<div class="leadersFaceName">hasten</div>
+					<div class="leadersFaceScore">
+						<div id="leadersRank" style="top: 0%;right: 0%;display:block">{{rank}}</div>
+						<div id="leadersScore" style="bottom: 0%;rigth: 0%;display:block">{{heatScore}}</div></div>
+					</div> -->
+				</div>
+				
+			</div>
+			
+			
 			<div id="leadersPercentile" style="font-size: small;top: 0%;position: absolute;left: 47%;display:none">{{percentile}}</div>
 			<div class="kingImage kingImage{{rank}}"><img src="/images/king.png"/></div>
 		</div>
@@ -465,8 +487,7 @@
 	  		</div> -->
 	</div>
 	<div class="leaderSection">
-			{{> leadersboard}}
-		
+				{{> leadersboard}}
 	<div id="surveybig" class="ui labeled vertical fluid  icon menu" style="">
   		
   	</div>

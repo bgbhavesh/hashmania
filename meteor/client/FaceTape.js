@@ -892,7 +892,10 @@ Meteor.documentReady = documentReady;
     Template.allLeadersboard.events({
         "click .leadersface" : function(event){
             if(this.instagramUsername)
-            window.open("http://instagram.com/"+this.instagramUsername,"_system");
+            {
+              // $(".leadersFaceInfo").css("display","block");
+                window.open("http://instagram.com/"+this.instagramUsername,"_system");// append the popup to show user details
+            }
             else
                 toast("Not a instagram user.");
         }
@@ -907,10 +910,10 @@ Meteor.documentReady = documentReady;
     // });
     Template.leadersboard.eachlead = function(){
         var sortJson = {sort : {},limit:4};
-        var key = Session.get("keyword");
+        var key =  Session.get("keyword");
         var result = [];
         // key = "heatScore";
-        // console.log("sorting by " +key)
+        console.log("sorting by " +key)
         sortJson.sort[key] = -1
         UserHashMania.find({},sortJson).forEach(function(data){
             if(data[key]){
@@ -918,13 +921,17 @@ Meteor.documentReady = documentReady;
                 result.push(data);
             }
         });
-
         return result;
     }
     Template.leadersboard.events({
         "click .leadersface" : function(event){
             if(this.instagramUsername)
+            {
+               // console.log("display details");
+                // $(".leadersFaceInfo").css({"display":"block","top":"89%","background": "black","opacity": "1.0"});
+              // /  $(".leadersFaceInfo").html('<div><img href="http://instagram.com/'+this.instagramUsername+'_system"/></div><div></div>');              
             window.open("http://instagram.com/"+this.instagramUsername,"_system");
+            }
             else
                 toast("Not a instagram user.");
         }
@@ -1054,10 +1061,14 @@ Meteor.documentReady = documentReady;
         var currentData = null;
         var showFlag = false;
         var upp=null;
-        var brforeloginwidth=$("#beforeLogin").width()/100;//CREATE ERROR
-        var brforeloginheight=$("#beforeLogin").height()/100;//CREATE ERROR
-        $(".allLeaderSection").css({"width":brforeloginwidth*12,"height":brforeloginwidth*12,"top":brforeloginheight*25,"left": brforeloginwidth*1.5});  
-       
+        
+        //$(".leadersFaceInfo").css({"height":beforeloginwidth*12,"left": beforeloginwidth*13});  
+        // console.log(keywords);  
+        // $(".leadersFaceInfo img").css({"width":brforeloginwidth*10,"height":brforeloginwidth*10,"top":brforeloginheight*25,"left": brforeloginwidth*1.5});  
+        // $(".leadersFaceInfoDetails").css({"min-width":brforeloginwidth*10,"height":brforeloginwidth*12,"left": brforeloginwidth*6});  
+        // $(".leadersFaceInfoDetails div").css({"min-width":brforeloginwidth*10,"height":brforeloginwidth*12,"left": brforeloginwidth*6});  
+        // $(".leadersFaceName").css({"font-size":brforeloginwidth*2,"padding-left": brforeloginwidth*24});  
+        
         $("#status").width(brforeloginheight*6);
         $("#status").height(brforeloginheight*6);
         
@@ -6523,9 +6534,26 @@ function autoSize(){
         if(autoSizeTimeOut){
             return;
         }
-            
+            resizeItems();
         autoSizeTimeOut = setTimeout(autoSize,300);
         
+}
+function resizeItems()
+{
+  console.log("resize small")
+  var beforeloginwidth=$("#beforeLogin").width()/20;
+  var beforeloginheight=$("#beforeLogin").height()/20;//get bais height and width
+  $("#status").css({"width":beforeloginwidth*8,"height":beforeloginwidth*8,"top":"1px","right":"2px"});  
+ 
+  $(".allLeaderSection").css({"width":beforeloginwidth*12,"height":beforeloginwidth*12,"top":beforeloginheight*35,"left": beforeloginwidth*1.5});  
+ 
+  $("#keywords").css({"top":beforeloginheight*15});  
+
+  $(".notificationBar ").css({"height":beforeloginwidth*12});  
+  $(".notificationBar img").css({"height":beforeloginwidth*8});  
+       
+  
+       
 }
 var pushId = null;
 function bindEvents(){
@@ -6714,6 +6742,7 @@ function bindEvents(){
             $("#searchKeyword").keyup(function(event){
                 if(event.keyCode == 13){
                     searchHash();
+                    $("#searchKeyword").blur();
                 }
             });
             $("#sePassThankyou1").keyup(function(event){

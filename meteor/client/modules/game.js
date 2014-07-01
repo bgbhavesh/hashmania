@@ -19,7 +19,7 @@ Game.callHashRepublicStartUp = function (){
             }
             else{
                 console.log("serverloading");
-                Meteor.call("getResult",keyword,CLIENTID,++pageCount,function(err,data){
+                Meteor.call("getResult",keyword,CLIENTID,++App.pageCount,function(err,data){
                     Game.renderResults(data,null,null,keyword);
                 });
             }
@@ -73,14 +73,14 @@ Game.renderResults = function (data,loadMoreFlag,newerFlag,keywordArg){
         var currentData = null;
         var showFlag = false;
         var upp=null;
-        var brforeloginwidth=$("#beforeLogin").width()/100;//CREATE ERROR
-        var brforeloginheight=$("#beforeLogin").height()/100;//CREATE ERROR
-        $(".allLeaderSection").css({"width":brforeloginwidth*12,"height":brforeloginwidth*12,"top":brforeloginheight*25,"left": brforeloginwidth*1.5});  
+        // var brforeloginwidth=$("#beforeLogin").width()/100;//CREATE ERROR
+        // var brforeloginheight=$("#beforeLogin").height()/100;//CREATE ERROR
+        // $(".allLeaderSection").css({"width":brforeloginwidth*12,"height":brforeloginwidth*12,"top":brforeloginheight*25,"left": brforeloginwidth*1.5});  
        
-        $("#status").width(brforeloginheight*6);
-        $("#status").height(brforeloginheight*6);
+        // $("#status").width(brforeloginheight*6);
+        // $("#status").height(brforeloginheight*6);
         
-        $("#keywords").css({"top":brforeloginheight*9}); 
+        // $("#keywords").css({"top":brforeloginheight*9}); 
         
         // $(".notificationBar img").height(brforeloginheight*8);
         // $(".notificationBar img").width(brforeloginheight*8);
@@ -228,7 +228,7 @@ Game.renderResults = function (data,loadMoreFlag,newerFlag,keywordArg){
         $("#NweImageAdded").hammer().off("tap");
         $("#NweImageAdded").hammer().on("tap",App.surveyNewer);
        
-        $("#totalimages").hammer().off("tap");
+        $("#totalimages").hammer().off("tap",App.surveyUp);
         $("#totalimages").hammer().on("tap",App.surveyUp);
        
         $("#toComeimages").hammer().off("tap");

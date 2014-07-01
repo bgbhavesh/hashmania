@@ -329,7 +329,7 @@ var newLoad = [];
 var prevLoad = [];
 var curLoad = [];
 var pageCount = -1;
-
+App.pageCount = pageCount;
 if (Meteor.isClient) {
     ///Session Variables
     Session.set("activeFollows",null);

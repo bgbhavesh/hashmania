@@ -772,7 +772,7 @@ function startup(){
         
         if(!DebugFace){
             Meteor.setTimeout(function(){checkNewImages();},500);
-            App.searchIntervalId = Meteor.setInterval(searchHashInterval,60000*5); 
+            App.searchIntervalId = Meteor.setInterval(searchHashInterval,60000*5);//500); 
             // increase or decrease the interval counts depending on server loads.
         }  
         if(!DebugFace)
@@ -1360,6 +1360,24 @@ App.isAdmin = isAdmin;
         App.searchFlag = {};
         App.searchQueue = [];
         App.searchIntervalId = null;
+    
+    function checkImageQuality(insert){
+        try{
+                var cursorHashKeyword = insert;
+                
+                var result = Meteor.http.post(cursorHashKeyword.standard);
+                console.log(result)
+                return false;
+            }
+            catch(error){
+                console.log("Image Error " +insert.likeid);
+                HashKeyword.find({"likeid":insert.likeid}).forEach(function(data){
+                    HashKeyword.update({"_id":data._id},{$set : {"remove":true}})
+                });
+                
+                return true;
+            }
+    }
     function searchHashInterval(){
         
         var searchJson = App.searchQueue.pop();
@@ -1368,6 +1386,8 @@ App.isAdmin = isAdmin;
             return;
         
         var searchurl = searchJson.url;
+        if(!searchurl)
+            return;
         var tag = searchJson.keyword;
         var insertCount = 0,globalCount = 0;
         console.log("searchHashInterval URL : " +searchurl +" KEYWORD : " +tag);
@@ -1392,6 +1412,7 @@ App.isAdmin = isAdmin;
                       //     cursorSearch = Recents.findOne({"likeid":insert.likeid,"userid": ids});
                       //,"clientid":clientid
                       cursorHash = HashKeyword.findOne({"keyword":tag,"likeid":data[i].id});
+
                       if(cursorHash){
                         // var id = insert.likeid;
                         // insert._id = null;
@@ -1406,10 +1427,13 @@ App.isAdmin = isAdmin;
                         //insert.source = "search";
                         //insert.type = 9;
                         //insert.checked = false;
-                        HashKeyword.insert(insert); 
+                        insert._id = HashKeyword.insert(insert); 
                         insertCount++;
                         globalCount++;
                         // Meteor.call("media",insert.likeid,access);
+                        // var myObj = new objectPractise(insert);
+                        //console.log(myObj)
+                        Meteor.setTimeout(function(){checkImageQuality(insert)},100);
                       }                           
                     }
                 }
@@ -1446,7 +1470,7 @@ App.isAdmin = isAdmin;
                     if(cursorSponserKeyword.next_url)              
                         searchurl = cursorSponserKeyword.next_url;
 
-                    console.log(searchurl);
+                    //console.log(searchurl);
                     App.searchQueue.push({url:searchurl,"keyword":tag});
             // }
         }
@@ -1462,7 +1486,7 @@ App.isAdmin = isAdmin;
                     if(cursorSponserKeyword.next_url)              
                         searchurl = cursorSponserKeyword.next_url;
 
-                    console.log(searchurl)   
+                    //console.log(searchurl)   
                     myJson = Meteor.http.get(searchurl);
                     if(cursorSponserKeyword)
                     SponserKeyword.update({"_id":cursorSponserKeyword._id},{$set : {"next_url":myJson.data.pagination.next_url}});

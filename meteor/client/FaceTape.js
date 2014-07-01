@@ -1370,7 +1370,8 @@ Meteor.documentReady = documentReady;
             var cursorvotenow = $(currentvotes[i]).attr("clientid");
             if(cursorvotenow==Session.get("clientid")){
                 // console.log("exist")
-                $("#"+likeid).children(".voting").show();
+                //$("#"+likeid).children(".voting").show();
+                Core.showFaceWithAnimation(likeid);
                 // return;
 
             }
@@ -1395,24 +1396,18 @@ Meteor.documentReady = documentReady;
         // } 
         // else{
         currentMoveVote = Votes.insert(VotesInsert);
-        // console.log(VotesInsert);
+        
         cacheTheResult(likeid,VotesInsert,"votes");
         appendOnlyVotesManuallyHash(likeid,VotesInsert);
         VotesInsert._id = currentMoveVote;
         var currentImage = $(currentBigHtml).children(".lowImg").attr("src");
         var notifyInsert = {"type":"vote","likeid":likeid,"followid": Session.get("clientid"),"ref_id":VotesInsert._id,"date" : new Date(),"profile_picture":get("profile_picture"),"currentImage":currentImage};
         var topid = TopNotification.insert(notifyInsert);
-        console.log(currentImage);
-        // console.log(topid);
-        // }
-        // if(!existvotes){
-            //     console.log("already exist")
-            // }
+
+
         currentSurveyBig = currentSurveyBig.next(".bigFeed");
-        //setTimeout(pageScroll,2000);
-        //showvotes(likeid);
-        // showvotes(likeid);
-        $("#"+likeid).children(".voting").show().hammer().off("tap").hammer().on("tap",tapOnVoting);
+        Core.showFaceWithAnimation(likeid);
+        $("#"+likeid).children(".voting").hammer().off("tap").hammer().on("tap",tapOnVoting);
         var cursorSponserKeyword = SponserKeyword.findOne({"keyword":Session.get("keyword")});
         if(cursorSponserKeyword){
             SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});

@@ -770,11 +770,11 @@ function startup(){
 
 
         
-        //if(!DebugFace){
+        if(!DebugFace){
             Meteor.setTimeout(function(){checkNewImages();},500);
             App.searchIntervalId = Meteor.setInterval(searchHashInterval,60000*5);//500); 
             // increase or decrease the interval counts depending on server loads.
-        //}  
+        }  
         if(!DebugFace)
             fetchLanguageFromDrive();  
 }

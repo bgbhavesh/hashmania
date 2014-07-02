@@ -2122,19 +2122,23 @@ App.isAdmin = isAdmin;
             //console.log(data);
             str += createString(data.username,data.face,data.heatScore);        
         });
+        str+= '<div style="background-color:#1f253d; color:white; clear:both;text-align:left;; padding:1%">Thank you for using #R<br>From #R Team</div><div style="background-color:#1f253d; color:white; clear:both;text-align:left;; padding-left:1%">Disclamer:</div><div style="background-color:#1f253d; color:white; clear:both;text-align:left; padding:1%;padding-left:10%">Have a question? Contact us. <br>Do not reply to this email<br>If you are receuvubg this email in your spam: Add tapmate@youiest.com to your contact list. <br>If you wish to stop receiving emails from PutsMail, please send an e-mail to tapmate@youiest.com'
         return str;
     }
     App.leadersboard = leadersboard;
     function createString(username,face,heatScore){
-        return '<div style="width: 30%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' + face  +'"/></a><div style="background: steelblue;"> ' +heatScore +' </div></div>'
+        return '<div  style="max-height: 140px;width:25%;float:left;padding:1%"><a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' + face  +'"/></a></div><div style="padding:1%"> <a href="http://instagram.com/' +username +'">'+username +' </a> <br><div style="float:left;border-left:1px white solid;color:white;background: steelblue;padding:1%;margin:1%">' +rank +'</div><div style="float:left;border-left:1px white solid;color:white;background: steelblue;padding:1%;margin:1%">' +score +' </div><div style="float:left;border-left:1px white solid;color:white;background: steelblue;border-right:1px white solid;padding:1%;margin:1%">' +heatScore+'</div><div style="float:left;border-left:1px white solid;color:white;background: steelblue;border-right:1px white solid;padding:1%;margin:1%">' +percentile+'</div></div><div id="footer" style="background-color:#555;clear:both;text-align:center;">.</div>'
     }
     function createString1(username,picture,score){
         return '<div style="width: 30%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' +picture  +'"/></a><div style="background: steelblue;"> ' +score +' </div></div>'
     }
     function createStringtopvotes(picture,score){
-        return '<div style="width: 30%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <img style="width: 100%;max-height: 140px;" src="' +picture  +'"/></a><div style="background: steelblue;"> ' +score +' </div></div>'
+        return '<div  style="max-height: 140px;width:25%;float:left;"> <a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' + face  +'"/></a></div><div id="content" style="min-height: 140px;width:70%;float:left;"> <div style="background: steelblue;"> <a href="http://instagram.com/' +username +'">'+username+' </a> <br>            <div style="float:left;border-left:1px black solid;">' +score +'</div>            <div style="float:left;border-left:1px black solid;">' +score +' </div>            <div style="float:left;border-left:1px black solid;border-right:1px black solid">' +heatScore+'</div>   </div> </div>'
     }
-    ///HASTEN CODE///
+    // function createStringtopvotes(picture,score){
+    //     return '<div style="width: 30%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <img style="width: 100%;max-height: 140px;" src="' +picture  +'"/></a><div style="background: steelblue;"> ' +score +' </div></div>'
+    // }
+    // ///HASTEN CODE///
     function startCounting(){        
         countDownTimeoutId = Meteor.setInterval(updateCouting,1000);
     }

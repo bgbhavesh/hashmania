@@ -2005,16 +2005,16 @@ h6 {}
 	/*width: 20%;*/
 	/*margin-left: 40%;*/
 }
-#NweImageAdded {
+#NweImageAdded {display: none;
 }
-#loadMoreImg{
+#loadMoreImg{display: none;
 }
-#totalimages {
+#totalimages {display: none;
 }
-#toComeimages {
+#toComeimages {display: none;
 }
 #testButton{
-	
+	display: none;
 	left: 45%;
 }
 .tapToShow{

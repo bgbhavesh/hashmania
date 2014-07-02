@@ -6380,8 +6380,7 @@ function resizeItems()
   $("#status").css({"width":beforeloginwidth*8,"height":beforeloginwidth*8,"top":"1px","right":"2px"});  
  
   $(".allLeaderSection").css({"width":beforeloginwidth*12,"height":beforeloginwidth*12,"top":beforeloginheight*35,"left": beforeloginwidth*1.5});  
- 
-  $("#keywords").css({"top":beforeloginheight*15});  
+  $("#keywords").css({"top":beforeloginheight*15,"margin-left":beforeloginwidth*15});  
 
   $(".notificationBar ").css({"height":beforeloginwidth*12});  
   $(".notificationBar img").css({"height":"100%"});  
@@ -6458,7 +6457,14 @@ function bindEvents(){
 
         
 
-
+        $("#keywordPopup").hammer().on("swiperight",function()
+          {
+            closeSurvey();
+          });
+        $("#surveybig").hammer().on("swipeleft",function(){
+            openSurvey();
+            // surveyToggleFlag = !surveyToggleFlag;
+        });
         $("#gamePromptOkButton").hammer().on("tap",function()
             {console.log("gamePromptOkButton");gamePrompt();});
         $("#hideWelcomePopUp").hammer().on("tap",hideWelcomePopUp);

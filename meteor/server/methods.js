@@ -1092,7 +1092,7 @@ App.language.html = [
             //calcTime();
             // maileveryday();
             //App.myVotesOfWeek("625237041");
-            App.emailGeneration("bgbhavesh@gmail.com","bgbhavesh@gmail.com");
+            App.emailGeneration("hastenf@gmail.com","hastenf@gmail.com");
         },
         "removeGlobalFeed" : function(){
             // GlobalFeed.remove({});

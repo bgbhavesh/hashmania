@@ -6518,7 +6518,7 @@ function bindEvents(){
 
         $("#loginwithfb").hammer().on("tap",loginWithFacebook);
         $("#loginwithgoog").hammer().on("tap",loginWithGoogle);
-        $("#invmail").hammer().on("tap",clickOnInvMail);
+        $("#invmail").hammer().on("tap",onsendMail);//clickOnInvMail
         $("#guestLogincancle").hammer().on("tap",function(){
             $("#guestLogin").css("display","none");
         });

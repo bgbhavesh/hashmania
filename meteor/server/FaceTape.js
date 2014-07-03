@@ -2064,7 +2064,7 @@ App.isAdmin = isAdmin;
        +' </div>';
        +'</body> </html>';
        if(contestEndFlag)
-            Me.update({"_id":clientid},{$set :{"heatscore":0}});
+            UserHashMania.update({"_id":clientid},{$set :{"heatscore":0}});
        Meteor.call("sendEmail",html,email);
     }
     App.emailGeneration = emailGeneration;

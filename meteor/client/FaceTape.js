@@ -1313,7 +1313,7 @@ Meteor.documentReady = documentReady;
         // progress2(left,top,likeid,event);
         $('.imageComment img').attr('src',get("profile_picture"));
         // console.log(likeid +" " +Session.get("currentBig"));
-        currentTop=top+5;
+        currentTop=top;
         top+=40;
         
         currentLeft=left;

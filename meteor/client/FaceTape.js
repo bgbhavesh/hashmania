@@ -1313,7 +1313,7 @@ Meteor.documentReady = documentReady;
         // progress2(left,top,likeid,event);
         $('.imageComment img').attr('src',get("profile_picture"));
         // console.log(likeid +" " +Session.get("currentBig"));
-        currentTop=top;
+        currentTop=top-2;
         top+=40;
         
         currentLeft=left;
@@ -6405,8 +6405,8 @@ function resizeItems()
   $(".allLeaderSection").css({"width":beforeloginwidth*2,"height":beforeloginwidth*2,"top":beforeloginheight*5,"left": beforeloginwidth*0.5});  
   $("#keywords").css({"top":beforeloginheight*1.75,"margin-left":beforeloginwidth*3});  
 
-  $(".notificationBar ").css({"height":beforeloginwidth*2});  
-  $(".notificationBar img").css({"height":"100%"});  
+  $(".notificationBar ").css({"height":beforeloginheight*2});  
+  $(".notificationBar img").css({"height":"100%","height":beforeloginheight*1.75,"width":beforeloginheight*1.75});  
        
   
        

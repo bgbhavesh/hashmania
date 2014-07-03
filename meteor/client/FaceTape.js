@@ -6402,7 +6402,7 @@ function resizeItems()
   var beforeloginheight=$("#beforeLogin").height()/20;//get bais height and width
   $("#status").css({"width":beforeloginwidth*1.75,"height":beforeloginwidth*1.75,"top":"1px","right":"2px"});  
  
-  $(".allLeaderSection").css({"width":beforeloginwidth*12,"height":beforeloginwidth*12,"top":beforeloginheight*35,"left": beforeloginwidth*1.5});  
+  $(".allLeaderSection").css({"width":beforeloginwidth*2,"height":beforeloginwidth*2,"top":beforeloginheight*5,"left": beforeloginwidth*0.5});  
   $("#keywords").css({"top":beforeloginheight*1.75,"margin-left":beforeloginwidth*3});  
 
   $(".notificationBar ").css({"height":beforeloginwidth*2});  

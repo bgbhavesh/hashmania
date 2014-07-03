@@ -2542,9 +2542,13 @@ mark{
 #toastArea{
 	text-align: center;
 	font-size: 20px;
-	height: 10%;
+	height: 7%;
 	width: 100%;
 	position: absolute;	
+	display: block;
+}
+#toastDisplayArea{
+	width: 100%;
 }
 #headerSection{
 	text-align: center;

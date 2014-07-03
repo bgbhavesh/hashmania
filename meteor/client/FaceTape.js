@@ -1182,8 +1182,9 @@ Meteor.documentReady = documentReady;
         var key = Session.get("keyword");
         if(keyword)
             key = keyword;
+        var cursorUserHashMania = null;
         if(!downClientid){
-            
+            downClientid = Session.get("clientid");
             if(key){
                 incJson[key] = score;
                 // increment hits for the keyword too.
@@ -1191,7 +1192,7 @@ Meteor.documentReady = documentReady;
                     if(cursorSponserKeyword)
                         SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});   
             }
-            UserHashMania.update({"_id":Session.get("clientid")},{$inc : incJson});
+            
         }else{
             if(key){
                 incJson[key] = score;
@@ -1200,8 +1201,14 @@ Meteor.documentReady = documentReady;
                     if(cursorSponserKeyword)
                         SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":-1}});   
             }
-            UserHashMania.update({"_id":downClientid},{$inc : incJson});
+            
         }
+        
+        cursorUserHashMania = UserHashMania.findOne({"_id":downClientid});
+        
+        if(cursorUserHashMania)
+            UserHashMania.update({"_id":downClientid},{$inc : incJson});
+        
         $("#displayScore").text(score);
         $("#displayScore").css({"opacity":"1.0","top":"46%","display":"block"});
         $("#displayScore").animate({"opacity":"0.0","top":"0%"},2000,"easeOutBounce");
@@ -5652,26 +5659,48 @@ function toastQueuing(){
             // GameVibrate(100);
         }
         else{
-            
+            $("#snapButton").css({"display":"none"});
             $("#headerSection").stop().animate({"top":"-10%"},500,function(){
-                $("#toastArea").html(message).css({"display":"block"});
-                Meteor.setTimeout(function(){
-                                        $("#headerSection").animate({"top":"0%"},500,function(){
-                                            toastStartFlag= false;toastQueuing();});$("#toastArea").css({"display":"none"}) 
-                                },2500);
+            $("#toastDisplayArea").html(message);
+            $("#toastArea").css({"display":"block"});
+            fitToastFunction();
+            Meteor.setTimeout(function(){
+                      $("#headerSection").animate({"top":"0%"},500,function(){
+                          toastStartFlag= false;toastQueuing();});$("#toastArea").css({"display":"none"});$("#snapButton").css({"display":"block"});
+              },3500);
             });  
-        }
-        
-    // }
-    // else{
-    //     message = message.replace("<br> ","").replace("<br> ","").replace("<br> ",""); //remove BR tag on notification HASTEN
-    //     //window.plugins.statusBarNotification.notify("Youiest/Tapmate", message);
-    //     GameVibrate(100);
-    // }   
+        }  
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)}); 
 }
-
-
+function fitToastFunction(parent,child,fontSize){
+    var starttimer = new Date().getTime();
+    try{
+        if(fontSize > 100)  //want to make sure there is no infinite loops
+            return;
+        parent = "#toastArea";
+        child = "#toastDisplayArea";
+        if(!fontSize)
+        fontSize = 10;
+        $(child).css({"font-size": fontSize +"px"});
+        var parentHeight = $(parent).innerHeight();
+        var childHeight = $(child).innerHeight()+2;
+        console.log(childHeight +" less then " +parentHeight +" " +fontSize);
+        if(childHeight < parentHeight){
+            console.log("if");
+            fitToastFunction(parent,child,++fontSize); 
+        }
+        else{
+            fontSize -= 2;
+            console.log("else");
+            $(child).css({"font-size": fontSize +"px"});
+        }
+    }
+    catch(error){
+        console.log(error);
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "fitTextFunction"});
+    }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+}
 
 
 function showLoader(message){
@@ -5984,10 +6013,8 @@ function loginWithFacebook(){
     // Meteor.loginWithFacebook({requestPermissions:"basic",requestOfflineToken:true},loginWithFacebookCallbackFunction);
 }
 Meteor.getFacebookInformationOnClose = function(state){
-    console.log("getFacebookInformationOnClose " +state)
+    console.log("getFacebookInformationOnClose " +state);
     Meteor.call("getMyFacebookInfo",state,function(err,data){
-        console.log(data);
-        console.log(err);
         if(data){
             Session.set("clientid",data.clientid);
             set("clientid",data.clientid);
@@ -5996,6 +6023,7 @@ Meteor.getFacebookInformationOnClose = function(state){
             // Session.set("profile_picture",data.instagramFace)
             set("password","12345");
             autoLogin();
+            Tutorial.onStart();
         }
     });
 }
@@ -6016,8 +6044,8 @@ Meteor.facebookCallbackFunction = function(user,authResponse){
     // Session.set("profile_picture",data.instagramFace)
     set("password","12345");
     autoLogin();
-
-    var insert = {fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id};
+    Tutorial.onStart();
+    var insert = {fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id,"email":user.email};
     // {"clientid":Session.get("clientid"),
     //             user.name,user.id,
     //             user.email,
@@ -6036,14 +6064,15 @@ var googleScope = [
                     'https://www.googleapis.com/auth/userinfo.profile'
                   ];
                   
-                  // 'https://www.googleapis.com/auth/drive.file',
-                  //   "https://www.googleapis.com/auth/drive",
-                  //   "https://www.googleapis.com/auth/drive.apps.readonly",
-                  //   "https://www.googleapis.com/auth/drive.readonly",
-                  //   "https://www.googleapis.com/auth/drive.readonly.metadata",
-                  //   "https://www.googleapis.com/auth/drive.install",
-                  //   "https://www.googleapis.com/auth/drive.appdata",
-                  //   "https://www.googleapis.com/auth/drive.scripts"
+                    // 'https://www.googleapis.com/auth/drive.file',
+                    // "https://www.googleapis.com/auth/drive",
+                    // "https://www.googleapis.com/auth/drive.apps.readonly",
+                    // "https://www.googleapis.com/auth/drive.readonly",
+                    // "https://www.googleapis.com/auth/drive.readonly.metadata",
+                    // "https://www.googleapis.com/auth/drive.install",
+                    // "https://www.googleapis.com/auth/drive.appdata",
+                    // "https://www.googleapis.com/auth/drive.scripts"
+
 function loginWithGoogle(){
     console.log("loginWithGoogle")
     Meteor.loginWithGoogle({requestPermissions:googleScope,requestOfflineToken:true},loginWithGoogleCallbackFunction);
@@ -6541,7 +6570,7 @@ function bindEvents(){
 
         $("#loginwithfb").hammer().on("tap",loginWithFacebook);
         $("#loginwithgoog").hammer().on("tap",loginWithGoogle);
-        $("#invmail").hammer().on("tap",onsendMail);//clickOnInvMail
+        $("#invmail").hammer().on("tap",clickOnInvMail);//onsendMail
         $("#guestLogincancle").hammer().on("tap",function(){
             $("#guestLogin").css("display","none");
         });
@@ -7948,7 +7977,7 @@ function openSurvey(){
     snapTopFlag = false;
 
 }
-
+App.openSurvey = openSurvey;
 function closeSurvey(){
   console.log("openSurvey");
     notify("Hold sentiment to share it.","information");
@@ -7966,6 +7995,7 @@ function closeSurvey(){
     //$("#surveybighandle").css({"z-index":"3"});
     snapTopFlag = true;
 }
+App.closeSurvey = closeSurvey;
 /////////////////SNAPY//////////////
 var snapLeftFlag = false;
 function snapy(){

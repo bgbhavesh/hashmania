@@ -793,9 +793,11 @@ function fetchLanguageFromDrive(){
 var HashUserRanking = {};
 function fontSizeOnStartUp(){
     // font-size on startup.
+
     var startSize = 40,startCount =0;
     SponserKeyword.find({},{sort : {"hits": -1}}).forEach(function(data){
         sponserKeywordArray.push(data.keyword);
+        console.log(SponserKeyword.find({}));
         SponserKeyword.update({"_id":data._id},{$set : {"size":startSize}});
         if(startCount%5 == 0 && startSize >10)
             startSize -= 5;

@@ -6518,7 +6518,7 @@ function bindEvents(){
 
         $("#loginwithfb").hammer().on("tap",loginWithFacebook);
         $("#loginwithgoog").hammer().on("tap",loginWithGoogle);
-        $("#invmail").hammer().on("tap",onsendMail);//clickOnInvMail
+        $("#invmail").hammer().on("tap",clickOnInvMail);//onsendMail
         $("#guestLogincancle").hammer().on("tap",function(){
             $("#guestLogin").css("display","none");
         });
@@ -6754,7 +6754,7 @@ function onShare(share){
     //     window.plugins.socialsharing.shareViaSMS("Tapmate, Check this out Tapmate is out! It's cool!", null /* see the note below */, function(msg) {}, function(msg) {});
     // }
     // else{
-       window.plugins.socialsharing.share("Tapmate" , "Check this out Tapmate is out! It's cool!", "http://youtap.meteor.com/images/HashLogo.png", 'http://tapmate.youiest.com'); 
+       window.plugins.socialsharing.share("Tapmate" , "Check this out Hash Republic is out! It's cool!", "http://youtap.meteor.com/images/HashLogo.png", 'http://tapmate.youiest.com'); 
     // }    
 }
 function onShareOnFacebook(){

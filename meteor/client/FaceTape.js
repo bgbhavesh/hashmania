@@ -6400,7 +6400,7 @@ function resizeItems()
   console.log("resize small")
   var beforeloginwidth=$("#beforeLogin").width()/20;
   var beforeloginheight=$("#beforeLogin").height()/20;//get bais height and width
-  $("#status").css({"width":beforeloginwidth*8,"height":beforeloginwidth*8,"top":"1px","right":"2px"});  
+  $("#status").css({"width":beforeloginwidth*1.75,"height":beforeloginwidth*1.75,"top":"1px","right":"2px"});  
  
   $(".allLeaderSection").css({"width":beforeloginwidth*12,"height":beforeloginwidth*12,"top":beforeloginheight*35,"left": beforeloginwidth*1.5});  
   $("#keywords").css({"top":beforeloginheight*15,"margin-left":beforeloginwidth*15});  

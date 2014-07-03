@@ -5667,7 +5667,7 @@ function toastQueuing(){
             Meteor.setTimeout(function(){
                       $("#headerSection").animate({"top":"0%"},500,function(){
                           toastStartFlag= false;toastQueuing();});$("#toastArea").css({"display":"none"});$("#snapButton").css({"display":"block"});
-              },2500);
+              },3500);
             });  
         }  
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)}); 

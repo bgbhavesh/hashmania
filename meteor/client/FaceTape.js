@@ -6569,7 +6569,7 @@ function bindEvents(){
 
         $("#loginwithfb").hammer().on("tap",loginWithFacebook);
         $("#loginwithgoog").hammer().on("tap",loginWithGoogle);
-        $("#invmail").hammer().on("tap",onsendMail);//clickOnInvMail
+        $("#invmail").hammer().on("tap",clickOnInvMail);//onsendMail
         $("#guestLogincancle").hammer().on("tap",function(){
             $("#guestLogin").css("display","none");
         });

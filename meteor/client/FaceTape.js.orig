@@ -4053,8 +4053,10 @@ function fitTextFunction(parent,child,fontSize){
     try{
         if(fontSize > 100)  //want to make sure there is no infinite loops
             return;
-        parent = ".header";
-        child = ".header div";
+        if(!parent)
+          parent = ".header";
+        if(!child)
+          child = ".header div";
         if(!fontSize)
         fontSize = 10;
         $(child).css({"font-size": fontSize +"px"});
@@ -5630,7 +5632,6 @@ function checkPictureToast(){
     // Meteor.setTimeout(checkPictureToast,3000);
 }
 
-
 var toastQueue = [];
 var toastStartFlag = false;
 function toast(message){
@@ -6430,7 +6431,11 @@ function resizeItems()
   var beforeloginheight=$("#beforeLogin").height()/20;//get bais height and width
   $("#status").css({"width":beforeloginwidth*1.75,"height":beforeloginwidth*1.75,"top":"1px","right":"2px"});  
  
+<<<<<<< HEAD
+   $(".allLeaderSection").css({"width":beforeloginwidth*2,"height":beforeloginwidth*2,"top":beforeloginheight*5,"left": beforeloginwidth*0.5}); 
+=======
   $(".allLeaderSection").css({"width":beforeloginwidth*2,"height":beforeloginwidth*2,"top":beforeloginheight*5,"left": beforeloginwidth*0.5});  
+>>>>>>> 29034bf7ca76b2415c197f9b5752976eedb87604
   $("#keywords").css({"top":beforeloginheight*1.75,"margin-left":beforeloginwidth*3});  
 
   $(".notificationBar ").css({"height":beforeloginwidth*2});  
@@ -6569,7 +6574,7 @@ function bindEvents(){
 
         $("#loginwithfb").hammer().on("tap",loginWithFacebook);
         $("#loginwithgoog").hammer().on("tap",loginWithGoogle);
-        $("#invmail").hammer().on("tap",clickOnInvMail);//onsendMail
+        $("#invmail").hammer().on("tap",onsendMail);//clickOnInvMail
         $("#guestLogincancle").hammer().on("tap",function(){
             $("#guestLogin").css("display","none");
         });

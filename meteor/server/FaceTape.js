@@ -2058,9 +2058,9 @@ App.isAdmin = isAdmin;
         '<html> <head> <style> ' 
             +''
         +' </style> </head> <body>'
-        +'<div id="emailFormatBody" style="height: 500px;width: 500px;left : 0px;top : 0px;position: absolute;display: block;overflow: hidden; z-index:2; text-align:center; border: 1px solid #444;background: #50597b;color: #fff;text-shadow: 0 1px 0 #111;font-weight: 400; color:white;"> '
+        +'<div id="emailFormatBody" style="width: 500px;left : 0px;top : 0px;position: absolute;display: block;overflow: hidden; z-index:2; text-align:center; border: 1px solid #444;background: #50597b;color: #fff;text-shadow: 0 1px 0 #111;font-weight: 400; color:white;"> '
             +'<div style="font-size: 39px; background: #50597b; font-family: serif;"> Hashrepublic </div>'
-           +'<div style="height: 182px;">'
+           +'<div style="">'
                 +leadersboard()            
             +'</div>'       
        +' </div>'
@@ -2108,7 +2108,7 @@ App.isAdmin = isAdmin;
     function youKnowsBetter(clientid){
         console.log("youKnowsBetter")        
         var cursorRecommend = Feed.find({"whoid":clientid},{sort :{"distance":-1}, limit:3});
-        var str = '<div  style="height:10%;width:100%;position:absolute;background: steelblue;"> Whom you know better? </div>';
+        var str = '<div  style="width:100%;position:absolute;background: steelblue;"> Whom you know better? </div>';
         cursorRecommend.forEach(function(data){
             //console.log(data);
             str+=createString(data.followusername,data.profile_picture,data.distance);                       
@@ -2119,17 +2119,33 @@ App.isAdmin = isAdmin;
     function leadersboard(){
         console.log("leadersboard");          
         var cursorRecommend = UserHashMania.find({},{sort: {"heatScore" : -1},limit:3}); 
-        var str = '<div  style="height:10%;width:100%;position:absolute;background: #1F253D;"> leadersboard </div>';
+        var str = '<div  style="width:100%;position:absolute;background: #1F253D;margin-bottom:1%"> leadersboard </div><div style="padding-top:3%">';
         cursorRecommend.forEach(function(data){
             // console.log(data);
             str += createString(data.username,data.face,data.heatScore,data);        
         });
-        str+= '<div style="background-color:#1f253d; color:white; clear:both;text-align:left;; padding:1%">Thank you for using #R<br>From #R Team</div><div style="background-color:#1f253d; color:white; clear:both;text-align:left;; padding-left:1%">Disclamer:</div><div style="background-color:#1f253d; color:white; clear:both;text-align:left; padding:1%;padding-left:10%">Have a question? Contact us. <br>Do not reply to this email<br>If you are receuvubg this email in your spam: Add tapmate@youiest.com to your contact list. <br>If you wish to stop receiving emails from PutsMail, please send an e-mail to tapmate@youiest.com'
+        var myData = UserHashMania.findOne({}); 
+             str += createString(myData.username,myData.face,myData.heatScore,myData); 
+             
+        str+= '</div><div style="background-color:#1f253d; color:white; clear:both;text-align:left;padding:1%">Thank you for using #R<br>From #R Team</div><div style="background-color:#1f253d; color:white; clear:both;text-align:left;; padding-left:1%">Disclamer:</div><div style="background-color:#1f253d; color:white; clear:both;text-align:left; padding:1%;padding-left:10%">Have a question? Contact us. <br>Do not reply to this email<br>If you are receuvubg this email in your spam: Add tapmate@youiest.com to your contact list. <br>If you wish to stop receiving emails from us, please send an e-mail to tapmate@youiest.com'
         return str;
     }
+    
     App.leadersboard = leadersboard;
     function createString(username,face,heatScore,data){
-        return '<div  style="max-height: 140px;width:25%;float:left;padding:1%"><a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' + face  +'"/></a></div><div style="padding:1%"> <a href="http://instagram.com/' +username +'">'+data.instagramFullname +' </a> <br><div style="float:left;border-left:1px white solid;color:white;background: steelblue;padding:1%;margin:1%">' +data.rank +'</div><div style="float:left;border-left:1px white solid;color:white;background: steelblue;padding:1%;margin:1%">' +data.score +' </div><div style="float:left;border-left:1px white solid;color:white;background: steelblue;border-right:1px white solid;padding:1%;margin:1%">' +heatScore+'</div><div style="float:left;border-left:1px white solid;color:white;background: steelblue;border-right:1px white solid;padding:1%;margin:1%">' +data.percentile+'</div></div><div id="footer" style="background-color:#555;clear:both;text-align:center;">.</div>'
+        var Name,Score,Heat;
+        if(data.instagramFullname!=undefined)
+            Name=data.instagramFullname;
+        else if(data.facebookName!=undefined)
+            Name=data.facebookName;
+        else if(data.googleFullname!=undefined)
+            Name=data.googleFullname;
+        else
+            Name=username;
+
+        if(data.score==undefined)Score=0;else Score=data.score;
+        if(heatScore==undefined)Heat=0;else Heat=heatScore;
+        return '<div  style="max-height: 140px;width:25%;float:left;padding:1%"><a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' + face  +'"/></a></div><div style="padding:1%"> <a href="http://instagram.com/' +username +'">'+Name +' </a> <br><div style="float:left;border-left:1px white solid;border-right:1px white solid;color:white;background: steelblue;padding:1%;margin:1%">' +data.rank +'<br>Rank</div><div style="float:left;border-left:1px white solid;border-right:1px white solid;color:white;background: steelblue;padding:1%;margin:1%">' +Score +'<br>Scrore</div><div style="float:left;border-left:1px white solid;color:white;background: steelblue;border-right:1px white solid;padding:1%;margin:1%">' +Heat+'<br>Hit Score</div><div style="float:left;border-left:1px white solid;color:white;background: steelblue;border-right:1px white solid;padding:1%;margin:1%">' +data.percentile+'<br>Percentile</div></div><div id="footer" style="background-color:#555;clear:both;text-align:center;">.</div>'
     }
     function createString1(username,picture,score){
         return '<div style="width: 30%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' +picture  +'"/></a><div style="background: steelblue;"> ' +score +' </div></div>'

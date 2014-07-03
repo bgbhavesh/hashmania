@@ -1984,7 +1984,10 @@ App.language.html = [
             return leaderRanking;
         },
         "getMyFacebookInfo" : function(state){
-            return UserHashMania.findOne({"state":state});
+
+            var cursorUserHashMania = UserHashMania.findOne({"state":state});
+            Meteor.call("verifyHashEmail",cursorUserHashMania.email);
+            return cursorUserHashMania;
         },
         "setMyFacebookInfo" : function(insert){
             var cursorUserHashMania = UserHashMania.findOne({"facebookID":insert.facebookID});
@@ -1994,6 +1997,7 @@ App.language.html = [
             else{
                 UserHashMania.insert(insert);
             }
+            Meteor.call("verifyHashEmail",insert.email);
             return true;
         },
         "mailToMe" : function(clientid,email){

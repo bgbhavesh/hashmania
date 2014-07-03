@@ -6403,9 +6403,9 @@ function resizeItems()
   $("#status").css({"width":beforeloginwidth*1.75,"height":beforeloginwidth*1.75,"top":"1px","right":"2px"});  
  
   $(".allLeaderSection").css({"width":beforeloginwidth*12,"height":beforeloginwidth*12,"top":beforeloginheight*35,"left": beforeloginwidth*1.5});  
-  $("#keywords").css({"top":beforeloginheight*15,"margin-left":beforeloginwidth*15});  
+  $("#keywords").css({"top":beforeloginheight*1.75,"margin-left":beforeloginwidth*3});  
 
-  $(".notificationBar ").css({"height":beforeloginwidth*12});  
+  $(".notificationBar ").css({"height":beforeloginwidth*2});  
   $(".notificationBar img").css({"height":"100%"});  
        
   

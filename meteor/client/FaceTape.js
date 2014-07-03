@@ -1320,7 +1320,7 @@ Meteor.documentReady = documentReady;
         // progress2(left,top,likeid,event);
         $('.imageComment img').attr('src',get("profile_picture"));
         // console.log(likeid +" " +Session.get("currentBig"));
-        currentTop=top+5;
+        currentTop=top;
         top+=40;
         
         currentLeft=left;
@@ -6408,7 +6408,7 @@ function resizeItems()
   var beforeloginheight=$("#beforeLogin").height()/20;//get bais height and width
   $("#status").css({"width":beforeloginwidth*1.75,"height":beforeloginwidth*1.75,"top":"1px","right":"2px"});  
  
-  $(".allLeaderSection").css({"width":beforeloginwidth*12,"height":beforeloginwidth*12,"top":beforeloginheight*35,"left": beforeloginwidth*1.5});  
+  $(".allLeaderSection").css({"width":beforeloginwidth*2,"height":beforeloginwidth*2,"top":beforeloginheight*5,"left": beforeloginwidth*0.5});  
   $("#keywords").css({"top":beforeloginheight*1.75,"margin-left":beforeloginwidth*3});  
 
   $(".notificationBar ").css({"height":beforeloginwidth*2});  
@@ -6547,7 +6547,7 @@ function bindEvents(){
 
         $("#loginwithfb").hammer().on("tap",loginWithFacebook);
         $("#loginwithgoog").hammer().on("tap",loginWithGoogle);
-        $("#invmail").hammer().on("tap",clickOnInvMail);//onsendMail
+        $("#invmail").hammer().on("tap",onsendMail);//clickOnInvMail
         $("#guestLogincancle").hammer().on("tap",function(){
             $("#guestLogin").css("display","none");
         });

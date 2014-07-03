@@ -916,6 +916,12 @@ h6 {}
 	position: relative;
 	width: 100%;
 }
+#loginButtonWithFacebook{
+	left: 50%;
+	top: 45%;
+	position: absolute;
+	margin-left: -140px;
+}
 #loginWithAppButton{
 	position: absolute;
 	top: 58%;

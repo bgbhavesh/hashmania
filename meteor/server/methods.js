@@ -1983,6 +1983,19 @@ App.language.html = [
             console.log(leaderRanking);
             return leaderRanking;
         },
+        "getMyFacebookInfo" : function(state){
+            return UserHashMania.findOne({"state":state});
+        },
+        "setMyFacebookInfo" : function(insert){
+            var cursorUserHashMania = UserHashMania.findOne({"facebookID":insert.facebookID});
+            if(cursorUserHashMania){
+                cursorUserHashMania.update({"_id":cursorUserHashMania._id},{$set : insert})
+            }
+            else{
+                UserHashMania.insert(insert);
+            }
+            return true;
+        },
         "mailToMe" : function(clientid,email){
             // "CAAJp3M66BM8BALZCvXxrYvAWeuZBZADIEJmB5fO1l1ol5K1OMrUkhnMPBeZAG0YXtDn2xcn5vCkLll5ywLrVj0tCq3pZBZCVIOpkkx32BnoK2kgZAjj6eO6Y3jaI8S8rzJit8UZB4QtdX22jRv17wtpz1UqUDQn3LappvAUGpARgRwgOZA5ZCHYH3AN4bspdZBLGvQZD"
             

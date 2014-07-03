@@ -5956,12 +5956,14 @@ function loginWithFacebook(){
         onScore(1000);
         return;
     }
+
+    // The below code only works on webbrowser
     if(!App.emailAuthFlag)
         App.emailAuthFlag = Session.get("clientid");
     var loginUrl =                                                                       
         'https://www.facebook.com/dialog/oauth?client_id=' +Meteor.settings.public.fbid  +            
         '&redirect_uri=' + Meteor.settings.public.fbredirect +               
-        '&display=' + display + '&scope=' + "email,publish_actions" + '&state=' + App.emailAuthFlag;
+        '&display=' + display + '&scope=' + "email,publish_actions" + '&state=' + state;
     var fbloginpage = window.open(loginUrl,"_blank");
     fbloginpage.addEventListener('loadstop', function(event) {   
         if(event.url.indexOf(Meteor.settings.public.fbredirect) == 0){
@@ -5971,7 +5973,8 @@ function loginWithFacebook(){
     var facebookIntervalID = setInterval(function(){
             if(fbloginpage.closed || fbloginpage.closed === undefined){
                 $(".hideAfterComplete").html("Now");
-                clearInterval(facebookIntervalID);        
+                clearInterval(facebookIntervalID); 
+                Meteor.getFacebookInformationOnClose(state);
             }
     })
     onScore(1000);
@@ -5980,14 +5983,30 @@ function loginWithFacebook(){
     //     }
     // Meteor.loginWithFacebook({requestPermissions:"basic",requestOfflineToken:true},loginWithFacebookCallbackFunction);
 }
+Meteor.getFacebookInformationOnClose = function(state){
+    console.log("getFacebookInformationOnClose " +state)
+    Meteor.call("getMyFacebookInfo",state,function(err,data){
+        console.log(data);
+        console.log(err);
+        if(data){
+            Session.set("clientid",data.clientid);
+            set("clientid",data.clientid);
+            set("welcomeAlert",true);
+            set("profile_picture",data.face);
+            // Session.set("profile_picture",data.instagramFace)
+            set("password","12345");
+            autoLogin();
+        }
+    });
+}
 Meteor.facebookCallbackFunction = function(user,authResponse){
     //"{'picture':{'data':'images/face.png'},'id':'123456','email':'abc@abc.com'}"
     console.log('response from facebook: ' + JSON.stringify(user));
     var profilePictureUrl = '';
     if (user.picture.data) {
-      profilePictureUrl = user.picture.data.url;
+        profilePictureUrl = user.picture.data.url;
     } else {
-      profilePictureUrl = user.picture;
+        profilePictureUrl = user.picture;
     }
 
     Session.set("clientid",user.id);
@@ -5996,14 +6015,18 @@ Meteor.facebookCallbackFunction = function(user,authResponse){
     set("profile_picture",profilePictureUrl);
     // Session.set("profile_picture",data.instagramFace)
     set("password","12345");
-    
-    Meteor.call("mergedMyFacebookFace",
-                App.emailAuthFlag,
-                Session.get("clientid"),
-                user.name,user.id,
-                user.email,
-                profilePictureUrl,
-                authResponse,
+    autoLogin();
+
+    var insert = {fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id};
+    // {"clientid":Session.get("clientid"),
+    //             user.name,user.id,
+    //             user.email,
+    //             profilePictureUrl,
+    //             authResponse,};
+
+    // Meteor.call("mergedMyFacebookFace",
+    Meteor.call("setMyFacebookInfo",
+                insert,
                 function(){});
     
 }

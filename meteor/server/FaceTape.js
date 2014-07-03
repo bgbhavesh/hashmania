@@ -703,7 +703,7 @@ var sponserKeywordArray = [];
 BrowserPolicy.framing.allowAll()
 if (Meteor.isServer) {
 Meteor.startup(function () {
-
+    // UserHashMania.remove({})
     Meteor.setTimeout(startup,500);
     // console.log(BrowserPolicy)
     

@@ -2061,7 +2061,7 @@ App.isAdmin = isAdmin;
            +'<div style="height: 182px;">'
                 +leadersboard()            
             +'</div>'       
-       +' </div>';
+       +' </div>'
        +'</body> </html>';
        if(contestEndFlag)
             UserHashMania.update({"_id":clientid},{$set :{"heatscore":0}});
@@ -2119,15 +2119,15 @@ App.isAdmin = isAdmin;
         var cursorRecommend = UserHashMania.find({},{sort: {"heatScore" : -1},limit:3}); 
         var str = '<div  style="height:10%;width:100%;position:absolute;background: #1F253D;"> leadersboard </div>';
         cursorRecommend.forEach(function(data){
-            //console.log(data);
-            str += createString(data.username,data.face,data.heatScore);        
+            // console.log(data);
+            str += createString(data.username,data.face,data.heatScore,data);        
         });
         str+= '<div style="background-color:#1f253d; color:white; clear:both;text-align:left;; padding:1%">Thank you for using #R<br>From #R Team</div><div style="background-color:#1f253d; color:white; clear:both;text-align:left;; padding-left:1%">Disclamer:</div><div style="background-color:#1f253d; color:white; clear:both;text-align:left; padding:1%;padding-left:10%">Have a question? Contact us. <br>Do not reply to this email<br>If you are receuvubg this email in your spam: Add tapmate@youiest.com to your contact list. <br>If you wish to stop receiving emails from PutsMail, please send an e-mail to tapmate@youiest.com'
         return str;
     }
     App.leadersboard = leadersboard;
-    function createString(username,face,heatScore){
-        return '<div  style="max-height: 140px;width:25%;float:left;padding:1%"><a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' + face  +'"/></a></div><div style="padding:1%"> <a href="http://instagram.com/' +username +'">'+username +' </a> <br><div style="float:left;border-left:1px white solid;color:white;background: steelblue;padding:1%;margin:1%">' +rank +'</div><div style="float:left;border-left:1px white solid;color:white;background: steelblue;padding:1%;margin:1%">' +score +' </div><div style="float:left;border-left:1px white solid;color:white;background: steelblue;border-right:1px white solid;padding:1%;margin:1%">' +heatScore+'</div><div style="float:left;border-left:1px white solid;color:white;background: steelblue;border-right:1px white solid;padding:1%;margin:1%">' +percentile+'</div></div><div id="footer" style="background-color:#555;clear:both;text-align:center;">.</div>'
+    function createString(username,face,heatScore,data){
+        return '<div  style="max-height: 140px;width:25%;float:left;padding:1%"><a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' + face  +'"/></a></div><div style="padding:1%"> <a href="http://instagram.com/' +username +'">'+data.instagramFullname +' </a> <br><div style="float:left;border-left:1px white solid;color:white;background: steelblue;padding:1%;margin:1%">' +data.rank +'</div><div style="float:left;border-left:1px white solid;color:white;background: steelblue;padding:1%;margin:1%">' +data.score +' </div><div style="float:left;border-left:1px white solid;color:white;background: steelblue;border-right:1px white solid;padding:1%;margin:1%">' +heatScore+'</div><div style="float:left;border-left:1px white solid;color:white;background: steelblue;border-right:1px white solid;padding:1%;margin:1%">' +data.percentile+'</div></div><div id="footer" style="background-color:#555;clear:both;text-align:center;">.</div>'
     }
     function createString1(username,picture,score){
         return '<div style="width: 30%;position: relative;float: left;margin-left: 2%;margin-top: 1%;max-height: 140px;"> <a href="http://instagram.com/' +username +'"> <img style="width: 100%;max-height: 140px;" src="' +picture  +'"/></a><div style="background: steelblue;"> ' +score +' </div></div>'

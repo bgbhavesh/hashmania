@@ -78,7 +78,7 @@
 	</div>
 	<div id="loginWrapper">
 		  <!--<div id="loginwithapp" class="button"> Login With App </div>-->
-		  {{> loginWithInstagram}}
+		  {{> loginWithFacebook}}
 		  <br>
 
 	 </div>
@@ -376,6 +376,12 @@
   </div>
 </template>
 
+<template name="loginWithFacebook">
+	<div id="loginButtonWithFacebook" class="ui facebook button loginButton">
+			<i class="facebook icon"></i>
+			Login With Facebook
+	</div>
+</template>
 <template name="loginWithInstagram">
 	
    	<div id="loginsignupform" class="ui form segment">

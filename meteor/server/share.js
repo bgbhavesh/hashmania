@@ -11,18 +11,7 @@ Meteor.Router.add('/facebook', 'GET', function() {
     return Handlebars.templates['close']();
     // return "first facebook";
 });
-Meteor.Router.add('/facebook/*', 'GET', function() {
-    //App.facebook(this);
-    return Handlebars.templates['close']();
-    // return "second facebook";
-     // Accounts.loginServiceConfiguration.insert({
-    //         service: 'facebook',
-    //         appId: '679347035440335',
-    //         secret: 'a62d337e67d6c941c3846205362cfdb1',
-    //         clientId : "e68372f627dc83545241f553e98dad20",
-    //         scope : "basic,email,user_birthday,publish_actions,user_location,age_range"
-    //     });
-});
+
 App.facebook = function(query){
     //console.log(query);
     var result = null;
@@ -54,7 +43,7 @@ App.facebook = function(query){
       }
     });
 
-    console.log(results);
+    // console.log(results);
     var response = results.content;
 
     if (result.error) {
@@ -87,25 +76,47 @@ App.facebook = function(query){
             fbAccessToken: fbAccessToken,
             fbExpires: fbExpires
         };
-        console.log(facebookInfo);
-        console.log(state)
+        // console.log(facebookInfo);
+        // console.log(state)
         // HASHREPUBLIC
-            var cursorUserHashMania = UserHashMania.findOne({"emailtoken":state});
-            if(!cursorUserHashMania)
-                cursorUserHashMania = UserHashMania.findOne({"_id":state});
+            var data = Meteor.http.get("https://graph.facebook.com/me", {
+                params: {access_token: facebookInfo.fbAccessToken}}).data;
+            
+            var facebookFace = getFacebookFace(data.id);
+
+            
+
+            // var cursorUserHashMania = UserHashMania.findOne({"emailtoken":state});
+            // if(!cursorUserHashMania)
+            //     cursorUserHashMania = UserHashMania.findOne({"_id":state});
+            
+            var cursorUserHashMania = UserHashMania.findOne({"facebookID":data.id});
+
             console.log(cursorUserHashMania)
+            
             if(cursorUserHashMania){
-                UserHashMania.update({"_id":cursorUserHashMania._id},{$set :facebookInfo});
-                var data = Meteor.http.get("https://graph.facebook.com/me", {
-                    params: {access_token: facebookInfo.fbAccessToken}}).data;
-                console.log(data)
-                var update = {"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name}
-                console.log(update);
-                UserHashMania.update({"_id":cursorUserHashMania._id},{$set :update});    
-                var facebookFace =getFacebookFace(data.id)            
-                update = {"facebookLink":facebookFace,"face":facebookFace}
-                UserHashMania.update({"_id":cursorUserHashMania._id},{$set :update}); 
                 
+
+                UserHashMania.update({"_id":cursorUserHashMania._id},{$set :facebookInfo});
+                
+                var update = {fbAccessToken: facebookInfo.fbAccessToken,fbExpires: facebookInfo.fbExpires,"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id}
+
+                // {"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name};
+                
+                // UserHashMania.update({"_id":cursorUserHashMania._id},{$set :update});                    
+                            
+                // update = {"facebookLink":facebookFace,"face":facebookFace};
+
+                UserHashMania.update({"_id":cursorUserHashMania._id},{$set :update}); 
+                console.log("update facebook");
+                console.log(update);
+            }
+            else{
+                // insert information new client
+                var insert = {fbAccessToken: facebookInfo.fbAccessToken,fbExpires: facebookInfo.fbExpires,"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id}
+                UserHashMania.insert(insert);
+                console.log("insert facebook");
+                console.log(insert);
             }
 
 

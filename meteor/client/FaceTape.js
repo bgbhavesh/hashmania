@@ -4046,8 +4046,10 @@ function fitTextFunction(parent,child,fontSize){
     try{
         if(fontSize > 100)  //want to make sure there is no infinite loops
             return;
-        parent = ".header";
-        child = ".header div";
+        if(!parent)
+          parent = ".header";
+        if(!child)
+          child = ".header div";
         if(!fontSize)
         fontSize = 10;
         $(child).css({"font-size": fontSize +"px"});
@@ -5623,7 +5625,6 @@ function checkPictureToast(){
     // Meteor.setTimeout(checkPictureToast,3000);
 }
 
-
 var toastQueue = [];
 var toastStartFlag = false;
 function toast(message){
@@ -5652,26 +5653,48 @@ function toastQueuing(){
             // GameVibrate(100);
         }
         else{
-            
+            $("#snapButton").css({"display":"none"});
             $("#headerSection").stop().animate({"top":"-10%"},500,function(){
-                $("#toastArea").html(message).css({"display":"block"});
-                Meteor.setTimeout(function(){
-                                        $("#headerSection").animate({"top":"0%"},500,function(){
-                                            toastStartFlag= false;toastQueuing();});$("#toastArea").css({"display":"none"}) 
-                                },2500);
+            $("#toastDisplayArea").html(message);
+            $("#toastArea").css({"display":"block"});
+            fitToastFunction();
+            Meteor.setTimeout(function(){
+                      $("#headerSection").animate({"top":"0%"},500,function(){
+                          toastStartFlag= false;toastQueuing();});$("#toastArea").css({"display":"none"});$("#snapButton").css({"display":"block"});
+              },2500);
             });  
-        }
-        
-    // }
-    // else{
-    //     message = message.replace("<br> ","").replace("<br> ","").replace("<br> ",""); //remove BR tag on notification HASTEN
-    //     //window.plugins.statusBarNotification.notify("Youiest/Tapmate", message);
-    //     GameVibrate(100);
-    // }   
+        }  
     MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)}); 
 }
-
-
+function fitToastFunction(parent,child,fontSize){
+    var starttimer = new Date().getTime();
+    try{
+        if(fontSize > 100)  //want to make sure there is no infinite loops
+            return;
+        parent = "#toastArea";
+        child = "#toastDisplayArea";
+        if(!fontSize)
+        fontSize = 10;
+        $(child).css({"font-size": fontSize +"px"});
+        var parentHeight = $(parent).innerHeight();
+        var childHeight = $(child).innerHeight()+2;
+        console.log(childHeight +" less then " +parentHeight +" " +fontSize);
+        if(childHeight < parentHeight){
+            console.log("if");
+            fitToastFunction(parent,child,++fontSize); 
+        }
+        else{
+            fontSize -= 2;
+            console.log("else");
+            $(child).css({"font-size": fontSize +"px"});
+        }
+    }
+    catch(error){
+        console.log(error);
+        ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "fitTextFunction"});
+    }
+    MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+}
 
 
 function showLoader(message){
@@ -6402,7 +6425,7 @@ function resizeItems()
   var beforeloginheight=$("#beforeLogin").height()/20;//get bais height and width
   $("#status").css({"width":beforeloginwidth*1.75,"height":beforeloginwidth*1.75,"top":"1px","right":"2px"});  
  
-  $(".allLeaderSection").css({"width":beforeloginwidth*12,"height":beforeloginwidth*12,"top":beforeloginheight*35,"left": beforeloginwidth*1.5});  
+   $(".allLeaderSection").css({"width":beforeloginwidth*2,"height":beforeloginwidth*2,"top":beforeloginheight*5,"left": beforeloginwidth*0.5}); 
   $("#keywords").css({"top":beforeloginheight*1.75,"margin-left":beforeloginwidth*3});  
 
   $(".notificationBar ").css({"height":beforeloginwidth*2});  

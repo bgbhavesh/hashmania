@@ -99,7 +99,7 @@ App.facebook = function(query){
 
                 UserHashMania.update({"_id":cursorUserHashMania._id},{$set :facebookInfo});
                 
-                var update = {fbAccessToken: facebookInfo.fbAccessToken,fbExpires: facebookInfo.fbExpires,"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id}
+                var update = {fbAccessToken: facebookInfo.fbAccessToken,fbExpires: facebookInfo.fbExpires,"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id,"email":data.email}
 
                 // {"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name};
                 

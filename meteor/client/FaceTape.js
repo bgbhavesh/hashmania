@@ -1182,8 +1182,9 @@ Meteor.documentReady = documentReady;
         var key = Session.get("keyword");
         if(keyword)
             key = keyword;
+        var cursorUserHashMania = null;
         if(!downClientid){
-            
+            downClientid = Session.get("clientid");
             if(key){
                 incJson[key] = score;
                 // increment hits for the keyword too.
@@ -1191,7 +1192,7 @@ Meteor.documentReady = documentReady;
                     if(cursorSponserKeyword)
                         SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});   
             }
-            UserHashMania.update({"_id":Session.get("clientid")},{$inc : incJson});
+            
         }else{
             if(key){
                 incJson[key] = score;
@@ -1200,8 +1201,14 @@ Meteor.documentReady = documentReady;
                     if(cursorSponserKeyword)
                         SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":-1}});   
             }
-            UserHashMania.update({"_id":downClientid},{$inc : incJson});
+            
         }
+        
+        cursorUserHashMania = UserHashMania.findOne({"_id":downClientid});
+        
+        if(cursorUserHashMania)
+            UserHashMania.update({"_id":downClientid},{$inc : incJson});
+        
         $("#displayScore").text(score);
         $("#displayScore").css({"opacity":"1.0","top":"46%","display":"block"});
         $("#displayScore").animate({"opacity":"0.0","top":"0%"},2000,"easeOutBounce");
@@ -5984,10 +5991,8 @@ function loginWithFacebook(){
     // Meteor.loginWithFacebook({requestPermissions:"basic",requestOfflineToken:true},loginWithFacebookCallbackFunction);
 }
 Meteor.getFacebookInformationOnClose = function(state){
-    console.log("getFacebookInformationOnClose " +state)
+    console.log("getFacebookInformationOnClose " +state);
     Meteor.call("getMyFacebookInfo",state,function(err,data){
-        console.log(data);
-        console.log(err);
         if(data){
             Session.set("clientid",data.clientid);
             set("clientid",data.clientid);
@@ -6017,7 +6022,7 @@ Meteor.facebookCallbackFunction = function(user,authResponse){
     set("password","12345");
     autoLogin();
 
-    var insert = {fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id};
+    var insert = {fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id,"email":user.email};
     // {"clientid":Session.get("clientid"),
     //             user.name,user.id,
     //             user.email,
@@ -6036,14 +6041,15 @@ var googleScope = [
                     'https://www.googleapis.com/auth/userinfo.profile'
                   ];
                   
-                  // 'https://www.googleapis.com/auth/drive.file',
-                  //   "https://www.googleapis.com/auth/drive",
-                  //   "https://www.googleapis.com/auth/drive.apps.readonly",
-                  //   "https://www.googleapis.com/auth/drive.readonly",
-                  //   "https://www.googleapis.com/auth/drive.readonly.metadata",
-                  //   "https://www.googleapis.com/auth/drive.install",
-                  //   "https://www.googleapis.com/auth/drive.appdata",
-                  //   "https://www.googleapis.com/auth/drive.scripts"
+                    // 'https://www.googleapis.com/auth/drive.file',
+                    // "https://www.googleapis.com/auth/drive",
+                    // "https://www.googleapis.com/auth/drive.apps.readonly",
+                    // "https://www.googleapis.com/auth/drive.readonly",
+                    // "https://www.googleapis.com/auth/drive.readonly.metadata",
+                    // "https://www.googleapis.com/auth/drive.install",
+                    // "https://www.googleapis.com/auth/drive.appdata",
+                    // "https://www.googleapis.com/auth/drive.scripts"
+
 function loginWithGoogle(){
     console.log("loginWithGoogle")
     Meteor.loginWithGoogle({requestPermissions:googleScope,requestOfflineToken:true},loginWithGoogleCallbackFunction);

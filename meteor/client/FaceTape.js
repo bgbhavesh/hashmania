@@ -6001,6 +6001,7 @@ Meteor.getFacebookInformationOnClose = function(state){
             // Session.set("profile_picture",data.instagramFace)
             set("password","12345");
             autoLogin();
+            Tutorial.onStart();
         }
     });
 }
@@ -6021,7 +6022,7 @@ Meteor.facebookCallbackFunction = function(user,authResponse){
     // Session.set("profile_picture",data.instagramFace)
     set("password","12345");
     autoLogin();
-
+    Tutorial.onStart();
     var insert = {fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id,"email":user.email};
     // {"clientid":Session.get("clientid"),
     //             user.name,user.id,
@@ -7954,7 +7955,7 @@ function openSurvey(){
     snapTopFlag = false;
 
 }
-
+App.openSurvey = openSurvey;
 function closeSurvey(){
   console.log("openSurvey");
     notify("Hold sentiment to share it.","information");
@@ -7972,6 +7973,7 @@ function closeSurvey(){
     //$("#surveybighandle").css({"z-index":"3"});
     snapTopFlag = true;
 }
+App.closeSurvey = closeSurvey;
 /////////////////SNAPY//////////////
 var snapLeftFlag = false;
 function snapy(){

@@ -896,6 +896,19 @@ Meteor.documentReady = documentReady;
     Template.allLeadersboard.rendered  = Template.leadersboard.rendered = sizeLeaderboard
     Template.allLeadersboard.events({
         "click .leadersface" : function(event){
+          var element =$(event.currentTarget).find(".leadersFaceInfo");
+          // element.css({"opacity":"0.9"});
+          element.css({"display":"block"});
+          // element.transition({"opacity":"0.0"}, '5000', 'swing')
+          element.transition({"display":"none"}, '5000')
+            // if(this.instagramUsername)
+            // window.open("http://instagram.com/"+this.instagramUsername,"_system");
+            // else
+            //     toast("Not a instagram user.");
+        }
+    });
+    Template.allLeadersboard.events({
+        "click .leadersFaceInfo" : function(event){
             if(this.instagramUsername)
             window.open("http://instagram.com/"+this.instagramUsername,"_system");
             else
@@ -6426,7 +6439,7 @@ function autoSize(){
 }
 function resizeItems()
 {
-  console.log("resize small")
+  console.log("resizeItems small")
   var beforeloginwidth=$("#beforeLogin").width()/20;
   var beforeloginheight=$("#beforeLogin").height()/20;//get bais height and width
   $("#status").css({"width":beforeloginwidth*1.75,"height":beforeloginwidth*1.75,"top":"1px","right":"2px"});  

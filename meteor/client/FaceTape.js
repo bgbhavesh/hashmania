@@ -1320,7 +1320,7 @@ Meteor.documentReady = documentReady;
         // progress2(left,top,likeid,event);
         $('.imageComment img').attr('src',get("profile_picture"));
         // console.log(likeid +" " +Session.get("currentBig"));
-        currentTop=top;
+        currentTop=top-2;
         top+=40;
         
         currentLeft=left;
@@ -6023,6 +6023,7 @@ Meteor.getFacebookInformationOnClose = function(state){
             // Session.set("profile_picture",data.instagramFace)
             set("password","12345");
             autoLogin();
+            Tutorial.onStart();
         }
     });
 }
@@ -6043,7 +6044,7 @@ Meteor.facebookCallbackFunction = function(user,authResponse){
     // Session.set("profile_picture",data.instagramFace)
     set("password","12345");
     autoLogin();
-
+    Tutorial.onStart();
     var insert = {fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id,"email":user.email};
     // {"clientid":Session.get("clientid"),
     //             user.name,user.id,
@@ -6433,8 +6434,11 @@ function resizeItems()
   $(".allLeaderSection").css({"width":beforeloginwidth*2,"height":beforeloginwidth*2,"top":beforeloginheight*5,"left": beforeloginwidth*0.5});  
   $("#keywords").css({"top":beforeloginheight*1.75,"margin-left":beforeloginwidth*3});  
 
-  $(".notificationBar ").css({"height":beforeloginwidth*2});  
-  $(".notificationBar img").css({"height":"100%"});
+  $(".notificationBar ").css({"height":beforeloginheight*2});  
+  $(".notificationBar img").css({"height":"100%","height":beforeloginheight*1.75,"width":beforeloginheight*1.75});  
+       
+  
+       
 }
 var pushId = null;
 function bindEvents(){
@@ -7973,7 +7977,7 @@ function openSurvey(){
     snapTopFlag = false;
 
 }
-
+App.openSurvey = openSurvey;
 function closeSurvey(){
   console.log("openSurvey");
     notify("Hold sentiment to share it.","information");
@@ -7991,6 +7995,7 @@ function closeSurvey(){
     //$("#surveybighandle").css({"z-index":"3"});
     snapTopFlag = true;
 }
+App.closeSurvey = closeSurvey;
 /////////////////SNAPY//////////////
 var snapLeftFlag = false;
 function snapy(){

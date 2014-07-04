@@ -7993,7 +7993,7 @@ function openSurvey(){
 App.openSurvey = openSurvey;
 function closeSurvey(){
   console.log("openSurvey");
-    notify("Hold sentiment to share it.","information");
+    // notify("Hold sentiment to share it.","information");
     // $(".leadersface").css({"display":"block"});
     $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
     $(".leaderSection").transition({"top":"15%"});

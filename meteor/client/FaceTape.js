@@ -6378,7 +6378,7 @@ function checkdevice(){
 var autoSizeTimeOut = null;
 var adjustLeft = 0;
 function autoSize(){
-        return
+        //return
         // inconsistent right now
         console.log("autoSize");
         var windowHeight = $("#bodyWrapper").height();//$(window).height();

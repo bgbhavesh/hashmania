@@ -823,7 +823,7 @@ h6 {}
 #keywords p{
 	text-align: justify;
 	word-spacing:3px;
-
+	word-wrap: break-word;
     line-height: 1.25;
 
 }

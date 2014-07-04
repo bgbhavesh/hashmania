@@ -1771,12 +1771,16 @@ h6 {}
 .leadersFaceInfo{
 	top: 0%;
 	left: 100%;
-	display:none;
+	/*display:none;*/
 	position: absolute;
 	font-style: large;
 	width:90%;
 	height:90%;
 	font-size: 20px;
+	opacity: 0.9; 
+	transition: display 5000ms ease;
+	 -webkit-transition: display 5000ms ease;
+	  display: none;
 }
 .leaderRapper{
 	position: absolute;
@@ -1908,7 +1912,7 @@ h6 {}
 	z-index: 25;
 	height: 99%;
 	left: 90%;
-	top: 1%;
+	top:0%;
 	background-color: black;
 	opacity: 0.7;
 }
@@ -1944,12 +1948,14 @@ h6 {}
 	position: absolute;
 }
 .imageComment{
-	width:40%;
+	width:45%;
 	margin: 1%;
 	overflow: auto;
 
 }
-.imageComment img {outline: 0; max-width: 100%; height: auto;}
+.imageComment img {
+	outline: 0; width: 100%; height: auto;
+}
 #comment{
   position : absolute;
   display : none; 
@@ -1959,7 +1965,7 @@ h6 {}
 	color: black;
 }
 .submitComment{
-	width:46%;
+	width:50%;
 	margin: 1%;	
 	overflow :auto;
 	border-radius: 8px;
@@ -1983,7 +1989,7 @@ h6 {}
 	top: 21%;
 	left: 0%;
 	width: 90%;
-	margin-left: 5%;
+	margin-left: 3%;
 	opacity: 1;
 	/*background: linear-gradient(to bottom,  rgba(41,184,227,0.7) 0%,rgba(81,90,122,0.7) 50%,rgba(41,184,227,0.7) 100%); */
 	background-color: rgba(0,0,0,0.8);
@@ -2544,7 +2550,7 @@ mark{
 }
 .commentwrapper textarea{
 	height: 100%;
-	width: 60%;
+	width: 50%;
 }
 #toastArea{
 	text-align: center;

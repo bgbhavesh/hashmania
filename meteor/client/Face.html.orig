@@ -113,11 +113,19 @@
 
 	<div id="welcomePopUpBackground"></div>
 	<div id="welcomePopUp" class="ui inverted segment"> <br>
+<<<<<<< HEAD
 		<div id="pushtext"><b>Welcome to HashRepublic!</b></div><br>
 		You're getting an email with more info soon.
 		For more you can explore the app and perhaps 
 		search for your favorite celebrity or tag. <br><br>
 		
+=======
+		<div id="pushtext">Welcome to HashRepublic!</div>
+		Hashrepublic gets you on the map as an expert on a hash tag. <br>
+		Pick one and start tapping the sentiments. <br>
+		The game is simple. <br>
+		Have fun!<br><br>
+>>>>>>> bb7d47efa8bdc931dd8cbd66867697af5b3b54af
 		<div id="hideWelcomePopUp" class="tiny circular ui button">ok</div><br><br>
 	</div>
 
@@ -307,22 +315,8 @@
 		<div class="leadersface">  
 			<img src="{{face}}"/>
 
-			<div class="leadersFaceInfo" style="display:none;opacity:0.9" >
-				
-					<div  style="height: 50px;width:50;float:left;padding:2px;border-radius: 50%;background: #939393;">
-						<!-- <a href="http://instagram.com/bgbhavesh">  -->
-							<img style="width: 40px;height: 40px;border-radius: 50%;border-style:inset;margin:3px;" src="{{face}}"/>
-						<!-- </a> -->
-					</div>
-					<div style="padding: 1%;margin-left: 25px;background: #939393;width: 500%;height: 53px;">{{username}}  <br>
-						<div style="float:left;border-left:1px white solid;color:white;background: steelblue;border-right:1px white solid;padding:1%;margin:1%">{{rank}}</div>
-						<div style="float:left;border-left:1px white solid;color:white;background: steelblue;border-right:1px white solid;padding:1%;margin:1%">{{percentile}}</div>
-						<div style="float:left;border-left:1px white solid;color:white;background: steelblue;border-right:1px white solid;padding:1%;margin:1%">{{heatScore}}</div>
-						<div style="float:left;border-left:1px white solid;color:white;background: steelblue;border-right:1px white solid;padding:1%;margin:1%">{{score}}</div>
-					</div>
-				
-
-				<!-- <img src="{{face}}"/>
+			<div class="leadersFaceInfo" >
+				<img src="{{face}}"/>
 				<div class="leaderRapper">
 					<div class="leadersFaceName">HESTON</div>
 					<div class="leadersFaceScore">
@@ -331,14 +325,21 @@
 							{{heatScore}}
 						</div>
 					</div>
-					
-				</div> -->
+					<!-- <div class="leadersFaceInfoimg" ><img src="{{face}}"/>
+					</div>				
+					<div class="leadersFaceInfoDetails">
+					<div class="leadersFaceName">hasten</div>
+					<div class="leadersFaceScore">
+						<div id="leadersRank" style="top: 0%;right: 0%;display:block">{{rank}}</div>
+						<div id="leadersScore" style="bottom: 0%;rigth: 0%;display:block">{{heatScore}}</div></div>
+					</div> -->
+				</div>
 				
 			</div>
 			
-			<!-- 
+			
 			<div id="leadersPercentile" style="font-size: small;top: 0%;position: absolute;left: 47%;display:none">{{percentile}}</div>
-			<div class="kingImage kingImage{{rank}}"><img src="/images/king.png"/></div> -->
+			<div class="kingImage kingImage{{rank}}"><img src="/images/king.png"/></div>
 		</div>
 		
 		
@@ -349,15 +350,16 @@
 	<div id="keywordPopupBackground"></div>
 
   <div id="keywordPopup" class="ui vertical menu">
-  	
-  		<div class="searchBoxWrapper">
-	  		<div class="searchicon"> <b> #</b></div>
-			<div  id="keywordButton" class="ui icon input">
-				<input  id="searchKeyword" type="text" placeholder="search Instagram..">
-				<i  id="hashgosearch" class="search icon"></i>
-				
-		    </div>
-		</div>
+  	<div class="allLeaderSection">
+			{{> allLeadersboard}}
+	</div>
+  
+  		<div class="searchicon"> <b> #</b></div>
+		<div  id="keywordButton" class="ui icon input">
+			<input  id="searchKeyword" type="text" placeholder="search Instagram..">
+			<i  id="hashgosearch" class="search icon"></i>
+			
+	    </div>
 	    <div class="notificationBar"> 
 	    	<p class="ui link list">
 				{{#each eachnotify}}
@@ -365,18 +367,6 @@
 				{{/each}}		
 			</p>
 	    </div>	
-	    <div class="keywordWrapper">
-	    	<div class="allLeaderSection">
-				{{> allLeadersboard}}
-			</div>
-			<div id="keywords">
-			    <p class="ui link list">
-					{{#each eachkeyword}}
-						<a class="eachkeyword {{color}}Keyword" style="padding:2px;font-size: {{size}}px;">  #{{keyword}}</a>
-					{{/each}}		
-				</p>
-			</div>
-	    </div>
 	   <!--  <div  id="hashgocancel" class="ui icon button">
 			<i class="remove circle icon"></i>
 	    </div>  -->
@@ -386,7 +376,13 @@
 		  <input id="hashgosearch" type="button" class="ui button" value="GO"> 
 			
 	  </div> -->
-	  
+	  <div id="keywords">
+	    <p class="ui link list">
+			{{#each eachkeyword}}
+				<a class="eachkeyword {{color}}Keyword" style="padding:2px;font-size: {{size}}px;">  #{{keyword}}</a>
+			{{/each}}		
+		</p>
+	  </div>
   </div>
 </template>
 

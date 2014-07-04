@@ -149,7 +149,7 @@ body{
 	/*top:15%;*/
 	/*background-color: #394264;*/
 	float: left;
-	width: 18%;
+	width: 10%;
 	margin: 1%;
 	height: 100%;
 }
@@ -2032,12 +2032,16 @@ h6 {}
 	/*margin-left: 40%;*/
 }
 #NweImageAdded {display: none;
+	left:70%;
 }
 #loadMoreImg{display: none;
+	left:20%;
 }
 #totalimages {display: none;
+	left:2%;
 }
 #toComeimages {display: none;
+	left:88%;
 }
 #testButton{
 	display: none;
@@ -2680,7 +2684,7 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 .leadersface
 {
 	width: 100%;	
-	height: 13%;
+	height: 8%;
 
 }
 

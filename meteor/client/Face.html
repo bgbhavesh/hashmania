@@ -342,16 +342,15 @@
 	<div id="keywordPopupBackground"></div>
 
   <div id="keywordPopup" class="ui vertical menu">
-  	<div class="allLeaderSection">
-			{{> allLeadersboard}}
-	</div>
-  
-  		<div class="searchicon"> <b> #</b></div>
-		<div  id="keywordButton" class="ui icon input">
-			<input  id="searchKeyword" type="text" placeholder="search Instagram..">
-			<i  id="hashgosearch" class="search icon"></i>
-			
-	    </div>
+  	
+  		<div class="searchBoxWrapper">
+	  		<div class="searchicon"> <b> #</b></div>
+			<div  id="keywordButton" class="ui icon input">
+				<input  id="searchKeyword" type="text" placeholder="search Instagram..">
+				<i  id="hashgosearch" class="search icon"></i>
+				
+		    </div>
+		</div>
 	    <div class="notificationBar"> 
 	    	<p class="ui link list">
 				{{#each eachnotify}}
@@ -359,6 +358,18 @@
 				{{/each}}		
 			</p>
 	    </div>	
+	    <div class="keywordWrapper">
+	    	<div class="allLeaderSection">
+				{{> allLeadersboard}}
+			</div>
+			<div id="keywords">
+			    <p class="ui link list">
+					{{#each eachkeyword}}
+						<a class="eachkeyword {{color}}Keyword" style="padding:2px;font-size: {{size}}px;">  #{{keyword}}</a>
+					{{/each}}		
+				</p>
+			</div>
+	    </div>
 	   <!--  <div  id="hashgocancel" class="ui icon button">
 			<i class="remove circle icon"></i>
 	    </div>  -->
@@ -368,13 +379,7 @@
 		  <input id="hashgosearch" type="button" class="ui button" value="GO"> 
 			
 	  </div> -->
-	  <div id="keywords">
-	    <p class="ui link list">
-			{{#each eachkeyword}}
-				<a class="eachkeyword {{color}}Keyword" style="padding:2px;font-size: {{size}}px;">  #{{keyword}}</a>
-			{{/each}}		
-		</p>
-	  </div>
+	  
   </div>
 </template>
 

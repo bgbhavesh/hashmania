@@ -894,21 +894,21 @@ Meteor.documentReady = documentReady;
         $(".leadersface").width($(".leadersface").height());
     }
     Template.allLeadersboard.rendered  = Template.leadersboard.rendered = sizeLeaderboard
+    // Template.allLeadersboard.events({
+    //     "click .leadersface" : function(event){
+    //       var element =$(event.currentTarget).find(".leadersFaceInfo");
+    //       // element.css({"opacity":"0.9"});
+    //       element.css({"display":"block"});
+    //       // element.transition({"opacity":"0.0"}, '5000', 'swing')
+    //       element.transition({"display":"none"}, '5000')
+    //         // if(this.instagramUsername)
+    //         // window.open("http://instagram.com/"+this.instagramUsername,"_system");
+    //         // else
+    //         //     toast("Not a instagram user.");
+    //     }
+    // });
     Template.allLeadersboard.events({
         "click .leadersface" : function(event){
-          var element =$(event.currentTarget).find(".leadersFaceInfo");
-          // element.css({"opacity":"0.9"});
-          element.css({"display":"block"});
-          // element.transition({"opacity":"0.0"}, '5000', 'swing')
-          element.transition({"display":"none"}, '5000')
-            // if(this.instagramUsername)
-            // window.open("http://instagram.com/"+this.instagramUsername,"_system");
-            // else
-            //     toast("Not a instagram user.");
-        }
-    });
-    Template.allLeadersboard.events({
-        "click .leadersFaceInfo" : function(event){
             if(this.instagramUsername)
             window.open("http://instagram.com/"+this.instagramUsername,"_system");
             else
@@ -1596,9 +1596,9 @@ Meteor.documentReady = documentReady;
             .transition({"opacity":"1.0"},100,"linear")
             
             var findHight=$(currentBigHtml).height();
-            $(currentBigHtml).find(".inner").css({"background":"linear-gradient(to top,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*2/9+"px,rgba(95,196,134,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*4/9+"px,rgba(254,199,57,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight*2/9*3+"px,rgba(253,48,71,0.4) "+findHight+"px)"});
+            $(currentBigHtml).find(".inner").css({"background":"linear-gradient(to top,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) "+findHight*1/3+"px,rgba(95,196,134,0.4) "+findHight*1/3+"px,rgba(95,196,134,0.4) "+findHight*2/3+"px,rgba(253,48,71,0.4) "+findHight*2/3+"px,rgba(253,48,71,0.4) "+findHight+"px)"});
             var findWidth=$(currentBigHtml).width();
-            $(currentBigHtml).find("#hprogressBar div").css({"background":"linear-gradient(to right,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) "+findWidth*2/9+"px,rgba(95,196,134,0.4) "+findWidth*2/9+"px,rgba(95,196,134,0.4) "+findWidth*4/9+"px,rgba(254,199,57,0.4) "+findWidth*4/9+"px,rgba(254,199,57,0.4) "+findWidth*2/9*3+"px,rgba(253,48,71,0.4) "+findWidth*2/9*3+"px,rgba(253,48,71,0.4) "+findWidth+"px)"});            
+            $(currentBigHtml).find("#hprogressBar div").css({"background":"linear-gradient(to right,rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) "+findWidth*1/3+"px,rgba(95,196,134,0.4) "+findWidth*1/3+"px,rgba(95,196,134,0.4) "+findWidth*2/3+"px,rgba(253,48,71,0.4) "+findWidth*2/3+"px,rgba(253,48,71,0.4) "+findWidth+"px)"});            
     }
 // ///////////////////////survey ends
 

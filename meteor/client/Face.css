@@ -143,14 +143,17 @@ body{
 .allLeaderSection{
 	display: block;
 	/*height: 9%;*/
-	position: fixed;
+	position: relative;
 	/*width: 12%;*/
 	z-index: 1;
 	/*top:15%;*/
-	left: 5px;
-	margin: 2px;
 	/*background-color: #394264;*/
+	float: left;
+	width: 18%;
+	margin: 1%;
+	height: 100%;
 }
+
 .leaderSection{
 	display: block;
 	position: absolute;
@@ -702,14 +705,18 @@ body{
 }
 .notificationBar{
 	display: block;
-	position: fixed;
+	position: relative;
 	width: 100%;
-	/*height: 10%;*/
+	height: auto;
 	overflow-x: hidden;
 	overflow-y: scroll;
 	font-size: 20px;
 	color: #11a8ab;
 	vertical-align:text-top;
+}
+.keywordWrapper{
+	width: 100%;
+	height: 80%;
 }
 /*#keywordPopup
 {
@@ -776,6 +783,10 @@ h6 {}
 	border:0px solid ;
 	box-shadow: 0 0 0px 0px  #11a8ab;
 }
+.searchBoxWrapper{
+	width: 100%;
+	height: auto;
+}
 #searchKeyword{
 	background-color: #50597b;
 	border-top:0; 
@@ -803,16 +814,16 @@ h6 {}
 	overflow-y: scroll;
 	font-size: 20px;
 	color: #11a8ab;
-	margin-top: 2%;
-    margin-right: 2%;
 	position: relative;
-	bottom: 0;
 	height: 70%;
+	width: 76%;
+	margin: 2%;
+	float: left;
 }
 #keywords p{
 	text-align: justify;
 	word-spacing:3px;
-
+	word-wrap: break-word;
     line-height: 1.25;
 
 }
@@ -1671,7 +1682,7 @@ h6 {}
 	z-index: 1;
 }
 
-.leadersface{
+.leadersfaceSurvey{
 	
 	position: relative;
 	float: left;
@@ -1682,6 +1693,11 @@ h6 {}
 	margin: 0.5%;
 	color: white;
 	z-index: 4;
+}
+.leadersfaceSurvey img{
+	height: 100%;
+	width: 100%;
+	box-shadow: 1px -2px 4px blac
 }
 .leadersface img{
 	height: 100%;
@@ -1987,9 +2003,7 @@ h6 {}
 	overflow-y: scroll;
 	padding: 2%;
 }
-/*.allLeaderSection*/ /*.leadersface img{
-	border-radius: 8px;
-}*/
+
 #showallcomments{
 	background: rgb(37, 36, 77);
 }
@@ -2603,10 +2617,9 @@ mark{
 #status{
 	position: absolute;
 	float: right;
-	/*right: 2px;*/
 	top: 2px;
-	/*height: 95%;*/
-	/*width: 10%;*/
+	height: 85%;
+	width: 13%;
 	background-image: url(/images/HashLogo.png);
 	background-size: 100% 100%;
  	
@@ -2664,13 +2677,13 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 	/*margin:0.5%;*/
 	height: 90%;
 }
-.allLeaderSection .leadersface
+.leadersface
 {
-	float:none;
 	width: 100%;	
-	height: 100%;
-	margin-top: -10%;
+	height: 13%;
+
 }
+
 .eachLeaders img{
 	width: 100%;
 	height: 80%;

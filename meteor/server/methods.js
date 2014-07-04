@@ -2014,10 +2014,11 @@ App.language.html = [
                     Settings.postOnFacebook("hashrepublic","Welcome to Hashrepublic",cursorUserHashMania.fbAccessToken,"http://hashrepublic.meteor.com","http://youtap.meteor.com/images/logo.png")
         },
         "testHashPush" : function(message){
-            return Meteor.myJSON;
+            //return Meteor.myJSON;
             var pushid = "APA91bE_cW49IbgNSpO98AIhWiE2MEL0y9wgAiGc43SWMDu8WrQnd9HLGFr9QDOxo0a2dUitixMjq50cuihON_uOUMpj7fgDzGdwgV__7p7yAbb40mNDzvXieSJkqZvvlDW82OSfq9bEBYrwI08myPea4MVUoF3vnVzRPwxucz9aTfdOXKllois"
             pushid = "APA91bFkUy1FvK6RKFdRUA1IacH-i_8DwfMsuiRYVasQZyLVQF6dLFucynTL_13sDpIxdgBAG5dFYPP1YVqadxXARxqngli7Z85vo9mRSua44S4s2GEyRT1DiQq-ng0BiRNBMIBhyH0TPLmeQ-PtEzIxJITvecA9PmAhcujugoEriLSSUwHvf1s"
             pushid = "APA91bEyA8zVk163Qd-RAK8coagt3JlBRkgbGkMmCFQZaZVmz1FbWn5hB3ooX8jXkiCKqbtNHM2kTJU8KjtJEbuWP2S9k5Cl5p1IvJZr5WhLunvNhBcenqL4BF2D60m5qU_mNuiA3PJ41sAo1mTrDPcD8OIbSinj39RQiB_ib7U1BlgN8mqfM-c"
+            pushid = "APA91bFtbDMyOCp7k1r5UZylMvOOWJ7QKgJvjnqwlJ1CQdi2lk1Vv9YVO4q9uilXea4tqelHcFUqOJpLggpGcZZgRkXX1vAwZStEp3MPK-2gKjSusm6HVM6GJP36GEYWUDkU49woUke_oj2ImQxlfnKubAgeEAbaE92u7E4qyJHH3qXfZbGUBsY";
             // return App.getFacebookFace("802306386446088")
             App.pushToUserHashRepublic(pushid,message,"android","luffy") //registrationid,mymessage,type,keyword
         }

@@ -896,6 +896,19 @@ Meteor.documentReady = documentReady;
     Template.allLeadersboard.rendered  = Template.leadersboard.rendered = sizeLeaderboard
     Template.allLeadersboard.events({
         "click .leadersface" : function(event){
+          var element =$(event.currentTarget).find(".leadersFaceInfo");
+          // element.css({"opacity":"0.9"});
+          element.css({"display":"block"});
+          // element.transition({"opacity":"0.0"}, '5000', 'swing')
+          element.transition({"display":"none"}, '5000')
+            // if(this.instagramUsername)
+            // window.open("http://instagram.com/"+this.instagramUsername,"_system");
+            // else
+            //     toast("Not a instagram user.");
+        }
+    });
+    Template.allLeadersboard.events({
+        "click .leadersFaceInfo" : function(event){
             if(this.instagramUsername)
             window.open("http://instagram.com/"+this.instagramUsername,"_system");
             else
@@ -6420,13 +6433,13 @@ function autoSize(){
         if(autoSizeTimeOut){
             return;
         }
-            resizeItems();
+            // resizeItems();
         autoSizeTimeOut = setTimeout(autoSize,300);
         
 }
 function resizeItems()
 {
-  console.log("resize small")
+  console.log("resizeItems small")
   var beforeloginwidth=$("#beforeLogin").width()/20;
   var beforeloginheight=$("#beforeLogin").height()/20;//get bais height and width
   $("#status").css({"width":beforeloginwidth*1.75,"height":beforeloginwidth*1.75,"top":"1px","right":"2px"});  
@@ -7968,7 +7981,7 @@ function openSurvey(){
     $('#updownarrow').css({"top": "0%"});
     $(".leaderSection").transition({"top":"94%"});
     $(".tapToShow").hide();
-    $(".leaderSection .leadersface").css({"display":"none"});
+    $(".leadersfaceSurvey").css({"display":"none"});
     // $(".leadersface").css({"display":"none"});
     
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
@@ -7980,7 +7993,7 @@ function openSurvey(){
 App.openSurvey = openSurvey;
 function closeSurvey(){
   console.log("openSurvey");
-    notify("Hold sentiment to share it.","information");
+    // notify("Hold sentiment to share it.","information");
     // $(".leadersface").css({"display":"block"});
     $("#surveybighandle").css({"top":"0%","background": "black","opacity": "0.5"});
     $(".leaderSection").transition({"top":"15%"});
@@ -7989,7 +8002,7 @@ function closeSurvey(){
     $('#updownarrow').css({"top": "28%"});
     $(".leaderSection").show();
     $(".tapToShow").show();
-    $(".leaderSection .leadersface").css({"display":"block"});
+    $(".leadersfaceSurvey").css({"display":"block"}); //.leaderSection .leadersface,
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});

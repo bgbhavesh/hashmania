@@ -2914,14 +2914,15 @@ function pushToUserHashRepublic(registrationid,mymessage,type,keyword,header){
         Meteor.pushMessage;
         var message = new Meteor.pushGCM.Message();
         // Message creation
-        message.addData('title',header);
+        if(header)
+            message.addData('title',header);
         //message.addData('message',mymessage);
         message.addData('msgcnt','1');
         // message.addData('mydata','nicolson');
         if(mymessage)
-        message.addData('message',mymessage);
+            message.addData('message',mymessage);
         if(keyword)
-        message.addData('keyword',keyword);
+            message.addData('keyword',keyword);
         // if(likeid)
         // message.addData('likeid',likeid);
         message.collapseKey = 'demo';

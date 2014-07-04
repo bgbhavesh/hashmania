@@ -6434,10 +6434,7 @@ function resizeItems()
   $("#keywords").css({"top":beforeloginheight*1.75,"margin-left":beforeloginwidth*3});  
 
   $(".notificationBar ").css({"height":beforeloginwidth*2});  
-  $(".notificationBar img").css({"height":"100%"});  
-       
-  
-       
+  $(".notificationBar img").css({"height":"100%"});
 }
 var pushId = null;
 function bindEvents(){

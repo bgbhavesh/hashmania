@@ -236,7 +236,8 @@ Game.renderResults = function (data,loadMoreFlag,newerFlag,keywordArg){
         
         $("#testButton").hammer().off("tap");
         $("#testButton").hammer().on("tap",Game.renderNewFechtedData);
-
+        var height = $(".hashFeed").css("width");
+        $(".lowImg").css("height",height);
         Game.getNewImagesForThisKeyword();
     }
 
@@ -266,6 +267,7 @@ Game.renderNewFechtedData = function (){
         console.log("renderNewFechtedData " +" " +clientid +" " +keyword)
         //console.log(data);
         Game.renderResults(data,false,true);
+        App.fetchNewData[keyword] = null;
         var currentLikeid = null;
         for(var i=0,il=data.length;i<il;i++){
             var currentLikeid = data[i].likeid;

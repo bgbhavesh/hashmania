@@ -1694,6 +1694,11 @@ h6 {}
 	color: white;
 	z-index: 4;
 }
+.leadersfaceSurvey img{
+	height: 100%;
+	width: 100%;
+	box-shadow: 1px -2px 4px blac
+}
 .leadersface img{
 	height: 100%;
 	width: 100%;

@@ -7981,7 +7981,7 @@ function openSurvey(){
     $('#updownarrow').css({"top": "0%"});
     $(".leaderSection").transition({"top":"94%"});
     $(".tapToShow").hide();
-    $(".leaderSection .leadersface").css({"display":"none"});
+    $(".leadersfaceSurvey").css({"display":"none"});
     // $(".leadersface").css({"display":"none"});
     
     document.getElementById('updownarrow').className = ' huge sort ascending icon';
@@ -8002,7 +8002,7 @@ function closeSurvey(){
     $('#updownarrow').css({"top": "28%"});
     $(".leaderSection").show();
     $(".tapToShow").show();
-    $(".leaderSection .leadersface").css({"display":"block"});
+    $(".leadersfaceSurvey").css({"display":"block"}); //.leaderSection .leadersface,
     document.getElementById('updownarrow').className = ' huge sort descending icon';
     // $("#updownarrow").animate("class","huge sort descending icon");
     //$("#surveybighandle").css({"z-index":"3"});

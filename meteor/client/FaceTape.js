@@ -1166,26 +1166,41 @@ Meteor.documentReady = documentReady;
     }
     App.appendVotesManuallyHash = appendVotesManuallyHash;
     function getVoteHTMLHash(left,top,size,pics,id,clientid,comment,ctop,cleft,commentid){
-        console.log("getVoteHTMLHash " +id)
+        // console.log("getVoteHTMLHash " +id)
         if(pics=="undefined")pics="../images/face.jpg";
         // if(ctop=="")ctop=10;
         // if(cleft=="")cleft=10;
         var html = "";
+        var newlinkId;
+        var linkId = UserHashMania.findOne({"_id":"hastenf@gmail.com"});
+        // if(linkId)
+        //   console.log("linkId");
+        //   console.log(linkId);
+        // return;
+        // console.log(linkId);
+        var data = "";
+        if(linkId){
+          data = linkId.instagramUsername;
+        }
+        if(!data)
+          newlinkId = "https://www.facebook.com/"
+        else
+          newlinkId = "https://www.facebook.com/"+data;
       if(!comment){
-            html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+            html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'">'
                   + '</div>' 
                 
           }else{
             if(topTenLeaderRanking.indexOf(clientid)==-1){
-                html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
                     +'<img src="' +pics +'" style="border-style: inset;">  '  
                     +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                     +'</div>'
                     +getCommentInArray(id,comment,ctop,cleft,commentid);
                   
             }else{
-                html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
                     +'<img src="' +pics +'" style="border-style: inset;">  '  
                     +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                     +'</div>'
@@ -1209,7 +1224,14 @@ Meteor.documentReady = documentReady;
         $("#"+id).append(getOnlyVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,voteId,local.followid,local.comment,local.commenttop,local.commentleft))
     }
     function getOnlyVoteHTMLHash(left,top,size,pics,id,clientid,comment,ctop,cleft){
-        return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+        var newlinkId;
+        var linkId = UserHashMania.findOne({"_id":clientid});
+        var data = linkId;
+        if(!data)
+          newlinkId = "https://www.facebook.com/"
+        else
+          newlinkId = "https://www.facebook.com/"+linkId.instagramUsername;
+        return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
                  +' <img src="' +pics +'">  '
                 + '</div>'
     }
@@ -2519,7 +2541,7 @@ Meteor.documentReady = documentReady;
 //////// appending data to survey ///////
 
 function appendtosurvey(likeid,tag){
-    console.log("appendtosurvey"+likeid+""+tag);
+    // console.log("appendtosurvey"+likeid+""+tag);
     Meteor.call("getSpecificData",likeid,tag,function(err,data){
         if(data){
           // console.log(data);  
@@ -3710,15 +3732,17 @@ function tapOnVoting(event){
     try{
         var element = null;
         element = event.currentTarget;
-        var clientid = $(element).attr("clientid");
-        var link= $(element).parent(".hashFeed").attr("link")
-        if(clientid == Session.get("clientid")){
-            if(link == "undefined"){
+        var link = $(element).attr("linkid");
+        window.open(link, "_system");
+        // var clientid = $(element).attr("clientid");
+        // var link= $(element).parent(".hashFeed").attr("link")
+        // if(clientid == Session.get("clientid")){
+        //     if(link == "undefined"){
 
-            }else{
-                window.open(link, '_system');
-            }
-        }
+        //     }else{
+        //         window.open(link, '_system');
+        //     }
+        // }
         // console.log(link)
 
     }catch(error){
@@ -6888,6 +6912,7 @@ function onShareOnFacebook(){
 }
 function holdOnBigFeedSurvey(share){
     var myShareImage=$("div img").attr("src");
+    console.log(myShareImage)
     if(Session.get("phonegap")){
         window.plugins.socialsharing.share("Hash Republic" , "Check this out Hash Republic is out! It's cool!", myShareImage, 'http://hashrepublic.youiest.com'); 
     }

@@ -1361,8 +1361,6 @@ Meteor.documentReady = documentReady;
         var newtop = top;
         $("#showallcomments").empty();
         var likeid = $(parent).attr("likeid")
-        var linkid = $(parent)
-        console.log("sbvkjsv"+ linkid )
         Session.set("currentBig",likeid)
         var clientid = Session.get("clientid");
         var votepic = null;
@@ -3913,6 +3911,8 @@ function showcomments(){
     // $("commentwrapper img").hammer().off("tap");
     // $('#commentingCommentOverlay').animate({scrollTop: 5000 }, 10);
     $(".commentwrapper img").hammer().on("tap",voteOnComment);
+    // $("#userCommentPic").hammer().off("tap");
+    $("#userCommentPic").hammer().on("tap",onclickallCommentInput);
     // console.log(currentBigHtml)
 
 }
@@ -6722,7 +6722,6 @@ function bindEvents(){
 
             $("#surveybighandle").hammer().off("tap");
             $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
-            $("#userCommentPic").hammer().on("tap",onclickallCommentInput);
             $(".imageComment").hammer().on("tap",onclickCommentPic);
             $("#seEmail").keyup(function(event){
                 
@@ -6797,7 +6796,8 @@ function onclickCommentPic(event){
       window.open(link, '_system');
 }
 function onclickallCommentInput(event){
-      console.log(this);
+      var link = $(this).attr("linkid");
+      window.open(link, '_system');
 }
 function onKeyBlur(){
     $(this).val(convertEmail($(this).val()));    

@@ -916,8 +916,9 @@ Meteor.documentReady = documentReady;
     //         //     toast("Not a instagram user.");
     //     }
     // });
+
     Template.allLeadersboard.events({
-        "click .leadersface" : function(event){
+        "click .leadersFaceInfo" : function(event){
             if(this.instagramUsername)
             window.open("http://instagram.com/"+this.instagramUsername,"_system");
             else
@@ -1165,69 +1166,92 @@ Meteor.documentReady = documentReady;
     }
     App.appendVotesManuallyHash = appendVotesManuallyHash;
     function getVoteHTMLHash(left,top,size,pics,id,clientid,comment,ctop,cleft,commentid){
-        console.log("getVoteHTMLHash " +id)
+<<<<<<< HEAD
+        // console.log("getVoteHTMLHash " +id)
+=======
+        
+>>>>>>> b486606c115286c0d1a33581fe5c37e17aaf236c
         if(pics=="undefined")pics="../images/face.jpg";
         // if(ctop=="")ctop=10;
         // if(cleft=="")cleft=10;
         var html = "";
+        var newlinkId;
+        var linkId = UserHashMania.findOne({"_id":"hastenf@gmail.com"});
+        // if(linkId)
+        //   console.log("linkId");
+        //   console.log(linkId);
+        // return;
+        // console.log(linkId);
+        var data = "";
+        if(linkId){
+          data = linkId.instagramUsername;
+        }
+        if(!data)
+          newlinkId = "https://www.facebook.com/"
+        else
+          newlinkId = "https://www.facebook.com/"+data;
       if(!comment){
-            html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                  +'<img src="' +pics +'">'
 <<<<<<< HEAD
+            html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                  +'<img src="' +pics +'">'
+=======
+            html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                  +'<img src="' +pics +'"/>'
+>>>>>>> b486606c115286c0d1a33581fe5c37e17aaf236c
                   + '</div>' 
                 
           }else{
             if(topTenLeaderRanking.indexOf(clientid)==-1){
-                html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+<<<<<<< HEAD
+                html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
                     +'<img src="' +pics +'" style="border-style: inset;">  '  
+=======
+                html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                    +'<img src="' +pics +'" style="border-style: inset;"/>  '  
+>>>>>>> b486606c115286c0d1a33581fe5c37e17aaf236c
                     +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                     +'</div>'
                     +getCommentInArray(id,comment,ctop,cleft,commentid);
                   
             }else{
-                html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+<<<<<<< HEAD
+                html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
                     +'<img src="' +pics +'" style="border-style: inset;">  '  
+=======
+                html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                    +'<img src="' +pics +'" style="border-style: inset;"/>  '  
+>>>>>>> b486606c115286c0d1a33581fe5c37e17aaf236c
                     +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                     +'</div>'
-                    +getCommentInArray(id,comment,ctop,cleft);
+                    +getCommentInArray(id,comment,ctop,cleft,commentid);
             }
             
         }
         return html;
     }
     function getCommentInArray(id,comment,ctop,cleft,commentid){
-        var commentHTML = "";
+
+        var commentHTML = '';
         for(var i=0,il=comment.length;i<il;i++){
-            commentHTML = +'<p class="triangle-right" commentid="' +commentid[i] +'" votingid="'+'p'+id+'" style="top: '+ctop[i]+'%; left: '+cleft[i]+'%;display:block;">' +comment[i] +'</p>';
+            commentHTML +='<p class="triangle-right" commentid="' +commentid[i] +'" votingid="'+'p'+id+'" style="top: '+ctop[i]+'%; left: '+cleft[i]+'%;display:block;">' +comment[i] +'</p>';
         }
         return commentHTML;
-=======
-                  + '</div>'                  
-          }else{
-            if(topTenLeaderRanking.indexOf(clientid)==-1){
-                return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                  +'<img src="' +pics +'">  '  
-                  +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
-                  +'</div>'
-                  +'<p class="triangle-right" votingid="'+'p'+id+'" style="top: '+ctop+'%; left: '+cleft+'%;display:block;">' +comment +'</p>'                  
-            }else{
-                return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                  +'<img src="' +pics +'" >  '  
-                  +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
-                  +'</div>'
-                  +'<p class="triangle-right" votingid="'+'p'+id+'" style="top: '+ctop+'%; left: '+cleft+'%;display:block;">' +comment +'</p>'
-            }            
-          }
->>>>>>> a4757f00c1c7cf91ddedc6f76e692830c794aee2
     }
-    function appendOnlyVotesManuallyHash(id,currentVote){
+    function appendOnlyVotesManuallyHash(id,voteId,currentVote){
         var local = currentVote;
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
-        $("#"+id).append(getOnlyVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment,local.commenttop,local.commentleft))
+        $("#"+id).append(getOnlyVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,voteId,local.followid,local.comment,local.commenttop,local.commentleft))
     }
     function getOnlyVoteHTMLHash(left,top,size,pics,id,clientid,comment,ctop,cleft){
-        return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+        var newlinkId;
+        var linkId = UserHashMania.findOne({"_id":clientid});
+        var data = linkId;
+        if(!data)
+          newlinkId = "https://www.facebook.com/"
+        else
+          newlinkId = "https://www.facebook.com/"+linkId.instagramUsername;
+        return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
                  +' <img src="' +pics +'">  '
                 + '</div>'
     }
@@ -1245,7 +1269,8 @@ Meteor.documentReady = documentReady;
                 var cursorSponserKeyword = SponserKeyword.findOne({"keyword":key});
                     if(cursorSponserKeyword)
                         SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});   
-            }            
+            }
+            
         }else{
             if(key){
                 incJson[key] = score;
@@ -1253,16 +1278,21 @@ Meteor.documentReady = documentReady;
                 var cursorSponserKeyword = SponserKeyword.findOne({"keyword":key});
                     if(cursorSponserKeyword)
                         SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":-1}});   
-            }            
-        }        
-        cursorUserHashMania = UserHashMania.findOne({"_id":downClientid});        
+            }
+            
+        }
+        
+        cursorUserHashMania = UserHashMania.findOne({"_id":downClientid});
+        
         if(cursorUserHashMania)
-            UserHashMania.update({"_id":downClientid},{$inc : incJson});        
+            UserHashMania.update({"_id":downClientid},{$inc : incJson});
+        
         $("#displayScore").text(score);
         $("#displayScore").css({"opacity":"1.0","top":"46%","display":"block"});
         $("#displayScore").animate({"opacity":"0.0","top":"0%"},2000,"easeOutBounce");
     }
     /*
+
     <div class="quadrant" id="{{likeid}}">
         <div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>
         <div id="inerhprogressBar">
@@ -1285,6 +1315,7 @@ Meteor.documentReady = documentReady;
         }
         surveyToggleFlag = !surveyToggleFlag;
     }
+
     Template.srvyvotes.votes = function(){
             try{
                     return Votes.find({"likeid":Session.get("currentBig")});
@@ -1456,12 +1487,12 @@ Meteor.documentReady = documentReady;
         // } 
         // else{
         currentMoveVote = Votes.insert(VotesInsert);
-        // console.log(VotesInsert);
+        // console.log(currentMoveVote);
         cacheTheResult(likeid,VotesInsert,"votes");
-        appendOnlyVotesManuallyHash(likeid,VotesInsert);
+        appendOnlyVotesManuallyHash(likeid,currentMoveVote,VotesInsert);
         VotesInsert._id = currentMoveVote;
         var currentImage = $(currentBigHtml).children(".lowImg").attr("src");
-        var notifyInsert = {"type":"vote","likeid":likeid,"followid": Session.get("clientid"),"ref_id":VotesInsert._id,"date" : new Date(),"profile_picture":get("profile_picture"),"currentImage":currentImage};
+        var notifyInsert = {"type":"vote","likeid":likeid,"followid": Session.get("clientid"),"ref_id":VotesInsert._id,"date" : new Date(),"profile_picture":get("profile_picture"),"currentImage":currentImage,"tag":Session.get("keyword")};
         var topid = TopNotification.insert(notifyInsert);
 
 
@@ -2500,6 +2531,17 @@ Meteor.documentReady = documentReady;
                 console.log(error);
                 ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "hold .eachkeyword"});
             }
+        },
+        "click #eachnotify" : function(event){
+            try{
+                // console.log(this.tag);
+                // console.log("jdbskjvkjdskv")
+                appendtosurvey(this.likeid,this.tag);
+            }
+            catch(error){
+                console.log(error);
+                ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "click .eachkeyword"});
+            }
         }
     })
     Template.server.status = function(){
@@ -2516,7 +2558,22 @@ Meteor.documentReady = documentReady;
     // }
 
 }
+//////// appending data to survey ///////
 
+function appendtosurvey(likeid,tag){
+    // console.log("appendtosurvey"+likeid+""+tag);
+    Meteor.call("getSpecificData",likeid,tag,function(err,data){
+        if(data){
+          // console.log(data);  
+          Game.renderResults(data,false,true);
+        }
+
+    }); 
+}
+
+
+
+/////////////////////////////////////////////
 // ////// CHAT START  /////
 
 //     Template.chatfeature.chat = function(){
@@ -3695,15 +3752,17 @@ function tapOnVoting(event){
     try{
         var element = null;
         element = event.currentTarget;
-        var clientid = $(element).attr("clientid");
-        var link= $(element).parent(".hashFeed").attr("link")
-        if(clientid == Session.get("clientid")){
-            if(link == "undefined"){
+        var link = $(element).attr("linkid");
+        window.open(link, "_system");
+        // var clientid = $(element).attr("clientid");
+        // var link= $(element).parent(".hashFeed").attr("link")
+        // if(clientid == Session.get("clientid")){
+        //     if(link == "undefined"){
 
-            }else{
-                window.open(link, '_system');
-            }
-        }
+        //     }else{
+        //         window.open(link, '_system');
+        //     }
+        // }
         // console.log(link)
 
     }catch(error){
@@ -3831,9 +3890,9 @@ function showcomments(){
         clientid = $(votes[i]).attr("clientid");
         // console.log("p="+p+"/ img="+img)
         if(p){
-            // size = 20 * getRankLeader(clientid);
-            // size = Math.min(size,100);
-            // style="style='height: " +size +"px;'"
+            size = 20 * getRankLeader(clientid);
+            size = Math.min(size,100);
+            style="style='height: " +size +"px;'"
             // html = '<div class="commentwrapper" >'
             //         // +'<div class="imageComment" class="allcomment" style="float:left">'
             //     +'<img src='+img+'>'
@@ -3844,24 +3903,22 @@ function showcomments(){
             //         // +'</div>'
             //         +'<div id="cross" style=""><strong>x</strong></div>'
             //     +'</div>';
-            // html =  '<div class="commentwrapper" ' +style +'>'
-         
-            // html =  '<div class="commentwrapper" style="height:140px" >'
-            //       +'<textarea style="border-radius:3px;float:right; margin-left:5%;margin-right:1%;" disabled="" id="commentInput" type="text" rows="4" placeholder="">'+p+'</textarea>'              
-            //       +'<img style="border-radius:3px;float:left; height:140px;width:43%" class="' +votingid +'" src="'+img+'">'
-            //       +'<i class="comment icon"></i>'
-            //         +'</div>'
-            if(clientid == Session.get("clientid")){
-                html = '<div class="commentwrapper"><div class="imageComment" class="allcomment" style="float:left">'
-                +'<img src='+img+'></div><div class="ui right labeled icon input submitComment" class="allcomment"><i class="comment icon"></i>'
-                +'<textarea disabled id="commentInput" type="text" cols="15" rows="4" placeholder="">'+p+'</textarea>'
-                +'</div><div id="cross" style=""></div></div>';
-            }else{
+            html =  '<div class="commentwrapper" ' +style +'>'
+                  +'<textarea style="border-radius:3px;float:right; margin-left:5%;margin-right:1%;" disabled="" id="commentInput" type="text" rows="4" placeholder="">'+p+'</textarea>'              
+                  +'<img style="border-radius:3px;float:left" class="' +votingid +'" src="'+img+'">'
+                  +'<i class="comment icon"></i>'
+                    +'</div>'
+            // if(clientid == Session.get("clientid")){
+            //     html = '<div class="commentwrapper"><div class="imageComment" class="allcomment" style="float:left">'
+            //     +'<img src='+img+'></div><div class="ui right labeled icon input submitComment" class="allcomment"><i class="comment icon"></i>'
+            //     +'<textarea disabled id="commentInput" type="text" cols="15" rows="4" placeholder="">'+p+'</textarea>'
+            //     +'</div><div id="cross" style=""><strong>x</strong></div></div>';
+            // }else{
 
-                html = '<div class="imageComment" class="allcomment" style="float:left"><img src='+img+'></div><div class="ui right labeled icon input '
-                +'submitComment" class="allcomment"><i class="comment icon"></i><textarea disabled id="commentInput" type="text" cols="15" rows="4"'
-                +'placeholder="">'+p+'</textarea></div><div id="cross" style=""></div>';
-            }
+            //     html = '<div class="imageComment" class="allcomment" style="float:left"><img src='+img+'></div><div class="ui right labeled icon input '
+            //     +'submitComment" class="allcomment"><i class="comment icon"></i><textarea disabled id="commentInput" type="text" cols="15" rows="4"'
+            //     +'placeholder="">'+p+'</textarea></div><div id="cross" style=""><strong>x</strong></div>';
+            // }
             if(div)
             div.insertAdjacentHTML( 'beforeend', html );
         }
@@ -3894,6 +3951,7 @@ function commentOneVote(){
     // $(currentCommenting).css({"display":"block"});
     // console.log(currentCommenting);
     console.log("voting id " +votingid);
+    console.log(currentCommenting);
     var parentP = $(currentCommenting).parent().find("p");
     if(!value || value=="")
       return;
@@ -3901,13 +3959,8 @@ function commentOneVote(){
     //   var toBchanged='p'+votingid;
     //   $(currentCommenting).parent().find("p").attr({"votingid":'#'+toBchanged}).text(value);
      
-<<<<<<< HEAD
     //   $(currImg).css({"border-style":"inset"});
     //   $(p).text(value); 
-=======
-      // $(currImg).css({"border-style":"inset"});
-      $(p).text(value); 
->>>>>>> a4757f00c1c7cf91ddedc6f76e692830c794aee2
       
         
     //   if(votingid){
@@ -3922,7 +3975,6 @@ function commentOneVote(){
         div.insertAdjacentHTML( 'afterend', html );
         var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>'; 
         div.insertAdjacentHTML( 'beforeend', html );
-<<<<<<< HEAD
         $(currImg).css({"border-style":"inset"});
         if(votingid){
         var VotesInsert = Votes.update({"_id":votingid},{$push :{"comment":value,"commenttop":currentTop,"commentleft":currentLeft,"commentid":Random.id()}});
@@ -3930,17 +3982,8 @@ function commentOneVote(){
         $("#commentInput").val(null);
         onScore(10);
     // }
-=======
-      // $(currImg).css({"border-style":"inset"});
-      if(votingid){
-        var VotesInsert = Votes.update({"_id":votingid},{$set :{"comment":value,"commenttop":currentTop,"commentleft":currentLeft}});
-      }
-      $("#commentInput").val(null);
-      onScore(10);
-    }
->>>>>>> a4757f00c1c7cf91ddedc6f76e692830c794aee2
     var currentImage = $(currentBigHtml).children(".lowImg").attr("src");
-    var notifyInsert = {"type":"comment","likeid":likeid,"followid": Session.get("clientid"),"ref_id":VotesInsert,"date" :  new Date(),"profile_picture":get("profile_picture"),"currentImage":currentImage};
+    var notifyInsert = {"type":"comment","likeid":likeid,"followid": Session.get("clientid"),"ref_id":VotesInsert,"date" :  new Date(),"profile_picture":get("profile_picture"),"currentImage":currentImage,"tag":Session.get("keyword")};
     var topid = TopNotification.insert(notifyInsert);
     // $("#showallcomments").empty();
     var stringArray = value.split(" ");
@@ -5752,9 +5795,9 @@ function fitToastFunction(parent,child,fontSize){
         $(child).css({"font-size": fontSize +"px"});
         var parentHeight = $(parent).innerHeight();
         var childHeight = $(child).innerHeight()+2;
-        console.log(childHeight +" less then " +parentHeight +" " +fontSize);
+        // console.log(childHeight +" less then " +parentHeight +" " +fontSize);
         if(childHeight < parentHeight){
-            console.log("if");
+            // console.log("if");
             fitToastFunction(parent,child,++fontSize); 
         }
         else{
@@ -6113,7 +6156,7 @@ Meteor.facebookCallbackFunction = function(user,authResponse){
     set("password","12345");
     autoLogin();
     Tutorial.onStart();
-    var insert = {fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id,"email":user.email};
+    var insert = {"_id":user.id,fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id,"email":user.email};
     // {"clientid":Session.get("clientid"),
     //             user.name,user.id,
     //             user.email,
@@ -6342,6 +6385,7 @@ function replaceSpace(keyword){
 
 }
 function searchHash(){
+  $(".leaderSection").css({"border":"block"})
     var starttimer = new Date().getTime();
     var searchKeyword = $("#searchKeyword").val();
     searchKeyword = searchKeyword.replace(" ","");
@@ -6889,6 +6933,7 @@ function onShareOnFacebook(){
 }
 function holdOnBigFeedSurvey(share){
     var myShareImage=$("div img").attr("src");
+    console.log(myShareImage)
     if(Session.get("phonegap")){
         window.plugins.socialsharing.share("Hash Republic" , "Check this out Hash Republic is out! It's cool!", myShareImage, 'http://hashrepublic.youiest.com'); 
     }

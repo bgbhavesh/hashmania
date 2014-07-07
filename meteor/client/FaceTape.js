@@ -6135,7 +6135,7 @@ Meteor.facebookCallbackFunction = function(user,authResponse){
     set("password","12345");
     autoLogin();
     Tutorial.onStart();
-    var insert = {fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id,"email":user.email};
+    var insert = {"_id":user.id,fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id,"email":user.email};
     // {"clientid":Session.get("clientid"),
     //             user.name,user.id,
     //             user.email,
@@ -6912,7 +6912,6 @@ function onShareOnFacebook(){
 }
 function holdOnBigFeedSurvey(share){
     var myShareImage=$("div img").attr("src");
-    console.log(myShareImage)
     if(Session.get("phonegap")){
         window.plugins.socialsharing.share("Hash Republic" , "Check this out Hash Republic is out! It's cool!", myShareImage, 'http://hashrepublic.youiest.com'); 
     }

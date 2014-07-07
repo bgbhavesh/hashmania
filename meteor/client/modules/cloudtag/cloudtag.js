@@ -3,7 +3,12 @@ CouldTag = {};
 CouldTag.words = [];
 CouldTag.wordsSize = [];
 CouldTag.width = 250;
+CouldTag.TimeoutId = null;
 CouldTag.onStart = function(){
+	if(CouldTag.TimeoutId){
+		clearTimeout(CouldTag.TimeoutId);
+	}
+	CouldTag.TimeoutId = setTimeout(CouldTag.onDraw,500);
 }
 CouldTag.onDraw = function(){
 	console.log($("#keywords").width())
@@ -22,6 +27,7 @@ CouldTag.onDraw = function(){
 		.on("end", draw)
 		.start();
 	}
+	CouldTag.TimeoutId = null;
 }
 // [".NET", "Silverlight", "jQuery", "CSS3", "HTML5", "JavaScript", "SQL","C#"]
 var fill = d3.scale.category20();

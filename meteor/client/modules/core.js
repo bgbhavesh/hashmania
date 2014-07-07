@@ -393,6 +393,6 @@ Core.showFaceWithAnimation = function(likeid){
     var voting = $("#"+likeid).children(".voting");
     for(var i=0,il=voting.length;i<il;i++){
         var currentVoting = voting[i];
-        setTimeout(function(){console.log(currentVoting);$(currentVoting).show();},200*i);
+        setTimeout(function(){$(currentVoting).show();},200*i);
     }
 }

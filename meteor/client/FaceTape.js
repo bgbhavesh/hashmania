@@ -379,6 +379,7 @@ if (Meteor.isClient) {
 
 Meteor.startup(function () {    
     try{
+
         var phonegap = window.localStorage.getItem("phonegap"); 
         if(phonegap == true){
             Session.set("phonegap",true);
@@ -1146,38 +1147,50 @@ Meteor.documentReady = documentReady;
     App.tapOnloadMoreImg = tapOnloadMoreImg;
     function appendVotesManuallyHash(id,currentVote){
         var local = currentVote;
+        if(!local._id)
+            return;
         // console.log(currentVote);
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
-        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment,local.commenttop,local.commentleft))
+        $("#"+id).append(getVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment,local.commenttop,local.commentleft,local.commentid))
     }
     App.appendVotesManuallyHash = appendVotesManuallyHash;
-    function getVoteHTMLHash(left,top,size,pics,id,clientid,comment,ctop,cleft){
+    function getVoteHTMLHash(left,top,size,pics,id,clientid,comment,ctop,cleft,commentid){
+        console.log("getVoteHTMLHash " +id)
         if(pics=="undefined")pics="../images/face.jpg";
-        if(ctop=="")ctop=10;
-        if(cleft=="")cleft=10;
+        // if(ctop=="")ctop=10;
+        // if(cleft=="")cleft=10;
+        var html = "";
       if(!comment){
-            return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+            html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'">'
                   + '</div>' 
-                 
+                
           }else{
             if(topTenLeaderRanking.indexOf(clientid)==-1){
-                return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                  +'<img src="' +pics +'" style="border-style: inset;">  '  
-                  +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
-                  +'</div>'
-                  +'<p class="triangle-right" votingid="'+'p'+id+'" style="top: '+ctop+'%; left: '+cleft+'%;display:block;">' +comment +'</p>'                  
+                html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                    +'<img src="' +pics +'" style="border-style: inset;">  '  
+                    +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
+                    +'</div>'
+                    +getCommentInArray(id,comment,ctop,cleft,commentid);
+                  
             }else{
-                return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                  +'<img src="' +pics +'" style="border-style: inset;">  '  
-                  +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
-                  +'</div>'
-                  +'<p class="triangle-right" votingid="'+'p'+id+'" style="top: '+ctop+'%; left: '+cleft+'%;display:block;">' +comment +'</p>'
-                 
+                html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                    +'<img src="' +pics +'" style="border-style: inset;">  '  
+                    +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
+                    +'</div>'
+                    +getCommentInArray(id,comment,ctop,cleft);
             }
             
-          }
+        }
+        return html;
+    }
+    function getCommentInArray(id,comment,ctop,cleft,commentid){
+        var commentHTML = "";
+        for(var i=0,il=comment.length;i<il;i++){
+            commentHTML = +'<p class="triangle-right" commentid="' +commentid[i] +'" votingid="'+'p'+id+'" style="top: '+ctop[i]+'%; left: '+cleft[i]+'%;display:block;">' +comment[i] +'</p>';
+        }
+        return commentHTML;
     }
     function appendOnlyVotesManuallyHash(id,currentVote){
         var local = currentVote;
@@ -1404,7 +1417,7 @@ Meteor.documentReady = documentReady;
         }
         var place = App.checkQuadrant(left,top);
         progress2(left,newtop,likeid,event);
-        var VotesInsert = {"checked":false,"place":place,"profile_picture":votepic, "followid": Session.get("clientid"),"likeid":likeid ,"left": left,"top": top,"date" : date,"comment": "","commenttop": "","commentleft": ""};
+        var VotesInsert = {"checked":false,"place":place,"profile_picture":votepic, "followid": Session.get("clientid"),"likeid":likeid ,"left": left,"top": top,"date" : date,"comment": [],"commenttop": [],"commentleft": [],"commentid":[]};
         // currentSurveyBig.append(getVoteHTML(VotesInsert.left,VotesInsert.top,"%"))
         // var cursorBig = Votes.findOne({"likeid":likeid,"followid":Session.get("clientid")});
         // var bigFeed = $(".voting")
@@ -3852,38 +3865,40 @@ function commentOneVote(){
     var currImg = $(currentCommenting).find("img");
     var div = currentCommenting;
     var votingid = $(div).attr("votingid");
+    // console.log(div);
     // $(currentCommenting).css({"display":"block"});
     // console.log(currentCommenting);
+    console.log("voting id " +votingid);
     var parentP = $(currentCommenting).parent().find("p");
     if(!value || value=="")
       return;
-    if(p.length>0 ){
-      var toBchanged='p'+votingid;
-      $(currentCommenting).parent().find("p").attr({"votingid":'#'+toBchanged}).text(value);
+    // if(p.length>0 ){
+    //   var toBchanged='p'+votingid;
+    //   $(currentCommenting).parent().find("p").attr({"votingid":'#'+toBchanged}).text(value);
      
-      $(currImg).css({"border-style":"inset"});
-      $(p).text(value); 
+    //   $(currImg).css({"border-style":"inset"});
+    //   $(p).text(value); 
       
         
-      if(votingid){
-        var VotesInsert = Votes.update({"_id":votingid},{$set :{"comment":value}});
-        
-      }
-    }else{
-      console.log(currentTop);
-      var html = '<p class="triangle-right" votingid="'+'p'+votingid+'" style="top: '+currentTop+'%; left: '+currentLeft+'%;display:block;">' +value +'</p>'; 
-      
-      if(div)
-      div.insertAdjacentHTML( 'afterend', html );
-      var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>'; 
+    //   if(votingid){
+    //     // var VotesInsert = Votes.update({"_id":votingid},{$push :{"comment":value}});
+    //     console.log("This part is still in progress");
+    //   }
+    // }else{
+        console.log(currentTop);
+        var html = '<p class="triangle-right" votingid="'+'p'+votingid+'" style="top: '+currentTop+'%; left: '+currentLeft+'%;display:block;">' +value +'</p>'; 
+
+        if(div)
+        div.insertAdjacentHTML( 'afterend', html );
+        var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>'; 
         div.insertAdjacentHTML( 'beforeend', html );
-      $(currImg).css({"border-style":"inset"});
-      if(votingid){
-        var VotesInsert = Votes.update({"_id":votingid},{$set :{"comment":value,"commenttop":currentTop,"commentleft":currentLeft}});
-      }
-      $("#commentInput").val(null);
-      onScore(10);
-    }
+        $(currImg).css({"border-style":"inset"});
+        if(votingid){
+        var VotesInsert = Votes.update({"_id":votingid},{$push :{"comment":value,"commenttop":currentTop,"commentleft":currentLeft,"commentid":Random.id()}});
+        }
+        $("#commentInput").val(null);
+        onScore(10);
+    // }
     var currentImage = $(currentBigHtml).children(".lowImg").attr("src");
     var notifyInsert = {"type":"comment","likeid":likeid,"followid": Session.get("clientid"),"ref_id":VotesInsert,"date" :  new Date(),"profile_picture":get("profile_picture"),"currentImage":currentImage};
     var topid = TopNotification.insert(notifyInsert);
@@ -6108,6 +6123,7 @@ function notify(message,type){
     text: message,"timeout" : 3000,"type":type
   });
 }
+App.notify = notify;
 function loginWithInstagramCallbackFunction(err){
     var starttimer = new Date().getTime();
     // console.log("loginWithInstagramCallbackFunction")

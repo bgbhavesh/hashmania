@@ -1427,7 +1427,7 @@ Meteor.documentReady = documentReady;
         appendOnlyVotesManuallyHash(likeid,VotesInsert);
         VotesInsert._id = currentMoveVote;
         var currentImage = $(currentBigHtml).children(".lowImg").attr("src");
-        var notifyInsert = {"type":"vote","likeid":likeid,"followid": Session.get("clientid"),"ref_id":VotesInsert._id,"date" : new Date(),"profile_picture":get("profile_picture"),"currentImage":currentImage};
+        var notifyInsert = {"type":"vote","likeid":likeid,"followid": Session.get("clientid"),"ref_id":VotesInsert._id,"date" : new Date(),"profile_picture":get("profile_picture"),"currentImage":currentImage,"tag":Session.get("keyword")};
         var topid = TopNotification.insert(notifyInsert);
 
 
@@ -2464,6 +2464,17 @@ Meteor.documentReady = documentReady;
                 console.log(error);
                 ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "hold .eachkeyword"});
             }
+        },
+        "click #eachnotify" : function(event){
+            try{
+                // console.log(this.tag);
+                // console.log("jdbskjvkjdskv")
+                appendtosurvey(this.likeid,this.tag);
+            }
+            catch(error){
+                console.log(error);
+                ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "click .eachkeyword"});
+            }
         }
     })
     Template.server.status = function(){
@@ -2480,7 +2491,22 @@ Meteor.documentReady = documentReady;
     // }
 
 }
+//////// appending data to survey ///////
 
+function appendtosurvey(likeid,tag){
+    console.log("appendtosurvey"+likeid+""+tag);
+    Meteor.call("getSpecificData",likeid,tag,function(err,data){
+        if(data){
+          // console.log(data);  
+          Game.renderResults(data,false,true);
+        }
+
+    }); 
+}
+
+
+
+/////////////////////////////////////////////
 // ////// CHAT START  /////
 
 //     Template.chatfeature.chat = function(){
@@ -3885,7 +3911,7 @@ function commentOneVote(){
       onScore(10);
     }
     var currentImage = $(currentBigHtml).children(".lowImg").attr("src");
-    var notifyInsert = {"type":"comment","likeid":likeid,"followid": Session.get("clientid"),"ref_id":VotesInsert,"date" :  new Date(),"profile_picture":get("profile_picture"),"currentImage":currentImage};
+    var notifyInsert = {"type":"comment","likeid":likeid,"followid": Session.get("clientid"),"ref_id":VotesInsert,"date" :  new Date(),"profile_picture":get("profile_picture"),"currentImage":currentImage,"tag":Session.get("keyword")};
     var topid = TopNotification.insert(notifyInsert);
     // $("#showallcomments").empty();
     var stringArray = value.split(" ");

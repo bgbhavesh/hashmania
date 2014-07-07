@@ -415,7 +415,17 @@ Meteor.startup(function () {
                 ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "clientid.autorun"});
               } 
         });
+        
+        if(!DebugFace){
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+            ga('create', 'UA-52479656-1', 'auto');
+            ga('send', 'pageview');
+        }
+        
         // Deps.autorun(function () {
         //     try{
         //         actionArray = [];
@@ -678,6 +688,7 @@ function documentReady(){
 
             //$("#nextInstruction").hammer().on("tap",nextInstruction);
             $("#semanticLoader").hide();
+            CouldTag.onStart();
         // onStartWalkthrou();
         // window.fbAsyncInit = function() {
         // FB.init({
@@ -1172,7 +1183,7 @@ Meteor.documentReady = documentReady;
         // if(cleft=="")cleft=10;
         var html = "";
         var newlinkId;
-        var linkId = UserHashMania.findOne({"_id":"hastenf@gmail.com"});
+        var linkId = UserHashMania.findOne({"_id":clientid});
         // if(linkId)
         //   console.log("linkId");
         //   console.log(linkId);
@@ -1180,7 +1191,7 @@ Meteor.documentReady = documentReady;
         // console.log(linkId);
         var data = "";
         if(linkId){
-          data = linkId.instagramUsername;
+          data = linkId.username;
         }
         if(!data)
           newlinkId = "https://www.facebook.com/"
@@ -1230,7 +1241,7 @@ Meteor.documentReady = documentReady;
         if(!data)
           newlinkId = "https://www.facebook.com/"
         else
-          newlinkId = "https://www.facebook.com/"+linkId.instagramUsername;
+          newlinkId = "https://www.facebook.com/"+linkId.username;
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
                  +' <img src="' +pics +'">  '
                 + '</div>'
@@ -1361,7 +1372,8 @@ Meteor.documentReady = documentReady;
         var newtop = top;
         $("#showallcomments").empty();
         var likeid = $(parent).attr("likeid")
-        // console.log(left +"/"+top +"/"+ likeid )
+        var linkid = $(parent)
+        console.log("sbvkjsv"+ linkid )
         Session.set("currentBig",likeid)
         var clientid = Session.get("clientid");
         var votepic = null;
@@ -1377,6 +1389,7 @@ Meteor.documentReady = documentReady;
         var date = new Date().getTime();
         // progress2(left,top,likeid,event);
         $('.imageComment img').attr('src',get("profile_picture"));
+        $('.imageComment').attr('linkid',get("linkId"));
         // console.log(likeid +" " +Session.get("currentBig"));
         currentTop=top-2;
         top+=40;
@@ -2480,25 +2493,7 @@ Meteor.documentReady = documentReady;
         // }
     }
     Template.keyword.events({
-        "click .eachkeyword" : function(event){
-            try{
-                var tempKeyword = this.keyword;
-                toast("#" +tempKeyword +" is started.");
-                Meteor.call("findHashKeyword",tempKeyword,CLIENTID,function(err,data){
-                               
-                });
-                $("#NweImageAdded").text("NEW");
-                $("#loadMoreImg").text("OLD");
-                // saveCurrentToPrevious();
-                Session.set("keyword",tempKeyword);
-                closeSurvey();
-                // $("#keywordPopup").hide();
-            }
-            catch(error){
-                console.log(error);
-                ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "click .eachkeyword"});
-            }
-        },
+        "click .eachkeyword" : App.onClickEachKeyword,
         "hold .eachkeyword" : function(event){
             try{
                 if(topTenLeaderRanking.indexOf(Session.get("clientid"))==-1){
@@ -2524,6 +2519,28 @@ Meteor.documentReady = documentReady;
             }
         }
     })
+    App.onClickEachKeyword = function(keyword,i){
+        try{
+            // console.log(keyword);
+            // console.log(i);
+            // return;
+            var tempKeyword = keyword.text;
+            toast("#" +tempKeyword +" is started.");
+            Meteor.call("findHashKeyword",tempKeyword,CLIENTID,function(err,data){
+                           
+            });
+            $("#NweImageAdded").text("NEW");
+            $("#loadMoreImg").text("OLD");
+            // saveCurrentToPrevious();
+            Session.set("keyword",tempKeyword);
+            closeSurvey();
+            // $("#keywordPopup").hide();
+        }
+        catch(error){
+            console.log(error);
+            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "click .eachkeyword"});
+        }
+    }
     Template.server.status = function(){
         return Meteor.status().connected;
     }
@@ -3866,6 +3883,7 @@ function showcomments(){
         p = $(votes[i]).find("p").text();
         var clientid = $(votes[i]).attr("clientid");
         var votingid = $(votes[i]).attr("votingid");
+        var linkid = $(votes[i]).attr("linkid");
         img = $(votes[i]).children("img").attr("src");
         clientid = $(votes[i]).attr("clientid");
         // console.log("p="+p+"/ img="+img)
@@ -3885,7 +3903,7 @@ function showcomments(){
             //     +'</div>';
             html =  '<div class="commentwrapper" ' +style +'>'
                   +'<textarea style="border-radius:3px;float:right; margin-left:5%;margin-right:1%;" disabled="" id="commentInput" type="text" rows="4" placeholder="">'+p+'</textarea>'              
-                  +'<img style="border-radius:3px;float:left" class="' +votingid +'" src="'+img+'">'
+                  +'<img id="userCommentPic" style="border-radius:3px;float:left" class="' +votingid +'" src="'+img+'" linkid="'+linkid+'">'
                   +'<i class="comment icon"></i>'
                     +'</div>'
             // if(clientid == Session.get("clientid")){
@@ -4574,7 +4592,13 @@ var quadrantRollOutCount = 0;
 //     }
     
 // }
-
+SponserKeyword.find({}).observe({
+    "added" : function(first){
+        CouldTag.words.push(first.keyword);
+        CouldTag.wordsSize.push(first.size);
+        CouldTag.onStart();
+    }
+});
 function hideLikeButton(){
     if(likeTimeOutId)
         Meteor.clearTimeout(likeTimeOutId)    
@@ -6110,6 +6134,7 @@ Meteor.getFacebookInformationOnClose = function(state){
             set("clientid",data.clientid);
             set("welcomeAlert",true);
             set("profile_picture",data.face);
+            set("linkId","https://www.facebook.com/"+data.username)
             // Session.set("profile_picture",data.instagramFace)
             set("password","12345");
             autoLogin();
@@ -6364,7 +6389,7 @@ function replaceSpace(keyword){
 
 }
 function searchHash(){
-  // $(".leaderSection").css({"border":"block"})
+  $(".leaderSection").css({"border":"block"})
     var starttimer = new Date().getTime();
     var searchKeyword = $("#searchKeyword").val();
     searchKeyword = searchKeyword.replace(" ","");
@@ -6708,7 +6733,8 @@ function bindEvents(){
 
             $("#surveybighandle").hammer().off("tap");
             $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
-
+            $("#userCommentPic").hammer().on("tap",onclickallCommentInput);
+            $(".imageComment").hammer().on("tap",onclickCommentPic);
             $("#seEmail").keyup(function(event){
                 
                 if(event.keyCode == 13){
@@ -6776,6 +6802,13 @@ function bindEvents(){
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "bindEvents"});
     }
     //MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+}
+function onclickCommentPic(event){
+      var link = $(this).attr("linkid");
+      window.open(link, '_system');
+}
+function onclickallCommentInput(event){
+      console.log(this);
 }
 function onKeyBlur(){
     $(this).val(convertEmail($(this).val()));    

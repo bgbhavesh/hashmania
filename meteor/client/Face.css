@@ -1476,7 +1476,7 @@ h6 {}
 	position: absolute;
   	z-index:7;
   	border-radius: 15%;
-  	display: none;
+  	display: block;
 }
 
 .grouping{

@@ -1202,11 +1202,11 @@ Meteor.documentReady = documentReady;
         }
         return commentHTML;
     }
-    function appendOnlyVotesManuallyHash(id,currentVote){
+    function appendOnlyVotesManuallyHash(id,voteId,currentVote){
         var local = currentVote;
         //console.log(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
         // if(Session.get("mainSurvey") != local.followid || local.followid == Session.get("clientid"))
-        $("#"+id).append(getOnlyVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,local._id,local.followid,local.comment,local.commenttop,local.commentleft))
+        $("#"+id).append(getOnlyVoteHTMLHash(local.left,local.top - 40,"%",local.profile_picture,voteId,local.followid,local.comment,local.commenttop,local.commentleft))
     }
     function getOnlyVoteHTMLHash(left,top,size,pics,id,clientid,comment,ctop,cleft){
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
@@ -1445,9 +1445,9 @@ Meteor.documentReady = documentReady;
         // } 
         // else{
         currentMoveVote = Votes.insert(VotesInsert);
-        // console.log(VotesInsert);
+        // console.log(currentMoveVote);
         cacheTheResult(likeid,VotesInsert,"votes");
-        appendOnlyVotesManuallyHash(likeid,VotesInsert);
+        appendOnlyVotesManuallyHash(likeid,currentMoveVote,VotesInsert);
         VotesInsert._id = currentMoveVote;
         var currentImage = $(currentBigHtml).children(".lowImg").attr("src");
         var notifyInsert = {"type":"vote","likeid":likeid,"followid": Session.get("clientid"),"ref_id":VotesInsert._id,"date" : new Date(),"profile_picture":get("profile_picture"),"currentImage":currentImage,"tag":Session.get("keyword")};
@@ -3906,7 +3906,7 @@ function commentOneVote(){
     // console.log(div);
     // $(currentCommenting).css({"display":"block"});
     // console.log(currentCommenting);
-    console.log("voting id " +votingid);
+    console.log("voting id " +currentCommenting);
     var parentP = $(currentCommenting).parent().find("p");
     if(!value || value=="")
       return;

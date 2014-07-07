@@ -2038,7 +2038,7 @@ App.language.html = [
             result[0].comments = comments;
             return result;
         }
-        ////////////////////UserHashMania////////////////
+        /////////////////UserHashMania////////////////
     });
 
 

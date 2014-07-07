@@ -1194,14 +1194,22 @@ Meteor.documentReady = documentReady;
           }else{
             if(topTenLeaderRanking.indexOf(clientid)==-1){
                 html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
+<<<<<<< HEAD
                     +'<img src="' +pics +'" >  '  //style="border-style: inset;"
+=======
+                    +'<img src="' +pics +'" style="">  '  
+>>>>>>> 4fec77dbeec99150de65ae5e2cc4ef22ddb12343
                     +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                     +'</div>'
                     +getCommentInArray(id,comment,ctop,cleft,commentid);
                   
             }else{
                 html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
+<<<<<<< HEAD
                     +'<img src="' +pics +'" >  '  //style="border-style: inset;"
+=======
+                    +'<img src="' +pics +'" style="">  '  
+>>>>>>> 4fec77dbeec99150de65ae5e2cc4ef22ddb12343
                     +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                     +'</div>'
                     +getCommentInArray(id,comment,ctop,cleft,commentid);

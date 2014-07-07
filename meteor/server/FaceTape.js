@@ -704,13 +704,9 @@ BrowserPolicy.framing.allowAll()
 if (Meteor.isServer) {
 Meteor.startup(function () {
     // UserHashMania.remove({})
-    // HashKeyword.remove({});
-    // Ycn52MMoTC2v8fyc5
-    console.log(UserHashMania.findOne({"state":undefined}));
+    // HashKeyword.remove({})
     Meteor.setTimeout(startup,500);
     // console.log(BrowserPolicy)
-    
-
     // BrowserPolicy.content.allowSameOriginForAll()
     // BrowserPolicy.content.allowDataUrlForAll()
     // BrowserPolicy.content.allowConnectOrigin("https://*.cdninstagram.com");

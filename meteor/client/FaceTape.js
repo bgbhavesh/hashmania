@@ -5700,9 +5700,9 @@ function fitToastFunction(parent,child,fontSize){
         $(child).css({"font-size": fontSize +"px"});
         var parentHeight = $(parent).innerHeight();
         var childHeight = $(child).innerHeight()+2;
-        console.log(childHeight +" less then " +parentHeight +" " +fontSize);
+        // console.log(childHeight +" less then " +parentHeight +" " +fontSize);
         if(childHeight < parentHeight){
-            console.log("if");
+            // console.log("if");
             fitToastFunction(parent,child,++fontSize); 
         }
         else{
@@ -6289,6 +6289,7 @@ function replaceSpace(keyword){
 
 }
 function searchHash(){
+  $(".leaderSection").css({"border":"block"})
     var starttimer = new Date().getTime();
     var searchKeyword = $("#searchKeyword").val();
     searchKeyword = searchKeyword.replace(" ","");

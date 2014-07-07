@@ -254,6 +254,7 @@ Game.getNewImagesForThisKeyword = function (){
                 App.fetchNewData[keyword] = data;
             });
         },500);
+        // $(".leaderSection").css({"border":"none"})
     }
 
 Game.renderNewFechtedData = function (){

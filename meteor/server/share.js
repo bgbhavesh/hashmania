@@ -93,7 +93,7 @@ App.facebook = function(query){
             var cursorUserHashMania = UserHashMania.findOne({"_id":data.id}); //facebookID
 
             //console.log(cursorUserHashMania)
-            console.log(data);
+            console.log(typeof data.id);
             if(cursorUserHashMania){
                 
 
@@ -113,7 +113,7 @@ App.facebook = function(query){
             }
             else{
                 // insert information new client
-                var insert = {"_id":data.id,"fbAccessToken": facebookInfo.fbAccessToken,"fbExpires": facebookInfo.fbExpires,"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id}
+                var insert = {"_id": "" +data.id,"fbAccessToken": facebookInfo.fbAccessToken,"fbExpires": facebookInfo.fbExpires,"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id}
                 UserHashMania.insert(insert);
                 console.log("insert facebook");
                 console.log(insert);

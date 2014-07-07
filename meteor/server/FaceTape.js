@@ -705,6 +705,8 @@ if (Meteor.isServer) {
 Meteor.startup(function () {
     // UserHashMania.remove({})
     // HashKeyword.remove({});
+    // Ycn52MMoTC2v8fyc5
+    console.log(UserHashMania.findOne({"state":undefined}));
     Meteor.setTimeout(startup,500);
     // console.log(BrowserPolicy)
     

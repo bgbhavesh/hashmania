@@ -1820,7 +1820,7 @@ App.language.html = [
             
             // try{
                 console.log("verifyHashEmail " +email)
-                var cursorUserHashMania = UserHashMania.findOne({"_id":email});
+                var cursorUserHashMania = UserHashMania.findOne({"facebookEmail":email});
                 var emailtoken = Random.id();
                 if(cursorUserHashMania){
                     UserHashMania.update({"_id":cursorUserHashMania._id},{$set :{"email":email,"emailtoken":emailtoken}})
@@ -1836,6 +1836,32 @@ App.language.html = [
                             text : "Please secure your account here: "+ROOTURL +"/verifyHashEmail/"+emailtoken
                         });
                 return true;
+            // }
+            // catch(error){
+            //     console.log(error);ErrorUpdate.insert({"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"methods.seachKeyword"})
+            // }
+        },
+        "verifyHashFacebookEmail" : function(email){
+            
+            // try{
+                console.log("verifyHashEmail " +email)
+                var cursorUserHashMania = UserHashMania.findOne({"facebookEmail":email});
+                var emailtoken = Random.id();
+                if(cursorUserHashMania){
+                    UserHashMania.update({"_id":cursorUserHashMania._id},{$set :{"email":email,"emailtoken":emailtoken}})
+                
+                // else{
+                //     UserHashMania.insert({"_id":email,"email":email,"emailtoken":emailtoken,"verified":false,"score":0,"heatScore":0,"face":"images/face.jpg"});
+                // }
+                console.log("http://localhost:3000/verifyHashEmail/"+emailtoken)
+                Email.send({
+                            from: 'HashRepublic <tapmate@youiest.com>',
+                            to:   email,            
+                            subject : "Welcome to HashRepublic " +email,
+                            text : "Please secure your account here: "+ROOTURL +"/verifyHashEmail/"+emailtoken
+                        });
+                return true;
+                }
             // }
             // catch(error){
             //     console.log(error);ErrorUpdate.insert({"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"methods.seachKeyword"})
@@ -1984,9 +2010,10 @@ App.language.html = [
             return leaderRanking;
         },
         "getMyFacebookInfo" : function(state){
-
+            console.log("getMyFacebookInfo " +state)
             var cursorUserHashMania = UserHashMania.findOne({"state":state});
-            Meteor.call("verifyHashEmail",cursorUserHashMania.email);
+            if(cursorUserHashMania)
+                Meteor.call("verifyHashFacebookEmail",cursorUserHashMania.email);
             return cursorUserHashMania;
         },
         "setMyFacebookInfo" : function(insert){
@@ -1997,7 +2024,7 @@ App.language.html = [
             else{
                 UserHashMania.insert(insert);
             }
-            Meteor.call("verifyHashEmail",insert.email);
+            Meteor.call("verifyHashFacebookEmail",insert.email);
             return true;
         },
         "mailToMe" : function(clientid,email){

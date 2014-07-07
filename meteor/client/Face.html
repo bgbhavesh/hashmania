@@ -30,6 +30,8 @@
 		ga('send', 'pageview');
 
 	</script>
+	<script src="js/d3.layout.cloud.js"/>
+	
 </head>
 
 <body>
@@ -370,13 +372,16 @@
 				{{> allLeadersboard}}
 			</div>
 			<div id="keywords">
-			    <p class="ui link list">
-					{{#each eachkeyword}}
-						<a class="eachkeyword {{color}}Keyword" style="padding:2px;font-size: {{size}}px;">  #{{keyword}}</a>
-					{{/each}}		
-				</p>
+			    
 			</div>
 	    </div>
+	    <!-- 
+			<p class="ui link list">
+				{{#each eachkeyword}}
+					<a class="eachkeyword {{color}}Keyword" style="padding:2px;font-size: {{size}}px;">  #{{keyword}}</a>
+				{{/each}}		
+			</p>
+	     -->
 	   <!--  <div  id="hashgocancel" class="ui icon button">
 			<i class="remove circle icon"></i>
 	    </div>  -->

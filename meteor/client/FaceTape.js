@@ -3810,30 +3810,23 @@ function showcomments(){
             //         +'<div id="cross" style=""><strong>x</strong></div>'
             //     +'</div>';
             // html =  '<div class="commentwrapper" ' +style +'>'
-            html='<div class="commentwrapper" style="height:140px" >'
-                 +'<div class="imageComment" style="float:left">'
-                 +'<img class="' +votingid +'" src="'+img+'">'
-                 +'</d1iv>'
-                 +'<div class="ui right labeled icon input submitComment" style="float:right">'
-                 +'<textarea style="border-radius:3px;float:right; margin-left:5%;margin-right:1%;" disabled="" id="commentInput" type="text" rows="4" placeholder="">'+p+'</textarea>'
-                 +'</div>'
-                 '</div>'
+         
             // html =  '<div class="commentwrapper" style="height:140px" >'
             //       +'<textarea style="border-radius:3px;float:right; margin-left:5%;margin-right:1%;" disabled="" id="commentInput" type="text" rows="4" placeholder="">'+p+'</textarea>'              
             //       +'<img style="border-radius:3px;float:left; height:140px;width:43%" class="' +votingid +'" src="'+img+'">'
             //       +'<i class="comment icon"></i>'
             //         +'</div>'
-            // if(clientid == Session.get("clientid")){
-            //     html = '<div class="commentwrapper"><div class="imageComment" class="allcomment" style="float:left">'
-            //     +'<img src='+img+'></div><div class="ui right labeled icon input submitComment" class="allcomment"><i class="comment icon"></i>'
-            //     +'<textarea disabled id="commentInput" type="text" cols="15" rows="4" placeholder="">'+p+'</textarea>'
-            //     +'</div><div id="cross" style=""><strong>x</strong></div></div>';
-            // }else{
+            if(clientid == Session.get("clientid")){
+                html = '<div class="commentwrapper"><div class="imageComment" class="allcomment" style="float:left">'
+                +'<img src='+img+'></div><div class="ui right labeled icon input submitComment" class="allcomment"><i class="comment icon"></i>'
+                +'<textarea disabled id="commentInput" type="text" cols="15" rows="4" placeholder="">'+p+'</textarea>'
+                +'</div><div id="cross" style=""></div></div>';
+            }else{
 
-            //     html = '<div class="imageComment" class="allcomment" style="float:left"><img src='+img+'></div><div class="ui right labeled icon input '
-            //     +'submitComment" class="allcomment"><i class="comment icon"></i><textarea disabled id="commentInput" type="text" cols="15" rows="4"'
-            //     +'placeholder="">'+p+'</textarea></div><div id="cross" style=""><strong>x</strong></div>';
-            // }
+                html = '<div class="imageComment" class="allcomment" style="float:left"><img src='+img+'></div><div class="ui right labeled icon input '
+                +'submitComment" class="allcomment"><i class="comment icon"></i><textarea disabled id="commentInput" type="text" cols="15" rows="4"'
+                +'placeholder="">'+p+'</textarea></div><div id="cross" style=""></div>';
+            }
             if(div)
             div.insertAdjacentHTML( 'beforeend', html );
         }

@@ -1182,7 +1182,7 @@ Meteor.documentReady = documentReady;
         // if(cleft=="")cleft=10;
         var html = "";
         var newlinkId;
-        var linkId = UserHashMania.findOne({"_id":"hastenf@gmail.com"});
+        var linkId = UserHashMania.findOne({"_id":clientid});
         // if(linkId)
         //   console.log("linkId");
         //   console.log(linkId);
@@ -1190,7 +1190,7 @@ Meteor.documentReady = documentReady;
         // console.log(linkId);
         var data = "";
         if(linkId){
-          data = linkId.instagramUsername;
+          data = linkId.username;
         }
         if(!data)
           newlinkId = "https://www.facebook.com/"
@@ -1240,7 +1240,7 @@ Meteor.documentReady = documentReady;
         if(!data)
           newlinkId = "https://www.facebook.com/"
         else
-          newlinkId = "https://www.facebook.com/"+linkId.instagramUsername;
+          newlinkId = "https://www.facebook.com/"+linkId.username;
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
                  +' <img src="' +pics +'">  '
                 + '</div>'
@@ -1371,7 +1371,8 @@ Meteor.documentReady = documentReady;
         var newtop = top;
         $("#showallcomments").empty();
         var likeid = $(parent).attr("likeid")
-        // console.log(left +"/"+top +"/"+ likeid )
+        var linkid = $(parent)
+        console.log("sbvkjsv"+ linkid )
         Session.set("currentBig",likeid)
         var clientid = Session.get("clientid");
         var votepic = null;
@@ -1387,6 +1388,7 @@ Meteor.documentReady = documentReady;
         var date = new Date().getTime();
         // progress2(left,top,likeid,event);
         $('.imageComment img').attr('src',get("profile_picture"));
+        $('.imageComment').attr('linkid',get("linkId"));
         // console.log(likeid +" " +Session.get("currentBig"));
         currentTop=top-2;
         top+=40;
@@ -3880,6 +3882,7 @@ function showcomments(){
         p = $(votes[i]).find("p").text();
         var clientid = $(votes[i]).attr("clientid");
         var votingid = $(votes[i]).attr("votingid");
+        var linkid = $(votes[i]).attr("linkid");
         img = $(votes[i]).children("img").attr("src");
         clientid = $(votes[i]).attr("clientid");
         // console.log("p="+p+"/ img="+img)
@@ -3899,7 +3902,7 @@ function showcomments(){
             //     +'</div>';
             html =  '<div class="commentwrapper" ' +style +'>'
                   +'<textarea style="border-radius:3px;float:right; margin-left:5%;margin-right:1%;" disabled="" id="commentInput" type="text" rows="4" placeholder="">'+p+'</textarea>'              
-                  +'<img style="border-radius:3px;float:left" class="' +votingid +'" src="'+img+'">'
+                  +'<img id="userCommentPic" style="border-radius:3px;float:left" class="' +votingid +'" src="'+img+'" linkid="'+linkid+'">'
                   +'<i class="comment icon"></i>'
                     +'</div>'
             // if(clientid == Session.get("clientid")){
@@ -6130,6 +6133,7 @@ Meteor.getFacebookInformationOnClose = function(state){
             set("clientid",data.clientid);
             set("welcomeAlert",true);
             set("profile_picture",data.face);
+            set("linkId","https://www.facebook.com/"+data.username)
             // Session.set("profile_picture",data.instagramFace)
             set("password","12345");
             autoLogin();
@@ -6728,7 +6732,8 @@ function bindEvents(){
 
             $("#surveybighandle").hammer().off("tap");
             $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
-
+            $("#userCommentPic").hammer().on("tap",onclickallCommentInput);
+            $(".imageComment").hammer().on("tap",onclickCommentPic);
             $("#seEmail").keyup(function(event){
                 
                 if(event.keyCode == 13){
@@ -6796,6 +6801,13 @@ function bindEvents(){
         ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "bindEvents"});
     }
     //MethodTimer.insert({"clientid":Session.get("clientid"),"name":"aaaa","time":((new Date().getTime())-starttimer)});
+}
+function onclickCommentPic(event){
+      var link = $(this).attr("linkid");
+      window.open(link, '_system');
+}
+function onclickallCommentInput(event){
+      console.log(this);
 }
 function onKeyBlur(){
     $(this).val(convertEmail($(this).val()));    

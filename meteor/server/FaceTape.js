@@ -704,7 +704,7 @@ BrowserPolicy.framing.allowAll()
 if (Meteor.isServer) {
 Meteor.startup(function () {
     // UserHashMania.remove({})
-
+    // HashKeyword.remove({});
     Meteor.setTimeout(startup,500);
     // console.log(BrowserPolicy)
     

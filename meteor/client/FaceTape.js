@@ -6113,7 +6113,7 @@ Meteor.facebookCallbackFunction = function(user,authResponse){
     set("password","12345");
     autoLogin();
     Tutorial.onStart();
-    var insert = {"_id":user.id,fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id,"email":user.email};
+    var insert = {"_id":user.id,fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":user.id,"email":user.email,"username":user.username};
     // {"clientid":Session.get("clientid"),
     //             user.name,user.id,
     //             user.email,

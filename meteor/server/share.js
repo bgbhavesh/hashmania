@@ -90,16 +90,16 @@ App.facebook = function(query){
             // if(!cursorUserHashMania)
             //     cursorUserHashMania = UserHashMania.findOne({"_id":state});
             
-            var cursorUserHashMania = UserHashMania.findOne({"facebookID":data.id});
+            var cursorUserHashMania = UserHashMania.findOne({"_id":data.id}); //facebookID
 
-            console.log(cursorUserHashMania)
-            
+            //console.log(cursorUserHashMania)
+            console.log(data);
             if(cursorUserHashMania){
                 
 
                 UserHashMania.update({"_id":cursorUserHashMania._id},{$set :facebookInfo});
                 
-                var update = {fbAccessToken: facebookInfo.fbAccessToken,fbExpires: facebookInfo.fbExpires,"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id,"email":data.email}
+                var update = {fbAccessToken: facebookInfo.fbAccessToken,fbExpires: facebookInfo.fbExpires,"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id,"email":data.email,"username":data.username}
 
                 // {"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name};
                 
@@ -113,7 +113,7 @@ App.facebook = function(query){
             }
             else{
                 // insert information new client
-                var insert = {fbAccessToken: facebookInfo.fbAccessToken,fbExpires: facebookInfo.fbExpires,"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id}
+                var insert = {"_id":data.id,"fbAccessToken": facebookInfo.fbAccessToken,"fbExpires": facebookInfo.fbExpires,"facebookID":data.id,"facebookEmail":data.email,"facebookName":data.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id}
                 UserHashMania.insert(insert);
                 console.log("insert facebook");
                 console.log(insert);

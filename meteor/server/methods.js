@@ -1990,7 +1990,7 @@ App.language.html = [
             return cursorUserHashMania;
         },
         "setMyFacebookInfo" : function(insert){
-            var cursorUserHashMania = UserHashMania.findOne({"facebookID":insert.facebookID});
+            var cursorUserHashMania = UserHashMania.findOne({"_id":insert._id});
             if(cursorUserHashMania){
                 cursorUserHashMania.update({"_id":cursorUserHashMania._id},{$set : insert})
             }

@@ -1418,7 +1418,7 @@ Meteor.documentReady = documentReady;
                     console.log("noComment else"+noComment.length)
                     showcomments();
                     setTimeout(function() {
-                        $('#commentingCommentOverlay').animate({scrollTop: 4000 }, 3000);
+                        // $('#commentingCommentOverlay').animate({scrollTop: 4000 }, 3000);
                     }, 2000);
                     tapOnBigFeedSecond(null,currentvotes[i]);
                     showSpecialPopup("commentingOverlay");

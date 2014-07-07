@@ -1166,39 +1166,40 @@ Meteor.documentReady = documentReady;
     }
     App.appendVotesManuallyHash = appendVotesManuallyHash;
     function getVoteHTMLHash(left,top,size,pics,id,clientid,comment,ctop,cleft,commentid){
-        console.log("getVoteHTMLHash " +id)
+        
         if(pics=="undefined")pics="../images/face.jpg";
         // if(ctop=="")ctop=10;
         // if(cleft=="")cleft=10;
         var html = "";
       if(!comment){
             html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                  +'<img src="' +pics +'">'
+                  +'<img src="' +pics +'"/>'
                   + '</div>' 
                 
           }else{
             if(topTenLeaderRanking.indexOf(clientid)==-1){
                 html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                    +'<img src="' +pics +'" style="border-style: inset;">  '  
+                    +'<img src="' +pics +'" style="border-style: inset;"/>  '  
                     +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                     +'</div>'
                     +getCommentInArray(id,comment,ctop,cleft,commentid);
                   
             }else{
                 html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                    +'<img src="' +pics +'" style="border-style: inset;">  '  
+                    +'<img src="' +pics +'" style="border-style: inset;"/>  '  
                     +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                     +'</div>'
-                    +getCommentInArray(id,comment,ctop,cleft);
+                    +getCommentInArray(id,comment,ctop,cleft,commentid);
             }
             
         }
         return html;
     }
     function getCommentInArray(id,comment,ctop,cleft,commentid){
-        var commentHTML = "";
+
+        var commentHTML = '';
         for(var i=0,il=comment.length;i<il;i++){
-            commentHTML = +'<p class="triangle-right" commentid="' +commentid[i] +'" votingid="'+'p'+id+'" style="top: '+ctop[i]+'%; left: '+cleft[i]+'%;display:block;">' +comment[i] +'</p>';
+            commentHTML +='<p class="triangle-right" commentid="' +commentid[i] +'" votingid="'+'p'+id+'" style="top: '+ctop[i]+'%; left: '+cleft[i]+'%;display:block;">' +comment[i] +'</p>';
         }
         return commentHTML;
     }
@@ -3906,7 +3907,8 @@ function commentOneVote(){
     // console.log(div);
     // $(currentCommenting).css({"display":"block"});
     // console.log(currentCommenting);
-    console.log("voting id " +currentCommenting);
+    console.log("voting id " +votingid);
+    console.log(currentCommenting);
     var parentP = $(currentCommenting).parent().find("p");
     if(!value || value=="")
       return;
@@ -6111,7 +6113,7 @@ Meteor.facebookCallbackFunction = function(user,authResponse){
     set("password","12345");
     autoLogin();
     Tutorial.onStart();
-    var insert = {fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id,"email":user.email};
+    var insert = {"_id":user.id,fbAccessToken: authResponse,fbExpires: null,"facebookID":user.id,"facebookEmail":user.email,"facebookName":user.name,"facebookLink":facebookFace,"face":facebookFace,"state":state,"clientid":data.id,"email":user.email};
     // {"clientid":Session.get("clientid"),
     //             user.name,user.id,
     //             user.email,

@@ -1204,7 +1204,7 @@ Meteor.documentReady = documentReady;
                     +'<img src="' +pics +'" style="border-style: inset;">  '  
                     +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                     +'</div>'
-                    +getCommentInArray(id,comment,ctop,cleft);
+                    +getCommentInArray(id,comment,ctop,cleft,commentid);
             }
             
         }
@@ -1213,7 +1213,7 @@ Meteor.documentReady = documentReady;
     function getCommentInArray(id,comment,ctop,cleft,commentid){
         var commentHTML = "";
         for(var i=0,il=comment.length;i<il;i++){
-            commentHTML = +'<p class="triangle-right" commentid="' +commentid[i] +'" votingid="'+'p'+id+'" style="top: '+ctop[i]+'%; left: '+cleft[i]+'%;display:block;">' +comment[i] +'</p>';
+            commentHTML +='<p class="triangle-right" commentid="' +commentid[i] +'" votingid="'+'p'+id+'" style="top: '+ctop[i]+'%; left: '+cleft[i]+'%;display:block;">' +comment[i] +'</p>';
         }
         return commentHTML;
     }

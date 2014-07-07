@@ -726,7 +726,7 @@ function initilizaLanguage(){
 }
 function startup(){
 
-        // Votes.find({}).forEach(function(data){console.log(data);});
+        Votes.find({}).forEach(function(data){console.log(data);});
         
         process.env.MAIL_URL = 'smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587';
 

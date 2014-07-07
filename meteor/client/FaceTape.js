@@ -1194,14 +1194,14 @@ Meteor.documentReady = documentReady;
           }else{
             if(topTenLeaderRanking.indexOf(clientid)==-1){
                 html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                    +'<img src="' +pics +'" style="border-style: inset;">  '  
+                    +'<img src="' +pics +'" >  '  //style="border-style: inset;"
                     +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                     +'</div>'
                     +getCommentInArray(id,comment,ctop,cleft,commentid);
                   
             }else{
                 html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                    +'<img src="' +pics +'" style="border-style: inset;">  '  
+                    +'<img src="' +pics +'" >  '  //style="border-style: inset;"
                     +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
                     +'</div>'
                     +getCommentInArray(id,comment,ctop,cleft,commentid);
@@ -1418,7 +1418,7 @@ Meteor.documentReady = documentReady;
                     console.log("noComment else"+noComment.length)
                     showcomments();
                     setTimeout(function() {
-                        $('#commentingCommentOverlay').animate({scrollTop: 4000 }, 3000);
+                        // $('#commentingCommentOverlay').animate({scrollTop: 4000 }, 3000);
                     }, 2000);
                     tapOnBigFeedSecond(null,currentvotes[i]);
                     showSpecialPopup("commentingOverlay");
@@ -3958,7 +3958,7 @@ function commentOneVote(){
         div.insertAdjacentHTML( 'afterend', html );
         var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>'; 
         div.insertAdjacentHTML( 'beforeend', html );
-        $(currImg).css({"border-style":"inset"});
+        // $(currImg).css({"border-style":"inset"});
         if(votingid){
         var VotesInsert = Votes.update({"_id":votingid},{$push :{"comment":value,"commenttop":currentTop,"commentleft":currentLeft,"commentid":Random.id()}});
         }

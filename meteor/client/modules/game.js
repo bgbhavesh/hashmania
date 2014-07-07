@@ -6,7 +6,9 @@ Game.callHashRepublicStartUp = function (){
     Deps.autorun(function(){
         CLIENTID = Session.get("clientid");    
     })
+
     Deps.autorun(function(){
+        $("#leaderSection").css({"border":"block"});
         var keyword = Session.get("keyword");
         console.log("deps autorun " +keyword);
         if(keyword){
@@ -44,8 +46,8 @@ Game.renderResults = function (data,loadMoreFlag,newerFlag,keywordArg){
         // }
         console.log("load more " +loadMoreFlag);
         // console.log(data)
-        if(!data){
-            // $("#semanticLoader").hide();
+        if(!data){            
+            $("#leaderSection").css({"border":"none"});
             return;
         }
         var clientid = Session.get("clientid");

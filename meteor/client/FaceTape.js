@@ -390,6 +390,7 @@ Meteor.startup(function () {
         Session.set("clientid",null);
         
         //Session.set("clientid",insert.myid);
+
         Deps.autorun(function(){
             try{
                 if(Session.get("clientid")){
@@ -677,7 +678,6 @@ function documentReady(){
 
             //$("#nextInstruction").hammer().on("tap",nextInstruction);
             $("#semanticLoader").hide();
-            CouldTag.onStart();
         // onStartWalkthrou();
         // window.fbAsyncInit = function() {
         // FB.init({
@@ -2480,7 +2480,25 @@ Meteor.documentReady = documentReady;
         // }
     }
     Template.keyword.events({
-        "click .eachkeyword" : App.onClickEachKeyword,
+        "click .eachkeyword" : function(event){
+            try{
+                var tempKeyword = this.keyword;
+                toast("#" +tempKeyword +" is started.");
+                Meteor.call("findHashKeyword",tempKeyword,CLIENTID,function(err,data){
+                               
+                });
+                $("#NweImageAdded").text("NEW");
+                $("#loadMoreImg").text("OLD");
+                // saveCurrentToPrevious();
+                Session.set("keyword",tempKeyword);
+                closeSurvey();
+                // $("#keywordPopup").hide();
+            }
+            catch(error){
+                console.log(error);
+                ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "click .eachkeyword"});
+            }
+        },
         "hold .eachkeyword" : function(event){
             try{
                 if(topTenLeaderRanking.indexOf(Session.get("clientid"))==-1){
@@ -2506,28 +2524,6 @@ Meteor.documentReady = documentReady;
             }
         }
     })
-    App.onClickEachKeyword = function(keyword,i){
-        try{
-            // console.log(keyword);
-            // console.log(i);
-            // return;
-            var tempKeyword = keyword.text;
-            toast("#" +tempKeyword +" is started.");
-            Meteor.call("findHashKeyword",tempKeyword,CLIENTID,function(err,data){
-                           
-            });
-            $("#NweImageAdded").text("NEW");
-            $("#loadMoreImg").text("OLD");
-            // saveCurrentToPrevious();
-            Session.set("keyword",tempKeyword);
-            closeSurvey();
-            // $("#keywordPopup").hide();
-        }
-        catch(error){
-            console.log(error);
-            ErrorUpdate.insert({"error":error,"clientid":Session.get("clientid"),"date": new Date(),"side":"client","function" : "click .eachkeyword"});
-        }
-    }
     Template.server.status = function(){
         return Meteor.status().connected;
     }
@@ -4578,13 +4574,7 @@ var quadrantRollOutCount = 0;
 //     }
     
 // }
-SponserKeyword.find({}).observe({
-    "added" : function(first){
-        CouldTag.words.push(first.keyword);
-        CouldTag.wordsSize.push(first.size);
-        CouldTag.onDraw();
-    }
-});
+
 function hideLikeButton(){
     if(likeTimeOutId)
         Meteor.clearTimeout(likeTimeOutId)    
@@ -6374,7 +6364,7 @@ function replaceSpace(keyword){
 
 }
 function searchHash(){
-   $(".leaderSection").css({"border-top":"5px"})
+  // $(".leaderSection").css({"border":"block"})
     var starttimer = new Date().getTime();
     var searchKeyword = $("#searchKeyword").val();
     searchKeyword = searchKeyword.replace(" ","");
@@ -6386,14 +6376,12 @@ function searchHash(){
         //toast("Please enter some keywords.")
         return;
     }
-    // $('.leaderSection').css({"border":"10px"})
     toast("Searching keyword " +searchKeyword +".")
     Meteor.call("findHashKeyword",searchKeyword,CLIENTID,function(err,data){
         // console.log(err);
         // console.log(data);
         if(!err){
             toast("Searching keyword " +searchKeyword +" complete.")
-            $('.leaderSection').css({"border-top":"15px solid transparent;"})
         }
     });
     $("#NweImageAdded").text("NEW");

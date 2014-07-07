@@ -149,7 +149,7 @@ body{
 	/*top:15%;*/
 	/*background-color: #394264;*/
 	float: left;
-	width: 18%;
+	width: 10%;
 	margin: 1%;
 	height: 100%;
 }
@@ -353,7 +353,7 @@ body{
     left: 19px;
     bottom: 0;
     border-radius: 8px;
-    background: linear-gradient(to top, rgba(61,125,254,0.4) 0px, rgba(61,125,254,0.4) 99px, rgba(95,196,134,0.4) 101px, rgba(95,196,134,0.4) 199px, rgba(254,199,57,0.4) 201px, rgba(254,199,57,0.4) 299px, rgba(253,48,71,0.4) 301px, rgba(253,48,71,0.4) 400px);
+    /*background: linear-gradient(to top, rgba(61,125,254,0.4) 0px,  rgba(95,196,134,0.4) 101px, rgba(95,196,134,0.4) 199px, rgba(254,199,57,0.4) 201px, rgba(254,199,57,0.4) 299px, rgba(253,48,71,0.4) 301px, rgba(253,48,71,0.4) 400px);*/
 	
     /*background: linear-gradient(top,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); */
 
@@ -398,7 +398,7 @@ body{
     line-height: 22px;
     
     border-radius: 8px;
-    background: linear-gradient(to right, 
+    /*background: linear-gradient(to right, 
 	rgba(61,125,254,0.4) 0px,
 	rgba(61,125,254,0.4) 99px,
 	rgba(95,196,134,0.4) 101px,
@@ -406,7 +406,7 @@ body{
 	rgba(254,199,57,0.4) 201px,
 	rgba(254,199,57,0.4) 299px,
 	rgba(253,48,71,0.4) 301px,
-	rgba(253,48,71,0.4) 400px);
+	rgba(253,48,71,0.4) 400px);*/
     /*background: linear-gradient(right,#FD3047 0%,#FEC739 33%,#5FC486 66%,#3D7DFE 99%); */
 
 }
@@ -815,8 +815,8 @@ h6 {}
 	font-size: 20px;
 	color: #11a8ab;
 	position: relative;
-	height: 70%;
-	width: 76%;
+	height: 90%;
+	width: 80%;
 	margin: 2%;
 	float: left;
 }
@@ -1954,12 +1954,12 @@ h6 {}
 }
 .imageComment{
 	width:45%;
+	height: 140px;
 	margin: 1%;
 	overflow: auto;
-
 }
 .imageComment img {
-	outline: 0; width: 100%; height: auto;
+	outline: 0; width: 100%; height: 100%;
 }
 #comment{
   position : absolute;
@@ -1971,6 +1971,7 @@ h6 {}
 }
 .submitComment{
 	width:50%;
+	height: 140px;
 	margin: 1%;	
 	overflow :auto;
 	border-radius: 8px;
@@ -2032,12 +2033,16 @@ h6 {}
 	/*margin-left: 40%;*/
 }
 #NweImageAdded {display: none;
+	left:70%;
 }
 #loadMoreImg{display: none;
+	left:20%;
 }
 #totalimages {display: none;
+	left:2%;
 }
 #toComeimages {display: none;
+	left:88%;
 }
 #testButton{
 	display: none;
@@ -2148,7 +2153,7 @@ textarea {
 	overflow: auto;
 	resize:none;
 	height: 100%;
-	width: 95%;
+	width: 97%;
 	border-radius: 8px;
 }
 img{
@@ -2538,7 +2543,7 @@ mark{
 	position: relative;
 	width: 100%;
 	float: left;
-	height: 20px;
+	
 	margin: 1%;
 }
 .commentwrapper img,.commentwrapper textarea{
@@ -2555,7 +2560,7 @@ mark{
 }
 .commentwrapper textarea{
 	height: 100%;
-	width: 50%;
+	width: 100%;
 }
 #toastArea{
 	text-align: center;
@@ -2619,7 +2624,7 @@ mark{
 	float: right;
 	top: 2px;
 	height: 85%;
-	width: 13%;
+	/*width: 13%;*/
 	background-image: url(/images/HashLogo.png);
 	background-size: 100% 100%;
  	
@@ -2680,7 +2685,7 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 .leadersface
 {
 	width: 100%;	
-	height: 13%;
+	height: 8%;
 
 }
 

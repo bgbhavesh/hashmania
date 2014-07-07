@@ -157,13 +157,15 @@ body{
 .leaderSection{
 	display: block;
 	position: absolute;
-	width: 100%;
+	width: 99%;
 	height: 85%;
 	z-index: 4;
 	top: 94%;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	background-color: #394264;
+	border-top: 5px solid transparent;
+	border-image: url(images/load.gif) 30 1 ;
 }
 /*.leadersface {
 	height: 90%;

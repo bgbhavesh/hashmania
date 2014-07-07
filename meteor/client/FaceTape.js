@@ -6364,7 +6364,7 @@ function replaceSpace(keyword){
 
 }
 function searchHash(){
-  $(".leaderSection").css({"border":"block"})
+   $(".leaderSection").css({"border-top":"5px"})
     var starttimer = new Date().getTime();
     var searchKeyword = $("#searchKeyword").val();
     searchKeyword = searchKeyword.replace(" ","");
@@ -6376,12 +6376,14 @@ function searchHash(){
         //toast("Please enter some keywords.")
         return;
     }
+    // $('.leaderSection').css({"border":"10px"})
     toast("Searching keyword " +searchKeyword +".")
     Meteor.call("findHashKeyword",searchKeyword,CLIENTID,function(err,data){
         // console.log(err);
         // console.log(data);
         if(!err){
             toast("Searching keyword " +searchKeyword +" complete.")
+            $('.leaderSection').css({"border-top":"15px solid transparent;"})
         }
     });
     $("#NweImageAdded").text("NEW");

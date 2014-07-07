@@ -916,9 +916,8 @@ Meteor.documentReady = documentReady;
     //         //     toast("Not a instagram user.");
     //     }
     // });
-
     Template.allLeadersboard.events({
-        "click .leadersFaceInfo" : function(event){
+        "click .leadersface" : function(event){
             if(this.instagramUsername)
             window.open("http://instagram.com/"+this.instagramUsername,"_system");
             else
@@ -1174,6 +1173,7 @@ Meteor.documentReady = documentReady;
       if(!comment){
             html = '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
                   +'<img src="' +pics +'">'
+<<<<<<< HEAD
                   + '</div>' 
                 
           }else{
@@ -1201,6 +1201,24 @@ Meteor.documentReady = documentReady;
             commentHTML = +'<p class="triangle-right" commentid="' +commentid[i] +'" votingid="'+'p'+id+'" style="top: '+ctop[i]+'%; left: '+cleft[i]+'%;display:block;">' +comment[i] +'</p>';
         }
         return commentHTML;
+=======
+                  + '</div>'                  
+          }else{
+            if(topTenLeaderRanking.indexOf(clientid)==-1){
+                return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                  +'<img src="' +pics +'">  '  
+                  +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
+                  +'</div>'
+                  +'<p class="triangle-right" votingid="'+'p'+id+'" style="top: '+ctop+'%; left: '+cleft+'%;display:block;">' +comment +'</p>'                  
+            }else{
+                return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'" style="left : ' +left +size +';top:' +top +size +';"> '
+                  +'<img src="' +pics +'" >  '  
+                  +'<p class="triangle-right" style="top: -100%; left: -100%;">' +comment +'</p>'      
+                  +'</div>'
+                  +'<p class="triangle-right" votingid="'+'p'+id+'" style="top: '+ctop+'%; left: '+cleft+'%;display:block;">' +comment +'</p>'
+            }            
+          }
+>>>>>>> a4757f00c1c7cf91ddedc6f76e692830c794aee2
     }
     function appendOnlyVotesManuallyHash(id,currentVote){
         var local = currentVote;
@@ -1227,8 +1245,7 @@ Meteor.documentReady = documentReady;
                 var cursorSponserKeyword = SponserKeyword.findOne({"keyword":key});
                     if(cursorSponserKeyword)
                         SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":1}});   
-            }
-            
+            }            
         }else{
             if(key){
                 incJson[key] = score;
@@ -1236,21 +1253,16 @@ Meteor.documentReady = documentReady;
                 var cursorSponserKeyword = SponserKeyword.findOne({"keyword":key});
                     if(cursorSponserKeyword)
                         SponserKeyword.update({"_id":cursorSponserKeyword._id},{$inc : {"hits":-1}});   
-            }
-            
-        }
-        
-        cursorUserHashMania = UserHashMania.findOne({"_id":downClientid});
-        
+            }            
+        }        
+        cursorUserHashMania = UserHashMania.findOne({"_id":downClientid});        
         if(cursorUserHashMania)
-            UserHashMania.update({"_id":downClientid},{$inc : incJson});
-        
+            UserHashMania.update({"_id":downClientid},{$inc : incJson});        
         $("#displayScore").text(score);
         $("#displayScore").css({"opacity":"1.0","top":"46%","display":"block"});
         $("#displayScore").animate({"opacity":"0.0","top":"0%"},2000,"easeOutBounce");
     }
     /*
-
     <div class="quadrant" id="{{likeid}}">
         <div id="hprogressBar" class="ui failed progress"><div></div><hr style="height:2px;width:100%;margin-bottom:-8px;padding:0px;margin-top: 0px;border-top-width: 0px;"></div>
         <div id="inerhprogressBar">
@@ -1273,7 +1285,6 @@ Meteor.documentReady = documentReady;
         }
         surveyToggleFlag = !surveyToggleFlag;
     }
-
     Template.srvyvotes.votes = function(){
             try{
                     return Votes.find({"likeid":Session.get("currentBig")});
@@ -3820,9 +3831,9 @@ function showcomments(){
         clientid = $(votes[i]).attr("clientid");
         // console.log("p="+p+"/ img="+img)
         if(p){
-            size = 20 * getRankLeader(clientid);
-            size = Math.min(size,100);
-            style="style='height: " +size +"px;'"
+            // size = 20 * getRankLeader(clientid);
+            // size = Math.min(size,100);
+            // style="style='height: " +size +"px;'"
             // html = '<div class="commentwrapper" >'
             //         // +'<div class="imageComment" class="allcomment" style="float:left">'
             //     +'<img src='+img+'>'
@@ -3833,22 +3844,24 @@ function showcomments(){
             //         // +'</div>'
             //         +'<div id="cross" style=""><strong>x</strong></div>'
             //     +'</div>';
-            html =  '<div class="commentwrapper" ' +style +'>'
-                  +'<textarea style="border-radius:3px;float:right; margin-left:5%;margin-right:1%;" disabled="" id="commentInput" type="text" rows="4" placeholder="">'+p+'</textarea>'              
-                  +'<img style="border-radius:3px;float:left" class="' +votingid +'" src="'+img+'">'
-                  +'<i class="comment icon"></i>'
-                    +'</div>'
-            // if(clientid == Session.get("clientid")){
-            //     html = '<div class="commentwrapper"><div class="imageComment" class="allcomment" style="float:left">'
-            //     +'<img src='+img+'></div><div class="ui right labeled icon input submitComment" class="allcomment"><i class="comment icon"></i>'
-            //     +'<textarea disabled id="commentInput" type="text" cols="15" rows="4" placeholder="">'+p+'</textarea>'
-            //     +'</div><div id="cross" style=""><strong>x</strong></div></div>';
-            // }else{
+            // html =  '<div class="commentwrapper" ' +style +'>'
+         
+            // html =  '<div class="commentwrapper" style="height:140px" >'
+            //       +'<textarea style="border-radius:3px;float:right; margin-left:5%;margin-right:1%;" disabled="" id="commentInput" type="text" rows="4" placeholder="">'+p+'</textarea>'              
+            //       +'<img style="border-radius:3px;float:left; height:140px;width:43%" class="' +votingid +'" src="'+img+'">'
+            //       +'<i class="comment icon"></i>'
+            //         +'</div>'
+            if(clientid == Session.get("clientid")){
+                html = '<div class="commentwrapper"><div class="imageComment" class="allcomment" style="float:left">'
+                +'<img src='+img+'></div><div class="ui right labeled icon input submitComment" class="allcomment"><i class="comment icon"></i>'
+                +'<textarea disabled id="commentInput" type="text" cols="15" rows="4" placeholder="">'+p+'</textarea>'
+                +'</div><div id="cross" style=""></div></div>';
+            }else{
 
-            //     html = '<div class="imageComment" class="allcomment" style="float:left"><img src='+img+'></div><div class="ui right labeled icon input '
-            //     +'submitComment" class="allcomment"><i class="comment icon"></i><textarea disabled id="commentInput" type="text" cols="15" rows="4"'
-            //     +'placeholder="">'+p+'</textarea></div><div id="cross" style=""><strong>x</strong></div>';
-            // }
+                html = '<div class="imageComment" class="allcomment" style="float:left"><img src='+img+'></div><div class="ui right labeled icon input '
+                +'submitComment" class="allcomment"><i class="comment icon"></i><textarea disabled id="commentInput" type="text" cols="15" rows="4"'
+                +'placeholder="">'+p+'</textarea></div><div id="cross" style=""></div>';
+            }
             if(div)
             div.insertAdjacentHTML( 'beforeend', html );
         }
@@ -3888,8 +3901,13 @@ function commentOneVote(){
     //   var toBchanged='p'+votingid;
     //   $(currentCommenting).parent().find("p").attr({"votingid":'#'+toBchanged}).text(value);
      
+<<<<<<< HEAD
     //   $(currImg).css({"border-style":"inset"});
     //   $(p).text(value); 
+=======
+      // $(currImg).css({"border-style":"inset"});
+      $(p).text(value); 
+>>>>>>> a4757f00c1c7cf91ddedc6f76e692830c794aee2
       
         
     //   if(votingid){
@@ -3904,6 +3922,7 @@ function commentOneVote(){
         div.insertAdjacentHTML( 'afterend', html );
         var html = '<p class="triangle-right" style="top: -100%; left: -100%;">' +value +'</p>'; 
         div.insertAdjacentHTML( 'beforeend', html );
+<<<<<<< HEAD
         $(currImg).css({"border-style":"inset"});
         if(votingid){
         var VotesInsert = Votes.update({"_id":votingid},{$push :{"comment":value,"commenttop":currentTop,"commentleft":currentLeft,"commentid":Random.id()}});
@@ -3911,6 +3930,15 @@ function commentOneVote(){
         $("#commentInput").val(null);
         onScore(10);
     // }
+=======
+      // $(currImg).css({"border-style":"inset"});
+      if(votingid){
+        var VotesInsert = Votes.update({"_id":votingid},{$set :{"comment":value,"commenttop":currentTop,"commentleft":currentLeft}});
+      }
+      $("#commentInput").val(null);
+      onScore(10);
+    }
+>>>>>>> a4757f00c1c7cf91ddedc6f76e692830c794aee2
     var currentImage = $(currentBigHtml).children(".lowImg").attr("src");
     var notifyInsert = {"type":"comment","likeid":likeid,"followid": Session.get("clientid"),"ref_id":VotesInsert,"date" :  new Date(),"profile_picture":get("profile_picture"),"currentImage":currentImage};
     var topid = TopNotification.insert(notifyInsert);

@@ -21,7 +21,7 @@ Comment.tapOnSubmitComment = function (event){
                 .siblings(".commentWrapper")
                 .append('<h4 class="ui header"><mark>'+value +'</mark></h4>');
         // $(".field[likeid='" +likeid+"']").css("display","none");
-        HashComment.insert(data);
+        // HashComment.insert(data);
         input.val("");
         onScore(10);
     }

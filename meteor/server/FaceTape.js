@@ -704,6 +704,7 @@ BrowserPolicy.framing.allowAll()
 if (Meteor.isServer) {
 Meteor.startup(function () {
     // UserHashMania.remove({})
+
     Meteor.setTimeout(startup,500);
     // console.log(BrowserPolicy)
     
@@ -726,6 +727,9 @@ function initilizaLanguage(){
     // }
 }
 function startup(){
+
+        // Votes.find({}).forEach(function(data){console.log(data);});
+        
         process.env.MAIL_URL = 'smtp://postmaster%40sandbox77539.mailgun.org:2l9s4cmzqic2@smtp.mailgun.org:587';
 
         pushUserEveryDayWrapper =  Meteor.bindEnvironment(function(){pushUserEveryDay();});
@@ -733,7 +737,7 @@ function startup(){
         if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
             DebugFace = true;
 
-       
+        if(!DebugFace)
         setRankPercentileOnStart();
         
         testingFunction();

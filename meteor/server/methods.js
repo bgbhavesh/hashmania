@@ -2021,8 +2021,24 @@ App.language.html = [
             pushid = "APA91bFtbDMyOCp7k1r5UZylMvOOWJ7QKgJvjnqwlJ1CQdi2lk1Vv9YVO4q9uilXea4tqelHcFUqOJpLggpGcZZgRkXX1vAwZStEp3MPK-2gKjSusm6HVM6GJP36GEYWUDkU49woUke_oj2ImQxlfnKubAgeEAbaE92u7E4qyJHH3qXfZbGUBsY";
             // return App.getFacebookFace("802306386446088")
             App.pushToUserHashRepublic(pushid,message,"android","luffy") //registrationid,mymessage,type,keyword
+        },
+        "getSpecificData" : function(likeid,tag){
+            console.log(likeid +""+ tag);
+            var data = HashKeyword.findOne({"keyword":tag,"likeid":likeid});
+            var votes = [],comments = [],result = [];
+            Votes.find({"likeid":likeid}).forEach(function(data){
+                votes.push(data);
+            });
+            HashComment.find({"likeid":data.likeid}).forEach(function(data){
+                comments.push(data);
+            });
+            result[0] = {};
+            result[0].keyword = data
+            result[0].votes = votes;
+            result[0].comments = comments;
+            return result;
         }
-        ////////////////////UserHashMania////////////////
+        /////////////////UserHashMania////////////////
     });
 
 

@@ -200,8 +200,8 @@ Game.renderResults = function (data,loadMoreFlag,newerFlag,keywordArg){
         $(".hashFeed img").hammer().off("doubletap");  
         $(".hashFeed img").hammer().on("doubletap",App.likeOnInstagram);
 
-        $(".hashFeed img").hammer().off("hold",App.holdOnBigFeedSurvey);
-        $(".hashFeed img").hammer().on("hold",App.holdOnBigFeedSurvey);
+        $(".hashFeed").hammer().off("hold");
+        $(".hashFeed").hammer().on("hold",App.holdOnBigFeedSurvey);
 
         $(".hashFeed img").hammer().off("dragleft swipeleft",App.onRemoveImage);
         $(".hashFeed img").hammer().on("dragleft swipeleft",App.onRemoveImage);

@@ -7,6 +7,7 @@ CouldTag.TimeoutId = null;
 CouldTag.onStart = function(){
 	if(CouldTag.TimeoutId){
 		clearTimeout(CouldTag.TimeoutId);
+		CouldTag.TimeoutId = null;
 	}
 	CouldTag.TimeoutId = setTimeout(CouldTag.onDraw,500);
 }

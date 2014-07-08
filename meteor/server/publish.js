@@ -42,7 +42,17 @@
     });
     Meteor.publish("topnotification",function(){
         try{
-            return TopNotification.find({},{sort : {"date": -1},limit:1});
+            var inArray = [];
+            var cursorTopNotification = null;
+            var idArray = [];
+            for(var i=0;i<3;i++){
+                cursorTopNotification = TopNotification.findOne({ "followid": { $nin : inArray}},{sort : {"date": -1}});
+                if(cursorTopNotification){
+                    inArray.push(cursorTopNotification.followid);
+                    idArray.push(cursorTopNotification._id);
+                }
+            }
+            return TopNotification.find({ "_id": { $in : idArray}},{sort : {"date": -1},limit:3});
         }
         catch(error){
             var insert = {"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"topnotification"};

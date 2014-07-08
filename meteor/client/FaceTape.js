@@ -6089,8 +6089,9 @@ App.loginWithInstagramHashManiaCallbackFunction = loginWithInstagramHashManiaCal
 var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent); 
 var display = mobile ? 'touch' : 'popup';   
 function loginWithFacebook(){
-    console.log("loginWithFacebook");
+    // start loader
     var state = Random.id();
+    console.log("loginWithFacebook " +state);
     var display = "popup";
     if(Session.get("phonegap")){
         display = "touch";
@@ -6128,6 +6129,7 @@ function loginWithFacebook(){
 Meteor.getFacebookInformationOnClose = function(state){
     console.log("getFacebookInformationOnClose " +state);
     Meteor.call("getMyFacebookInfo",state,function(err,data){
+        // close loader
         if(data){
             Session.set("clientid",data.clientid);
             set("clientid",data.clientid);

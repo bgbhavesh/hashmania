@@ -2823,7 +2823,10 @@ box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 .kingImage1 img{
 	box-shadow: none;
 }
-
+#eachnotify{
+	/*width: 33%;
+	position: absolute;*/
+}
 /*  */
 /*//////////font-family: //*/
 /*@font-face

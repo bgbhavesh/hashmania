@@ -2472,7 +2472,7 @@ Meteor.documentReady = documentReady;
     }
     Template.keyword.eachnotify = function(){
         try{
-            return TopNotification.find({},{sort : {"date": -1},limit:1});            
+            return TopNotification.find({},{sort : {"date": -1},limit:3});            
         }
         catch(error){
             console.log(error);
@@ -6088,9 +6088,26 @@ function loginWithInstagramHashManiaCallbackFunction(err){
 }           
 App.loginWithInstagramHashManiaCallbackFunction = loginWithInstagramHashManiaCallbackFunction;                                      
 var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent); 
-var display = mobile ? 'touch' : 'popup';   
+var display = mobile ? 'touch' : 'popup';  
+function newLoaderHashShow(){
+      $("#loader").show();
+      setTimeout(loginfail, 10000);
+} 
+function loginfail(){
+    $("#loaderMessage").text("logi failed try again");
+      setTimeout(function(){
+        $("#loader").hide();
+        $("#loginScreen").show();
+    },2000)
+}
+function newLoaderHashHide(){
+      $("#loader").hide();
+      clearTimeout(loginfail)
+}
 function loginWithFacebook(){
     console.log("loginWithFacebook");
+    newLoaderHashShow();
+    $("#loginScreen").hide();
     var state = Random.id();
     var display = "popup";
     if(Session.get("phonegap")){
@@ -6118,6 +6135,7 @@ function loginWithFacebook(){
                 $(".hideAfterComplete").html("Now");
                 clearInterval(facebookIntervalID); 
                 Meteor.getFacebookInformationOnClose(state);
+                newLoaderHashHide();
             }
     })
     onScore(1000);
@@ -6555,7 +6573,7 @@ function resizeItems()
   $("#keywords").css({"top":beforeloginheight*1.75,"margin-left":beforeloginwidth*3});  
 
   $(".notificationBar").css({"height":beforeloginheight*2});  
-  $(".notificationBar img").css({"height":"100%","height":beforeloginheight*1.75,"width":beforeloginheight*1.75});  
+  // $(".notificationBar img").css({"height":"100%","height":beforeloginheight*1.75,"width":beforeloginheight*1.75});  
        
   
        

@@ -42,7 +42,7 @@
     });
     Meteor.publish("topnotification",function(){
         try{
-            return TopNotification.find({},{sort : {"date": -1},limit:1});
+            return TopNotification.find({},{sort : {"date": -1},limit:3});
         }
         catch(error){
             var insert = {"error":error,"errorNumber" :error.error,"errorReason":error.reason,"errorDetails":error.details,"date": new Date(),"side":"server","function":"topnotification"};

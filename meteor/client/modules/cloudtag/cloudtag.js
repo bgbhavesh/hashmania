@@ -19,7 +19,7 @@ CouldTag.onDraw = function(){
 	if(d3.layout && d3.layout.cloud){
 		d3.layout.cloud().size([CouldTag.width, CouldTag.width])
 		.words(CouldTag.words.map(function(d) {
-		return {text: d, size: 10 + Math.random() * 50};
+		return {text: d, size: 20 + Math.random() * 50};
 		}))
 		.rotate(function() { return ~~(Math.random() * 2) * 90; })
 		.font("Impact")
@@ -45,6 +45,7 @@ var fill = d3.scale.category20();
 			.style("font-size", function(d) { return d.size + "px"; })
 			.style("font-family", "Impact")
 			.style("fill", function(d, i) { return fill(i); })
+			// .style("fill","rgb(31, 119, 180)")
 			.attr("text-anchor", "middle")
 			.attr("transform", function(d) {
 				return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";

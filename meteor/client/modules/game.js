@@ -112,6 +112,8 @@ Game.renderResults = function (data,loadMoreFlag,newerFlag,keywordArg){
             showFlag = false;
             currentData = data[i];
             // console.log(currentData.keyword.std)
+            if(i==il)
+             $("#leaderSection").css({"border":"none"});
             if(!currentData)
                 continue;
             if(currentData.countNew){

@@ -360,7 +360,7 @@
 				{{#each eachnotify}}
 				<div style="float:left; margin:1px;">
 					<a id="eachnotify" class="{{likeid}}"> 
-						<div id="action" style="background-color:#394264; width:84px;opacity:0.5">{{type}} on</div>
+						<div id="action" style="background-color:#11a8ab; width:84px;opacity:0.5"><b>{{type}} on</b></div>
 
 						<div id="user" style="height:40px;width:40px;float:left;margin:1px;"><img src="{{profile_picture}}" ></div>
 
@@ -544,11 +544,18 @@
   		
   	</div>
   	</div>
-	<div id="NweImageAdded" class="tapToShow mini ui button">NEW</div>
+	<!-- <div id="NweImageAdded" class="tapToShow mini ui button">NEW</div>
 	<div id="testButton" class="tapToShow mini ui button">More</div>
 	<div id="loadMoreImg" class="tapToShow mini ui button loadmore">OLD</div>
 	<div id="totalimages" class="tapToShow mini ui button"><i class="level up icon"></i></div>
-	<div id="toComeimages" class="tapToShow mini ui button"><i class="level down icon"></i></div>
+	<div id="toComeimages" class="tapToShow mini ui button"><i class="level down icon"></i></div> -->
+	<div class="tapToShow ">
+		<div id="totalimages" class=" " style="float:left;"><b><i class="circle up icon "></i><br>UP</b></div>
+		<div id="loadMoreImg" class=" " style="float:left;"><b><i class="circle left icon"></i><br>OLD</b></div>
+		<div id="testButton" class=" " style="float:left;"><b><i class="add sign icon"></i><br>More</b></div>
+		<div id="NweImageAdded" class=" " style="float:left;"><b><i class="circle right icon"></i><br>NEW</b></div>		
+		<div id="toComeimages" class=" " style="float:left;"><b><i class="circle down icon"></i><br>DOWN</b></div>
+	</div>
 	</div>
   </div>
   	<!-- <div id="semanticLoader" class="ui active dimmer">

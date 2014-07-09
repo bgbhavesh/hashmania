@@ -712,7 +712,7 @@ body{
 	width: 260px;
 	overflow-x: hidden;
 	overflow-y: scroll;
-	font-size: 15px;
+	font-size: 13px;
 	color: white;
 	/*color: #50597b;*/
 	margin-top: 0px;
@@ -2039,7 +2039,7 @@ h6 {}
 	/*width: 20%;*/
 	/*margin-left: 40%;*/
 }
-#NweImageAdded {display: none;
+/*#NweImageAdded {display: none;
 	left:70%;
 }
 #loadMoreImg{display: none;
@@ -2054,32 +2054,39 @@ h6 {}
 #testButton{
 	display: none;
 	left: 45%;
+}*/
+.tapToShow div{
+	width: 20%;
+	/*width: auto;*/
+	font-size: 20px;
+	color: white;
 }
 .tapToShow{
 	padding: 0;
-	padding-left: 5px;
-	padding-right: 5px;	
-	width: auto;
+	width: 80%;
+	left: 10%;	
+	margin-left: auto;
+    margin-right: auto;
+    
 	/*box-shadow: 1px 1px 5px black;*/
 	/*box-shadow: inset -2px -3px 3px 0px rgba(50, 50, 50, 0.75);*/
 	bottom: 1.5%;
 	text-align: center;
 	/*color: white;*/
-	position: absolute;
-	font-size: 20px;
+	position: absolute;	
 	display: none;
-	opacity: 0.7;
-	/*background-color: rgba(50,50,100,0.5);*/
+	opacity: 1;
+	background-color: rgba(50,50,100,0.5);
 	border-radius: 3px;
 	z-index: 4;
 }
 
-.tapToShow :active{
+.tapToShow div :active{
 	
-	background: linear-gradient(to bottom,  rgba(30,215,252,0.5) 0%,rgba(41,137,216,0.5) 50%,rgba(32,101,240,0.5) 50%,rgba(125,185,232,0.5) 100%); 
+	/*background: linear-gradient(to bottom,  rgba(30,215,252,0.5) 0%,rgba(41,137,216,0.5) 50%,rgba(32,101,240,0.5) 50%,rgba(125,185,232,0.5) 100%); */
 	color: black;
 /*/	background: radial-gradient(ellipse at center, rgba(32,124,202,1) 25%,rgba(32,124,202,0.92) 32%,rgba(41,137,216,0.7) 50%,rgba(41,137,216,0.38) 77%);*/
-	box-shadow: none;
+	/*box-shadow: none;*/
 }/*
 #back-top i ,#totalimages i,#toComeimages i,#MoreNewImage i{
 	padding: 1%;

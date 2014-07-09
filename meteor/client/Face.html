@@ -356,9 +356,17 @@
 		    </div>
 		</div>
 	    <div class="notificationBar"> 
-	    	<p class="ui link list">
+	    	<p class="ui list">
 				{{#each eachnotify}}
-					<a id="eachnotify" class="{{likeid}}"> <img src="{{profile_picture}}" width="10%"> {{type}} on <img src="{{currentImage}}" width="10%"></a>
+				<div style="float:left; margin:1px;">
+					<a id="eachnotify" class="{{likeid}}"> 
+						<div id="action" style="background-color:#394264; width:84px;opacity:0.5">{{type}} on</div>
+
+						<div id="user" style="height:40px;width:40px;float:left;margin:1px;"><img src="{{profile_picture}}" ></div>
+
+						<div id="too" style="height:40px;width:40px;float:left;margin:1px"><img src="{{currentImage}}"> </div>
+					</a>
+				</div>
 				{{/each}}		
 			</p>
 	    </div>	

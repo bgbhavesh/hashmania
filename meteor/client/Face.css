@@ -709,13 +709,16 @@ body{
 .notificationBar{
 	display: block;
 	position: relative;
-	width: 100%;
+	width: 260px;
 	overflow-x: hidden;
 	overflow-y: scroll;
-	font-size: 10px;
+	font-size: 15px;
 	color: white;
-	color: #11a8ab;
-	vertical-align:text-top;
+	/*color: #50597b;*/
+	margin-top: 0px;
+	vertical-align:text-top;margin-left: auto;
+    margin-right: auto;
+    height: 62px;
 }
 .keywordWrapper{
 	width: 100%;

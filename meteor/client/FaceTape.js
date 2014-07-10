@@ -6556,14 +6556,20 @@ function autoSize(){
             return;
         }
 
-        var logoHeight = $("#headerSection").height()*85/100;
-        $("#status").width(logoHeight);
-        $("#status").height(logoHeight);
+        
+        fitStatic();
         // $("#allLeaderSection").height($("#allLeaderSection").width())
 
             // resizeItems();
         autoSizeTimeOut = setTimeout(autoSize,300);
         
+}
+function fitStatic(){
+    var logoHeight = $("#headerSection").height()*85/100;
+    $("#status").width(logoHeight);
+    $("#status").height(logoHeight);
+
+    
 }
 function resizeItems()
 {

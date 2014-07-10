@@ -1690,7 +1690,7 @@ h6 {}
 }
 
 .leadersfaceSurvey{
-	
+	display:none;
 	position: relative;
 	float: left;
 	clear:left;

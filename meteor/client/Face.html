@@ -360,7 +360,7 @@
 				{{#each eachnotify}}
 				<div style="float:left; margin:1px;">
 					<a id="eachnotify" class="{{likeid}}"> 
-						<div id="action" style="background-color:#11a8ab; width:84px;opacity:0.5"><b>{{type}} on</b></div>
+						<div id="action" style="background-color:#11a8ab; width:84px;opacity:0.5;border-radius:3px;"><b>{{type}} on</b></div>
 
 						<div id="user" style="height:40px;width:40px;float:left;margin:1px;"><img src="{{profile_picture}}" ></div>
 
@@ -495,9 +495,8 @@
 <!-- {{#if inside}}
 {{/if}} -->
 <template name="leadersboard">
-	{{#each eachlead}}
-		
-		<div class="leadersfaceSurvey" style="display:none">  
+	{{#each eachlead}}		
+		<div class="leadersfaceSurvey" style="">  
 			<img src="{{face}}"/>
 			<div id="leadersScore" style="font-size: small;top: 63%;position: absolute;left: 20%;display:none">{{customScore}}</div>
 			<div id="leadersRank" style="font-size: small;top: 0%;position: absolute;left: 2%;display:none">{{rank}}</div>

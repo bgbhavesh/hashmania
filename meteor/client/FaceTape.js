@@ -929,11 +929,19 @@ Meteor.documentReady = documentReady;
     // });
 
     Template.allLeadersboard.events({
-        "click .leadersFaceInfo" : function(event){
+        "click .leadersface" : function(event){
             if(this.instagramUsername)
-            window.open("http://instagram.com/"+this.instagramUsername,"_system");
+            {
+              window.open("http://instagram.com/"+this.instagramUsername,"_system");
+              toast("Opening Profile");
+            }
+            else if(this.facebookID)
+            {
+              window.open("http://facebook.com/"+this.facebookID,"_system");
+              toast("Opening Profile");
+            }
             else
-                toast("Not a instagram user.");
+                toast("Not a Face user.");
         }
     });
 
@@ -965,11 +973,16 @@ Meteor.documentReady = documentReady;
         "click .leadersface" : function(event){
             if(this.instagramUsername)
             {
-            
-            window.open("http://instagram.com/"+this.instagramUsername,"_system");
+              window.open("http://instagram.com/"+this.instagramUsername,"_system");
+              toast("Opening Profile");
+            }
+            else if(this.facebookID)
+            {
+              window.open("http://facebook.com/"+this.facebookID,"_system");
+              toast("Opening Profile");
             }
             else
-                toast("Not a instagram user.");
+                toast("Not a Face user.");
         }
     });
     Template.BeforeLogin.keyword = function(){

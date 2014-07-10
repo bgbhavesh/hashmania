@@ -6555,7 +6555,10 @@ function autoSize(){
         if(autoSizeTimeOut){
             return;
         }
-        $("#status").width($("#status").height());
+
+        var logoHeight = $("#headerSection").height()*85/100;
+        $("#status").width(logoHeight);
+        $("#status").height(logoHeight);
         // $("#allLeaderSection").height($("#allLeaderSection").width())
 
             // resizeItems();
@@ -6567,8 +6570,7 @@ function resizeItems()
   console.log("resizeItems small")
   var beforeloginwidth=$("#beforeLogin").width()/20;
   var beforeloginheight=$("#beforeLogin").height()/20;//get bais height and width
-  $("#status").css({"width":beforeloginwidth*1.75,"height":beforeloginwidth*1.75,"top":"1px","right":"2px"});  
- 
+  
   $(".allLeaderSection").css({"width":beforeloginwidth*2,"height":beforeloginwidth*2,"top":beforeloginheight*5,"left": beforeloginwidth*0.5});  
   $("#keywords").css({"top":beforeloginheight*1.75,"margin-left":beforeloginwidth*3});  
 

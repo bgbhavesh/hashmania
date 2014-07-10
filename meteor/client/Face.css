@@ -2638,7 +2638,7 @@ mark{
 	position: absolute;
 	float: right;
 	top: 2px;
-	height: 85%;
+	/*height: 85%;*/
 	/*width: 13%;*/
 	background-image: url(/images/logoHash.png);
 	background-size: 100% 100%;

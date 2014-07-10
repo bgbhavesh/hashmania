@@ -44,6 +44,9 @@ Game.renderResults = function (data,loadMoreFlag,newerFlag,keywordArg){
         //     console.log("Getting old data");
         //     return;
         // }
+        //setTimeout(function() {
+        
+           // }, 1000);
         console.log("load more " +loadMoreFlag);
         // console.log(data)
         if(!data){            
@@ -251,6 +254,7 @@ Game.getNewImagesForThisKeyword = function (){
         var clientid = Session.get("clientid");
         if(!(keyword && clientid))
             return;
+        $(".leaderSection").css({"border-image":"none"});
         console.log("getNewDataPreload " +" " +clientid +" " +keyword);
         setTimeout(function(){
             Meteor.call("getNewDataPreload",keyword,clientid,function(err,data){

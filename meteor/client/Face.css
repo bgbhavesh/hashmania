@@ -165,8 +165,9 @@ body{
 	overflow-x: hidden;
 	background-color: #394264;
 	border-top: 5px solid transparent;
-	border-image: url(images/load.gif) 30 1 ;
+	border-image: none;
 }
+
 /*.leadersface {
 	height: 90%;
 	width: 20%;

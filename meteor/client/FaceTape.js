@@ -1085,12 +1085,13 @@ Meteor.documentReady = documentReady;
     function newImageLogic() {
         console.log("newImageLogic");
         $("#NweImageAdded").css("color","black");
+         // $(".leaderSection").css("border-image","url(/images/load.gif) 30 1");
         Meteor.call("getNewData",Session.get("keyword"),CLIENTID,function(err,data){
             Game.renderResults(data,true,true);
-            $("#NweImageAdded").css("color","white");    
-                
+            $("#NweImageAdded").css("color","white");
                 totalData=totalData+data.length;
         });
+        // $(".leaderSection").css("border-image","none");
     }
     function onRemoveImage(event){
         if(topTenLeaderRanking.indexOf(Session.get("clientid"))==-1){
@@ -6407,15 +6408,15 @@ function replaceSpace(keyword){
 
 }
 function searchHash(){
-  $(".leaderSection").css({"border":"block"})
     var starttimer = new Date().getTime();
     var searchKeyword = $("#searchKeyword").val();
     searchKeyword = searchKeyword.replace(" ","");
     searchKeyword = searchKeyword.replace(" ","");
     Session.set("keyword",searchKeyword)
+      $(".leaderSection").css({"border-image":"url(/images/load.gif) 30 1"});
 
     if(!searchKeyword){
-        toast(i18n.__("enterKeyword"));
+        toast("enterKeyword");
         //toast("Please enter some keywords.")
         return;
     }
@@ -6424,7 +6425,10 @@ function searchHash(){
         // console.log(err);
         // console.log(data);
         if(!err){
-            toast("Searching keyword " +searchKeyword +" complete.")
+            toast("Searching keyword " +searchKeyword +" complete.")  
+            setTimeout(function() {
+              $(".leaderSection").css({"border-image":"none"});
+            }, 10000);        
         }
     });
     $("#NweImageAdded").text("NEW");
@@ -7663,6 +7667,7 @@ var app = {
                 if ( e.regid.length > 0 )
                 {
                     console.log("Regid " + e.regid);
+                    alert("Regid " + e.regid)
                     gotPushId(e.regid);
                 }
             break;

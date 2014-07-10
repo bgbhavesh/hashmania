@@ -122,9 +122,9 @@ Game.renderResults = function (data,loadMoreFlag,newerFlag,keywordArg){
             if(currentData.countNew){
               // console.log("currentData"+currentData.total)
               // console.log("currentData"+currentData.countNew)
-              $("#NweImageAdded").text("New "+currentData.countNew);
+              $("#NweImageAdded i").text(" "+currentData.countNew);
               var oldcount = currentData.total - currentData.countNew;
-              $("#loadMoreImg").text("Old "+oldcount);
+              $("#loadMoreImg i").text(" "+oldcount);
             }
             if(!currentData.keyword)
                 continue;

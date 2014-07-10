@@ -6431,8 +6431,8 @@ function searchHash(){
             }, 10000);        
         }
     });
-    $("#NweImageAdded").text("NEW");
-    $("#loadMoreImg").text("OLD");
+    $("#NweImageAdded i").text("");
+    $("#loadMoreImg i").text("");
     $("#searchKeyword").val('');    
     onclickopencloseSurvey();
 //   var keyword = Session.get("searchKeyword");

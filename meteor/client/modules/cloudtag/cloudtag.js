@@ -36,8 +36,8 @@ var fill = d3.scale.category20();
 	function draw(words) {
 // console.log($("#keywords").width()+"keywords");
 		d3.select("#keywords").append("svg")
-			.attr("width", $("#keywords").width()*9/10)
-			.attr("height", $("#keywords").width()*12/10)
+			.attr("width", $("#keywords").width())
+			.attr("height", $("#keywords").width()*15/10)
 			.append("g")
 			.attr("transform", "translate("+$("#keywords").position().left*2+","+$("#keywords").position().top*2+")scale(0.9,1.1) ")
 			.selectAll("text")

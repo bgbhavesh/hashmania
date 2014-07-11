@@ -41,9 +41,9 @@ var fill = d3.scale.category20();
 console.log($("#bodyWrapper").width()+"keywords");
 		d3.select("#keywords").append("svg")
 			.attr("width", CouldTag.width) //*10/10
-			.attr("height", CouldTag.height)//*15/10
+			.attr("height", CouldTag.height*1.2)//*15/10
 			.append("g")
-			.attr("transform", "translate(135,"+$("#bodyWrapper").height()*1.5/5+")scale(1) ")
+			.attr("transform", "translate(125,155)")
 			.selectAll("text")
 			.data(words)
 			.enter().append("text")
@@ -51,7 +51,9 @@ console.log($("#bodyWrapper").width()+"keywords");
 			.style("font-family", "Impact")
 			.style("fill", function(d, i) { return fill(i)})//"rgb(31, 119, 180)"
 			// .style("fill","rgb(31, 119, 180)")
-			.attr("text-anchor", "middle")
+			.attr("text-anchor", "start" )//align
+			.attr("word-spacing", "4")//align
+			.attr("alignment-baseline","baseline")//align
 			.attr("transform", function(d) {
 				return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
 			})

@@ -1257,7 +1257,7 @@ Meteor.documentReady = documentReady;
         else
           newlinkId = "https://www.facebook.com/"+linkId.username;
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                 +' <img src="' +pics +'">  '
+                +' <img src="' +pics +'">  '
                 + '</div>'
     }
     function onScore(score,keyword,downClientid){
@@ -2541,8 +2541,8 @@ Meteor.documentReady = documentReady;
             Meteor.call("findHashKeyword",tempKeyword,CLIENTID,function(err,data){
                            
             });
-            $("#NweImageAdded").text("NEW");
-            $("#loadMoreImg").text("OLD");
+            $("#NweImageAdded i").text("");
+            $("#loadMoreImg i").text("");
             // saveCurrentToPrevious();
             Session.set("keyword",tempKeyword);
             closeSurvey();

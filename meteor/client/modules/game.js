@@ -255,7 +255,7 @@ Game.getNewImagesForThisKeyword = function (){
         if(!(keyword && clientid))
             return;
         $(".leaderSection").css({"border-image":"none"});
-        console.log("getNewDataPreload " +" " +clientid +" " +keyword);
+        console.log("getNewDataPreload" +" " +clientid +" " +keyword);
         setTimeout(function(){
             Meteor.call("getNewDataPreload",keyword,clientid,function(err,data){
                 //App.fetchNewData = {};
@@ -283,7 +283,7 @@ Game.renderNewFechtedData = function (){
             if(currentLikeid)
                 likeidArray.push(currentLikeid);
         }
-        Meteor.call("getNewDataUpdates",
-        keyword,clientid,likeidArray,
-        function(err,data){});
+        Meteor.call("getNewDataUpdates",keyword,clientid,likeidArray,function(err,data){
+            
+        });
     }

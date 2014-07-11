@@ -4610,8 +4610,8 @@ var quadrantRollOutCount = 0;
 // }
 SponserKeyword.find({}).observe({
     "added" : function(first){
-        CouldTag.words.push(first.keyword);
-        CouldTag.wordsSize.push(first.size);
+        CouldTag.words.push(first);
+        // CouldTag.wordsSize.push(first);
         CouldTag.onStart();
     }
 });

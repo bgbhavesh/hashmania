@@ -15,16 +15,16 @@ Game.callHashRepublicStartUp = function (){
             $(".hashKeyword").html("#"+keyword);
             $("#surveybig").html("");
             Game.preRenderResults();
-            // if(preload[keyword] && preload[keyword].length != 0){
-            //     console.log("preloading");
-            //     Game.renderResults(preload[keyword],null,null,keyword);                
-            // }
-            // else{
+            if(preload[keyword] && preload[keyword].length != 0){
+                console.log("preloading");
+                Game.renderResults(preload[keyword],null,null,keyword);                
+            }
+            else{
                 console.log("serverloading");
                 Meteor.call("getResult",keyword,CLIENTID,++App.pageCount,function(err,data){
                     Game.renderResults(data,null,null,keyword);
                 });
-            // }
+            }
             
             set("keyword",keyword);
         }

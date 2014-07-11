@@ -20,7 +20,7 @@ CouldTag.onDraw = function(){
 	if(d3.layout && d3.layout.cloud){
 		d3.layout.cloud().size([CouldTag.width, CouldTag.width])
 		.words(CouldTag.words.map(function(d) {
-		return {text: d, size: 10 + Math.random() * 50};
+		return {text: d, size: 20 + Math.random() * 50};
 		}))
 		.rotate(function() { return ~~(Math.random() * 2) * 90; })
 		.font("Impact")
@@ -35,17 +35,19 @@ var fill = d3.scale.category20();
 	
 
 	function draw(words) {
+// console.log($("#keywords").width()+"keywords");
 		d3.select("#keywords").append("svg")
-			.attr("width", CouldTag.width)
-			.attr("height", CouldTag.width)
+			.attr("width", $("#keywords").width()*10/10)
+			.attr("height", $("#keywords").width()*15/10)
 			.append("g")
-			.attr("transform", "translate(150,150)")
+			.attr("transform", "translate("+$("#keywords").position().left*2+","+$("#keywords").position().top*2+")scale(0.9)")
 			.selectAll("text")
 			.data(words)
 			.enter().append("text")
 			.style("font-size", function(d) { return d.size + "px"; })
 			.style("font-family", "Impact")
 			.style("fill", function(d, i) { return fill(i); })
+			// .style("fill","rgb(31, 119, 180)")
 			.attr("text-anchor", "middle")
 			.attr("transform", function(d) {
 				return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";

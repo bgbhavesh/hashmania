@@ -356,9 +356,17 @@
 		    </div>
 		</div>
 	    <div class="notificationBar"> 
-	    	<p class="ui link list">
+	    	<p class="ui list">
 				{{#each eachnotify}}
-					<a id="eachnotify" class="{{likeid}}"> <u> <img src="{{profile_picture}}" width="10%"> {{type}} on <img src="{{currentImage}}" width="10%"></u></a>
+				<div style="float:left; margin:1px;">
+					<a id="eachnotify" class="{{likeid}}"> 
+						<div id="action" style="background-color:#11a8ab; width:84px;opacity:0.5;border-radius:3px;"><b>{{type}} on</b></div>
+
+						<div id="user" style="height:40px;width:40px;float:left;margin:1px;"><img src="{{profile_picture}}" ></div>
+
+						<div id="too" style="height:40px;width:40px;float:left;margin:1px"><img src="{{currentImage}}"> </div>
+					</a>
+				</div>
 				{{/each}}		
 			</p>
 	    </div>	
@@ -487,9 +495,8 @@
 <!-- {{#if inside}}
 {{/if}} -->
 <template name="leadersboard">
-	{{#each eachlead}}
-		
-		<div class="leadersfaceSurvey" style="display:none">  
+	{{#each eachlead}}		
+		<div class="leadersfaceSurvey" style="">  
 			<img src="{{face}}"/>
 			<div id="leadersScore" style="font-size: small;top: 63%;position: absolute;left: 20%;display:none">{{customScore}}</div>
 			<div id="leadersRank" style="font-size: small;top: 0%;position: absolute;left: 2%;display:none">{{rank}}</div>
@@ -536,11 +543,18 @@
   		
   	</div>
   	</div>
-	<div id="NweImageAdded" class="tapToShow mini ui button">NEW</div>
+	<!-- <div id="NweImageAdded" class="tapToShow mini ui button">NEW</div>
 	<div id="testButton" class="tapToShow mini ui button">More</div>
 	<div id="loadMoreImg" class="tapToShow mini ui button loadmore">OLD</div>
 	<div id="totalimages" class="tapToShow mini ui button"><i class="level up icon"></i></div>
-	<div id="toComeimages" class="tapToShow mini ui button"><i class="level down icon"></i></div>
+	<div id="toComeimages" class="tapToShow mini ui button"><i class="level down icon"></i></div> -->
+	<div class="tapToShow ">
+		<div id="totalimages" class=" " style="float:left;border-right:1px solid white;"><b><i class="circle up icon "></i><br>UP</b></div>
+		<div id="loadMoreImg" class=" " style="float:left;border-right:1px solid white;"><b><i class="circle left icon"></i><br>OLD</b></div>
+		<div id="testButton" class=" " style="float:left;border-right:1px solid white;"><b><i class="add sign icon"></i><br>More</b></div>
+		<div id="NweImageAdded" class=" " style="float:left;border-right:1px solid white;"><b><i class="circle right icon"></i><br>NEW</b></div>		
+		<div id="toComeimages" class=" " style="float:left;"><b><i class="circle down icon"></i><br>DOWN</b></div>
+	</div>
 	</div>
   </div>
   	<!-- <div id="semanticLoader" class="ui active dimmer">

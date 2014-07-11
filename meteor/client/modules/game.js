@@ -44,6 +44,9 @@ Game.renderResults = function (data,loadMoreFlag,newerFlag,keywordArg){
         //     console.log("Getting old data");
         //     return;
         // }
+        //setTimeout(function() {
+        
+           // }, 1000);
         console.log("load more " +loadMoreFlag);
         // console.log(data)
         if(!data){            
@@ -112,14 +115,16 @@ Game.renderResults = function (data,loadMoreFlag,newerFlag,keywordArg){
             showFlag = false;
             currentData = data[i];
             // console.log(currentData.keyword.std)
+            if(i==il)
+             $("#leaderSection").css({"border":"none"});
             if(!currentData)
                 continue;
             if(currentData.countNew){
               // console.log("currentData"+currentData.total)
               // console.log("currentData"+currentData.countNew)
-              $("#NweImageAdded").text("New "+currentData.countNew);
+              $("#NweImageAdded i").text(" "+currentData.countNew);
               var oldcount = currentData.total - currentData.countNew;
-              $("#loadMoreImg").text("Old "+oldcount);
+              $("#loadMoreImg i").text(" "+oldcount);
             }
             if(!currentData.keyword)
                 continue;
@@ -249,7 +254,8 @@ Game.getNewImagesForThisKeyword = function (){
         var clientid = Session.get("clientid");
         if(!(keyword && clientid))
             return;
-        console.log("getNewDataPreload " +" " +clientid +" " +keyword);
+        $(".leaderSection").css({"border-image":"none"});
+        console.log("getNewDataPreload" +" " +clientid +" " +keyword);
         setTimeout(function(){
             Meteor.call("getNewDataPreload",keyword,clientid,function(err,data){
                 //App.fetchNewData = {};
@@ -277,7 +283,7 @@ Game.renderNewFechtedData = function (){
             if(currentLikeid)
                 likeidArray.push(currentLikeid);
         }
-        Meteor.call("getNewDataUpdates",
-        keyword,clientid,likeidArray,
-        function(err,data){});
+        Meteor.call("getNewDataUpdates",keyword,clientid,likeidArray,function(err,data){
+            
+        });
     }

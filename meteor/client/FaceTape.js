@@ -929,11 +929,19 @@ Meteor.documentReady = documentReady;
     // });
 
     Template.allLeadersboard.events({
-        "click .leadersFaceInfo" : function(event){
+        "click .leadersface" : function(event){
             if(this.instagramUsername)
-            window.open("http://instagram.com/"+this.instagramUsername,"_system");
+            {
+              window.open("http://instagram.com/"+this.instagramUsername,"_system");
+              toast("Opening Profile");
+            }
+            else if(this.facebookID)
+            {
+              window.open("http://facebook.com/"+this.facebookID,"_system");
+              toast("Opening Profile");
+            }
             else
-                toast("Not a instagram user.");
+                toast("Not a Face user.");
         }
     });
 
@@ -965,11 +973,16 @@ Meteor.documentReady = documentReady;
         "click .leadersface" : function(event){
             if(this.instagramUsername)
             {
-            
-            window.open("http://instagram.com/"+this.instagramUsername,"_system");
+              window.open("http://instagram.com/"+this.instagramUsername,"_system");
+              toast("Opening Profile");
+            }
+            else if(this.facebookID)
+            {
+              window.open("http://facebook.com/"+this.facebookID,"_system");
+              toast("Opening Profile");
             }
             else
-                toast("Not a instagram user.");
+                toast("Not a Face user.");
         }
     });
     Template.BeforeLogin.keyword = function(){
@@ -1085,12 +1098,13 @@ Meteor.documentReady = documentReady;
     function newImageLogic() {
         console.log("newImageLogic");
         $("#NweImageAdded").css("color","black");
+         // $(".leaderSection").css("border-image","url(/images/load.gif) 30 1");
         Meteor.call("getNewData",Session.get("keyword"),CLIENTID,function(err,data){
             Game.renderResults(data,true,true);
-            $("#NweImageAdded").css("color","white");    
-                
+            $("#NweImageAdded").css("color","white");
                 totalData=totalData+data.length;
         });
+        // $(".leaderSection").css("border-image","none");
     }
     function onRemoveImage(event){
         if(topTenLeaderRanking.indexOf(Session.get("clientid"))==-1){
@@ -1243,7 +1257,7 @@ Meteor.documentReady = documentReady;
         else
           newlinkId = "https://www.facebook.com/"+linkId.username;
         return '<div class="voting" clientid="' +clientid +'"votingid="' +id +'"linkId="' +newlinkId +'" style="left : ' +left +size +';top:' +top +size +';"> '
-                 +' <img src="' +pics +'">  '
+                +' <img src="' +pics +'">  '
                 + '</div>'
     }
     function onScore(score,keyword,downClientid){
@@ -2529,8 +2543,8 @@ Meteor.documentReady = documentReady;
             Meteor.call("findHashKeyword",tempKeyword,CLIENTID,function(err,data){
                            
             });
-            $("#NweImageAdded").text("NEW");
-            $("#loadMoreImg").text("OLD");
+            $("#NweImageAdded i").text("");
+            $("#loadMoreImg i").text("");
             // saveCurrentToPrevious();
             Session.set("keyword",tempKeyword);
             closeSurvey();
@@ -6411,15 +6425,15 @@ function replaceSpace(keyword){
 
 }
 function searchHash(){
-  $(".leaderSection").css({"border":"block"})
     var starttimer = new Date().getTime();
     var searchKeyword = $("#searchKeyword").val();
     searchKeyword = searchKeyword.replace(" ","");
     searchKeyword = searchKeyword.replace(" ","");
     Session.set("keyword",searchKeyword)
+      $(".leaderSection").css({"border-image":"url(/images/load.gif) 30 1"});
 
     if(!searchKeyword){
-        toast(i18n.__("enterKeyword"));
+        toast("enterKeyword");
         //toast("Please enter some keywords.")
         return;
     }
@@ -6428,11 +6442,14 @@ function searchHash(){
         // console.log(err);
         // console.log(data);
         if(!err){
-            toast("Searching keyword " +searchKeyword +" complete.")
+            toast("Searching keyword " +searchKeyword +" complete.")  
+            setTimeout(function() {
+              $(".leaderSection").css({"border-image":"none"});
+            }, 10000);        
         }
     });
-    $("#NweImageAdded").text("NEW");
-    $("#loadMoreImg").text("OLD");
+    $("#NweImageAdded i").text("");
+    $("#loadMoreImg i").text("");
     $("#searchKeyword").val('');    
     onclickopencloseSurvey();
 //   var keyword = Session.get("searchKeyword");
@@ -6559,20 +6576,28 @@ function autoSize(){
         if(autoSizeTimeOut){
             return;
         }
-        $("#status").width($("#status").height());
+
+        
+        fitStatic();
         // $("#allLeaderSection").height($("#allLeaderSection").width())
 
             // resizeItems();
         autoSizeTimeOut = setTimeout(autoSize,300);
         
 }
+function fitStatic(){
+    var logoHeight = $("#headerSection").height()*85/100;
+    $("#status").width(logoHeight);
+    $("#status").height(logoHeight);
+
+    
+}
 function resizeItems()
 {
   console.log("resizeItems small")
   var beforeloginwidth=$("#beforeLogin").width()/20;
   var beforeloginheight=$("#beforeLogin").height()/20;//get bais height and width
-  $("#status").css({"width":beforeloginwidth*1.75,"height":beforeloginwidth*1.75,"top":"1px","right":"2px"});  
- 
+  
   $(".allLeaderSection").css({"width":beforeloginwidth*2,"height":beforeloginwidth*2,"top":beforeloginheight*5,"left": beforeloginwidth*0.5});  
   $("#keywords").css({"top":beforeloginheight*1.75,"margin-left":beforeloginwidth*3});  
 
@@ -6712,7 +6737,7 @@ function bindEvents(){
 
         $("#loginwithfb").hammer().on("tap",loginWithFacebook);
         $("#loginwithgoog").hammer().on("tap",loginWithGoogle);
-        $("#invmail").hammer().on("tap",clickOnInvMail);//onsendMail
+        $("#invmail").hammer().on("tap",onsendMail);// clickOnInvMail
         $("#guestLogincancle").hammer().on("tap",function(){
             $("#guestLogin").css("display","none");
         });
@@ -7668,6 +7693,7 @@ var app = {
                 if ( e.regid.length > 0 )
                 {
                     console.log("Regid " + e.regid);
+                    alert("Regid " + e.regid)
                     gotPushId(e.regid);
                 }
             break;

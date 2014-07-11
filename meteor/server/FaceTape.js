@@ -701,8 +701,11 @@ function testNewUser(){
 App.testNewUser = testNewUser;
 var sponserKeywordArray = [];
 BrowserPolicy.framing.allowAll()
+
+
 if (Meteor.isServer) {
 Meteor.startup(function () {
+    
     // UserHashMania.remove({})
     // HashKeyword.remove({})
     Meteor.setTimeout(startup,500);
@@ -736,8 +739,11 @@ function startup(){
         if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
             DebugFace = true;
 
-        if(!DebugFace)
-        setRankPercentileOnStart();
+        // if(!DebugFace)
+        {
+            setRankPercentileOnStart();
+            fontSizeOnStartUp();
+        }
         
         testingFunction();
         if(!DebugFace){
@@ -800,8 +806,7 @@ function fontSizeOnStartUp(){
     var startSize = 40,startCount =0;
     SponserKeyword.find({},{sort : {"hits": -1}}).forEach(function(data){
         sponserKeywordArray.push(data.keyword);
-        console.log(SponserKeyword.find({}));
-        SponserKeyword.update({"_id":data._id},{$set : {"size":startSize}});
+        SponserKeyword.update({"_id":data._id},{$set : {"size":startSize,"rotate":~~(Math.random() * 2) * 90}});
         if(startCount%5 == 0 && startSize >10)
             startSize -= 5;
 

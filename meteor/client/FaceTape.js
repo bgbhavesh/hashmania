@@ -1386,6 +1386,8 @@ Meteor.documentReady = documentReady;
         var newtop = top;
         $("#showallcomments").empty();
         var likeid = $(parent).attr("likeid")
+        var linkid = $(parent)
+        console.log("sbvkjsv"+ linkid )
         Session.set("currentBig",likeid)
         var clientid = Session.get("clientid");
         var votepic = null;
@@ -4608,8 +4610,8 @@ var quadrantRollOutCount = 0;
 // }
 SponserKeyword.find({}).observe({
     "added" : function(first){
-        CouldTag.words.push(first.keyword);
-        CouldTag.wordsSize.push(first.size);
+        CouldTag.words.push(first);
+        // CouldTag.wordsSize.push(first);
         CouldTag.onStart();
     }
 });
@@ -6123,6 +6125,7 @@ function loginWithFacebook(){
     newLoaderHashShow();
     $("#loginScreen").hide();
     var state = Random.id();
+    console.log("loginWithFacebook " +state);
     var display = "popup";
     if(Session.get("phonegap")){
         display = "touch";
@@ -6161,6 +6164,7 @@ function loginWithFacebook(){
 Meteor.getFacebookInformationOnClose = function(state){
     console.log("getFacebookInformationOnClose " +state);
     Meteor.call("getMyFacebookInfo",state,function(err,data){
+        // close loader
         if(data){
             Session.set("clientid",data.clientid);
             set("clientid",data.clientid);
@@ -6776,6 +6780,7 @@ function bindEvents(){
 
             $("#surveybighandle").hammer().off("tap");
             $("#surveybighandle").hammer().on("tap",onclickopencloseSurvey);
+            $("#userCommentPic").hammer().on("tap",onclickallCommentInput);
             $(".imageComment").hammer().on("tap",onclickCommentPic);
             $("#seEmail").keyup(function(event){
                 

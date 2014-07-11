@@ -43,7 +43,7 @@ console.log($("#bodyWrapper").width()+"keywords");
 			.attr("width", CouldTag.width) //*10/10
 			.attr("height", CouldTag.height*1.2)//*15/10
 			.append("g")
-			.attr("transform", "translate(125,155)")
+			.attr("transform", "translate(125,155) scale(0.9,0.9)" )//"scale(0.9,0.9)"
 			.selectAll("text")
 			.data(words)
 			.enter().append("text")

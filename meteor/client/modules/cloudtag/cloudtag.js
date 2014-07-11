@@ -24,7 +24,7 @@ CouldTag.onDraw = function(){
 		.words(CouldTag.words.map(function(d) {
 		return {text: d.keyword, size: d.size,rotate : d.rotate};
 		}))
-		.rotate(function(d) { return ~~(Math.random() * 2) * 90; })
+		.rotate(function(d) { return d.rotate; })
 		.font("Impact")
 		.fontSize(function(d) { return d.size; })
 		.on("end", draw)

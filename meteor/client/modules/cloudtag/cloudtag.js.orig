@@ -14,6 +14,7 @@ CouldTag.onStart = function(){
 }
 
 CouldTag.onDraw = function(){
+	console.log(CouldTag.words)
 	CouldTag.width = $("#keywords").width();
 	CouldTag.height = $("#keywords").height();
 	$("#keywords").html("");
@@ -39,8 +40,13 @@ var fill = d3.scale.category20();
 	function draw(words) {
 // console.log($("#keywords").width()+"keywords");
 		d3.select("#keywords").append("svg")
+<<<<<<< HEAD
 			.attr("width", CouldTag.width) //*10/10
 			.attr("height", CouldTag.height)//*15/10
+=======
+			.attr("width", $("#keywords").width())
+			.attr("height", $("#keywords").width()*15/10)
+>>>>>>> ff2b6447476922d3c89f78116acab71e0aee0c9c
 			.append("g")
 			.attr("transform", "translate("+$("#keywords").position().left*2+","+$("#keywords").position().top*2+")scale(0.9,1.1) ")
 			.selectAll("text")

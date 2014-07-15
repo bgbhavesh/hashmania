@@ -739,7 +739,8 @@ function startup(){
         if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
             DebugFace = true;
 
-        if(!DebugFace){
+        // if(!DebugFace)
+        {
             setRankPercentileOnStart();
             fontSizeOnStartUp();
         }

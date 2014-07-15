@@ -2050,9 +2050,9 @@ App.language.html = [
             // return App.getFacebookFace("802306386446088")
             App.pushToUserHashRepublic(pushid,message,"android","luffy") //registrationid,mymessage,type,keyword
         },
-        "getSpecificData" : function(likeid,tag){
-            console.log(likeid +""+ tag);
-            var data = HashKeyword.findOne({"keyword":tag,"likeid":likeid});
+        "getSpecificData" : function(likeid){
+            var data = HashKeyword.findOne({"likeid":likeid});
+            console.log(likeid)
             var votes = [],comments = [],result = [];
             Votes.find({"likeid":likeid}).forEach(function(data){
                 votes.push(data);

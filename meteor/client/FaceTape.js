@@ -2524,9 +2524,9 @@ Meteor.documentReady = documentReady;
         },
         "click #eachnotify" : function(event){
             try{
-                // console.log(this.tag);
+                // console.log(this.tag+"?"+this.likeid);
                 // console.log("jdbskjvkjdskv")
-                appendtosurvey(this.likeid,this.tag);
+                appendtosurvey(this.likeid);
             }
             catch(error){
                 console.log(error);
@@ -2572,9 +2572,9 @@ Meteor.documentReady = documentReady;
 }
 //////// appending data to survey ///////
 
-function appendtosurvey(likeid,tag){
+function appendtosurvey(likeid){
     // console.log("appendtosurvey"+likeid+""+tag);
-    Meteor.call("getSpecificData",likeid,tag,function(err,data){
+    Meteor.call("getSpecificData",likeid,function(err,data){
         if(data){
           // console.log(data);  
           Game.renderResults(data,false,true);
@@ -6112,7 +6112,7 @@ function newLoaderHashShow(){
       setTimeout(loginfail, 10000);
 } 
 function loginfail(){
-    $("#loaderMessage").text("logi failed try again");
+    $("#loaderMessage").text("login failed try again");
       setTimeout(function(){
         $("#loader").hide();
         $("#loginScreen").show();
@@ -6206,9 +6206,7 @@ Meteor.facebookCallbackFunction = function(user,authResponse){
     //             authResponse,};
 
     // Meteor.call("mergedMyFacebookFace",
-    Meteor.call("setMyFacebookInfo",
-                insert,
-                function(){});
+    Meteor.call("setMyFacebookInfo",insert,function(){});
     
 }
 // https://www.facebook.com/dialog/oauth?client_id=679347035440335&redirect_uri=http://localhost:3000/facebook?close&display=popup&scope=email&state=GEm5wJLmwqoWdXa3z

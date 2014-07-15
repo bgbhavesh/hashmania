@@ -2523,9 +2523,9 @@ Meteor.documentReady = documentReady;
         },
         "click #eachnotify" : function(event){
             try{
-                // console.log(this.tag);
+                // console.log(this.tag+"?"+this.likeid);
                 // console.log("jdbskjvkjdskv")
-                appendtosurvey(this.likeid,this.tag);
+                appendtosurvey(this.likeid);
             }
             catch(error){
                 console.log(error);
@@ -2571,9 +2571,9 @@ Meteor.documentReady = documentReady;
 }
 //////// appending data to survey ///////
 
-function appendtosurvey(likeid,tag){
+function appendtosurvey(likeid){
     // console.log("appendtosurvey"+likeid+""+tag);
-    Meteor.call("getSpecificData",likeid,tag,function(err,data){
+    Meteor.call("getSpecificData",likeid,function(err,data){
         if(data){
           // console.log(data);  
           Game.renderResults(data,false,true);

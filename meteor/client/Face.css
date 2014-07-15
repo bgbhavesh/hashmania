@@ -702,10 +702,16 @@ body{
 
 
 }
-.notificationBar img{
+/*.notificationBar img{
 	
 	width:100%;
 	height:100%;
+}*/
+.notificationBar p img{
+	height: 50px;
+	width: 50px;
+	position: relative;
+	float: left;
 }
 .notificationBar{
 	display: block;

@@ -2489,7 +2489,7 @@ Meteor.documentReady = documentReady;
     }
     Template.keyword.eachnotify = function(){
         try{
-            return TopNotification.find({},{sort : {"date": -1},limit:3});            
+            return TopNotification.find({},{sort : {"date": -1},limit:6});            
         }
         catch(error){
             console.log(error);

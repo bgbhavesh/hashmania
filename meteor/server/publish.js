@@ -45,10 +45,12 @@
             var inArray = [];
             var cursorTopNotification = null;
             var idArray = [];
-            for(var i=0;i<3;i++){
-                cursorTopNotification = TopNotification.findOne({ "followid": { $nin : inArray}},{sort : {"date": -1}});
+            var likeArray = []
+            for(var i=0;i<6;i++){
+                cursorTopNotification = TopNotification.findOne({ "followid": { $nin : inArray},"likeid":{ $nin :likeArray}},{sort : {"date": -1}});
                 if(cursorTopNotification){
                     inArray.push(cursorTopNotification.followid);
+                    likeArray.push(cursorTopNotification.likeid)
                     idArray.push(cursorTopNotification._id);
                 }
             }

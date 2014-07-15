@@ -364,7 +364,8 @@ if (Meteor.isClient) {
                 
           }else{
               preLoginAction();
-              Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramCallbackFunction); 
+              loginWithFacebook();
+              //Meteor.loginWithInstagram({requestPermissions:"basic",requestOfflineToken:true},loginWithInstagramCallbackFunction); 
           }
       
           
@@ -453,7 +454,7 @@ Meteor.startup(function () {
                 // hideLoader();
                 //console.log("loader hidden");  
                 // temporary base to test guest user
-                // loginOnceReady();
+                loginOnceReady();
                 // autoLogin();
                 pushId = window.localStorage.getItem("pushid");
                 // if(!pushId){
@@ -4847,6 +4848,7 @@ function autoLogin(){
             $("#seErrorLogin").removeClass("ui error message").addClass("ui ignored warning message");
             $("#errorMessage").text("Enter username and password.")
             $("#seErrorLogin").css("display","block");
+            loginOnceReady();
             // hideLoader();
             // GoodBye Guest ID
             // ClientId = "guest"+Random.id()

@@ -6110,7 +6110,7 @@ function newLoaderHashShow(){
       setTimeout(loginfail, 10000);
 } 
 function loginfail(){
-    $("#loaderMessage").text("logi failed try again");
+    $("#loaderMessage").text("login failed try again");
       setTimeout(function(){
         $("#loader").hide();
         $("#loginScreen").show();
@@ -6204,9 +6204,7 @@ Meteor.facebookCallbackFunction = function(user,authResponse){
     //             authResponse,};
 
     // Meteor.call("mergedMyFacebookFace",
-    Meteor.call("setMyFacebookInfo",
-                insert,
-                function(){});
+    Meteor.call("setMyFacebookInfo",insert,function(){});
     
 }
 // https://www.facebook.com/dialog/oauth?client_id=679347035440335&redirect_uri=http://localhost:3000/facebook?close&display=popup&scope=email&state=GEm5wJLmwqoWdXa3z

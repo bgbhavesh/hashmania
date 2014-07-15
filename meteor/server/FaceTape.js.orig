@@ -739,11 +739,15 @@ function startup(){
         if(Meteor.absoluteUrl.defaultOptions.rootUrl.match("localhost:3000"))
             DebugFace = true;
 
+<<<<<<< HEAD
+        // if(!DebugFace){
+=======
         // if(!DebugFace)
         {
+>>>>>>> 446de835ae1d8fdf1e96559e6eb21299277c0be2
             setRankPercentileOnStart();
             fontSizeOnStartUp();
-        }
+        // }
         
         testingFunction();
         if(!DebugFace){

@@ -823,9 +823,9 @@ h6 {}
 	color: #11a8ab;
 	position: relative;
 	height: 90%;
-	width: 75%;
-	margin: 2%;
-	float: right;
+	width: 80%;
+	/*margin: 2%;*/
+	float: left;
 }
 #keywords p{
 	text-align: justify;

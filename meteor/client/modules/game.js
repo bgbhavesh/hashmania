@@ -15,16 +15,16 @@ Game.callHashRepublicStartUp = function (){
             $(".hashKeyword").html("#"+keyword);
             $("#surveybig").html("");
             Game.preRenderResults();
-            // if(preload[keyword] && preload[keyword].length != 0){
-            //     console.log("preloading");
-            //     Game.renderResults(preload[keyword],null,null,keyword);                
-            // }
-            // else{
+            if(preload[keyword] && preload[keyword].length != 0){
+                console.log("preloading");
+                Game.renderResults(preload[keyword],null,null,keyword);                
+            }
+            else{
                 console.log("serverloading");
                 Meteor.call("getResult",keyword,CLIENTID,++App.pageCount,function(err,data){
                     Game.renderResults(data,null,null,keyword);
                 });
-            // }
+            }
             
             set("keyword",keyword);
         }
@@ -180,14 +180,17 @@ Game.renderResults = function (data,loadMoreFlag,newerFlag,keywordArg){
             }else{
                 var element = $("#surveybig").append(newElement); 
             }
-            for(j=0,jl=currentData.votes.length;j<jl;j++){
-                // console.log(currentData.votes[j].followid +" " +Session.get("clientid") +" " +(currentData.votes[j].followid == Session.get("clientid")))
-                if(currentData.votes[j].followid == clientid){
-                    showFlag = true;
-                }
-                // this only one time
-                App.appendVotesManuallyHash(currentData.keyword.likeid,currentData.votes[j])
+            if(currentData.votes){
+               for(j=0,jl=currentData.votes.length;j<jl;j++){
+                    // console.log(currentData.votes[j].followid +" " +Session.get("clientid") +" " +(currentData.votes[j].followid == Session.get("clientid")))
+                    if(currentData.votes[j].followid == clientid){
+                        showFlag = true;
+                    }
+                    // this only one time
+                    App.appendVotesManuallyHash(currentData.keyword.likeid,currentData.votes[j])
+                } 
             }
+            
             $("#"+currentData.keyword.likeid).children(".tertiary").hide();
             var getVotesStatus = get("hideVotes");
             if(showFlag && getVotesStatus!= "false"){

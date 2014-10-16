@@ -365,131 +365,131 @@ function parseSubject(subject){
 }
 App.parseSubject = parseSubject;
 var testingText = "";
-Meteor.Router.add('/hello', 'GET', function() {
-    return Handlebars.templates['hello']({ name: 'Chris',"game":["first","second","third"]})
-    return "hello world";
-});
-Meteor.Router.add('/admin/table/:id', 'GET', function() {
-    if(this.params.id=="tapmateyouiest"){
-        var users = [];
-        var cursorRecPic = Me.find({});
-        cursorRecPic.forEach(function(data){
-            if(!data._id.match("guest"))   
-                users.push(data);                           
-        });
-        return Handlebars.templates['admin']({ 
-            totalUser : Me.find({}).count(),
-            "users" : users
-        })
-    }else{
+// Meteor.Router.add('/hello', 'GET', function() {
+//     return Handlebars.templates['hello']({ name: 'Chris',"game":["first","second","third"]})
+//     return "hello world";
+// });
+// Meteor.Router.add('/admin/table/:id', 'GET', function() {
+//     if(this.params.id=="tapmateyouiest"){
+//         var users = [];
+//         var cursorRecPic = Me.find({});
+//         cursorRecPic.forEach(function(data){
+//             if(!data._id.match("guest"))   
+//                 users.push(data);                           
+//         });
+//         return Handlebars.templates['admin']({ 
+//             totalUser : Me.find({}).count(),
+//             "users" : users
+//         })
+//     }else{
 
-    }
+//     }
     
-});
-Meteor.Router.add('/profile/:id', 'GET', function() {
-    var param = this.params;
-    var data = null;
-    var profId = "";
-    console.log(param.id)
-    console.log(isNaN(param.id));
-    if(isNaN(param.id)){
-        data = Me.findOne({"username":param.id});
-        profId = data._id;
-    }else{
-        data = Me.findOne({"_id":param.id})
-        profId = param.id;
-    }
-    var recPic=[];
-    var feedPic=[];
-    var votePic=[];
-    var cursorRecPic = Feed.find({"clientid":profId,"display":"n"},{sort : {"date": -1},limit:4});
-    cursorRecPic.forEach(function(data){   
-        recPic.push(data.low);                           
-    });
-    var cursorFeedPic = Feed.find({"clientid":profId,"display":"y"},{sort : {"date": -1},limit:4});
-    cursorFeedPic.forEach(function(data){   
-        feedPic.push(data.low);                           
-    });
-    var cursorVotePic = Votes.find({"followid":profId},{sort : {"date": -1},limit:4});
-    cursorVotePic.forEach(function(data){   
-        votePic.push(data.low);                           
-    });
-    return Handlebars.templates['profile'](
-        { profile_picture: data.profile_picture,
-            score: data.score,
-            heatscore: data.heatscore,
-            votes1: data.votes,
-            username : data.username,
-            "recent":recPic,
-            "feeds":feedPic,
-            "votes":votePic,})
-    return "profile";
-});
-Meteor.Router.add('/new_message', 'POST', function() {
-    var account, allTo, attachmentCount, ccArr, ccParam, contact, contacts, current_time, from, fromName, from_string, from_whom, hasVoted, i, knote, knote_id, mail, mail_id, match_subjects, new_message, option, stripSubject, subject, to, toArr, toParam, topic, topic_id, user, username, votedContact, voting;
+// });
+// Meteor.Router.add('/profile/:id', 'GET', function() {
+//     var param = this.params;
+//     var data = null;
+//     var profId = "";
+//     console.log(param.id)
+//     console.log(isNaN(param.id));
+//     if(isNaN(param.id)){
+//         data = Me.findOne({"username":param.id});
+//         profId = data._id;
+//     }else{
+//         data = Me.findOne({"_id":param.id})
+//         profId = param.id;
+//     }
+//     var recPic=[];
+//     var feedPic=[];
+//     var votePic=[];
+//     var cursorRecPic = Feed.find({"clientid":profId,"display":"n"},{sort : {"date": -1},limit:4});
+//     cursorRecPic.forEach(function(data){   
+//         recPic.push(data.low);                           
+//     });
+//     var cursorFeedPic = Feed.find({"clientid":profId,"display":"y"},{sort : {"date": -1},limit:4});
+//     cursorFeedPic.forEach(function(data){   
+//         feedPic.push(data.low);                           
+//     });
+//     var cursorVotePic = Votes.find({"followid":profId},{sort : {"date": -1},limit:4});
+//     cursorVotePic.forEach(function(data){   
+//         votePic.push(data.low);                           
+//     });
+//     return Handlebars.templates['profile'](
+//         { profile_picture: data.profile_picture,
+//             score: data.score,
+//             heatscore: data.heatscore,
+//             votes1: data.votes,
+//             username : data.username,
+//             "recent":recPic,
+//             "feeds":feedPic,
+//             "votes":votePic,})
+//     return "profile";
+// });
+// Meteor.Router.add('/new_message', 'POST', function() {
+//     var account, allTo, attachmentCount, ccArr, ccParam, contact, contacts, current_time, from, fromName, from_string, from_whom, hasVoted, i, knote, knote_id, mail, mail_id, match_subjects, new_message, option, stripSubject, subject, to, toArr, toParam, topic, topic_id, user, username, votedContact, voting;
     
-    new_message = this.request.body;
-    from = new_message["sender"];
-    from_string = new_message["from"];
-    from_whom = from_string.substring(0, from_string.indexOf('<') - 1) || from;
-    subject = new_message["subject"];
-    toParam = new_message["To"];
+//     new_message = this.request.body;
+//     from = new_message["sender"];
+//     from_string = new_message["from"];
+//     from_whom = from_string.substring(0, from_string.indexOf('<') - 1) || from;
+//     subject = new_message["subject"];
+//     toParam = new_message["To"];
     
-    ccParam = '';
-    ccArr = [];
-    if (new_message["Cc"]) {
-      ccParam = new_message["Cc"];
-    }
-    toArr = toParam.split(',');
-    ccArr = ccParam.split(',');
+//     ccParam = '';
+//     ccArr = [];
+//     if (new_message["Cc"]) {
+//       ccParam = new_message["Cc"];
+//     }
+//     toArr = toParam.split(',');
+//     ccArr = ccParam.split(',');
     
-    console.log("toArr " +toArr);
-    console.log("ccArr " +ccArr);
+//     console.log("toArr " +toArr);
+//     console.log("ccArr " +ccArr);
     
-    var clientid = null;
-    subject = parseSubject(subject);
-    clientid = subject[1];
-    subject = subject[0];
-    var groupId = Random.id();
-    sendSecondEmail(ccArr,clientid,subject,groupId,from_string,clientid,groupId)
-    ccArr = toArr;
-    sendSecondEmail(ccArr,clientid,subject,groupId,from_string,clientid,groupId)
+//     var clientid = null;
+//     subject = parseSubject(subject);
+//     clientid = subject[1];
+//     subject = subject[0];
+//     var groupId = Random.id();
+//     sendSecondEmail(ccArr,clientid,subject,groupId,from_string,clientid,groupId)
+//     ccArr = toArr;
+//     sendSecondEmail(ccArr,clientid,subject,groupId,from_string,clientid,groupId)
     
-  // return [204, 'No Content'];
-});
-Meteor.Router.add('/app/:id', 'GET', function() {
-    var ip = getIP(this);
-    var IPURL = "http://api.hostip.info/get_html.php?ip=" +ip;
-    var id = this.params.id;
-    Meteor.setTimeout(function(){
-        var localIP = ip;
-        result = Meteor.http.get(IPURL);
-        var cursorIpAddress = IpAddress.findOne({"ip":localIP}) 
-        if(!cursorIpAddress)
-            IpAddress.insert({"ip":localIP,"id":id,"location":result.content})
-        console.log(result.content);
-    },100);
+//   // return [204, 'No Content'];
+// });
+// Meteor.Router.add('/app/:id', 'GET', function() {
+//     var ip = getIP(this);
+//     var IPURL = "http://api.hostip.info/get_html.php?ip=" +ip;
+//     var id = this.params.id;
+//     Meteor.setTimeout(function(){
+//         var localIP = ip;
+//         result = Meteor.http.get(IPURL);
+//         var cursorIpAddress = IpAddress.findOne({"ip":localIP}) 
+//         if(!cursorIpAddress)
+//             IpAddress.insert({"ip":localIP,"id":id,"location":result.content})
+//         console.log(result.content);
+//     },100);
     
-    return Handlebars.templates['app']({});
-});
-Meteor.Router.add('/app', 'GET', function() {
-    console.log(this.userId);
-    return Handlebars.templates['app']({});
-});
-Meteor.Router.add('/instance', 'GET', function() {
-    console.log("here");
-    console.log(this.request.query)
-    var json = this.request.query;
-    if(json){
-        json
-    }  
-    // App.testingText = this;
-});
-Meteor.Router.add('/faq', 'GET', function() {
-    console.log("faq");
-    // return Handlebars.templates['faq']({});
-    return faqdata;
-});
+//     return Handlebars.templates['app']({});
+// });
+// Meteor.Router.add('/app', 'GET', function() {
+//     console.log(this.userId);
+//     return Handlebars.templates['app']({});
+// });
+// Meteor.Router.add('/instance', 'GET', function() {
+//     console.log("here");
+//     console.log(this.request.query)
+//     var json = this.request.query;
+//     if(json){
+//         json
+//     }  
+//     // App.testingText = this;
+// });
+// Meteor.Router.add('/faq', 'GET', function() {
+//     console.log("faq");
+//     // return Handlebars.templates['faq']({});
+//     return faqdata;
+// });
 
 App.parseSubject = parseSubject;
 function getIP(object){
@@ -700,7 +700,7 @@ function testNewUser(){
 }
 App.testNewUser = testNewUser;
 var sponserKeywordArray = [];
-BrowserPolicy.framing.allowAll()
+// BrowserPolicy.framing.allowAll()
 
 
 if (Meteor.isServer) {

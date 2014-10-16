@@ -4,13 +4,13 @@
 
 // http://localhost:3000/_oauth/instagram?close=close&code=965b416f7d8f49edac0a58c5f408e66f&state=64c164b5-a6c3-4738-a9c7-04725463a6d2
 var querystring = Npm.require('querystring');
-Meteor.Router.add('/facebook', 'GET', function() {
-    var query = this.request.query;
-    //console.log(query);
-    App.facebook(query);
-    return Handlebars.templates['close']();
-    // return "first facebook";
-});
+// Meteor.Router.add('/facebook', 'GET', function() {
+//     var query = this.request.query;
+//     //console.log(query);
+//     App.facebook(query);
+//     return Handlebars.templates['close']();
+//     // return "first facebook";
+// });
 
 App.facebook = function(query){
     //console.log(query);

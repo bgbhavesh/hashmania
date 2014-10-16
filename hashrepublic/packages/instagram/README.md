@@ -1,3 +1,0 @@
-Instagram
-================
-Instragram OAuth flow

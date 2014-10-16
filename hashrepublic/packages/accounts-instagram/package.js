@@ -6,7 +6,9 @@ Package.on_use(function(api) {
     api.use('accounts-base', ['client', 'server']);
     api.imply('accounts-base', ['client', 'server']);
     api.use('accounts-oauth', ['client', 'server']);
-
+    api.use('routepolicy', ['client', 'server']);
+    api.use('webapp', ['client', 'server']);
+    
     api.use('oauth', ['client', 'server']);
     api.use('oauth2', ['client', 'server']);
     api.use('http', ['server']);

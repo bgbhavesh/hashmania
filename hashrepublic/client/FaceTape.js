@@ -92,12 +92,12 @@ Router.map(function () {
     
     this.route('home', {
         path: '/',
-        template: 'body'
+        template: 'bodyTemplate'
     });
 
     this.route('index', {
         path: '/verifyHashEmail/:emailtoken',
-        template: 'body',
+        template: 'bodyTemplate',
         data : function (){
             var emailtoken = this.params.emailtoken;
             App.emailAuthFlag = emailtoken;
@@ -108,11 +108,11 @@ Router.map(function () {
     
     this.route('index', {
         path: '/index.html',
-        template: 'body'
+        template: 'bodyTemplate'
     });  
     this.route('index', {
         path: '/*',
-        template: 'body'
+        template: 'bodyTemplate'
     }); 
      
 });

@@ -1409,7 +1409,7 @@ App.language.html = [
                 }
                 else{
                     cursorSponserKeyword = {};
-                    cursorSponserKeyword._id = SponserKeyword.insert({"keyword":keyword,"hits":1,"ranking":0});
+                    cursorSponserKeyword._id = SponserKeyword.insert({"keyword":keyword,"hits":1,"ranking":0,"size":25,"ranking":0});
                 }
                 this.unblock();
                 if(HashKeyword.find({"keyword":keyword}).count()>10){
